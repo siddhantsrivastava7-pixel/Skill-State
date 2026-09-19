@@ -25,6 +25,7 @@ import { careerRepository } from "@/data/knowledge/repositories";
 import { careerKnowledgeToDestinationGraph } from "@/data/knowledge/adapter";
 import { UnknownDestinationError } from "@/data/knowledge/resolution";
 import { resourcesForCapability } from "@/data/library/resources-library";
+import { buildProgressReportFromState } from "@/domain/progress-report";
 
 export class DemoAIProvider implements AIProvider {
   async compileDestination(
@@ -184,52 +185,10 @@ export class DemoAIProvider implements AIProvider {
   async generateProgressReport(
     input: ProgressReportInput
   ): Promise<ProgressReport> {
-    const verified = Object.values(input.verifiedStates).filter(
-      (v) => v.state === "verified"
+    return buildProgressReportFromState(
+      input,
+      `Current progress toward ${input.graph.destinationName}, grounded in the active learner state.`
     );
-    const developing = Object.values(input.verifiedStates).filter(
-      (v) => v.state === "developing" || v.state === "needs-proof"
-    );
-
-    return {
-      generatedAt:
-        input.activityLedger.at(-1)?.timestamp ?? new Date(0).toISOString(),
-      skillsAcquired: verified.map(
-        (v) =>
-          input.graph.capabilityNodes.find((n) => n.id === v.capabilityId)?.name ??
-          v.capabilityId
-      ),
-      skillsInProgress: developing.map(
-        (v) =>
-          input.graph.capabilityNodes.find((n) => n.id === v.capabilityId)?.name ??
-          v.capabilityId
-      ),
-      remainingGaps: input.gaps.map((g) => {
-        const node = input.graph.capabilityNodes.find(
-          (n) => n.id === g.capabilityId
-        );
-        return `${node?.name ?? g.capabilityId} (${g.priority} priority)`;
-      }),
-      proofAdded: input.evidence
-        .filter((e) => e.type === "project" || e.type === "assessment")
-        .map((e) => e.title),
-      experienceAdded: input.evidence
-        .filter((e) => e.type === "experience" || e.type === "activity")
-        .map((e) => e.title),
-      planChanges: input.activityLedger
-        .filter(
-          (a) =>
-            a.type === "DESTINATION_CHANGED" ||
-            a.type === "VERIFICATION_COMPLETED"
-        )
-        .slice(-3)
-        .map((a) => a.description),
-      nextSteps: [
-        "Focus on highest-priority blocking gap.",
-        "Submit project artifact for unverified working knowledge.",
-        "Maintain scheduled weekly hours commitment.",
-      ],
-    };
   }
 
   async answerJourneyQuestion(input: JourneyQuestion): Promise<JourneyAnswer> {

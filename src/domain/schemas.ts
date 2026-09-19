@@ -266,8 +266,19 @@ export const AdaptivePlanSchema = z.object({
   milestones: z.array(PlanMilestoneSchema),
 });
 
+export const ProgressReportCapabilitySchema = z.object({
+  capabilityId: z.string(),
+  name: z.string(),
+  state: CapabilityStateStatusSchema,
+});
+
 export const ProgressReportSchema = z.object({
   generatedAt: z.string(),
+  destinationId: z.string(),
+  destinationTitle: z.string(),
+  destinationCapabilities: z.array(ProgressReportCapabilitySchema),
+  gapCapabilityIds: z.array(z.string()),
+  narrativeSummary: z.string(),
   skillsAcquired: z.array(z.string()),
   skillsInProgress: z.array(z.string()),
   remainingGaps: z.array(z.string()),
@@ -408,6 +419,7 @@ export const ProgressReportInputSchema = z.object({
   gaps: z.array(GapSchema),
   evidence: z.array(EvidenceSchema),
   activityLedger: z.array(ActivityEventSchema),
+  currentPlan: AdaptivePlanSchema,
 });
 
 export const JourneyQuestionSchema = z.object({

@@ -32,6 +32,7 @@ export function ProgressReportView() {
   const gaps = useSkillStateStore((state) => state.gaps);
   const evidence = useSkillStateStore((state) => state.evidence);
   const activityLedger = useSkillStateStore((state) => state.activityLedger);
+  const currentPlan = useSkillStateStore((state) => state.plan);
   const progressReports = useSkillStateStore((state) => state.progressReports);
   const addProgressReport = useSkillStateStore((state) => state.addProgressReport);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -53,6 +54,7 @@ export function ProgressReportView() {
         gaps,
         evidence,
         activityLedger,
+        currentPlan,
       });
       addProgressReport(nextReport);
     } catch (reportError) {
@@ -72,7 +74,8 @@ export function ProgressReportView() {
         <div>
           <h1 className="text-xl font-bold tracking-tight text-ink">Progress Report</h1>
           <p className="text-xs text-ink-muted mt-0.5">
-            A state-grounded summary for {graph.destinationName}; no invented mastery scores.
+            A state-grounded summary for {report?.destinationTitle || graph.destinationName};{" "}
+            {report?.destinationCapabilities?.length ?? graph.capabilityNodes.length} destination capabilities.
           </p>
         </div>
         <Button onClick={generateReport} disabled={isGenerating} size="sm">
@@ -84,6 +87,12 @@ export function ProgressReportView() {
         <InlineNotice variant="danger" title="Report generation failed">
           {error}
         </InlineNotice>
+      )}
+
+      {report?.narrativeSummary && (
+        <p className="text-xs text-ink-muted leading-relaxed">
+          {report.narrativeSummary}
+        </p>
       )}
 
       {!report && (

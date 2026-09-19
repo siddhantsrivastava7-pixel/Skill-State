@@ -9,6 +9,7 @@ import {
   personaBEvidence,
   personaBGaps,
   personaBGraph,
+  personaBPlan,
   personaBProfile,
   personaBVerifiedStates,
 } from "@/data/demo";
@@ -68,10 +69,16 @@ describe("evidence transitions and progress reporting", () => {
       gaps: personaBGaps,
       evidence: personaBEvidence,
       activityLedger: personaBActivityLedger,
+      currentPlan: personaBPlan,
     });
 
     expect(Object.keys(report)).toEqual([
       "generatedAt",
+      "narrativeSummary",
+      "destinationId",
+      "destinationTitle",
+      "destinationCapabilities",
+      "gapCapabilityIds",
       "skillsAcquired",
       "skillsInProgress",
       "remainingGaps",

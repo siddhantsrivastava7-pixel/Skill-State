@@ -38,7 +38,10 @@ import type {
   VerificationTask,
 } from "@/domain/types";
 import { resourcesForCapability } from "@/data/library/resources-library";
-import { buildProgressReportFromState } from "@/domain/progress-report";
+import {
+  buildProgressReportFacts,
+  buildProgressReportFromState,
+} from "@/domain/progress-report";
 
 const nullableString = z.string().nullable();
 const responseMetaSchema = z.object({
@@ -139,6 +142,10 @@ const liveVerificationTasksSchema = z.object({ tasks: z.array(liveVerificationTa
 const liveResourceRecommendationsSchema = z.object({
   recommendations: z.array(ResourceRecommendationSchema),
 });
+
+const liveProgressReportNarrativeSchema = z.object({
+  summary: z.string().min(1),
+}).strict();
 
 const liveJourneyAnswerSchema = z.object({
   answer: z.string(),
@@ -510,21 +517,15 @@ export class OpenAIProvider implements AIProvider {
   }
 
   generateProgressReport(input: ProgressReportInput): Promise<ProgressReport> {
+    const facts = buildProgressReportFacts(input);
     return this.structured({
       operation: "generateProgressReport",
       tier: "mini",
-      system: "Create a concise progress report using only supplied facts. Include all seven required sections. Do not invent mastery percentages, achievements, evidence, experience, or plan changes.",
-      payload: {
-        destination: input.graph.destinationName,
-        capabilities: input.graph.capabilityNodes.map(({ id, name }) => ({ id, name })),
-        verifiedStates: input.verifiedStates,
-        gaps: input.gaps,
-        evidence: input.evidence.map(({ id, type, title, capabilitySignals }) => ({ id, type, title, capabilitySignals })),
-        recentEvents: input.activityLedger.slice(-10),
-      },
-      liveSchema: ProgressReportSchema,
+      system: "Summarize the supplied deterministic progress-report facts in one concise paragraph. Mention only facts and names present in the input. Do not output or regenerate capability, gap, evidence, experience, plan-change, or next-step arrays.",
+      payload: facts,
+      liveSchema: liveProgressReportNarrativeSchema,
       domainSchema: ProgressReportSchema,
-      normalize: (report) => buildProgressReportFromState(input, report.nextSteps),
+      normalize: ({ summary }) => buildProgressReportFromState(input, summary),
     });
   }
 

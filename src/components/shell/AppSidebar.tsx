@@ -15,6 +15,7 @@ import {
   Settings,
   HelpCircle,
   Sparkles,
+  BarChart3,
 } from "lucide-react";
 
 export interface AppSidebarProps {
@@ -38,6 +39,7 @@ const PRIMARY_NAV_ITEMS: NavItem[] = [
   { label: "Experience", href: "/experience", icon: FileText },
   { label: "Career Paths", href: "/careers", icon: Compass },
   { label: "Resources", href: "/resources", icon: BookOpen },
+  { label: "Progress Report", href: "/report", icon: BarChart3 },
 ];
 
 const SECONDARY_NAV_ITEMS: NavItem[] = [
