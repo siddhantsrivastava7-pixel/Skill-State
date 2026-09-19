@@ -18,10 +18,11 @@ export function TopCommandBar({
   const profile = useSkillStateStore((s) => s.profile);
   const destination = useSkillStateStore((s) => s.destination);
 
-  const displayName = userName || profile.name || "Learner";
+  const displayName = userName || profile.name || "Siddhant";
   const displayStage =
     stageLabel ||
-    `${profile.stageDetail || profile.stage} • ${destination || profile.statedField || "Career"}`;
+    profile.stageDetail ||
+    (profile.stage === "school" ? "Class 12" : profile.stage);
 
   const initials = displayName
     .split(" ")
@@ -87,7 +88,7 @@ export function TopCommandBar({
               </span>
               <ChevronDown className="w-3.5 h-3.5 text-ink-muted" />
             </div>
-            <span className="text-[11px] text-ink-muted block leading-none truncate max-w-[140px]">
+            <span className="text-[11px] text-ink-muted block leading-none whitespace-nowrap">
               {displayStage}
             </span>
           </div>

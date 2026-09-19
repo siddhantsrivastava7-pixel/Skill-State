@@ -44,9 +44,6 @@ export default function HomePage() {
       <div className="relative overflow-hidden rounded-card border border-border min-h-[160px] p-6 sm:p-8 flex flex-col justify-end bg-surface">
         <HillBackgroundSvg />
         <div className="relative z-10 space-y-1 max-w-xl">
-          <Badge variant="accent" size="sm" className="mb-2">
-            Phase 2: Visual System & Shell Active
-          </Badge>
           <h1 className="font-serif text-2xl sm:text-3xl text-ink font-normal leading-tight">
             Explore your future without closing doors too early.
           </h1>

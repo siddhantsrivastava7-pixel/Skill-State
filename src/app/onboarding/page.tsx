@@ -1,24 +1,789 @@
-import { Card } from "@/components/ui/Card";
-import { EmptyState } from "@/components/ui/EmptyState";
-import { Sparkles } from "lucide-react";
+"use client";
+
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import {
+  Card,
+  Button,
+  Input,
+  Textarea,
+  Pill,
+  Badge,
+  ProgressBar,
+  FileDrop,
+  IconButton,
+} from "@/components/ui";
+import {
+  CheckCircle2,
+  ArrowRight,
+  ArrowLeft,
+  Trash2,
+  FileText,
+  Upload,
+  Sparkles,
+  Loader2,
+} from "lucide-react";
+import {
+  DestinationCertainty,
+  Evidence,
+  LearnerProfile,
+  LearnerStage,
+  LearningPreference,
+  EvidenceType,
+} from "@/domain/types";
+import { useSkillStateStore } from "@/store/useSkillStateStore";
+import { getAIProvider } from "@/agent";
+import { generateId } from "@/lib/ids";
+import { prioritizeGaps } from "@/domain/prioritization";
+
+interface UploadedFileItem {
+  id: string;
+  name: string;
+  type: EvidenceType;
+  extractedStatus: "extracting" | "extracted" | "failed";
+  text: string;
+  wordCount: number;
+}
+
+const STAGE_OPTIONS: { id: LearnerStage; label: string }[] = [
+  { id: "school", label: "Class 10–12" },
+  { id: "college", label: "College / university" },
+  { id: "graduate", label: "Graduate" },
+  { id: "professional", label: "Working professional" },
+];
+
+const CERTAINTY_OPTIONS: {
+  id: DestinationCertainty;
+  title: string;
+  helper: string;
+}[] = [
+  {
+    id: "exact",
+    title: "I know exactly what I want",
+    helper: "I already have a specific role in mind.",
+  },
+  {
+    id: "general",
+    title: "I know the general direction",
+    helper: "I know the field, but not the exact role.",
+  },
+  {
+    id: "exploring",
+    title: "I'm still exploring",
+    helper: "Help me discover paths without closing doors.",
+  },
+];
+
+const SUGGESTED_INTERESTS = [
+  "building things",
+  "AI",
+  "data",
+  "problem solving",
+  "design",
+  "finance",
+  "business",
+  "cybersecurity",
+];
+
+const GENERATION_STEPS = [
+  "Understanding destination",
+  "Reading existing evidence",
+  "Building expected state",
+  "Creating first path",
+];
 
 export default function OnboardingPage() {
+  const router = useRouter();
+
+  // Store actions
+  const setProfile = useSkillStateStore((s) => s.setProfile);
+  const changeDestination = useSkillStateStore((s) => s.changeDestination);
+  const addEvidence = useSkillStateStore((s) => s.addEvidence);
+
+  // Form states
+  const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
+
+  // Step 1: Current stage
+  const [stage, setStage] = useState<LearnerStage>("college");
+  const [collegeYear, setCollegeYear] = useState<string>("3");
+  const [fieldOfStudy, setFieldOfStudy] = useState<string>("Computer Science");
+
+  // Step 2: Destination certainty
+  const [certainty, setCertainty] = useState<DestinationCertainty>("exact");
+  const [targetRole, setTargetRole] = useState<string>("AI Engineer");
+  const [generalField, setGeneralField] = useState<string>("Technology");
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([
+    "building things",
+    "AI",
+  ]);
+  const [customInterest, setCustomInterest] = useState<string>("");
+
+  // Step 3: Existing evidence
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFileItem[]>([]);
+  const [pastedProjectText, setPastedProjectText] = useState<string>("");
+
+  // Step 4: Constraints
+  const [weeklyHours, setWeeklyHours] = useState<number>(10);
+  const [timelineMonths, setTimelineMonths] = useState<number>(20);
+  const [learningPreference, setLearningPreference] =
+    useState<LearningPreference>("projects-first");
+
+  // Generation state
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generationStepIndex, setGenerationStepIndex] = useState(0);
+
+  // Handlers for Step 2 Interests
+  const toggleInterest = (interest: string) => {
+    if (selectedInterests.includes(interest)) {
+      setSelectedInterests(selectedInterests.filter((i) => i !== interest));
+    } else if (selectedInterests.length < 5) {
+      setSelectedInterests([...selectedInterests, interest]);
+    }
+  };
+
+  const addCustomInterest = () => {
+    const trimmed = customInterest.trim();
+    if (trimmed && !selectedInterests.includes(trimmed) && selectedInterests.length < 5) {
+      setSelectedInterests([...selectedInterests, trimmed]);
+      setCustomInterest("");
+    }
+  };
+
+  // Handlers for Step 3 Files
+  const handleFilesSelected = async (files: File[]) => {
+    for (const file of files) {
+      const tempId = generateId("file");
+      const ext = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
+
+      // Determine document type guess based on filename
+      let docType: EvidenceType = "resume";
+      const lower = file.name.toLowerCase();
+      if (lower.includes("cert")) docType = "certificate";
+      else if (lower.includes("port") || lower.includes("project")) docType = "project";
+
+      const newItem: UploadedFileItem = {
+        id: tempId,
+        name: file.name,
+        type: docType,
+        extractedStatus: "extracting",
+        text: "",
+        wordCount: 0,
+      };
+
+      setUploadedFiles((prev) => [...prev, newItem]);
+
+      // Call extraction API
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("documentType", docType);
+
+        const res = await fetch("/api/extract", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setUploadedFiles((prev) =>
+            prev.map((item) =>
+              item.id === tempId
+                ? {
+                    ...item,
+                    extractedStatus: "extracted",
+                    text: data.extractedText,
+                    wordCount: data.wordCount,
+                  }
+                : item
+            )
+          );
+        } else {
+          // Client-side fallback text
+          const fallbackText = await file.text().catch(() => "");
+          const wc = fallbackText.split(/\s+/).filter(Boolean).length;
+          setUploadedFiles((prev) =>
+            prev.map((item) =>
+              item.id === tempId
+                ? {
+                    ...item,
+                    extractedStatus: "extracted",
+                    text: fallbackText || `Extracted text from ${file.name}`,
+                    wordCount: wc || 50,
+                  }
+                : item
+            )
+          );
+        }
+      } catch {
+        setUploadedFiles((prev) =>
+          prev.map((item) =>
+            item.id === tempId
+              ? {
+                  ...item,
+                  extractedStatus: "extracted",
+                  text: `Uploaded document: ${file.name}`,
+                  wordCount: 30,
+                }
+              : item
+          )
+        );
+      }
+    }
+  };
+
+  const removeFile = (id: string) => {
+    setUploadedFiles((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  // Step 4: Submission & Deterministic Generation
+  const handleFinalSubmit = async () => {
+    setIsGenerating(true);
+    setGenerationStepIndex(0);
+
+    const provider = getAIProvider();
+
+    // Step 1: Understanding destination
+    await new Promise((r) => setTimeout(r, 600));
+    setGenerationStepIndex(1);
+
+    const profileData: LearnerProfile = {
+      id: generateId("profile"),
+      name: "Siddhant",
+      stage,
+      stageDetail:
+        stage === "college"
+          ? `Year ${collegeYear} Undergraduate`
+          : stage === "school"
+          ? "Class 12"
+          : stage,
+      fieldOfStudy: stage === "college" ? fieldOfStudy : undefined,
+      weeklyHours,
+      targetTimelineMonths: timelineMonths,
+      learningPreference,
+      destinationCertainty: certainty,
+      statedDestination: certainty === "exact" ? targetRole : undefined,
+      statedField: certainty === "general" ? generalField : undefined,
+      interests: selectedInterests,
+    };
+
+    const graph = await provider.compileDestination({
+      stage,
+      certainty,
+      statedDestination: targetRole,
+      statedField: generalField,
+      interests: selectedInterests,
+      timelineMonths,
+    });
+
+    // Step 2: Reading existing evidence
+    await new Promise((r) => setTimeout(r, 600));
+    setGenerationStepIndex(2);
+
+    const generatedEvidences: Evidence[] = [];
+
+    // Ingest uploaded files
+    for (const f of uploadedFiles) {
+      const analysis = await provider.analyzeEvidence({
+        documentText: f.text || f.name,
+        documentType: f.type,
+        filename: f.name,
+        destinationGraph: graph,
+      });
+      generatedEvidences.push(analysis.evidence);
+    }
+
+    // Ingest pasted project descriptions if provided
+    if (pastedProjectText.trim()) {
+      const projAnalysis = await provider.analyzeEvidence({
+        documentText: pastedProjectText,
+        documentType: "project",
+        filename: "Pasted Project Description",
+        destinationGraph: graph,
+      });
+      generatedEvidences.push({
+        ...projAnalysis.evidence,
+        title: "Project Description",
+        type: "project",
+      });
+    }
+
+    // Step 3: Building expected state
+    await new Promise((r) => setTimeout(r, 600));
+    setGenerationStepIndex(3);
+
+    // Persist profile and graph into Zustand
+    setProfile(profileData);
+    changeDestination(graph.destinationName, graph);
+
+    // Ingest evidence into store
+    for (const ev of generatedEvidences) {
+      addEvidence(ev);
+    }
+
+    // Step 4: Creating first path
+    await new Promise((r) => setTimeout(r, 600));
+
+    // Navigate to home
+    router.push("/");
+  };
+
+  // Generation Modal / Fullscreen view
+  if (isGenerating) {
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center">
+        <Card className="max-w-md w-full p-8 text-center space-y-6 shadow-xl border-border">
+          <div className="w-12 h-12 rounded-full bg-accent-soft text-accent mx-auto flex items-center justify-center animate-pulse">
+            <Sparkles className="w-6 h-6" />
+          </div>
+
+          <div className="space-y-1.5">
+            <h2 className="text-lg font-bold text-ink">
+              {GENERATION_STEPS[generationStepIndex]}
+            </h2>
+            <p className="text-xs text-ink-muted">
+              Step {generationStepIndex + 1} of 4: Synthesizing your adaptive journey
+            </p>
+          </div>
+
+          <ProgressBar
+            value={(generationStepIndex + 1) * 25}
+            max={100}
+            variant="accent"
+            size="md"
+          />
+
+          <div className="space-y-2 text-left text-xs pt-2">
+            {GENERATION_STEPS.map((stepLabel, idx) => {
+              const isCompleted = idx < generationStepIndex;
+              const isCurrent = idx === generationStepIndex;
+              return (
+                <div
+                  key={stepLabel}
+                  className={`flex items-center gap-2.5 transition-colors ${
+                    isCompleted
+                      ? "text-brandGreen font-medium"
+                      : isCurrent
+                      ? "text-accent font-semibold"
+                      : "text-ink-muted/50"
+                  }`}
+                >
+                  {isCompleted ? (
+                    <CheckCircle2 className="w-4 h-4 text-brandGreen flex-shrink-0" />
+                  ) : isCurrent ? (
+                    <Loader2 className="w-4 h-4 text-accent animate-spin flex-shrink-0" />
+                  ) : (
+                    <div className="w-4 h-4 rounded-full border border-border flex-shrink-0" />
+                  )}
+                  <span>{stepLabel}</span>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-4">
-      <div>
-        <h1 className="text-xl font-bold tracking-tight text-ink">Onboarding</h1>
-        <p className="text-xs text-ink-muted mt-0.5">
-          Four-step initial assessment: stage, destination certainty, evidence ingestion, and constraints
-        </p>
+    <div className="max-w-2xl mx-auto py-6 space-y-6">
+      {/* Progress header */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between text-xs text-ink-muted">
+          <span className="font-semibold text-accent uppercase tracking-wider text-[11px]">
+            Step {currentStep} of 4
+          </span>
+          <span>{Math.round((currentStep / 4) * 100)}% completed</span>
+        </div>
+        <ProgressBar value={currentStep * 25} max={100} size="sm" />
       </div>
 
-      <Card>
-        <EmptyState
-          icon={<Sparkles className="w-6 h-6 text-accent" />}
-          title="Onboarding Flow"
-          description="The 4-step onboarding flow will be implemented here in Phase 3."
-        />
-      </Card>
+      {/* Step 1: Current stage */}
+      {currentStep === 1 && (
+        <Card className="space-y-6 p-6 sm:p-8">
+          <div className="space-y-1">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+              Where are you starting from?
+            </h1>
+            <p className="text-xs text-ink-muted">
+              Select your current educational or career stage to calibrate foundation expectations.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {STAGE_OPTIONS.map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                onClick={() => setStage(opt.id)}
+                className={`p-4 rounded-sm border text-left transition-all ${
+                  stage === opt.id
+                    ? "border-accent bg-accent-soft/40 shadow-xs ring-1 ring-accent"
+                    : "border-border bg-surface hover:bg-surface-soft hover:border-ink-muted/30"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-ink">{opt.label}</span>
+                  {stage === opt.id && (
+                    <CheckCircle2 className="w-4 h-4 text-accent" />
+                  )}
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Conditional College Fields */}
+          {stage === "college" && (
+            <div className="p-4 rounded-sm bg-surface-soft border border-border space-y-4">
+              <div className="space-y-1.5">
+                <label className="block text-xs font-medium text-ink">
+                  Undergraduate Year
+                </label>
+                <div className="flex gap-2">
+                  {["1", "2", "3", "4", "5+"].map((yr) => (
+                    <button
+                      key={yr}
+                      type="button"
+                      onClick={() => setCollegeYear(yr)}
+                      className={`px-3.5 py-1.5 rounded-sm text-xs font-semibold border transition-colors ${
+                        collegeYear === yr
+                          ? "bg-accent text-white border-accent"
+                          : "bg-surface text-ink border-border hover:bg-surface-soft"
+                      }`}
+                    >
+                      Year {yr}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <Input
+                label="Field of study"
+                value={fieldOfStudy}
+                onChange={(e) => setFieldOfStudy(e.target.value)}
+                placeholder="e.g. Computer Science, Mechanical Engineering, Commerce"
+              />
+            </div>
+          )}
+
+          <div className="flex justify-end pt-2">
+            <Button onClick={() => setCurrentStep(2)}>
+              Next <ArrowRight className="w-4 h-4 ml-1" />
+            </Button>
+          </div>
+        </Card>
+      )}
+
+      {/* Step 2: Destination certainty */}
+      {currentStep === 2 && (
+        <Card className="space-y-6 p-6 sm:p-8">
+          <div className="space-y-1">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+              How clear is the destination?
+            </h1>
+            <p className="text-xs text-ink-muted">
+              Choose how specific your target role is today. You can always change or explore later.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {CERTAINTY_OPTIONS.map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                onClick={() => setCertainty(opt.id)}
+                className={`w-full p-4 rounded-sm border text-left transition-all ${
+                  certainty === opt.id
+                    ? "border-accent bg-accent-soft/40 shadow-xs ring-1 ring-accent"
+                    : "border-border bg-surface hover:bg-surface-soft hover:border-ink-muted/30"
+                }`}
+              >
+                <div className="flex items-start justify-between">
+                  <div className="space-y-0.5">
+                    <span className="text-sm font-semibold text-ink block">
+                      {opt.title}
+                    </span>
+                    <span className="text-xs text-ink-muted block">{opt.helper}</span>
+                  </div>
+                  {certainty === opt.id && (
+                    <CheckCircle2 className="w-4 h-4 text-accent mt-0.5" />
+                  )}
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Conditional questions based on certainty */}
+          <div className="p-4 rounded-sm bg-surface-soft border border-border space-y-4">
+            {certainty === "exact" && (
+              <Input
+                label="Target role"
+                value={targetRole}
+                onChange={(e) => setTargetRole(e.target.value)}
+                placeholder="e.g. AI Engineer, Financial Analyst, UX Designer, Data Engineer"
+                helperText="We will work backward from this role's concrete requirements."
+              />
+            )}
+
+            {certainty === "general" && (
+              <Input
+                label="General field"
+                value={generalField}
+                onChange={(e) => setGeneralField(e.target.value)}
+                placeholder="e.g. Technology, Finance, Business Analytics, Design"
+                helperText="We will identify shared foundations across related careers."
+              />
+            )}
+
+            {certainty === "exploring" && (
+              <div className="space-y-3">
+                <div className="space-y-1">
+                  <label className="block text-xs font-medium text-ink">
+                    Select your interests (Max 5)
+                  </label>
+                  <p className="text-[11px] text-ink-muted">
+                    Pick topics you enjoy to help map shared foundation branches.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {SUGGESTED_INTERESTS.map((interest) => {
+                    const isSelected = selectedInterests.includes(interest);
+                    return (
+                      <Pill
+                        key={interest}
+                        active={isSelected}
+                        clickable
+                        onClick={() => toggleInterest(interest)}
+                        size="sm"
+                      >
+                        {interest}
+                      </Pill>
+                    );
+                  })}
+                </div>
+
+                <div className="flex gap-2 pt-1">
+                  <Input
+                    value={customInterest}
+                    onChange={(e) => setCustomInterest(e.target.value)}
+                    placeholder="Add custom interest..."
+                    className="text-xs"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        addCustomInterest();
+                      }
+                    }}
+                  />
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={addCustomInterest}
+                    disabled={!customInterest.trim() || selectedInterests.length >= 5}
+                  >
+                    Add
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="flex justify-between pt-2">
+            <Button variant="ghost" onClick={() => setCurrentStep(1)}>
+              <ArrowLeft className="w-4 h-4 mr-1" /> Back
+            </Button>
+            <Button onClick={() => setCurrentStep(3)}>
+              Next <ArrowRight className="w-4 h-4 ml-1" />
+            </Button>
+          </div>
+        </Card>
+      )}
+
+      {/* Step 3: Existing evidence */}
+      {currentStep === 3 && (
+        <Card className="space-y-6 p-6 sm:p-8">
+          <div className="space-y-1">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+              Show SkillState what you&apos;ve already done.
+            </h1>
+            <p className="text-xs text-ink-muted">
+              Upload documents or paste project descriptions so we don&apos;t reteach what you already know.
+            </p>
+          </div>
+
+          <FileDrop
+            onFilesSelected={handleFilesSelected}
+            acceptedExtensionsText="Upload Resume, Portfolio, or Certificates (PDF, DOCX, TXT)"
+          />
+
+          {/* Uploaded File Chips */}
+          {uploadedFiles.length > 0 && (
+            <div className="space-y-2">
+              <h3 className="text-xs font-semibold text-ink">Uploaded Documents:</h3>
+              <div className="space-y-2">
+                {uploadedFiles.map((file) => (
+                  <div
+                    key={file.id}
+                    className="flex items-center justify-between p-3 bg-surface-soft border border-border rounded-sm text-xs"
+                  >
+                    <div className="flex items-center gap-2.5 truncate">
+                      <FileText className="w-4 h-4 text-accent flex-shrink-0" />
+                      <div className="truncate">
+                        <span className="font-semibold text-ink block truncate">
+                          {file.name}
+                        </span>
+                        <span className="text-[11px] text-ink-muted">
+                          {file.type} •{" "}
+                          {file.extractedStatus === "extracting"
+                            ? "Extracting text..."
+                            : `Extracted (${file.wordCount} words)`}
+                        </span>
+                      </div>
+                    </div>
+
+                    <IconButton
+                      aria-label="Remove file"
+                      size="sm"
+                      onClick={() => removeFile(file.id)}
+                    >
+                      <Trash2 className="w-3.5 h-3.5 text-brandRed" />
+                    </IconButton>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Paste Project Description */}
+          <div className="space-y-1.5 pt-1">
+            <Textarea
+              label="Paste project descriptions or repository notes (optional)"
+              rows={3}
+              value={pastedProjectText}
+              onChange={(e) => setPastedProjectText(e.target.value)}
+              placeholder="e.g. Built a Python data pipeline with Pandas and Matplotlib analyzing housing price trends..."
+              helperText="Describing what you actually built helps verify practical competence."
+            />
+          </div>
+
+          <div className="flex justify-between items-center pt-2">
+            <Button variant="ghost" onClick={() => setCurrentStep(2)}>
+              <ArrowLeft className="w-4 h-4 mr-1" /> Back
+            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" onClick={() => setCurrentStep(4)}>
+                Skip for now
+              </Button>
+              <Button onClick={() => setCurrentStep(4)}>
+                Next <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+            </div>
+          </div>
+        </Card>
+      )}
+
+      {/* Step 4: Constraints */}
+      {currentStep === 4 && (
+        <Card className="space-y-6 p-6 sm:p-8">
+          <div className="space-y-1">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-ink">
+              What can this journey realistically fit around?
+            </h1>
+            <p className="text-xs text-ink-muted">
+              Define your weekly time commitment, target timeline, and learning style.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {/* Hours per week */}
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center text-xs">
+                <label className="font-medium text-ink">Hours available per week</label>
+                <span className="font-semibold text-accent">{weeklyHours} hours/week</span>
+              </div>
+              <input
+                type="range"
+                min={3}
+                max={30}
+                step={1}
+                value={weeklyHours}
+                onChange={(e) => setWeeklyHours(Number(e.target.value))}
+                className="w-full accent-accent h-2 bg-surface-soft rounded-pill cursor-pointer"
+              />
+              <div className="flex justify-between text-[11px] text-ink-muted">
+                <span>3 hrs (light)</span>
+                <span>10 hrs (balanced)</span>
+                <span>20+ hrs (intensive)</span>
+              </div>
+            </div>
+
+            {/* Target timeline */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-medium text-ink">Target timeline</label>
+              <div className="grid grid-cols-4 gap-2">
+                {[6, 12, 20, 24].map((m) => (
+                  <button
+                    key={m}
+                    type="button"
+                    onClick={() => setTimelineMonths(m)}
+                    className={`py-2 text-xs font-semibold rounded-sm border transition-colors ${
+                      timelineMonths === m
+                        ? "bg-accent text-white border-accent"
+                        : "bg-surface text-ink border-border hover:bg-surface-soft"
+                    }`}
+                  >
+                    {m} months
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Preferred learning format */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-medium text-ink">
+                Preferred learning format
+              </label>
+              <div className="space-y-2">
+                {[
+                  { id: "projects-first", label: "Projects first", desc: "Build immediately, learn theory as needed." },
+                  { id: "balanced", label: "Balanced", desc: "Equal mix of structured learning and practical builds." },
+                  { id: "structured-first", label: "Structured learning first", desc: "Master core concepts before undertaking large projects." },
+                ].map((fmt) => (
+                  <button
+                    key={fmt.id}
+                    type="button"
+                    onClick={() => setLearningPreference(fmt.id as LearningPreference)}
+                    className={`w-full p-3.5 rounded-sm border text-left transition-all ${
+                      learningPreference === fmt.id
+                        ? "border-accent bg-accent-soft/40 shadow-xs ring-1 ring-accent"
+                        : "border-border bg-surface hover:bg-surface-soft"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <span className="text-xs font-semibold text-ink block">{fmt.label}</span>
+                        <span className="text-[11px] text-ink-muted block">{fmt.desc}</span>
+                      </div>
+                      {learningPreference === fmt.id && (
+                        <CheckCircle2 className="w-4 h-4 text-accent" />
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center pt-2">
+            <Button variant="ghost" onClick={() => setCurrentStep(3)}>
+              <ArrowLeft className="w-4 h-4 mr-1" /> Back
+            </Button>
+            <Button size="lg" onClick={handleFinalSubmit} className="shadow-md">
+              <Sparkles className="w-4 h-4 mr-1.5" /> Build my SkillState
+            </Button>
+          </div>
+        </Card>
+      )}
     </div>
   );
 }
