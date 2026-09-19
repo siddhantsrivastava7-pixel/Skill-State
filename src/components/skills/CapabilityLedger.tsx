@@ -142,7 +142,7 @@ export function CapabilityLedger() {
           return (
             <Card key={familyName} className="overflow-hidden">
               {/* Family Header */}
-              <div className="p-4 bg-surface-soft/60 border-b border-border/80 flex items-center justify-between">
+              <div className="p-4 bg-surface-soft/60 border-b border-border/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                 <div className="flex items-center gap-2.5">
                   <Award className="w-4 h-4 text-accent" />
                   <h2 className="text-sm font-bold text-ink">{familyName}</h2>
@@ -150,14 +150,30 @@ export function CapabilityLedger() {
                     ({capNodes.length} {capNodes.length === 1 ? "capability" : "capabilities"})
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-ink-muted">{familyVerified}/{capNodes.length} Verified</span>
-                  <div className="w-16 bg-border rounded-full h-1.5 overflow-hidden">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xs text-ink-muted">
+                    Verification coverage: <strong className="text-ink font-semibold">{familyVerified} of {capNodes.length}</strong> verified
+                  </span>
+                  <div
+                    className="w-16 bg-border rounded-full h-1.5 overflow-hidden"
+                    role="progressbar"
+                    aria-valuenow={familyVerified}
+                    aria-valuemin={0}
+                    aria-valuemax={capNodes.length}
+                    aria-label={`Verification coverage: ${familyVerified} of ${capNodes.length} capabilities verified`}
+                  >
                     <div
-                      className="bg-accent h-full transition-all duration-300"
+                      className="bg-brandGreen h-full transition-all duration-300"
                       style={{ width: `${familyPct}%` }}
                     />
                   </div>
+                  {familyVerified === capNodes.length ? (
+                    <Badge variant="green" size="sm">Fully Verified</Badge>
+                  ) : familyVerified > 0 ? (
+                    <Badge variant="blue" size="sm">{familyVerified}/{capNodes.length} Verified</Badge>
+                  ) : (
+                    <Badge variant="default" size="sm">0 Verified</Badge>
+                  )}
                 </div>
               </div>
 

@@ -42,6 +42,15 @@ export function VerificationWorkbench() {
   const [userResponse, setUserResponse] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isDemoMode, setIsDemoMode] = useState(false);
+
+  // Read demo mode from URL
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setIsDemoMode(params.get("demo") === "1");
+    }
+  }, []);
 
   // 1. Calculate candidates
   useEffect(() => {
@@ -152,10 +161,10 @@ export function VerificationWorkbench() {
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold tracking-tight text-ink">Assess & Prove</h1>
-            <Badge variant="blue" size="sm">Phase 5 Engine</Badge>
+            {isDemoMode && <Badge variant="blue" size="sm">Demo Mode</Badge>}
           </div>
           <p className="text-xs text-ink-muted mt-1">
-            Deterministic verification pipeline: claimed capability → assessment task → AI evaluation → plan adaptation
+            Verify claimed capabilities with rigorous evaluation. Every assessment directly drives and adapts your plan.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -406,62 +415,64 @@ export function VerificationWorkbench() {
               <p className="text-xs text-brandRed font-medium">{errorMessage}</p>
             )}
 
-            {/* Quick-fill Scenario Triggers for Deterministic Demo Verification */}
-            <div className="p-3.5 rounded-xl bg-surface-soft/80 border border-border/80 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-ink flex items-center gap-1.5">
-                  <Zap className="w-3.5 h-3.5 text-accent" />
-                  Interactive Demo Evaluation Scenarios:
-                </span>
-                <span className="text-[11px] text-ink-muted">1-click test triggers</span>
-              </div>
+            {/* Quick-fill Scenario Triggers for Deterministic Demo Verification (shown only in ?demo=1 mode) */}
+            {isDemoMode && (
+              <div className="p-3.5 rounded-xl bg-surface-soft/80 border border-border/80 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-ink flex items-center gap-1.5">
+                    <Zap className="w-3.5 h-3.5 text-accent" />
+                    Interactive Demo Evaluation Scenarios:
+                  </span>
+                  <span className="text-[11px] text-ink-muted">1-click test triggers</span>
+                </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setUserResponse(weakTemplate);
-                    handleSubmit(weakTemplate);
-                  }}
-                  disabled={isSubmitting}
-                  className="text-left p-3 rounded-lg border border-brandOrange/30 bg-brandOrange-soft/40 hover:bg-brandOrange-soft/70 transition-colors text-xs space-y-1 group"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-ink group-hover:text-brandOrange transition-colors">
-                      Test Weak Answer
-                    </span>
-                    <Badge variant="orange" size="sm">Expose Gap</Badge>
-                  </div>
-                  <p className="text-[11px] text-ink-muted">
-                    {isCapMl
-                      ? "Relies on 99.2% accuracy in imbalanced data (accuracy paradox)"
-                      : "Provides basic reasoning without edge case handling"}
-                  </p>
-                </button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUserResponse(weakTemplate);
+                      handleSubmit(weakTemplate);
+                    }}
+                    disabled={isSubmitting}
+                    className="text-left p-3 rounded-lg border border-brandOrange/30 bg-brandOrange-soft/40 hover:bg-brandOrange-soft/70 transition-colors text-xs space-y-1 group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-ink group-hover:text-brandOrange transition-colors">
+                        Test Weak Answer
+                      </span>
+                      <Badge variant="orange" size="sm">Expose Gap</Badge>
+                    </div>
+                    <p className="text-[11px] text-ink-muted">
+                      {isCapMl
+                        ? "Relies on 99.2% accuracy in imbalanced data (accuracy paradox)"
+                        : "Provides basic reasoning without edge case handling"}
+                    </p>
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    setUserResponse(strongTemplate);
-                    handleSubmit(strongTemplate);
-                  }}
-                  disabled={isSubmitting}
-                  className="text-left p-3 rounded-lg border border-brandGreen/30 bg-brandGreen-soft/40 hover:bg-brandGreen-soft/70 transition-colors text-xs space-y-1 group"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-ink group-hover:text-brandGreen transition-colors">
-                      Test Strong Answer
-                    </span>
-                    <Badge variant="green" size="sm">Verify Skill</Badge>
-                  </div>
-                  <p className="text-[11px] text-ink-muted">
-                    {isCapMl
-                      ? "Identifies accuracy paradox, specifies PR-AUC & stratified CV"
-                      : "Provides rigorous validation and production constraint analysis"}
-                  </p>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUserResponse(strongTemplate);
+                      handleSubmit(strongTemplate);
+                    }}
+                    disabled={isSubmitting}
+                    className="text-left p-3 rounded-lg border border-brandGreen/30 bg-brandGreen-soft/40 hover:bg-brandGreen-soft/70 transition-colors text-xs space-y-1 group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-ink group-hover:text-brandGreen transition-colors">
+                        Test Strong Answer
+                      </span>
+                      <Badge variant="green" size="sm">Verify Skill</Badge>
+                    </div>
+                    <p className="text-[11px] text-ink-muted">
+                      {isCapMl
+                        ? "Identifies accuracy paradox, specifies PR-AUC & stratified CV"
+                        : "Provides rigorous validation and production constraint analysis"}
+                    </p>
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Submit Button */}
             <div className="flex items-center justify-between pt-2">
