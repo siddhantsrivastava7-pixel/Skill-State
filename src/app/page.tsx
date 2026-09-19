@@ -3,8 +3,12 @@
 import { useEffect, useState } from "react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { DemoPersonaId } from "@/data/demo";
+import { Card } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { HillBackgroundSvg } from "@/components/journey/HillBackgroundSvg";
 
-export default function DiagnosticPage() {
+export default function HomePage() {
   const [isMounted, setIsMounted] = useState(false);
 
   const activePersonaId = useSkillStateStore((s) => s.activePersonaId);
@@ -23,10 +27,9 @@ export default function DiagnosticPage() {
 
   if (!isMounted) {
     return (
-      <main className="p-8 max-w-2xl mx-auto font-mono text-sm">
-        <h1 className="text-xl font-bold mb-4">SkillState — Phase 1 Diagnostic</h1>
-        <p className="text-gray-500">Hydrating store...</p>
-      </main>
+      <div className="p-8 max-w-2xl mx-auto text-sm">
+        <p className="text-ink-muted">Hydrating store...</p>
+      </div>
     );
   }
 
@@ -36,60 +39,98 @@ export default function DiagnosticPage() {
   const nextActionCount = plan.now.length;
 
   return (
-    <main className="p-8 max-w-2xl mx-auto font-mono text-sm space-y-6">
-      <div className="border border-border p-6 rounded-card bg-surface shadow-card space-y-4">
-        <div className="border-b border-border pb-3">
-          <h1 className="text-lg font-bold">SkillState — Diagnostic</h1>
-          <p className="text-xs text-ink-muted">Phase 1: Scaffold & Domain Model</p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3 pt-2">
-          <div className="text-ink-muted">Active Persona:</div>
-          <div className="font-semibold">{profile.name} ({activePersonaId})</div>
-
-          <div className="text-ink-muted">Destination:</div>
-          <div className="font-semibold">{destination}</div>
-
-          <div className="text-ink-muted">Capability Count:</div>
-          <div className="font-semibold">{capabilityCount}</div>
-
-          <div className="text-ink-muted">Evidence Count:</div>
-          <div className="font-semibold">{evidenceCount}</div>
-
-          <div className="text-ink-muted">Gap Count:</div>
-          <div className="font-semibold">{gapCount}</div>
-
-          <div className="text-ink-muted">Next Action Count:</div>
-          <div className="font-semibold">{nextActionCount}</div>
-        </div>
-
-        <div className="border-t border-border pt-4 space-y-2">
-          <div className="text-xs font-semibold text-ink-muted uppercase tracking-wider">
-            Switch Demo Persona:
-          </div>
-          <div className="flex gap-2">
-            {(["persona-a", "persona-b", "persona-c"] as DemoPersonaId[]).map((id) => (
-              <button
-                key={id}
-                onClick={() => loadPersona(id)}
-                className={`px-3 py-1.5 rounded-sm text-xs font-semibold border transition-colors ${
-                  activePersonaId === id
-                    ? "bg-accent text-white border-accent"
-                    : "bg-surface text-ink border-border hover:bg-surface-soft"
-                }`}
-              >
-                {id.toUpperCase()}
-              </button>
-            ))}
-            <button
-              onClick={() => resetStore()}
-              className="px-3 py-1.5 rounded-sm text-xs font-semibold border border-border bg-surface text-ink-muted hover:bg-surface-soft ml-auto"
-            >
-              Reset
-            </button>
-          </div>
+    <div className="space-y-6">
+      {/* Hero preview banner demonstrating layered hill SVG background asset */}
+      <div className="relative overflow-hidden rounded-card border border-border min-h-[160px] p-6 sm:p-8 flex flex-col justify-end bg-surface">
+        <HillBackgroundSvg />
+        <div className="relative z-10 space-y-1 max-w-xl">
+          <Badge variant="accent" size="sm" className="mb-2">
+            Phase 2: Visual System & Shell Active
+          </Badge>
+          <h1 className="font-serif text-2xl sm:text-3xl text-ink font-normal leading-tight">
+            Explore your future without closing doors too early.
+          </h1>
+          <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
+            Build strong foundations, try different paths, and keep your options open before you specialize.
+          </p>
         </div>
       </div>
-    </main>
+
+      {/* Diagnostic & Persona Switcher */}
+      <Card className="space-y-4 max-w-3xl">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <div>
+            <h2 className="text-sm font-semibold text-ink">SkillState Diagnostic State</h2>
+            <p className="text-xs text-ink-muted">Live Zustand store metrics</p>
+          </div>
+          <Badge variant="default" size="sm">
+            {profile.destinationCertainty.toUpperCase()} MODE
+          </Badge>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-1 text-xs">
+          <div className="p-3 bg-surface-soft rounded-sm border border-border/60">
+            <span className="text-ink-muted block text-[11px]">Active Persona</span>
+            <span className="font-semibold text-ink text-sm block mt-0.5">
+              {profile.name} ({activePersonaId})
+            </span>
+          </div>
+
+          <div className="p-3 bg-surface-soft rounded-sm border border-border/60">
+            <span className="text-ink-muted block text-[11px]">Destination</span>
+            <span className="font-semibold text-ink text-sm block mt-0.5 truncate">
+              {destination}
+            </span>
+          </div>
+
+          <div className="p-3 bg-surface-soft rounded-sm border border-border/60">
+            <span className="text-ink-muted block text-[11px]">Capability Count</span>
+            <span className="font-semibold text-ink text-sm block mt-0.5">
+              {capabilityCount}
+            </span>
+          </div>
+
+          <div className="p-3 bg-surface-soft rounded-sm border border-border/60">
+            <span className="text-ink-muted block text-[11px]">Evidence Count</span>
+            <span className="font-semibold text-ink text-sm block mt-0.5">
+              {evidenceCount}
+            </span>
+          </div>
+
+          <div className="p-3 bg-surface-soft rounded-sm border border-border/60">
+            <span className="text-ink-muted block text-[11px]">Gap Count</span>
+            <span className="font-semibold text-ink text-sm block mt-0.5">
+              {gapCount}
+            </span>
+          </div>
+
+          <div className="p-3 bg-surface-soft rounded-sm border border-border/60">
+            <span className="text-ink-muted block text-[11px]">Next Action Count</span>
+            <span className="font-semibold text-ink text-sm block mt-0.5">
+              {nextActionCount}
+            </span>
+          </div>
+        </div>
+
+        <div className="border-t border-border pt-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-ink-muted font-medium">Switch Persona:</span>
+            {(["persona-a", "persona-b", "persona-c"] as DemoPersonaId[]).map((id) => (
+              <Button
+                key={id}
+                size="sm"
+                variant={activePersonaId === id ? "primary" : "secondary"}
+                onClick={() => loadPersona(id)}
+              >
+                {id === "persona-a" ? "Persona A" : id === "persona-b" ? "Persona B" : "Persona C"}
+              </Button>
+            ))}
+          </div>
+          <Button size="sm" variant="ghost" onClick={() => resetStore()}>
+            Reset
+          </Button>
+        </div>
+      </Card>
+    </div>
   );
 }
