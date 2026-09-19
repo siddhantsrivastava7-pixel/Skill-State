@@ -19,30 +19,21 @@ import {
   VerificationTask,
 } from "@/domain/types";
 import {
-  personaAGraph,
-  personaAPlan,
-  personaBGraph,
-  personaBPlan,
   personaBVerificationQueue,
-  personaCGraph,
-  personaCPlan,
 } from "@/data/demo";
+import { careerRepository } from "@/data/knowledge/repositories";
+import { careerKnowledgeToDestinationGraph } from "@/data/knowledge/adapter";
+import { UnknownDestinationError } from "@/data/knowledge/resolution";
+import { resourcesForCapability } from "@/data/library/resources-library";
 
 export class DemoAIProvider implements AIProvider {
   async compileDestination(
     input: CompileDestinationInput
   ): Promise<DestinationGraph> {
-    const dest = (input.statedDestination || input.statedField || "").toLowerCase();
-
-    if (dest.includes("finance") || dest.includes("financial") || dest.includes("analyst")) {
-      return personaCGraph;
-    }
-
-    if (dest.includes("ai") || dest.includes("machine learning") || dest.includes("data scientist")) {
-      return personaBGraph;
-    }
-
-    return personaAGraph;
+    const requested = input.statedDestination || input.statedField || input.interests[0] || "";
+    const career = careerRepository.findByTitleOrAliasSync(requested);
+    if (!career) throw new UnknownDestinationError(requested || "this path");
+    return careerKnowledgeToDestinationGraph(career);
   }
 
   async analyzeEvidence(
@@ -153,41 +144,41 @@ export class DemoAIProvider implements AIProvider {
   }
 
   async buildPlan(input: BuildPlanInput): Promise<AdaptivePlan> {
-    const dest = input.graph.destinationName.toLowerCase();
-    if (dest.includes("financial") || dest.includes("finance")) {
-      return personaCPlan;
-    }
-    if (dest.includes("ai") || dest.includes("machine learning")) {
-      return personaBPlan;
-    }
-    return personaAPlan;
+    const now = input.gaps.slice(0, 3).map((gap, index) => {
+      const node = input.graph.capabilityNodes.find((item) => item.id === gap.capabilityId);
+      return {
+        id: `demo-action-${gap.capabilityId}-${index + 1}`,
+        category: gap.gapType === "knowledge-no-proof" ? "prove" as const : "learn" as const,
+        title: `${gap.gapType === "knowledge-no-proof" ? "Prove" : "Build"}: ${node?.name ?? gap.capabilityId}`,
+        description: gap.reason,
+        whyNow: `Addresses a ${gap.priority} priority destination requirement.`,
+        estimatedMinutes: 90,
+        capabilityIds: [gap.capabilityId],
+        status: "todo" as const,
+      };
+    });
+    return {
+      generatedAt: new Date().toISOString(),
+      summary: `Evidence-aware starter plan for ${input.graph.destinationName}.`,
+      now,
+      weeks: [{ weekIndex: 1, objectives: now.map((item) => item.title), actions: now }],
+      milestones: [],
+    };
   }
 
   async recommendResources(
     input: ResourceRequest
   ): Promise<ResourceRecommendation[]> {
-    return [
-      {
-        id: `res-${input.gapCapabilityId}-1`,
-        title: `Example / Demo Resource: Practical Foundations for ${input.gapCapabilityId}`,
-        format: "project-guide",
-        provider: "Example / Demo Resource",
-        estimatedMinutes: 90,
-        matchedGapId: input.gapCapabilityId,
-        whyThis: "Focuses directly on the practical proof required to bridge this gap.",
-        url: "https://example.com/skillstate-demo-guide",
-      },
-      {
-        id: `res-${input.gapCapabilityId}-2`,
-        title: `Example / Demo Resource: Interactive Scenarios for ${input.gapCapabilityId}`,
-        format: "article",
-        provider: "Example / Demo Resource",
-        estimatedMinutes: 45,
-        matchedGapId: input.gapCapabilityId,
-        whyThis: "Provides real-world failure modes and architectural decisions.",
-        url: "https://example.com/skillstate-demo-cases",
-      },
-    ];
+    return resourcesForCapability(input.gapCapabilityId).slice(0, 4).map((resource) => ({
+      id: resource.id,
+      title: resource.title,
+      format: resource.format === "interactive-drill" ? "video" as const : resource.format === "case-study" ? "article" as const : resource.format,
+      provider: resource.provider,
+      estimatedMinutes: input.availableMinutes ?? 60,
+      matchedGapId: input.gapCapabilityId,
+      whyThis: resource.whyThisResource,
+      url: resource.url,
+    }));
   }
 
   async generateProgressReport(

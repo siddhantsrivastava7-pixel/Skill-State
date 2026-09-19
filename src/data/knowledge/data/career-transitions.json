@@ -1,0 +1,5950 @@
+[
+  {
+    "fromCareerId": "software-engineer",
+    "toCareerId": "frontend-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "documentation",
+      "git-version-control",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "frontend-engineering",
+      "interaction-design",
+      "web-accessibility"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.625
+  },
+  {
+    "fromCareerId": "software-engineer",
+    "toCareerId": "mobile-app-developer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "accessibility-inclusive-design",
+      "interaction-design",
+      "mobile-development"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "software-engineer",
+    "toCareerId": "full-stack-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "programming-js-ts",
+      "system-design",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "backend-engineering",
+      "containers",
+      "frontend-engineering",
+      "sql-relational"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.5556
+  },
+  {
+    "fromCareerId": "software-engineer",
+    "toCareerId": "backend-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "system-design",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "backend-engineering",
+      "containers",
+      "data-modeling",
+      "observability",
+      "sql-relational"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.4444
+  },
+  {
+    "fromCareerId": "software-engineer",
+    "toCareerId": "security-engineer",
+    "sharedCapabilityIds": [
+      "programming-python",
+      "system-design",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "appsec",
+      "identity-access",
+      "networking",
+      "security-fundamentals",
+      "threat-modeling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "software-engineer",
+    "toCareerId": "project-manager",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "documentation"
+    ],
+    "newCapabilityIds": [
+      "decision-making",
+      "project-management",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "frontend-engineer",
+    "toCareerId": "full-stack-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "frontend-engineering",
+      "git-version-control",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "backend-engineering",
+      "containers",
+      "sql-relational",
+      "system-design"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.5556
+  },
+  {
+    "fromCareerId": "frontend-engineer",
+    "toCareerId": "mobile-app-developer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "interaction-design",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "accessibility-inclusive-design",
+      "mobile-development"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.7143
+  },
+  {
+    "fromCareerId": "frontend-engineer",
+    "toCareerId": "software-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "documentation",
+      "git-version-control",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "data-structures-algorithms",
+      "programming-python",
+      "system-design"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.5556
+  },
+  {
+    "fromCareerId": "frontend-engineer",
+    "toCareerId": "backend-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "backend-engineering",
+      "containers",
+      "data-modeling",
+      "observability",
+      "sql-relational",
+      "system-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "frontend-engineer",
+    "toCareerId": "security-engineer",
+    "sharedCapabilityIds": [
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "appsec",
+      "identity-access",
+      "networking",
+      "programming-python",
+      "security-fundamentals",
+      "system-design",
+      "threat-modeling"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.125
+  },
+  {
+    "fromCareerId": "frontend-engineer",
+    "toCareerId": "devops-engineer",
+    "sharedCapabilityIds": [
+      "git-version-control"
+    ],
+    "newCapabilityIds": [
+      "cicd",
+      "cloud-fundamentals",
+      "containers",
+      "linux-cli",
+      "networking",
+      "observability",
+      "security-fundamentals",
+      "system-design"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.1111
+  },
+  {
+    "fromCareerId": "backend-engineer",
+    "toCareerId": "full-stack-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "backend-engineering",
+      "containers",
+      "git-version-control",
+      "sql-relational",
+      "system-design",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "frontend-engineering",
+      "programming-js-ts"
+    ],
+    "sharedCount": 7,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.7778
+  },
+  {
+    "fromCareerId": "backend-engineer",
+    "toCareerId": "mobile-app-developer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "accessibility-inclusive-design",
+      "interaction-design",
+      "mobile-development",
+      "programming-js-ts"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "backend-engineer",
+    "toCareerId": "software-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "system-design",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "data-structures-algorithms",
+      "documentation",
+      "programming-js-ts",
+      "programming-python"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.4444
+  },
+  {
+    "fromCareerId": "backend-engineer",
+    "toCareerId": "frontend-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "documentation",
+      "frontend-engineering",
+      "interaction-design",
+      "programming-js-ts",
+      "web-accessibility"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "backend-engineer",
+    "toCareerId": "data-engineer",
+    "sharedCapabilityIds": [
+      "data-modeling",
+      "sql-relational",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "cloud-fundamentals",
+      "data-pipelines",
+      "dbt-transform",
+      "etl-elt",
+      "programming-python",
+      "warehouses-lakes"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "backend-engineer",
+    "toCareerId": "devops-engineer",
+    "sharedCapabilityIds": [
+      "containers",
+      "git-version-control",
+      "observability",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "cicd",
+      "cloud-fundamentals",
+      "linux-cli",
+      "networking",
+      "security-fundamentals"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.4444
+  },
+  {
+    "fromCareerId": "full-stack-engineer",
+    "toCareerId": "frontend-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "frontend-engineering",
+      "git-version-control",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "documentation",
+      "interaction-design",
+      "web-accessibility"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.625
+  },
+  {
+    "fromCareerId": "full-stack-engineer",
+    "toCareerId": "backend-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "backend-engineering",
+      "containers",
+      "git-version-control",
+      "sql-relational",
+      "system-design",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "data-modeling",
+      "observability"
+    ],
+    "sharedCount": 7,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.7778
+  },
+  {
+    "fromCareerId": "full-stack-engineer",
+    "toCareerId": "mobile-app-developer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "accessibility-inclusive-design",
+      "interaction-design",
+      "mobile-development"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "full-stack-engineer",
+    "toCareerId": "software-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "programming-js-ts",
+      "system-design",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "data-structures-algorithms",
+      "documentation",
+      "programming-python"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.5556
+  },
+  {
+    "fromCareerId": "full-stack-engineer",
+    "toCareerId": "data-engineer",
+    "sharedCapabilityIds": [
+      "sql-relational",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "cloud-fundamentals",
+      "data-modeling",
+      "data-pipelines",
+      "dbt-transform",
+      "etl-elt",
+      "programming-python",
+      "warehouses-lakes"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.2222
+  },
+  {
+    "fromCareerId": "full-stack-engineer",
+    "toCareerId": "ai-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "containers",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "machine-learning",
+      "mlops",
+      "model-evaluation",
+      "nlp-llms",
+      "programming-python",
+      "responsible-ai"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "mobile-app-developer",
+    "toCareerId": "frontend-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "interaction-design",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "documentation",
+      "frontend-engineering",
+      "web-accessibility"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.625
+  },
+  {
+    "fromCareerId": "mobile-app-developer",
+    "toCareerId": "software-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "data-structures-algorithms",
+      "documentation",
+      "programming-python",
+      "system-design"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.4444
+  },
+  {
+    "fromCareerId": "mobile-app-developer",
+    "toCareerId": "full-stack-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "backend-engineering",
+      "containers",
+      "frontend-engineering",
+      "sql-relational",
+      "system-design"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.4444
+  },
+  {
+    "fromCareerId": "mobile-app-developer",
+    "toCareerId": "backend-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "backend-engineering",
+      "containers",
+      "data-modeling",
+      "observability",
+      "sql-relational",
+      "system-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "mobile-app-developer",
+    "toCareerId": "ux-designer",
+    "sharedCapabilityIds": [
+      "accessibility-inclusive-design",
+      "interaction-design"
+    ],
+    "newCapabilityIds": [
+      "human-centered-design",
+      "information-architecture",
+      "prototyping",
+      "stakeholder-communication",
+      "usability-testing",
+      "visual-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "mobile-app-developer",
+    "toCareerId": "product-designer",
+    "sharedCapabilityIds": [
+      "accessibility-inclusive-design",
+      "interaction-design"
+    ],
+    "newCapabilityIds": [
+      "design-systems",
+      "human-centered-design",
+      "product-discovery",
+      "prototyping",
+      "usability-testing",
+      "visual-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "devops-engineer",
+    "toCareerId": "cloud-engineer",
+    "sharedCapabilityIds": [
+      "cicd",
+      "cloud-fundamentals",
+      "containers",
+      "linux-cli",
+      "networking",
+      "observability",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "identity-access"
+    ],
+    "sharedCount": 7,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.875
+  },
+  {
+    "fromCareerId": "devops-engineer",
+    "toCareerId": "backend-engineer",
+    "sharedCapabilityIds": [
+      "containers",
+      "git-version-control",
+      "observability",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "backend-engineering",
+      "data-modeling",
+      "sql-relational",
+      "testing-quality"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.4444
+  },
+  {
+    "fromCareerId": "devops-engineer",
+    "toCareerId": "cybersecurity-analyst",
+    "sharedCapabilityIds": [
+      "linux-cli",
+      "networking",
+      "security-fundamentals"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "documentation",
+      "identity-access",
+      "incident-response",
+      "threat-modeling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "devops-engineer",
+    "toCareerId": "security-engineer",
+    "sharedCapabilityIds": [
+      "networking",
+      "security-fundamentals",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "appsec",
+      "identity-access",
+      "programming-python",
+      "testing-quality",
+      "threat-modeling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "devops-engineer",
+    "toCareerId": "ai-engineer",
+    "sharedCapabilityIds": [
+      "containers",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "machine-learning",
+      "mlops",
+      "model-evaluation",
+      "nlp-llms",
+      "programming-python",
+      "responsible-ai"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.2222
+  },
+  {
+    "fromCareerId": "devops-engineer",
+    "toCareerId": "machine-learning-engineer",
+    "sharedCapabilityIds": [
+      "containers",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "deep-learning",
+      "feature-engineering",
+      "machine-learning",
+      "mlops",
+      "model-evaluation",
+      "programming-python"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.2222
+  },
+  {
+    "fromCareerId": "cloud-engineer",
+    "toCareerId": "devops-engineer",
+    "sharedCapabilityIds": [
+      "cicd",
+      "cloud-fundamentals",
+      "containers",
+      "linux-cli",
+      "networking",
+      "observability",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "git-version-control",
+      "security-fundamentals"
+    ],
+    "sharedCount": 7,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.7778
+  },
+  {
+    "fromCareerId": "cloud-engineer",
+    "toCareerId": "cybersecurity-analyst",
+    "sharedCapabilityIds": [
+      "identity-access",
+      "linux-cli",
+      "networking"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "documentation",
+      "incident-response",
+      "security-fundamentals",
+      "threat-modeling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "cloud-engineer",
+    "toCareerId": "security-engineer",
+    "sharedCapabilityIds": [
+      "identity-access",
+      "networking",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "appsec",
+      "programming-python",
+      "security-fundamentals",
+      "testing-quality",
+      "threat-modeling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "cloud-engineer",
+    "toCareerId": "backend-engineer",
+    "sharedCapabilityIds": [
+      "containers",
+      "observability",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "backend-engineering",
+      "data-modeling",
+      "git-version-control",
+      "sql-relational",
+      "testing-quality"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "cloud-engineer",
+    "toCareerId": "ai-engineer",
+    "sharedCapabilityIds": [
+      "containers",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "machine-learning",
+      "mlops",
+      "model-evaluation",
+      "nlp-llms",
+      "programming-python",
+      "responsible-ai"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.2222
+  },
+  {
+    "fromCareerId": "cloud-engineer",
+    "toCareerId": "machine-learning-engineer",
+    "sharedCapabilityIds": [
+      "containers",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "deep-learning",
+      "feature-engineering",
+      "machine-learning",
+      "mlops",
+      "model-evaluation",
+      "programming-python"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.2222
+  },
+  {
+    "fromCareerId": "cybersecurity-analyst",
+    "toCareerId": "security-engineer",
+    "sharedCapabilityIds": [
+      "identity-access",
+      "networking",
+      "security-fundamentals",
+      "threat-modeling"
+    ],
+    "newCapabilityIds": [
+      "appsec",
+      "programming-python",
+      "system-design",
+      "testing-quality"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "cybersecurity-analyst",
+    "toCareerId": "cloud-engineer",
+    "sharedCapabilityIds": [
+      "identity-access",
+      "linux-cli",
+      "networking"
+    ],
+    "newCapabilityIds": [
+      "cicd",
+      "cloud-fundamentals",
+      "containers",
+      "observability",
+      "system-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "cybersecurity-analyst",
+    "toCareerId": "auditor",
+    "sharedCapabilityIds": [
+      "critical-thinking",
+      "documentation"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "financial-statements",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "cybersecurity-analyst",
+    "toCareerId": "devops-engineer",
+    "sharedCapabilityIds": [
+      "linux-cli",
+      "networking",
+      "security-fundamentals"
+    ],
+    "newCapabilityIds": [
+      "cicd",
+      "cloud-fundamentals",
+      "containers",
+      "git-version-control",
+      "observability",
+      "system-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "cybersecurity-analyst",
+    "toCareerId": "technical-writer",
+    "sharedCapabilityIds": [
+      "critical-thinking",
+      "documentation"
+    ],
+    "newCapabilityIds": [
+      "communication",
+      "content-design",
+      "git-version-control",
+      "information-architecture",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "cybersecurity-analyst",
+    "toCareerId": "strategy-analyst",
+    "sharedCapabilityIds": [
+      "critical-thinking"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "economics-market-analysis",
+      "financial-modeling",
+      "market-research",
+      "presentation-storytelling",
+      "strategy"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "security-engineer",
+    "toCareerId": "cybersecurity-analyst",
+    "sharedCapabilityIds": [
+      "identity-access",
+      "networking",
+      "security-fundamentals",
+      "threat-modeling"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "documentation",
+      "incident-response",
+      "linux-cli"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "security-engineer",
+    "toCareerId": "cloud-engineer",
+    "sharedCapabilityIds": [
+      "identity-access",
+      "networking",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "cicd",
+      "cloud-fundamentals",
+      "containers",
+      "linux-cli",
+      "observability"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "security-engineer",
+    "toCareerId": "software-engineer",
+    "sharedCapabilityIds": [
+      "programming-python",
+      "system-design",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "collaboration",
+      "data-structures-algorithms",
+      "documentation",
+      "git-version-control",
+      "programming-js-ts"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "security-engineer",
+    "toCareerId": "devops-engineer",
+    "sharedCapabilityIds": [
+      "networking",
+      "security-fundamentals",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "cicd",
+      "cloud-fundamentals",
+      "containers",
+      "git-version-control",
+      "linux-cli",
+      "observability"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "security-engineer",
+    "toCareerId": "backend-engineer",
+    "sharedCapabilityIds": [
+      "system-design",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "backend-engineering",
+      "containers",
+      "data-modeling",
+      "git-version-control",
+      "observability",
+      "sql-relational"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.2222
+  },
+  {
+    "fromCareerId": "security-engineer",
+    "toCareerId": "ai-engineer",
+    "sharedCapabilityIds": [
+      "programming-python",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "containers",
+      "machine-learning",
+      "mlops",
+      "model-evaluation",
+      "nlp-llms",
+      "responsible-ai"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.2222
+  },
+  {
+    "fromCareerId": "data-analyst",
+    "toCareerId": "business-intelligence-analyst",
+    "sharedCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "data-visualization",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "data-modeling",
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "data-analyst",
+    "toCareerId": "data-journalist",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "data-wrangling",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "ethics-privacy",
+      "literature-review"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "data-analyst",
+    "toCareerId": "product-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "experimentation-ab",
+      "product-analytics",
+      "product-discovery",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "data-analyst",
+    "toCareerId": "data-scientist",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "data-wrangling",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "experimentation-ab",
+      "machine-learning",
+      "model-evaluation",
+      "probability",
+      "programming-python"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.4444
+  },
+  {
+    "fromCareerId": "data-analyst",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "market-research",
+      "qualitative-analysis",
+      "survey-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "data-analyst",
+    "toCareerId": "people-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "hr-analytics",
+      "people-ops",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "business-intelligence-analyst",
+    "toCareerId": "data-analyst",
+    "sharedCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "data-visualization",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "data-wrangling",
+      "presentation-storytelling",
+      "quantitative-reasoning",
+      "statistics"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "business-intelligence-analyst",
+    "toCareerId": "product-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "experimentation-ab",
+      "product-analytics",
+      "product-discovery",
+      "statistics"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "business-intelligence-analyst",
+    "toCareerId": "data-engineer",
+    "sharedCapabilityIds": [
+      "data-modeling",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "cloud-fundamentals",
+      "data-pipelines",
+      "dbt-transform",
+      "etl-elt",
+      "programming-python",
+      "testing-quality",
+      "warehouses-lakes"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.2222
+  },
+  {
+    "fromCareerId": "business-intelligence-analyst",
+    "toCareerId": "operations-analyst",
+    "sharedCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "decision-making",
+      "operations-analysis",
+      "process-mapping",
+      "project-management"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "business-intelligence-analyst",
+    "toCareerId": "business-analyst",
+    "sharedCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "sql-relational",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "problem-framing",
+      "process-mapping",
+      "requirements-writing"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "business-intelligence-analyst",
+    "toCareerId": "people-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "hr-analytics",
+      "people-ops",
+      "statistics"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "data-engineer",
+    "toCareerId": "business-intelligence-analyst",
+    "sharedCapabilityIds": [
+      "data-modeling",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "data-visualization",
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "data-engineer",
+    "toCareerId": "backend-engineer",
+    "sharedCapabilityIds": [
+      "data-modeling",
+      "sql-relational",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "backend-engineering",
+      "containers",
+      "git-version-control",
+      "observability",
+      "system-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "data-engineer",
+    "toCareerId": "product-analyst",
+    "sharedCapabilityIds": [
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "experimentation-ab",
+      "product-analytics",
+      "product-discovery",
+      "stakeholder-communication",
+      "statistics"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "data-engineer",
+    "toCareerId": "data-analyst",
+    "sharedCapabilityIds": [
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "data-visualization",
+      "data-wrangling",
+      "presentation-storytelling",
+      "quantitative-reasoning",
+      "statistics"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.125
+  },
+  {
+    "fromCareerId": "data-engineer",
+    "toCareerId": "software-engineer",
+    "sharedCapabilityIds": [
+      "programming-python",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "collaboration",
+      "data-structures-algorithms",
+      "documentation",
+      "git-version-control",
+      "programming-js-ts",
+      "system-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.2222
+  },
+  {
+    "fromCareerId": "data-engineer",
+    "toCareerId": "full-stack-engineer",
+    "sharedCapabilityIds": [
+      "sql-relational",
+      "testing-quality"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "backend-engineering",
+      "containers",
+      "frontend-engineering",
+      "git-version-control",
+      "programming-js-ts",
+      "system-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.2222
+  },
+  {
+    "fromCareerId": "data-scientist",
+    "toCareerId": "ai-engineer",
+    "sharedCapabilityIds": [
+      "machine-learning",
+      "model-evaluation",
+      "programming-python"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "containers",
+      "mlops",
+      "nlp-llms",
+      "responsible-ai",
+      "system-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "data-scientist",
+    "toCareerId": "machine-learning-engineer",
+    "sharedCapabilityIds": [
+      "machine-learning",
+      "model-evaluation",
+      "programming-python"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "containers",
+      "deep-learning",
+      "feature-engineering",
+      "mlops",
+      "system-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "data-scientist",
+    "toCareerId": "data-journalist",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "data-wrangling",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "ethics-privacy",
+      "literature-review"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "data-scientist",
+    "toCareerId": "data-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "data-wrangling",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "quantitative-reasoning",
+      "sql-relational"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "data-scientist",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "market-research",
+      "qualitative-analysis",
+      "survey-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "data-scientist",
+    "toCareerId": "product-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "experimentation-ab",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "product-analytics",
+      "product-discovery",
+      "sql-relational",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "machine-learning-engineer",
+    "toCareerId": "ai-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "containers",
+      "machine-learning",
+      "mlops",
+      "model-evaluation",
+      "programming-python",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "nlp-llms",
+      "responsible-ai"
+    ],
+    "sharedCount": 7,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.7778
+  },
+  {
+    "fromCareerId": "machine-learning-engineer",
+    "toCareerId": "data-scientist",
+    "sharedCapabilityIds": [
+      "machine-learning",
+      "model-evaluation",
+      "programming-python"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "data-wrangling",
+      "experimentation-ab",
+      "presentation-storytelling",
+      "probability",
+      "statistics"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "machine-learning-engineer",
+    "toCareerId": "backend-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "containers",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "backend-engineering",
+      "data-modeling",
+      "git-version-control",
+      "observability",
+      "sql-relational",
+      "testing-quality"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "machine-learning-engineer",
+    "toCareerId": "software-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "programming-python",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "data-structures-algorithms",
+      "documentation",
+      "git-version-control",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "machine-learning-engineer",
+    "toCareerId": "cloud-engineer",
+    "sharedCapabilityIds": [
+      "containers",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "cicd",
+      "cloud-fundamentals",
+      "identity-access",
+      "linux-cli",
+      "networking",
+      "observability"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "machine-learning-engineer",
+    "toCareerId": "security-engineer",
+    "sharedCapabilityIds": [
+      "programming-python",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "appsec",
+      "identity-access",
+      "networking",
+      "security-fundamentals",
+      "testing-quality",
+      "threat-modeling"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "ai-engineer",
+    "toCareerId": "machine-learning-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "containers",
+      "machine-learning",
+      "mlops",
+      "model-evaluation",
+      "programming-python",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "deep-learning",
+      "feature-engineering"
+    ],
+    "sharedCount": 7,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.7778
+  },
+  {
+    "fromCareerId": "ai-engineer",
+    "toCareerId": "data-scientist",
+    "sharedCapabilityIds": [
+      "machine-learning",
+      "model-evaluation",
+      "programming-python"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "data-wrangling",
+      "experimentation-ab",
+      "presentation-storytelling",
+      "probability",
+      "statistics"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "ai-engineer",
+    "toCareerId": "backend-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "containers",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "backend-engineering",
+      "data-modeling",
+      "git-version-control",
+      "observability",
+      "sql-relational",
+      "testing-quality"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "ai-engineer",
+    "toCareerId": "software-engineer",
+    "sharedCapabilityIds": [
+      "api-design",
+      "programming-python",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "data-structures-algorithms",
+      "documentation",
+      "git-version-control",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "ai-engineer",
+    "toCareerId": "cloud-engineer",
+    "sharedCapabilityIds": [
+      "containers",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "cicd",
+      "cloud-fundamentals",
+      "identity-access",
+      "linux-cli",
+      "networking",
+      "observability"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "ai-engineer",
+    "toCareerId": "security-engineer",
+    "sharedCapabilityIds": [
+      "programming-python",
+      "system-design"
+    ],
+    "newCapabilityIds": [
+      "appsec",
+      "identity-access",
+      "networking",
+      "security-fundamentals",
+      "testing-quality",
+      "threat-modeling"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "ux-researcher",
+    "toCareerId": "design-researcher",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "interview-moderation",
+      "stakeholder-communication",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "newCapabilityIds": [
+      "qualitative-analysis",
+      "research-design"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.7143
+  },
+  {
+    "fromCareerId": "ux-researcher",
+    "toCareerId": "service-designer",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "stakeholder-communication",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "collaboration",
+      "process-mapping",
+      "service-design"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "ux-researcher",
+    "toCareerId": "ux-designer",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "stakeholder-communication",
+      "usability-testing"
+    ],
+    "newCapabilityIds": [
+      "accessibility-inclusive-design",
+      "information-architecture",
+      "interaction-design",
+      "prototyping",
+      "visual-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "ux-researcher",
+    "toCareerId": "product-designer",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "usability-testing"
+    ],
+    "newCapabilityIds": [
+      "accessibility-inclusive-design",
+      "design-systems",
+      "interaction-design",
+      "product-discovery",
+      "prototyping",
+      "visual-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "ux-researcher",
+    "toCareerId": "people-analyst",
+    "sharedCapabilityIds": [
+      "ethics-privacy",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "hr-analytics",
+      "people-ops",
+      "sql-relational",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "ux-researcher",
+    "toCareerId": "talent-acquisition-specialist",
+    "sharedCapabilityIds": [
+      "ethics-privacy",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "documentation",
+      "interviewing-hiring",
+      "people-ops",
+      "recruiting"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "ux-designer",
+    "toCareerId": "product-designer",
+    "sharedCapabilityIds": [
+      "accessibility-inclusive-design",
+      "human-centered-design",
+      "interaction-design",
+      "prototyping",
+      "usability-testing",
+      "visual-design"
+    ],
+    "newCapabilityIds": [
+      "design-systems",
+      "product-discovery"
+    ],
+    "sharedCount": 6,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.75
+  },
+  {
+    "fromCareerId": "ux-designer",
+    "toCareerId": "content-designer",
+    "sharedCapabilityIds": [
+      "accessibility-inclusive-design",
+      "human-centered-design",
+      "information-architecture"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "content-design",
+      "copywriting",
+      "ux-research-methods"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "ux-designer",
+    "toCareerId": "ux-researcher",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "stakeholder-communication",
+      "usability-testing"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "interview-moderation",
+      "participant-recruiting",
+      "research-planning",
+      "survey-design",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 10,
+    "overlapFraction": 0.3
+  },
+  {
+    "fromCareerId": "ux-designer",
+    "toCareerId": "service-designer",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "collaboration",
+      "process-mapping",
+      "service-design",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "ux-designer",
+    "toCareerId": "technical-writer",
+    "sharedCapabilityIds": [
+      "information-architecture",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "communication",
+      "content-design",
+      "critical-thinking",
+      "documentation",
+      "git-version-control"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "ux-designer",
+    "toCareerId": "design-researcher",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "interview-moderation",
+      "qualitative-analysis",
+      "research-design",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "product-designer",
+    "toCareerId": "ux-designer",
+    "sharedCapabilityIds": [
+      "accessibility-inclusive-design",
+      "human-centered-design",
+      "interaction-design",
+      "prototyping",
+      "usability-testing",
+      "visual-design"
+    ],
+    "newCapabilityIds": [
+      "information-architecture",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 6,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.75
+  },
+  {
+    "fromCareerId": "product-designer",
+    "toCareerId": "content-designer",
+    "sharedCapabilityIds": [
+      "accessibility-inclusive-design",
+      "human-centered-design"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "content-design",
+      "copywriting",
+      "information-architecture",
+      "ux-research-methods"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "product-designer",
+    "toCareerId": "ux-researcher",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "usability-testing"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "interview-moderation",
+      "participant-recruiting",
+      "research-planning",
+      "stakeholder-communication",
+      "survey-design",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 10,
+    "overlapFraction": 0.2
+  },
+  {
+    "fromCareerId": "product-designer",
+    "toCareerId": "service-designer",
+    "sharedCapabilityIds": [
+      "human-centered-design"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "collaboration",
+      "process-mapping",
+      "service-design",
+      "stakeholder-communication",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.125
+  },
+  {
+    "fromCareerId": "product-designer",
+    "toCareerId": "mobile-app-developer",
+    "sharedCapabilityIds": [
+      "accessibility-inclusive-design",
+      "interaction-design"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "git-version-control",
+      "mobile-development",
+      "programming-js-ts",
+      "testing-quality"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "product-designer",
+    "toCareerId": "technical-product-manager",
+    "sharedCapabilityIds": [
+      "product-discovery"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "product-analytics",
+      "product-strategy",
+      "requirements-writing",
+      "roadmap-prioritization",
+      "stakeholder-communication",
+      "system-design"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.125
+  },
+  {
+    "fromCareerId": "service-designer",
+    "toCareerId": "ux-researcher",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "stakeholder-communication",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "interview-moderation",
+      "participant-recruiting",
+      "research-planning",
+      "survey-design",
+      "usability-testing"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 10,
+    "overlapFraction": 0.4
+  },
+  {
+    "fromCareerId": "service-designer",
+    "toCareerId": "program-manager",
+    "sharedCapabilityIds": [
+      "change-management",
+      "collaboration",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "decision-making",
+      "program-management",
+      "project-management",
+      "risk-analysis"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "service-designer",
+    "toCareerId": "design-researcher",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "stakeholder-communication",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "newCapabilityIds": [
+      "interview-moderation",
+      "qualitative-analysis",
+      "research-design"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "service-designer",
+    "toCareerId": "project-manager",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "decision-making",
+      "documentation",
+      "project-management",
+      "risk-analysis"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "service-designer",
+    "toCareerId": "business-analyst",
+    "sharedCapabilityIds": [
+      "process-mapping",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "problem-framing",
+      "requirements-writing",
+      "sql-relational"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "service-designer",
+    "toCareerId": "product-manager",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "product-analytics",
+      "product-discovery",
+      "product-strategy",
+      "requirements-writing",
+      "roadmap-prioritization"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "product-manager",
+    "toCareerId": "technical-product-manager",
+    "sharedCapabilityIds": [
+      "product-analytics",
+      "product-discovery",
+      "product-strategy",
+      "requirements-writing",
+      "roadmap-prioritization",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "system-design"
+    ],
+    "sharedCount": 6,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.75
+  },
+  {
+    "fromCareerId": "product-manager",
+    "toCareerId": "project-manager",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "decision-making",
+      "documentation",
+      "project-management",
+      "risk-analysis"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "product-manager",
+    "toCareerId": "business-analyst",
+    "sharedCapabilityIds": [
+      "requirements-writing",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "problem-framing",
+      "process-mapping",
+      "sql-relational"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "product-manager",
+    "toCareerId": "program-manager",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "decision-making",
+      "program-management",
+      "project-management",
+      "risk-analysis"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "product-manager",
+    "toCareerId": "service-designer",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "human-centered-design",
+      "process-mapping",
+      "service-design",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "product-manager",
+    "toCareerId": "management-consultant",
+    "sharedCapabilityIds": [
+      "business-case",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "consulting-problem-solving",
+      "market-research",
+      "presentation-storytelling",
+      "quantitative-reasoning",
+      "strategy"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "technical-product-manager",
+    "toCareerId": "product-manager",
+    "sharedCapabilityIds": [
+      "product-analytics",
+      "product-discovery",
+      "product-strategy",
+      "requirements-writing",
+      "roadmap-prioritization",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "collaboration"
+    ],
+    "sharedCount": 6,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.75
+  },
+  {
+    "fromCareerId": "technical-product-manager",
+    "toCareerId": "business-analyst",
+    "sharedCapabilityIds": [
+      "requirements-writing",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "problem-framing",
+      "process-mapping",
+      "sql-relational"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "technical-product-manager",
+    "toCareerId": "learning-development-specialist",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "learning-development",
+      "people-ops",
+      "presentation-storytelling",
+      "project-management",
+      "research-design"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.1667
+  },
+  {
+    "fromCareerId": "technical-product-manager",
+    "toCareerId": "product-analyst",
+    "sharedCapabilityIds": [
+      "product-analytics",
+      "product-discovery",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "experimentation-ab",
+      "sql-relational",
+      "statistics"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "technical-product-manager",
+    "toCareerId": "talent-acquisition-specialist",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "documentation",
+      "ethics-privacy",
+      "interviewing-hiring",
+      "people-ops",
+      "recruiting"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.1667
+  },
+  {
+    "fromCareerId": "technical-product-manager",
+    "toCareerId": "project-manager",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "decision-making",
+      "documentation",
+      "project-management",
+      "risk-analysis"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.1667
+  },
+  {
+    "fromCareerId": "product-analyst",
+    "toCareerId": "data-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "data-wrangling",
+      "presentation-storytelling",
+      "quantitative-reasoning"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "product-analyst",
+    "toCareerId": "business-intelligence-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "data-modeling",
+      "documentation"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "product-analyst",
+    "toCareerId": "people-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational",
+      "stakeholder-communication",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "hr-analytics",
+      "people-ops"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "product-analyst",
+    "toCareerId": "data-scientist",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "experimentation-ab",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "data-wrangling",
+      "machine-learning",
+      "model-evaluation",
+      "presentation-storytelling",
+      "probability",
+      "programming-python"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "product-analyst",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "market-research",
+      "presentation-storytelling",
+      "qualitative-analysis",
+      "survey-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "product-analyst",
+    "toCareerId": "data-journalist",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "data-wrangling",
+      "ethics-privacy",
+      "literature-review",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "content-designer",
+    "toCareerId": "ux-designer",
+    "sharedCapabilityIds": [
+      "accessibility-inclusive-design",
+      "human-centered-design",
+      "information-architecture"
+    ],
+    "newCapabilityIds": [
+      "interaction-design",
+      "prototyping",
+      "stakeholder-communication",
+      "usability-testing",
+      "visual-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "content-designer",
+    "toCareerId": "service-designer",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "human-centered-design",
+      "ux-research-methods"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "process-mapping",
+      "service-design",
+      "stakeholder-communication",
+      "synthesis-insights"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "content-designer",
+    "toCareerId": "technical-writer",
+    "sharedCapabilityIds": [
+      "content-design",
+      "information-architecture"
+    ],
+    "newCapabilityIds": [
+      "communication",
+      "critical-thinking",
+      "documentation",
+      "git-version-control",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "content-designer",
+    "toCareerId": "product-designer",
+    "sharedCapabilityIds": [
+      "accessibility-inclusive-design",
+      "human-centered-design"
+    ],
+    "newCapabilityIds": [
+      "design-systems",
+      "interaction-design",
+      "product-discovery",
+      "prototyping",
+      "usability-testing",
+      "visual-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "content-designer",
+    "toCareerId": "ux-researcher",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "ux-research-methods"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "interview-moderation",
+      "participant-recruiting",
+      "research-planning",
+      "stakeholder-communication",
+      "survey-design",
+      "synthesis-insights",
+      "usability-testing"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 10,
+    "overlapFraction": 0.2
+  },
+  {
+    "fromCareerId": "content-designer",
+    "toCareerId": "design-researcher",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "ux-research-methods"
+    ],
+    "newCapabilityIds": [
+      "interview-moderation",
+      "qualitative-analysis",
+      "research-design",
+      "stakeholder-communication",
+      "synthesis-insights"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "design-researcher",
+    "toCareerId": "ux-researcher",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "interview-moderation",
+      "stakeholder-communication",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "participant-recruiting",
+      "research-planning",
+      "survey-design",
+      "usability-testing"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 10,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "design-researcher",
+    "toCareerId": "social-science-researcher",
+    "sharedCapabilityIds": [
+      "qualitative-analysis",
+      "research-design"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "literature-review",
+      "presentation-storytelling",
+      "statistics",
+      "survey-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "design-researcher",
+    "toCareerId": "service-designer",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "stakeholder-communication",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "collaboration",
+      "process-mapping",
+      "service-design"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "design-researcher",
+    "toCareerId": "research-assistant",
+    "sharedCapabilityIds": [
+      "qualitative-analysis",
+      "research-design"
+    ],
+    "newCapabilityIds": [
+      "data-wrangling",
+      "documentation",
+      "ethics-privacy",
+      "literature-review",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "design-researcher",
+    "toCareerId": "ux-designer",
+    "sharedCapabilityIds": [
+      "human-centered-design",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "accessibility-inclusive-design",
+      "information-architecture",
+      "interaction-design",
+      "prototyping",
+      "usability-testing",
+      "visual-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "design-researcher",
+    "toCareerId": "learning-development-specialist",
+    "sharedCapabilityIds": [
+      "research-design",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "learning-development",
+      "people-ops",
+      "presentation-storytelling",
+      "project-management"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "market-research-analyst",
+    "toCareerId": "brand-strategist",
+    "sharedCapabilityIds": [
+      "customer-segmentation",
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "content-strategy",
+      "critical-thinking"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "market-research-analyst",
+    "toCareerId": "social-science-researcher",
+    "sharedCapabilityIds": [
+      "presentation-storytelling",
+      "qualitative-analysis",
+      "statistics",
+      "survey-design"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "literature-review",
+      "research-design"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "market-research-analyst",
+    "toCareerId": "data-journalist",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "data-wrangling",
+      "ethics-privacy",
+      "literature-review"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "market-research-analyst",
+    "toCareerId": "data-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "data-wrangling",
+      "quantitative-reasoning",
+      "sql-relational"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "market-research-analyst",
+    "toCareerId": "product-marketing-manager",
+    "sharedCapabilityIds": [
+      "customer-segmentation",
+      "market-research"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "copywriting",
+      "go-to-market",
+      "product-marketing",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "market-research-analyst",
+    "toCareerId": "data-scientist",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "data-wrangling",
+      "experimentation-ab",
+      "machine-learning",
+      "model-evaluation",
+      "probability",
+      "programming-python"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "financial-analyst",
+    "toCareerId": "fpa-analyst",
+    "sharedCapabilityIds": [
+      "accounting",
+      "budgeting-forecasting",
+      "excel-modeling",
+      "financial-modeling",
+      "financial-statements",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "business-analysis"
+    ],
+    "sharedCount": 6,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.8571
+  },
+  {
+    "fromCareerId": "financial-analyst",
+    "toCareerId": "accountant",
+    "sharedCapabilityIds": [
+      "accounting",
+      "excel-modeling",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "audit-controls",
+      "documentation",
+      "ethics-privacy"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "financial-analyst",
+    "toCareerId": "investment-analyst",
+    "sharedCapabilityIds": [
+      "excel-modeling",
+      "financial-statements",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "economics-market-analysis",
+      "investment-research",
+      "risk-analysis",
+      "valuation"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "financial-analyst",
+    "toCareerId": "equity-research-analyst",
+    "sharedCapabilityIds": [
+      "financial-modeling",
+      "financial-statements",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "economics-market-analysis",
+      "investment-research",
+      "risk-analysis",
+      "valuation"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "financial-analyst",
+    "toCareerId": "auditor",
+    "sharedCapabilityIds": [
+      "accounting",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "audit-controls",
+      "critical-thinking",
+      "documentation",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "financial-analyst",
+    "toCareerId": "strategy-analyst",
+    "sharedCapabilityIds": [
+      "financial-modeling",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "critical-thinking",
+      "economics-market-analysis",
+      "market-research",
+      "strategy"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "fpa-analyst",
+    "toCareerId": "financial-analyst",
+    "sharedCapabilityIds": [
+      "accounting",
+      "budgeting-forecasting",
+      "excel-modeling",
+      "financial-modeling",
+      "financial-statements",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "corporate-finance"
+    ],
+    "sharedCount": 6,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.8571
+  },
+  {
+    "fromCareerId": "fpa-analyst",
+    "toCareerId": "equity-research-analyst",
+    "sharedCapabilityIds": [
+      "financial-modeling",
+      "financial-statements",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "economics-market-analysis",
+      "investment-research",
+      "risk-analysis",
+      "valuation"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "fpa-analyst",
+    "toCareerId": "accountant",
+    "sharedCapabilityIds": [
+      "accounting",
+      "excel-modeling",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "audit-controls",
+      "documentation",
+      "ethics-privacy"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "fpa-analyst",
+    "toCareerId": "investment-analyst",
+    "sharedCapabilityIds": [
+      "excel-modeling",
+      "financial-statements",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "economics-market-analysis",
+      "investment-research",
+      "risk-analysis",
+      "valuation"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "fpa-analyst",
+    "toCareerId": "auditor",
+    "sharedCapabilityIds": [
+      "accounting",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "audit-controls",
+      "critical-thinking",
+      "documentation",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "fpa-analyst",
+    "toCareerId": "data-analyst",
+    "sharedCapabilityIds": [
+      "business-analysis",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "data-visualization",
+      "data-wrangling",
+      "quantitative-reasoning",
+      "sql-relational",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "investment-analyst",
+    "toCareerId": "equity-research-analyst",
+    "sharedCapabilityIds": [
+      "economics-market-analysis",
+      "financial-statements",
+      "investment-research",
+      "presentation-storytelling",
+      "risk-analysis",
+      "valuation"
+    ],
+    "newCapabilityIds": [
+      "financial-modeling"
+    ],
+    "sharedCount": 6,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.8571
+  },
+  {
+    "fromCareerId": "investment-analyst",
+    "toCareerId": "financial-analyst",
+    "sharedCapabilityIds": [
+      "excel-modeling",
+      "financial-statements",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "budgeting-forecasting",
+      "corporate-finance",
+      "financial-modeling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "investment-analyst",
+    "toCareerId": "fpa-analyst",
+    "sharedCapabilityIds": [
+      "excel-modeling",
+      "financial-statements",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "budgeting-forecasting",
+      "business-analysis",
+      "financial-modeling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "investment-analyst",
+    "toCareerId": "accountant",
+    "sharedCapabilityIds": [
+      "excel-modeling",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "documentation",
+      "ethics-privacy"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "investment-analyst",
+    "toCareerId": "auditor",
+    "sharedCapabilityIds": [
+      "financial-statements",
+      "risk-analysis"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "critical-thinking",
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "investment-analyst",
+    "toCareerId": "strategy-analyst",
+    "sharedCapabilityIds": [
+      "economics-market-analysis",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "critical-thinking",
+      "financial-modeling",
+      "market-research",
+      "strategy"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "equity-research-analyst",
+    "toCareerId": "investment-analyst",
+    "sharedCapabilityIds": [
+      "economics-market-analysis",
+      "financial-statements",
+      "investment-research",
+      "presentation-storytelling",
+      "risk-analysis",
+      "valuation"
+    ],
+    "newCapabilityIds": [
+      "excel-modeling"
+    ],
+    "sharedCount": 6,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.8571
+  },
+  {
+    "fromCareerId": "equity-research-analyst",
+    "toCareerId": "financial-analyst",
+    "sharedCapabilityIds": [
+      "financial-modeling",
+      "financial-statements",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "budgeting-forecasting",
+      "corporate-finance",
+      "excel-modeling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "equity-research-analyst",
+    "toCareerId": "fpa-analyst",
+    "sharedCapabilityIds": [
+      "financial-modeling",
+      "financial-statements",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "budgeting-forecasting",
+      "business-analysis",
+      "excel-modeling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "equity-research-analyst",
+    "toCareerId": "strategy-analyst",
+    "sharedCapabilityIds": [
+      "economics-market-analysis",
+      "financial-modeling",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "critical-thinking",
+      "market-research",
+      "strategy"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "equity-research-analyst",
+    "toCareerId": "auditor",
+    "sharedCapabilityIds": [
+      "financial-statements",
+      "risk-analysis"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "critical-thinking",
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "equity-research-analyst",
+    "toCareerId": "accountant",
+    "sharedCapabilityIds": [
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "documentation",
+      "ethics-privacy",
+      "excel-modeling"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.1667
+  },
+  {
+    "fromCareerId": "accountant",
+    "toCareerId": "auditor",
+    "sharedCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "documentation",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "accountant",
+    "toCareerId": "financial-analyst",
+    "sharedCapabilityIds": [
+      "accounting",
+      "excel-modeling",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "budgeting-forecasting",
+      "corporate-finance",
+      "financial-modeling",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "accountant",
+    "toCareerId": "fpa-analyst",
+    "sharedCapabilityIds": [
+      "accounting",
+      "excel-modeling",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "budgeting-forecasting",
+      "business-analysis",
+      "financial-modeling",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "accountant",
+    "toCareerId": "investment-analyst",
+    "sharedCapabilityIds": [
+      "excel-modeling",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "economics-market-analysis",
+      "investment-research",
+      "presentation-storytelling",
+      "risk-analysis",
+      "valuation"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "accountant",
+    "toCareerId": "research-assistant",
+    "sharedCapabilityIds": [
+      "documentation",
+      "ethics-privacy"
+    ],
+    "newCapabilityIds": [
+      "data-wrangling",
+      "literature-review",
+      "qualitative-analysis",
+      "research-design",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "accountant",
+    "toCareerId": "talent-acquisition-specialist",
+    "sharedCapabilityIds": [
+      "documentation",
+      "ethics-privacy"
+    ],
+    "newCapabilityIds": [
+      "interviewing-hiring",
+      "people-ops",
+      "recruiting",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "auditor",
+    "toCareerId": "accountant",
+    "sharedCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "documentation",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "excel-modeling"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.6667
+  },
+  {
+    "fromCareerId": "auditor",
+    "toCareerId": "technical-writer",
+    "sharedCapabilityIds": [
+      "critical-thinking",
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "communication",
+      "content-design",
+      "git-version-control",
+      "information-architecture"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "auditor",
+    "toCareerId": "project-manager",
+    "sharedCapabilityIds": [
+      "documentation",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "decision-making",
+      "project-management"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "auditor",
+    "toCareerId": "financial-analyst",
+    "sharedCapabilityIds": [
+      "accounting",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "budgeting-forecasting",
+      "corporate-finance",
+      "excel-modeling",
+      "financial-modeling",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "auditor",
+    "toCareerId": "fpa-analyst",
+    "sharedCapabilityIds": [
+      "accounting",
+      "financial-statements"
+    ],
+    "newCapabilityIds": [
+      "budgeting-forecasting",
+      "business-analysis",
+      "excel-modeling",
+      "financial-modeling",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "auditor",
+    "toCareerId": "investment-analyst",
+    "sharedCapabilityIds": [
+      "financial-statements",
+      "risk-analysis"
+    ],
+    "newCapabilityIds": [
+      "economics-market-analysis",
+      "excel-modeling",
+      "investment-research",
+      "presentation-storytelling",
+      "valuation"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "business-analyst",
+    "toCareerId": "operations-analyst",
+    "sharedCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "process-mapping",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "decision-making",
+      "operations-analysis",
+      "project-management"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "business-analyst",
+    "toCareerId": "service-designer",
+    "sharedCapabilityIds": [
+      "process-mapping",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "collaboration",
+      "human-centered-design",
+      "service-design",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "business-analyst",
+    "toCareerId": "technical-product-manager",
+    "sharedCapabilityIds": [
+      "requirements-writing",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "api-design",
+      "product-analytics",
+      "product-discovery",
+      "product-strategy",
+      "roadmap-prioritization",
+      "system-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "business-analyst",
+    "toCareerId": "product-manager",
+    "sharedCapabilityIds": [
+      "requirements-writing",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "collaboration",
+      "product-analytics",
+      "product-discovery",
+      "product-strategy",
+      "roadmap-prioritization"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "business-analyst",
+    "toCareerId": "business-intelligence-analyst",
+    "sharedCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "sql-relational",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "data-modeling",
+      "documentation"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "business-analyst",
+    "toCareerId": "learning-development-specialist",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "learning-development",
+      "people-ops",
+      "presentation-storytelling",
+      "project-management",
+      "research-design"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.1667
+  },
+  {
+    "fromCareerId": "management-consultant",
+    "toCareerId": "strategy-analyst",
+    "sharedCapabilityIds": [
+      "business-case",
+      "market-research",
+      "presentation-storytelling",
+      "strategy"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "economics-market-analysis",
+      "financial-modeling"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "management-consultant",
+    "toCareerId": "learning-development-specialist",
+    "sharedCapabilityIds": [
+      "presentation-storytelling",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "learning-development",
+      "people-ops",
+      "project-management",
+      "research-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "management-consultant",
+    "toCareerId": "brand-strategist",
+    "sharedCapabilityIds": [
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "content-strategy",
+      "critical-thinking",
+      "customer-segmentation"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "management-consultant",
+    "toCareerId": "product-manager",
+    "sharedCapabilityIds": [
+      "business-case",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "product-analytics",
+      "product-discovery",
+      "product-strategy",
+      "requirements-writing",
+      "roadmap-prioritization"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "management-consultant",
+    "toCareerId": "talent-acquisition-specialist",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "documentation",
+      "ethics-privacy",
+      "interviewing-hiring",
+      "people-ops",
+      "recruiting"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.1667
+  },
+  {
+    "fromCareerId": "management-consultant",
+    "toCareerId": "data-analyst",
+    "sharedCapabilityIds": [
+      "presentation-storytelling",
+      "quantitative-reasoning"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "data-visualization",
+      "data-wrangling",
+      "sql-relational",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "strategy-analyst",
+    "toCareerId": "management-consultant",
+    "sharedCapabilityIds": [
+      "business-case",
+      "market-research",
+      "presentation-storytelling",
+      "strategy"
+    ],
+    "newCapabilityIds": [
+      "consulting-problem-solving",
+      "quantitative-reasoning",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "strategy-analyst",
+    "toCareerId": "brand-strategist",
+    "sharedCapabilityIds": [
+      "critical-thinking",
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "content-strategy",
+      "customer-segmentation"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "strategy-analyst",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "data-visualization",
+      "qualitative-analysis",
+      "statistics",
+      "survey-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "strategy-analyst",
+    "toCareerId": "data-journalist",
+    "sharedCapabilityIds": [
+      "critical-thinking",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "data-wrangling",
+      "ethics-privacy",
+      "literature-review",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "strategy-analyst",
+    "toCareerId": "investment-analyst",
+    "sharedCapabilityIds": [
+      "economics-market-analysis",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "excel-modeling",
+      "financial-statements",
+      "investment-research",
+      "risk-analysis",
+      "valuation"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "strategy-analyst",
+    "toCareerId": "equity-research-analyst",
+    "sharedCapabilityIds": [
+      "economics-market-analysis",
+      "financial-modeling",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "financial-statements",
+      "investment-research",
+      "risk-analysis",
+      "valuation"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "operations-analyst",
+    "toCareerId": "business-analyst",
+    "sharedCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "process-mapping",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "problem-framing",
+      "requirements-writing",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "operations-analyst",
+    "toCareerId": "supply-chain-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "operations-analysis",
+      "process-mapping",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "excel-modeling",
+      "risk-analysis",
+      "supply-chain"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "operations-analyst",
+    "toCareerId": "business-intelligence-analyst",
+    "sharedCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "data-modeling",
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "operations-analyst",
+    "toCareerId": "data-analyst",
+    "sharedCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "data-wrangling",
+      "presentation-storytelling",
+      "quantitative-reasoning",
+      "statistics"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "operations-analyst",
+    "toCareerId": "product-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "experimentation-ab",
+      "product-analytics",
+      "product-discovery",
+      "stakeholder-communication",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "operations-analyst",
+    "toCareerId": "project-manager",
+    "sharedCapabilityIds": [
+      "decision-making",
+      "project-management"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "documentation",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "digital-marketer",
+    "toCareerId": "seo-specialist",
+    "sharedCapabilityIds": [
+      "content-strategy",
+      "copywriting",
+      "marketing-analytics",
+      "seo"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "web-accessibility"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.6667
+  },
+  {
+    "fromCareerId": "digital-marketer",
+    "toCareerId": "performance-marketer",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "customer-segmentation",
+      "marketing-analytics",
+      "paid-media"
+    ],
+    "newCapabilityIds": [
+      "conversion-optimization",
+      "growth-experimentation"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.6667
+  },
+  {
+    "fromCareerId": "digital-marketer",
+    "toCareerId": "content-strategist",
+    "sharedCapabilityIds": [
+      "content-strategy",
+      "copywriting",
+      "marketing-analytics",
+      "seo"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "digital-marketer",
+    "toCareerId": "growth-marketer",
+    "sharedCapabilityIds": [
+      "customer-segmentation",
+      "lifecycle-email",
+      "marketing-analytics",
+      "paid-media"
+    ],
+    "newCapabilityIds": [
+      "conversion-optimization",
+      "growth-experimentation",
+      "product-analytics"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "digital-marketer",
+    "toCareerId": "lifecycle-marketer",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "customer-segmentation",
+      "lifecycle-email",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "crm-funnel",
+      "growth-experimentation"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.6667
+  },
+  {
+    "fromCareerId": "digital-marketer",
+    "toCareerId": "brand-strategist",
+    "sharedCapabilityIds": [
+      "content-strategy",
+      "customer-segmentation"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "critical-thinking",
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "growth-marketer",
+    "toCareerId": "performance-marketer",
+    "sharedCapabilityIds": [
+      "conversion-optimization",
+      "customer-segmentation",
+      "growth-experimentation",
+      "marketing-analytics",
+      "paid-media"
+    ],
+    "newCapabilityIds": [
+      "copywriting"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.8333
+  },
+  {
+    "fromCareerId": "growth-marketer",
+    "toCareerId": "lifecycle-marketer",
+    "sharedCapabilityIds": [
+      "customer-segmentation",
+      "growth-experimentation",
+      "lifecycle-email",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "copywriting",
+      "crm-funnel"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.6667
+  },
+  {
+    "fromCareerId": "growth-marketer",
+    "toCareerId": "digital-marketer",
+    "sharedCapabilityIds": [
+      "customer-segmentation",
+      "lifecycle-email",
+      "marketing-analytics",
+      "paid-media"
+    ],
+    "newCapabilityIds": [
+      "content-strategy",
+      "copywriting",
+      "seo",
+      "social-media"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "growth-marketer",
+    "toCareerId": "seo-specialist",
+    "sharedCapabilityIds": [
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "content-strategy",
+      "copywriting",
+      "data-visualization",
+      "seo",
+      "web-accessibility"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.1667
+  },
+  {
+    "fromCareerId": "growth-marketer",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "customer-segmentation"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "market-research",
+      "presentation-storytelling",
+      "qualitative-analysis",
+      "statistics",
+      "survey-design"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "growth-marketer",
+    "toCareerId": "product-analyst",
+    "sharedCapabilityIds": [
+      "product-analytics"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "experimentation-ab",
+      "product-discovery",
+      "sql-relational",
+      "stakeholder-communication",
+      "statistics"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "seo-specialist",
+    "toCareerId": "digital-marketer",
+    "sharedCapabilityIds": [
+      "content-strategy",
+      "copywriting",
+      "marketing-analytics",
+      "seo"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "lifecycle-email",
+      "paid-media",
+      "social-media"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "seo-specialist",
+    "toCareerId": "content-strategist",
+    "sharedCapabilityIds": [
+      "content-strategy",
+      "copywriting",
+      "marketing-analytics",
+      "seo"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "seo-specialist",
+    "toCareerId": "performance-marketer",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "conversion-optimization",
+      "customer-segmentation",
+      "growth-experimentation",
+      "paid-media"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "seo-specialist",
+    "toCareerId": "lifecycle-marketer",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "crm-funnel",
+      "customer-segmentation",
+      "growth-experimentation",
+      "lifecycle-email"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "seo-specialist",
+    "toCareerId": "growth-marketer",
+    "sharedCapabilityIds": [
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "conversion-optimization",
+      "customer-segmentation",
+      "growth-experimentation",
+      "lifecycle-email",
+      "paid-media",
+      "product-analytics"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "seo-specialist",
+    "toCareerId": "content-designer",
+    "sharedCapabilityIds": [
+      "copywriting"
+    ],
+    "newCapabilityIds": [
+      "accessibility-inclusive-design",
+      "collaboration",
+      "content-design",
+      "human-centered-design",
+      "information-architecture",
+      "ux-research-methods"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "content-strategist",
+    "toCareerId": "seo-specialist",
+    "sharedCapabilityIds": [
+      "content-strategy",
+      "copywriting",
+      "marketing-analytics",
+      "seo"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "web-accessibility"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.6667
+  },
+  {
+    "fromCareerId": "content-strategist",
+    "toCareerId": "brand-strategist",
+    "sharedCapabilityIds": [
+      "brand-positioning",
+      "content-strategy",
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "customer-segmentation"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.6667
+  },
+  {
+    "fromCareerId": "content-strategist",
+    "toCareerId": "digital-marketer",
+    "sharedCapabilityIds": [
+      "content-strategy",
+      "copywriting",
+      "marketing-analytics",
+      "seo"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "lifecycle-email",
+      "paid-media",
+      "social-media"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "content-strategist",
+    "toCareerId": "product-marketing-manager",
+    "sharedCapabilityIds": [
+      "brand-positioning",
+      "copywriting",
+      "market-research"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "go-to-market",
+      "product-marketing",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "content-strategist",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "data-visualization",
+      "qualitative-analysis",
+      "statistics",
+      "survey-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "content-strategist",
+    "toCareerId": "strategy-analyst",
+    "sharedCapabilityIds": [
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "critical-thinking",
+      "economics-market-analysis",
+      "financial-modeling",
+      "strategy"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "performance-marketer",
+    "toCareerId": "growth-marketer",
+    "sharedCapabilityIds": [
+      "conversion-optimization",
+      "customer-segmentation",
+      "growth-experimentation",
+      "marketing-analytics",
+      "paid-media"
+    ],
+    "newCapabilityIds": [
+      "lifecycle-email",
+      "product-analytics"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.7143
+  },
+  {
+    "fromCareerId": "performance-marketer",
+    "toCareerId": "lifecycle-marketer",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "customer-segmentation",
+      "growth-experimentation",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "crm-funnel",
+      "lifecycle-email"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.6667
+  },
+  {
+    "fromCareerId": "performance-marketer",
+    "toCareerId": "digital-marketer",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "customer-segmentation",
+      "marketing-analytics",
+      "paid-media"
+    ],
+    "newCapabilityIds": [
+      "content-strategy",
+      "lifecycle-email",
+      "seo",
+      "social-media"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "performance-marketer",
+    "toCareerId": "seo-specialist",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "content-strategy",
+      "data-visualization",
+      "seo",
+      "web-accessibility"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "performance-marketer",
+    "toCareerId": "product-marketing-manager",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "customer-segmentation"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "go-to-market",
+      "market-research",
+      "product-marketing",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "performance-marketer",
+    "toCareerId": "content-strategist",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "content-strategy",
+      "market-research",
+      "presentation-storytelling",
+      "seo"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "product-marketing-manager",
+    "toCareerId": "brand-strategist",
+    "sharedCapabilityIds": [
+      "brand-positioning",
+      "customer-segmentation",
+      "market-research"
+    ],
+    "newCapabilityIds": [
+      "content-strategy",
+      "critical-thinking",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "product-marketing-manager",
+    "toCareerId": "content-strategist",
+    "sharedCapabilityIds": [
+      "brand-positioning",
+      "copywriting",
+      "market-research"
+    ],
+    "newCapabilityIds": [
+      "content-strategy",
+      "marketing-analytics",
+      "presentation-storytelling",
+      "seo"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "product-marketing-manager",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "customer-segmentation",
+      "market-research"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "presentation-storytelling",
+      "qualitative-analysis",
+      "statistics",
+      "survey-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "product-marketing-manager",
+    "toCareerId": "management-consultant",
+    "sharedCapabilityIds": [
+      "market-research",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "consulting-problem-solving",
+      "presentation-storytelling",
+      "quantitative-reasoning",
+      "strategy"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "product-marketing-manager",
+    "toCareerId": "performance-marketer",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "customer-segmentation"
+    ],
+    "newCapabilityIds": [
+      "conversion-optimization",
+      "growth-experimentation",
+      "marketing-analytics",
+      "paid-media"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "product-marketing-manager",
+    "toCareerId": "lifecycle-marketer",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "customer-segmentation"
+    ],
+    "newCapabilityIds": [
+      "crm-funnel",
+      "growth-experimentation",
+      "lifecycle-email",
+      "marketing-analytics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "lifecycle-marketer",
+    "toCareerId": "performance-marketer",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "customer-segmentation",
+      "growth-experimentation",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "conversion-optimization",
+      "paid-media"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.6667
+  },
+  {
+    "fromCareerId": "lifecycle-marketer",
+    "toCareerId": "growth-marketer",
+    "sharedCapabilityIds": [
+      "customer-segmentation",
+      "growth-experimentation",
+      "lifecycle-email",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "conversion-optimization",
+      "paid-media",
+      "product-analytics"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "lifecycle-marketer",
+    "toCareerId": "digital-marketer",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "customer-segmentation",
+      "lifecycle-email",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "content-strategy",
+      "paid-media",
+      "seo",
+      "social-media"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "lifecycle-marketer",
+    "toCareerId": "seo-specialist",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "content-strategy",
+      "data-visualization",
+      "seo",
+      "web-accessibility"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "lifecycle-marketer",
+    "toCareerId": "product-marketing-manager",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "customer-segmentation"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "go-to-market",
+      "market-research",
+      "product-marketing",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "lifecycle-marketer",
+    "toCareerId": "content-strategist",
+    "sharedCapabilityIds": [
+      "copywriting",
+      "marketing-analytics"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "content-strategy",
+      "market-research",
+      "presentation-storytelling",
+      "seo"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "brand-strategist",
+    "toCareerId": "product-marketing-manager",
+    "sharedCapabilityIds": [
+      "brand-positioning",
+      "customer-segmentation",
+      "market-research"
+    ],
+    "newCapabilityIds": [
+      "copywriting",
+      "go-to-market",
+      "product-marketing",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "brand-strategist",
+    "toCareerId": "content-strategist",
+    "sharedCapabilityIds": [
+      "brand-positioning",
+      "content-strategy",
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "copywriting",
+      "marketing-analytics",
+      "seo"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "brand-strategist",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "customer-segmentation",
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "qualitative-analysis",
+      "statistics",
+      "survey-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "brand-strategist",
+    "toCareerId": "strategy-analyst",
+    "sharedCapabilityIds": [
+      "critical-thinking",
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "economics-market-analysis",
+      "financial-modeling",
+      "strategy"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "brand-strategist",
+    "toCareerId": "data-journalist",
+    "sharedCapabilityIds": [
+      "critical-thinking",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "data-wrangling",
+      "ethics-privacy",
+      "literature-review",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "brand-strategist",
+    "toCareerId": "management-consultant",
+    "sharedCapabilityIds": [
+      "market-research",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "consulting-problem-solving",
+      "quantitative-reasoning",
+      "stakeholder-communication",
+      "strategy"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "research-assistant",
+    "toCareerId": "social-science-researcher",
+    "sharedCapabilityIds": [
+      "ethics-privacy",
+      "literature-review",
+      "qualitative-analysis",
+      "research-design",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "presentation-storytelling",
+      "survey-design"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.7143
+  },
+  {
+    "fromCareerId": "research-assistant",
+    "toCareerId": "data-journalist",
+    "sharedCapabilityIds": [
+      "data-wrangling",
+      "ethics-privacy",
+      "literature-review",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "data-visualization",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "research-assistant",
+    "toCareerId": "accountant",
+    "sharedCapabilityIds": [
+      "documentation",
+      "ethics-privacy"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "excel-modeling",
+      "financial-statements"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "research-assistant",
+    "toCareerId": "talent-acquisition-specialist",
+    "sharedCapabilityIds": [
+      "documentation",
+      "ethics-privacy"
+    ],
+    "newCapabilityIds": [
+      "interviewing-hiring",
+      "people-ops",
+      "recruiting",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "research-assistant",
+    "toCareerId": "technical-writer",
+    "sharedCapabilityIds": [
+      "documentation"
+    ],
+    "newCapabilityIds": [
+      "communication",
+      "content-design",
+      "critical-thinking",
+      "git-version-control",
+      "information-architecture",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "research-assistant",
+    "toCareerId": "auditor",
+    "sharedCapabilityIds": [
+      "documentation"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "critical-thinking",
+      "financial-statements",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "social-science-researcher",
+    "toCareerId": "research-assistant",
+    "sharedCapabilityIds": [
+      "ethics-privacy",
+      "literature-review",
+      "qualitative-analysis",
+      "research-design",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "data-wrangling",
+      "documentation"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.7143
+  },
+  {
+    "fromCareerId": "social-science-researcher",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "presentation-storytelling",
+      "qualitative-analysis",
+      "statistics",
+      "survey-design"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "data-visualization",
+      "market-research"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "social-science-researcher",
+    "toCareerId": "data-journalist",
+    "sharedCapabilityIds": [
+      "ethics-privacy",
+      "literature-review",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "data-visualization",
+      "data-wrangling"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "social-science-researcher",
+    "toCareerId": "design-researcher",
+    "sharedCapabilityIds": [
+      "qualitative-analysis",
+      "research-design"
+    ],
+    "newCapabilityIds": [
+      "human-centered-design",
+      "interview-moderation",
+      "stakeholder-communication",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "social-science-researcher",
+    "toCareerId": "people-analyst",
+    "sharedCapabilityIds": [
+      "ethics-privacy",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "hr-analytics",
+      "people-ops",
+      "sql-relational",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "social-science-researcher",
+    "toCareerId": "policy-analyst",
+    "sharedCapabilityIds": [
+      "literature-review",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "data-ethics",
+      "economics-market-analysis",
+      "policy-analysis",
+      "policy-writing",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "policy-analyst",
+    "toCareerId": "social-science-researcher",
+    "sharedCapabilityIds": [
+      "literature-review",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "presentation-storytelling",
+      "qualitative-analysis",
+      "research-design",
+      "survey-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "policy-analyst",
+    "toCareerId": "research-assistant",
+    "sharedCapabilityIds": [
+      "literature-review",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "data-wrangling",
+      "documentation",
+      "ethics-privacy",
+      "qualitative-analysis",
+      "research-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "policy-analyst",
+    "toCareerId": "people-analyst",
+    "sharedCapabilityIds": [
+      "stakeholder-communication",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "ethics-privacy",
+      "hr-analytics",
+      "people-ops",
+      "sql-relational"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "policy-analyst",
+    "toCareerId": "product-analyst",
+    "sharedCapabilityIds": [
+      "stakeholder-communication",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "experimentation-ab",
+      "product-analytics",
+      "product-discovery",
+      "sql-relational"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "policy-analyst",
+    "toCareerId": "data-journalist",
+    "sharedCapabilityIds": [
+      "literature-review",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "data-visualization",
+      "data-wrangling",
+      "ethics-privacy",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "policy-analyst",
+    "toCareerId": "learning-development-specialist",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "learning-development",
+      "people-ops",
+      "presentation-storytelling",
+      "project-management",
+      "research-design"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.1667
+  },
+  {
+    "fromCareerId": "project-manager",
+    "toCareerId": "program-manager",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "decision-making",
+      "project-management",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "program-management"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.7143
+  },
+  {
+    "fromCareerId": "project-manager",
+    "toCareerId": "learning-development-specialist",
+    "sharedCapabilityIds": [
+      "project-management",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "learning-development",
+      "people-ops",
+      "presentation-storytelling",
+      "research-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "project-manager",
+    "toCareerId": "talent-acquisition-specialist",
+    "sharedCapabilityIds": [
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "interviewing-hiring",
+      "people-ops",
+      "recruiting"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "project-manager",
+    "toCareerId": "service-designer",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "human-centered-design",
+      "process-mapping",
+      "service-design",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "project-manager",
+    "toCareerId": "auditor",
+    "sharedCapabilityIds": [
+      "documentation",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "critical-thinking",
+      "financial-statements"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "project-manager",
+    "toCareerId": "product-manager",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "product-analytics",
+      "product-discovery",
+      "product-strategy",
+      "requirements-writing",
+      "roadmap-prioritization"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "program-manager",
+    "toCareerId": "project-manager",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "decision-making",
+      "project-management",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "documentation"
+    ],
+    "sharedCount": 5,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.8333
+  },
+  {
+    "fromCareerId": "program-manager",
+    "toCareerId": "service-designer",
+    "sharedCapabilityIds": [
+      "change-management",
+      "collaboration",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "human-centered-design",
+      "process-mapping",
+      "service-design",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "program-manager",
+    "toCareerId": "learning-development-specialist",
+    "sharedCapabilityIds": [
+      "project-management",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "learning-development",
+      "people-ops",
+      "presentation-storytelling",
+      "research-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "program-manager",
+    "toCareerId": "product-manager",
+    "sharedCapabilityIds": [
+      "collaboration",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "product-analytics",
+      "product-discovery",
+      "product-strategy",
+      "requirements-writing",
+      "roadmap-prioritization"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "program-manager",
+    "toCareerId": "talent-acquisition-specialist",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "documentation",
+      "ethics-privacy",
+      "interviewing-hiring",
+      "people-ops",
+      "recruiting"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.1667
+  },
+  {
+    "fromCareerId": "program-manager",
+    "toCareerId": "business-analyst",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "problem-framing",
+      "process-mapping",
+      "requirements-writing",
+      "sql-relational"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "people-analyst",
+    "toCareerId": "product-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational",
+      "stakeholder-communication",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "experimentation-ab",
+      "product-analytics",
+      "product-discovery"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "people-analyst",
+    "toCareerId": "talent-acquisition-specialist",
+    "sharedCapabilityIds": [
+      "ethics-privacy",
+      "people-ops",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "documentation",
+      "interviewing-hiring",
+      "recruiting"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "people-analyst",
+    "toCareerId": "social-science-researcher",
+    "sharedCapabilityIds": [
+      "ethics-privacy",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "literature-review",
+      "presentation-storytelling",
+      "qualitative-analysis",
+      "research-design",
+      "survey-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "people-analyst",
+    "toCareerId": "data-journalist",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "ethics-privacy",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "critical-thinking",
+      "data-wrangling",
+      "literature-review",
+      "presentation-storytelling"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "people-analyst",
+    "toCareerId": "data-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "data-wrangling",
+      "presentation-storytelling",
+      "quantitative-reasoning"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.375
+  },
+  {
+    "fromCareerId": "people-analyst",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "market-research",
+      "presentation-storytelling",
+      "qualitative-analysis",
+      "survey-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "talent-acquisition-specialist",
+    "toCareerId": "people-analyst",
+    "sharedCapabilityIds": [
+      "ethics-privacy",
+      "people-ops",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "data-visualization",
+      "hr-analytics",
+      "sql-relational",
+      "statistics"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "talent-acquisition-specialist",
+    "toCareerId": "project-manager",
+    "sharedCapabilityIds": [
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "decision-making",
+      "project-management",
+      "risk-analysis"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "talent-acquisition-specialist",
+    "toCareerId": "learning-development-specialist",
+    "sharedCapabilityIds": [
+      "people-ops",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "learning-development",
+      "presentation-storytelling",
+      "project-management",
+      "research-design"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "talent-acquisition-specialist",
+    "toCareerId": "research-assistant",
+    "sharedCapabilityIds": [
+      "documentation",
+      "ethics-privacy"
+    ],
+    "newCapabilityIds": [
+      "data-wrangling",
+      "literature-review",
+      "qualitative-analysis",
+      "research-design",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "talent-acquisition-specialist",
+    "toCareerId": "business-analyst",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "problem-framing",
+      "process-mapping",
+      "requirements-writing",
+      "sql-relational"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "talent-acquisition-specialist",
+    "toCareerId": "technical-writer",
+    "sharedCapabilityIds": [
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "communication",
+      "content-design",
+      "critical-thinking",
+      "git-version-control",
+      "information-architecture"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "supply-chain-analyst",
+    "toCareerId": "operations-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "operations-analysis",
+      "process-mapping",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "business-analysis",
+      "decision-making",
+      "project-management"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "supply-chain-analyst",
+    "toCareerId": "business-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "process-mapping",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "business-analysis",
+      "problem-framing",
+      "requirements-writing",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "supply-chain-analyst",
+    "toCareerId": "investment-analyst",
+    "sharedCapabilityIds": [
+      "excel-modeling",
+      "risk-analysis"
+    ],
+    "newCapabilityIds": [
+      "economics-market-analysis",
+      "financial-statements",
+      "investment-research",
+      "presentation-storytelling",
+      "valuation"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "supply-chain-analyst",
+    "toCareerId": "people-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "hr-analytics",
+      "people-ops",
+      "stakeholder-communication",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "supply-chain-analyst",
+    "toCareerId": "product-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "experimentation-ab",
+      "product-analytics",
+      "product-discovery",
+      "stakeholder-communication",
+      "statistics"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "supply-chain-analyst",
+    "toCareerId": "business-intelligence-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "sql-relational"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "data-modeling",
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "technical-writer",
+    "toCareerId": "auditor",
+    "sharedCapabilityIds": [
+      "critical-thinking",
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "accounting",
+      "audit-controls",
+      "financial-statements",
+      "risk-analysis"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "technical-writer",
+    "toCareerId": "project-manager",
+    "sharedCapabilityIds": [
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "decision-making",
+      "project-management",
+      "risk-analysis"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "technical-writer",
+    "toCareerId": "research-assistant",
+    "sharedCapabilityIds": [
+      "documentation"
+    ],
+    "newCapabilityIds": [
+      "data-wrangling",
+      "ethics-privacy",
+      "literature-review",
+      "qualitative-analysis",
+      "research-design",
+      "statistics"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "technical-writer",
+    "toCareerId": "content-designer",
+    "sharedCapabilityIds": [
+      "content-design",
+      "information-architecture"
+    ],
+    "newCapabilityIds": [
+      "accessibility-inclusive-design",
+      "collaboration",
+      "copywriting",
+      "human-centered-design",
+      "ux-research-methods"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "technical-writer",
+    "toCareerId": "talent-acquisition-specialist",
+    "sharedCapabilityIds": [
+      "documentation",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "ethics-privacy",
+      "interviewing-hiring",
+      "people-ops",
+      "recruiting"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "technical-writer",
+    "toCareerId": "cybersecurity-analyst",
+    "sharedCapabilityIds": [
+      "critical-thinking",
+      "documentation"
+    ],
+    "newCapabilityIds": [
+      "identity-access",
+      "incident-response",
+      "linux-cli",
+      "networking",
+      "security-fundamentals",
+      "threat-modeling"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.25
+  },
+  {
+    "fromCareerId": "data-journalist",
+    "toCareerId": "data-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "data-wrangling",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "bi-dashboarding",
+      "business-analysis",
+      "quantitative-reasoning",
+      "sql-relational"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.5
+  },
+  {
+    "fromCareerId": "data-journalist",
+    "toCareerId": "data-scientist",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "data-wrangling",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "experimentation-ab",
+      "machine-learning",
+      "model-evaluation",
+      "probability",
+      "programming-python"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 9,
+    "overlapFraction": 0.4444
+  },
+  {
+    "fromCareerId": "data-journalist",
+    "toCareerId": "social-science-researcher",
+    "sharedCapabilityIds": [
+      "ethics-privacy",
+      "literature-review",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "qualitative-analysis",
+      "research-design",
+      "survey-design"
+    ],
+    "sharedCount": 4,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.5714
+  },
+  {
+    "fromCareerId": "data-journalist",
+    "toCareerId": "brand-strategist",
+    "sharedCapabilityIds": [
+      "critical-thinking",
+      "presentation-storytelling"
+    ],
+    "newCapabilityIds": [
+      "brand-positioning",
+      "content-strategy",
+      "customer-segmentation",
+      "market-research"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "data-journalist",
+    "toCareerId": "people-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "ethics-privacy",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "hr-analytics",
+      "people-ops",
+      "sql-relational",
+      "stakeholder-communication"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "data-journalist",
+    "toCareerId": "market-research-analyst",
+    "sharedCapabilityIds": [
+      "data-visualization",
+      "presentation-storytelling",
+      "statistics"
+    ],
+    "newCapabilityIds": [
+      "customer-segmentation",
+      "market-research",
+      "qualitative-analysis",
+      "survey-design"
+    ],
+    "sharedCount": 3,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.4286
+  },
+  {
+    "fromCareerId": "learning-development-specialist",
+    "toCareerId": "project-manager",
+    "sharedCapabilityIds": [
+      "project-management",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "collaboration",
+      "decision-making",
+      "documentation",
+      "risk-analysis"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "learning-development-specialist",
+    "toCareerId": "program-manager",
+    "sharedCapabilityIds": [
+      "project-management",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "collaboration",
+      "decision-making",
+      "program-management",
+      "risk-analysis"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "learning-development-specialist",
+    "toCareerId": "management-consultant",
+    "sharedCapabilityIds": [
+      "presentation-storytelling",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-case",
+      "consulting-problem-solving",
+      "market-research",
+      "quantitative-reasoning",
+      "strategy"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.2857
+  },
+  {
+    "fromCareerId": "learning-development-specialist",
+    "toCareerId": "talent-acquisition-specialist",
+    "sharedCapabilityIds": [
+      "people-ops",
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "documentation",
+      "ethics-privacy",
+      "interviewing-hiring",
+      "recruiting"
+    ],
+    "sharedCount": 2,
+    "targetRequiredCount": 6,
+    "overlapFraction": 0.3333
+  },
+  {
+    "fromCareerId": "learning-development-specialist",
+    "toCareerId": "business-analyst",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "business-analysis",
+      "data-visualization",
+      "problem-framing",
+      "process-mapping",
+      "requirements-writing",
+      "sql-relational"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 7,
+    "overlapFraction": 0.1429
+  },
+  {
+    "fromCareerId": "learning-development-specialist",
+    "toCareerId": "service-designer",
+    "sharedCapabilityIds": [
+      "stakeholder-communication"
+    ],
+    "newCapabilityIds": [
+      "change-management",
+      "collaboration",
+      "human-centered-design",
+      "process-mapping",
+      "service-design",
+      "synthesis-insights",
+      "ux-research-methods"
+    ],
+    "sharedCount": 1,
+    "targetRequiredCount": 8,
+    "overlapFraction": 0.125
+  }
+]

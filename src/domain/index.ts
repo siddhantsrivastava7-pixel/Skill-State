@@ -15,3 +15,4 @@ export * from "./progress-report";
 export * from "./onboarding-routing";
 export * from "./what-if";
 export * from "./journey-tracks";
+export * from "./daily-scheduling";

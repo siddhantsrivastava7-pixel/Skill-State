@@ -316,7 +316,7 @@ export default function HomePage() {
         <CompactSkillStrip skills={compactSkills} />
 
         {/* Today's Plan (State-driven per active persona) */}
-        <TodayPlanStrip actions={plan.now} />
+        <TodayPlanStrip actions={plan.now} weeklyHours={profile.weeklyHours} />
 
         {/* Recent Activity (State-driven per active persona) */}
         <RecentActivityStrip activities={activityLedger} />

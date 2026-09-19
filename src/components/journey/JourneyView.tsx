@@ -28,6 +28,7 @@ import {
 import { WhatIfSimulator } from "./WhatIfSimulator";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { formatPlanningHorizonLabel } from "@/domain/planning-horizon";
 import { Card } from "@/components/ui/Card";
 
 export function JourneyView() {
@@ -103,7 +104,7 @@ export function JourneyView() {
               {profile.weeklyHours || 15} hrs/wk
             </Badge>
             <Badge variant="default" size="sm">
-              {profile.targetTimelineMonths || 12} mo target
+              {formatPlanningHorizonLabel(profile.planningHorizon, profile.targetTimelineMonths)} target
             </Badge>
           </div>
           <p className="text-xs sm:text-sm text-ink-muted mt-1 max-w-2xl">

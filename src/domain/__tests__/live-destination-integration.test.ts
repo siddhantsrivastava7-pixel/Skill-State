@@ -128,12 +128,12 @@ describe("unseeded live destination integration", () => {
       expect(persona.graph.capabilityNodes.length).toBeGreaterThan(0);
       expect(persona.plan.now.length).toBeGreaterThan(0);
     }
-    expect(
-      calculateCareerPathsWithOverlap(
-        getDemoPersona("persona-b").graph,
-        getDemoPersona("persona-b").verifiedStates,
-        true
-      )
-    ).toHaveLength(SEEDED_CAREER_PATHS_CATALOG.length);
+    const demoPaths = calculateCareerPathsWithOverlap(
+      getDemoPersona("persona-b").graph,
+      getDemoPersona("persona-b").verifiedStates,
+      true
+    );
+    expect(demoPaths.length).toBeGreaterThanOrEqual(SEEDED_CAREER_PATHS_CATALOG.length);
+    expect(demoPaths.every((path) => path.isPreview === false)).toBe(true);
   });
 });

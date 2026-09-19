@@ -1,0 +1,4182 @@
+[
+  {
+    "id": "software-engineer",
+    "title": "Software Engineer",
+    "aliases": [
+      "software developer",
+      "developer",
+      "programmer"
+    ],
+    "family": "Technology & Software",
+    "summary": "Builds reliable software systems and features using programming, testing, version control, and engineering judgment.",
+    "capabilities": [
+      {
+        "capabilityId": "programming-python",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "programming-js-ts",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-structures-algorithms",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "git-version-control",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "testing-quality",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "system-design",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "api-design",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "documentation",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "collaboration",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build and document a working software project with tests and version control.",
+      "Complete a scenario-based technical verification covering core engineering decisions.",
+      "Explain architecture, trade-offs, and failure handling in a concise technical write-up."
+    ],
+    "experienceExpectations": [
+      "Contribute to a collaborative codebase or team project with review feedback.",
+      "Ship or operate a feature beyond a toy exercise."
+    ],
+    "signalExpectations": [
+      "Maintain a reviewable repository with README, tests, and clear project decisions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "frontend-engineer",
+      "mobile-app-developer",
+      "full-stack-engineer",
+      "backend-engineer"
+    ]
+  },
+  {
+    "id": "frontend-engineer",
+    "title": "Frontend Engineer",
+    "aliases": [
+      "frontend developer",
+      "web frontend developer"
+    ],
+    "family": "Technology & Software",
+    "summary": "Builds accessible, responsive web interfaces and client-side application experiences.",
+    "capabilities": [
+      {
+        "capabilityId": "frontend-engineering",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "programming-js-ts",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "web-accessibility",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "testing-quality",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "git-version-control",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "interaction-design",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "api-design",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "documentation",
+        "targetLevel": "working",
+        "importance": "supporting",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build and document a working software project with tests and version control.",
+      "Complete a scenario-based technical verification covering core engineering decisions.",
+      "Explain architecture, trade-offs, and failure handling in a concise technical write-up."
+    ],
+    "experienceExpectations": [
+      "Contribute to a collaborative codebase or team project with review feedback.",
+      "Ship or operate a feature beyond a toy exercise."
+    ],
+    "signalExpectations": [
+      "Maintain a reviewable repository with README, tests, and clear project decisions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "full-stack-engineer",
+      "mobile-app-developer",
+      "software-engineer",
+      "backend-engineer"
+    ]
+  },
+  {
+    "id": "backend-engineer",
+    "title": "Backend Engineer",
+    "aliases": [
+      "backend developer",
+      "server-side engineer"
+    ],
+    "family": "Technology & Software",
+    "summary": "Builds server-side services, APIs, data access layers, and reliable backend systems.",
+    "capabilities": [
+      {
+        "capabilityId": "backend-engineering",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "api-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "sql-relational",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-modeling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "testing-quality",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "system-design",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "git-version-control",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "containers",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "observability",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build and document a working software project with tests and version control.",
+      "Complete a scenario-based technical verification covering core engineering decisions.",
+      "Explain architecture, trade-offs, and failure handling in a concise technical write-up."
+    ],
+    "experienceExpectations": [
+      "Contribute to a collaborative codebase or team project with review feedback.",
+      "Ship or operate a feature beyond a toy exercise."
+    ],
+    "signalExpectations": [
+      "Maintain a reviewable repository with README, tests, and clear project decisions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "full-stack-engineer",
+      "mobile-app-developer",
+      "software-engineer",
+      "frontend-engineer"
+    ]
+  },
+  {
+    "id": "full-stack-engineer",
+    "title": "Full-Stack Engineer",
+    "aliases": [
+      "full stack developer",
+      "fullstack developer"
+    ],
+    "family": "Technology & Software",
+    "summary": "Builds end-to-end web products spanning user interfaces, APIs, data, and deployment.",
+    "capabilities": [
+      {
+        "capabilityId": "frontend-engineering",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "backend-engineering",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "programming-js-ts",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "sql-relational",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "api-design",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "testing-quality",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "git-version-control",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "containers",
+        "targetLevel": "basic",
+        "importance": "supporting",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "system-design",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build and document a working software project with tests and version control.",
+      "Complete a scenario-based technical verification covering core engineering decisions.",
+      "Explain architecture, trade-offs, and failure handling in a concise technical write-up."
+    ],
+    "experienceExpectations": [
+      "Contribute to a collaborative codebase or team project with review feedback.",
+      "Ship or operate a feature beyond a toy exercise."
+    ],
+    "signalExpectations": [
+      "Maintain a reviewable repository with README, tests, and clear project decisions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "frontend-engineer",
+      "backend-engineer",
+      "mobile-app-developer",
+      "software-engineer"
+    ]
+  },
+  {
+    "id": "mobile-app-developer",
+    "title": "Mobile App Developer",
+    "aliases": [
+      "mobile developer",
+      "app developer"
+    ],
+    "family": "Technology & Software",
+    "summary": "Builds and ships mobile applications with strong interaction, performance, and platform awareness.",
+    "capabilities": [
+      {
+        "capabilityId": "mobile-development",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "programming-js-ts",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "api-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "testing-quality",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "git-version-control",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "interaction-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "accessibility-inclusive-design",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build and document a working software project with tests and version control.",
+      "Complete a scenario-based technical verification covering core engineering decisions.",
+      "Explain architecture, trade-offs, and failure handling in a concise technical write-up."
+    ],
+    "experienceExpectations": [
+      "Contribute to a collaborative codebase or team project with review feedback.",
+      "Ship or operate a feature beyond a toy exercise."
+    ],
+    "signalExpectations": [
+      "Maintain a reviewable repository with README, tests, and clear project decisions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "frontend-engineer",
+      "software-engineer",
+      "full-stack-engineer",
+      "backend-engineer"
+    ]
+  },
+  {
+    "id": "devops-engineer",
+    "title": "DevOps Engineer",
+    "aliases": [
+      "platform engineer",
+      "devops"
+    ],
+    "family": "Cloud & Infrastructure",
+    "summary": "Automates delivery, infrastructure, reliability, and operational workflows for software systems.",
+    "capabilities": [
+      {
+        "capabilityId": "linux-cli",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "cloud-fundamentals",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "containers",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "cicd",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "observability",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "networking",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "git-version-control",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "system-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "security-fundamentals",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Deploy a small system using repeatable infrastructure and delivery steps.",
+      "Demonstrate monitoring, failure diagnosis, and recovery on a realistic service.",
+      "Document security, networking, and operational trade-offs."
+    ],
+    "experienceExpectations": [
+      "Operate a shared or realistic environment with incidents, changes, and peer review."
+    ],
+    "signalExpectations": [
+      "Publish an architecture/runbook artifact showing deployment and operational evidence."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "cloud-engineer",
+      "backend-engineer",
+      "cybersecurity-analyst",
+      "security-engineer"
+    ]
+  },
+  {
+    "id": "cloud-engineer",
+    "title": "Cloud Engineer",
+    "aliases": [
+      "cloud infrastructure engineer"
+    ],
+    "family": "Cloud & Infrastructure",
+    "summary": "Designs, deploys, secures, and operates cloud infrastructure and managed services.",
+    "capabilities": [
+      {
+        "capabilityId": "cloud-fundamentals",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "networking",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "linux-cli",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "containers",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "cicd",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "observability",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "identity-access",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "system-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Deploy a small system using repeatable infrastructure and delivery steps.",
+      "Demonstrate monitoring, failure diagnosis, and recovery on a realistic service.",
+      "Document security, networking, and operational trade-offs."
+    ],
+    "experienceExpectations": [
+      "Operate a shared or realistic environment with incidents, changes, and peer review."
+    ],
+    "signalExpectations": [
+      "Publish an architecture/runbook artifact showing deployment and operational evidence."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "devops-engineer",
+      "cybersecurity-analyst",
+      "security-engineer",
+      "backend-engineer"
+    ]
+  },
+  {
+    "id": "cybersecurity-analyst",
+    "title": "Cybersecurity Analyst",
+    "aliases": [
+      "security analyst",
+      "soc analyst"
+    ],
+    "family": "Cybersecurity",
+    "summary": "Monitors, investigates, and reduces security risk using defensive analysis and incident workflows.",
+    "capabilities": [
+      {
+        "capabilityId": "security-fundamentals",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "networking",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "linux-cli",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "incident-response",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "identity-access",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "threat-modeling",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "documentation",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "critical-thinking",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Complete safe, legal hands-on security labs and document findings and mitigations.",
+      "Produce a threat model or incident analysis tied to a realistic system.",
+      "Demonstrate defensive reasoning without relying on tool output alone."
+    ],
+    "experienceExpectations": [
+      "Participate in supervised security labs, CTFs, defensive projects, or review workflows."
+    ],
+    "signalExpectations": [
+      "Publish sanitized write-ups that emphasize findings, evidence, and mitigations."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "security-engineer",
+      "cloud-engineer",
+      "auditor",
+      "devops-engineer"
+    ]
+  },
+  {
+    "id": "security-engineer",
+    "title": "Security Engineer",
+    "aliases": [
+      "application security engineer",
+      "product security engineer"
+    ],
+    "family": "Cybersecurity",
+    "summary": "Builds and embeds security controls into applications, infrastructure, and engineering workflows.",
+    "capabilities": [
+      {
+        "capabilityId": "security-fundamentals",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "appsec",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "threat-modeling",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "identity-access",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "networking",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "testing-quality",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "system-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "programming-python",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Complete safe, legal hands-on security labs and document findings and mitigations.",
+      "Produce a threat model or incident analysis tied to a realistic system.",
+      "Demonstrate defensive reasoning without relying on tool output alone."
+    ],
+    "experienceExpectations": [
+      "Participate in supervised security labs, CTFs, defensive projects, or review workflows."
+    ],
+    "signalExpectations": [
+      "Publish sanitized write-ups that emphasize findings, evidence, and mitigations."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "cybersecurity-analyst",
+      "cloud-engineer",
+      "software-engineer",
+      "devops-engineer"
+    ]
+  },
+  {
+    "id": "data-analyst",
+    "title": "Data Analyst",
+    "aliases": [
+      "analytics analyst",
+      "data analytics analyst"
+    ],
+    "family": "Data & Analytics",
+    "summary": "Uses data, SQL, statistics, visualization, and business context to answer decision-relevant questions.",
+    "capabilities": [
+      {
+        "capabilityId": "sql-relational",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-wrangling",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "statistics",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "bi-dashboarding",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "business-analysis",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "quantitative-reasoning",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Analyze a real dataset end-to-end with reproducible queries, transformations, and conclusions.",
+      "Build a decision-oriented dashboard or analytical report with documented metrics.",
+      "Explain assumptions, data-quality checks, and limitations."
+    ],
+    "experienceExpectations": [
+      "Answer a real stakeholder question using messy data and iterative feedback."
+    ],
+    "signalExpectations": [
+      "Publish a concise portfolio analysis with reproducible work and decision-relevant conclusions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "business-intelligence-analyst",
+      "data-journalist",
+      "product-analyst",
+      "data-scientist"
+    ]
+  },
+  {
+    "id": "business-intelligence-analyst",
+    "title": "Business Intelligence Analyst",
+    "aliases": [
+      "bi analyst",
+      "business intelligence developer"
+    ],
+    "family": "Data & Analytics",
+    "summary": "Builds reliable metrics, dashboards, and analytical models for recurring business decisions.",
+    "capabilities": [
+      {
+        "capabilityId": "sql-relational",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "bi-dashboarding",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-modeling",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "business-analysis",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "documentation",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Analyze a real dataset end-to-end with reproducible queries, transformations, and conclusions.",
+      "Build a decision-oriented dashboard or analytical report with documented metrics.",
+      "Explain assumptions, data-quality checks, and limitations."
+    ],
+    "experienceExpectations": [
+      "Answer a real stakeholder question using messy data and iterative feedback."
+    ],
+    "signalExpectations": [
+      "Publish a concise portfolio analysis with reproducible work and decision-relevant conclusions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "data-analyst",
+      "product-analyst",
+      "data-engineer",
+      "operations-analyst"
+    ]
+  },
+  {
+    "id": "data-engineer",
+    "title": "Data Engineer",
+    "aliases": [
+      "analytics engineer",
+      "data platform engineer"
+    ],
+    "family": "Data & Analytics",
+    "summary": "Builds reliable data pipelines, models, storage, and platforms that support analytics and machine learning.",
+    "capabilities": [
+      {
+        "capabilityId": "sql-relational",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "programming-python",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-pipelines",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "etl-elt",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-modeling",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "warehouses-lakes",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "dbt-transform",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "cloud-fundamentals",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "testing-quality",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Analyze a real dataset end-to-end with reproducible queries, transformations, and conclusions.",
+      "Build a decision-oriented dashboard or analytical report with documented metrics.",
+      "Explain assumptions, data-quality checks, and limitations."
+    ],
+    "experienceExpectations": [
+      "Answer a real stakeholder question using messy data and iterative feedback."
+    ],
+    "signalExpectations": [
+      "Publish a concise portfolio analysis with reproducible work and decision-relevant conclusions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "business-intelligence-analyst",
+      "backend-engineer",
+      "product-analyst",
+      "data-analyst"
+    ]
+  },
+  {
+    "id": "data-scientist",
+    "title": "Data Scientist",
+    "aliases": [
+      "applied data scientist"
+    ],
+    "family": "Data & AI",
+    "summary": "Uses statistical modeling, experimentation, machine learning, and communication to solve data-intensive problems.",
+    "capabilities": [
+      {
+        "capabilityId": "programming-python",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "statistics",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "probability",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-wrangling",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "machine-learning",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "model-evaluation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "experimentation-ab",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build an end-to-end model workflow with appropriate validation and error analysis.",
+      "Document why the chosen metric and validation strategy match the problem.",
+      "Produce a reproducible artifact that demonstrates model behavior, not just training accuracy."
+    ],
+    "experienceExpectations": [
+      "Work on a collaborative or realistic modeling problem with ambiguous requirements and iteration."
+    ],
+    "signalExpectations": [
+      "Publish a technical case study with data, evaluation, limitations, and deployment or decision context."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "ai-engineer",
+      "machine-learning-engineer",
+      "data-journalist",
+      "data-analyst"
+    ]
+  },
+  {
+    "id": "machine-learning-engineer",
+    "title": "Machine Learning Engineer",
+    "aliases": [
+      "ml engineer"
+    ],
+    "family": "Data & AI",
+    "summary": "Builds, evaluates, deploys, and operates machine-learning systems in production.",
+    "capabilities": [
+      {
+        "capabilityId": "programming-python",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "machine-learning",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "model-evaluation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "feature-engineering",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "deep-learning",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "api-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "containers",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "mlops",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "system-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build an end-to-end model workflow with appropriate validation and error analysis.",
+      "Document why the chosen metric and validation strategy match the problem.",
+      "Produce a reproducible artifact that demonstrates model behavior, not just training accuracy."
+    ],
+    "experienceExpectations": [
+      "Work on a collaborative or realistic modeling problem with ambiguous requirements and iteration."
+    ],
+    "signalExpectations": [
+      "Publish a technical case study with data, evaluation, limitations, and deployment or decision context."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "ai-engineer",
+      "data-scientist",
+      "backend-engineer",
+      "software-engineer"
+    ]
+  },
+  {
+    "id": "ai-engineer",
+    "title": "AI Engineer",
+    "aliases": [
+      "generative ai engineer",
+      "llm engineer",
+      "applied ai engineer"
+    ],
+    "family": "Data & AI",
+    "summary": "Builds production AI applications using models, retrieval, evaluation, data pipelines, and deployment practices.",
+    "capabilities": [
+      {
+        "capabilityId": "programming-python",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "machine-learning",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "model-evaluation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "nlp-llms",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "api-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "containers",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "mlops",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "responsible-ai",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "system-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build an end-to-end model workflow with appropriate validation and error analysis.",
+      "Document why the chosen metric and validation strategy match the problem.",
+      "Produce a reproducible artifact that demonstrates model behavior, not just training accuracy."
+    ],
+    "experienceExpectations": [
+      "Work on a collaborative or realistic modeling problem with ambiguous requirements and iteration."
+    ],
+    "signalExpectations": [
+      "Publish a technical case study with data, evaluation, limitations, and deployment or decision context."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "machine-learning-engineer",
+      "data-scientist",
+      "backend-engineer",
+      "software-engineer"
+    ]
+  },
+  {
+    "id": "ux-researcher",
+    "title": "UX Researcher",
+    "aliases": [
+      "user researcher",
+      "product researcher",
+      "user experience researcher"
+    ],
+    "family": "Design & Research",
+    "summary": "Plans and conducts research to understand users, evaluate experiences, synthesize evidence, and inform product decisions.",
+    "capabilities": [
+      {
+        "capabilityId": "human-centered-design",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ux-research-methods",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "research-planning",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "interview-moderation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "usability-testing",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "survey-design",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "synthesis-insights",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "participant-recruiting",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ethics-privacy",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Document an end-to-end moderated research study with plan, guide, notes, synthesis, and decisions.",
+      "Run and document a usability evaluation on a real or realistic product.",
+      "Produce a synthesis artifact that ties findings to raw evidence and recommendations."
+    ],
+    "experienceExpectations": [
+      "Conduct participant-facing research with supervision or peer review.",
+      "Work with a product, design, service, or research team where findings affect a real decision."
+    ],
+    "signalExpectations": [
+      "Publish a concise case study showing research question, method, evidence, synthesis, and impact."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "design-researcher",
+      "service-designer",
+      "ux-designer",
+      "product-designer"
+    ]
+  },
+  {
+    "id": "ux-designer",
+    "title": "UX Designer",
+    "aliases": [
+      "user experience designer",
+      "interaction designer"
+    ],
+    "family": "Design & Research",
+    "summary": "Designs usable, accessible flows and interfaces using user evidence, interaction principles, and iterative prototyping.",
+    "capabilities": [
+      {
+        "capabilityId": "human-centered-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "interaction-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "prototyping",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "information-architecture",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "visual-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "usability-testing",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "accessibility-inclusive-design",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a case study that shows problem framing, evidence, iterations, and decisions.",
+      "Run a realistic evaluation or research activity and document what changed because of it.",
+      "Produce reviewable artifacts, not only final visuals."
+    ],
+    "experienceExpectations": [
+      "Collaborate with product, engineering, research, or service stakeholders on a real or realistic problem."
+    ],
+    "signalExpectations": [
+      "Publish a portfolio case study that connects evidence to design or research decisions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "product-designer",
+      "content-designer",
+      "ux-researcher",
+      "service-designer"
+    ]
+  },
+  {
+    "id": "product-designer",
+    "title": "Product Designer",
+    "aliases": [
+      "digital product designer"
+    ],
+    "family": "Design & Research",
+    "summary": "Designs end-to-end digital product experiences from problem framing through interaction, visual design, and validation.",
+    "capabilities": [
+      {
+        "capabilityId": "human-centered-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "interaction-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "visual-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "prototyping",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "design-systems",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "usability-testing",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "product-discovery",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "accessibility-inclusive-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a case study that shows problem framing, evidence, iterations, and decisions.",
+      "Run a realistic evaluation or research activity and document what changed because of it.",
+      "Produce reviewable artifacts, not only final visuals."
+    ],
+    "experienceExpectations": [
+      "Collaborate with product, engineering, research, or service stakeholders on a real or realistic problem."
+    ],
+    "signalExpectations": [
+      "Publish a portfolio case study that connects evidence to design or research decisions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "ux-designer",
+      "content-designer",
+      "ux-researcher",
+      "service-designer"
+    ]
+  },
+  {
+    "id": "service-designer",
+    "title": "Service Designer",
+    "aliases": [
+      "service design specialist"
+    ],
+    "family": "Design & Research",
+    "summary": "Improves end-to-end services across people, processes, channels, systems, and organizational constraints.",
+    "capabilities": [
+      {
+        "capabilityId": "service-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "human-centered-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ux-research-methods",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "process-mapping",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "collaboration",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "synthesis-insights",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "change-management",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a case study that shows problem framing, evidence, iterations, and decisions.",
+      "Run a realistic evaluation or research activity and document what changed because of it.",
+      "Produce reviewable artifacts, not only final visuals."
+    ],
+    "experienceExpectations": [
+      "Collaborate with product, engineering, research, or service stakeholders on a real or realistic problem."
+    ],
+    "signalExpectations": [
+      "Publish a portfolio case study that connects evidence to design or research decisions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "ux-researcher",
+      "program-manager",
+      "design-researcher",
+      "project-manager"
+    ]
+  },
+  {
+    "id": "product-manager",
+    "title": "Product Manager",
+    "aliases": [
+      "pm",
+      "digital product manager"
+    ],
+    "family": "Product",
+    "summary": "Defines product direction, prioritizes problems and outcomes, aligns teams, and uses evidence to guide delivery.",
+    "capabilities": [
+      {
+        "capabilityId": "product-discovery",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "product-strategy",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "roadmap-prioritization",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "requirements-writing",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "product-analytics",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "business-case",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "collaboration",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Write a product brief with problem evidence, outcomes, trade-offs, and prioritization.",
+      "Analyze product behavior or experiment results and recommend a next decision.",
+      "Create a roadmap or requirements artifact that makes assumptions explicit."
+    ],
+    "experienceExpectations": [
+      "Work with a cross-functional team on discovery, prioritization, or delivery decisions."
+    ],
+    "signalExpectations": [
+      "Publish a case study showing product judgment, evidence, and trade-offs rather than feature output alone."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "technical-product-manager",
+      "project-manager",
+      "business-analyst",
+      "program-manager"
+    ]
+  },
+  {
+    "id": "technical-product-manager",
+    "title": "Technical Product Manager",
+    "aliases": [
+      "technical pm",
+      "platform product manager"
+    ],
+    "family": "Product",
+    "summary": "Leads technically complex products by combining product discovery, stakeholder alignment, and system-level understanding.",
+    "capabilities": [
+      {
+        "capabilityId": "product-discovery",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "product-strategy",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "roadmap-prioritization",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "requirements-writing",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "system-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "api-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "product-analytics",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Write a product brief with problem evidence, outcomes, trade-offs, and prioritization.",
+      "Analyze product behavior or experiment results and recommend a next decision.",
+      "Create a roadmap or requirements artifact that makes assumptions explicit."
+    ],
+    "experienceExpectations": [
+      "Work with a cross-functional team on discovery, prioritization, or delivery decisions."
+    ],
+    "signalExpectations": [
+      "Publish a case study showing product judgment, evidence, and trade-offs rather than feature output alone."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "product-manager",
+      "business-analyst",
+      "learning-development-specialist",
+      "product-analyst"
+    ]
+  },
+  {
+    "id": "product-analyst",
+    "title": "Product Analyst",
+    "aliases": [
+      "product data analyst"
+    ],
+    "family": "Product",
+    "summary": "Uses behavioral data, experimentation, and product context to diagnose product performance and guide decisions.",
+    "capabilities": [
+      {
+        "capabilityId": "product-analytics",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "sql-relational",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "experimentation-ab",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "statistics",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "product-discovery",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Write a product brief with problem evidence, outcomes, trade-offs, and prioritization.",
+      "Analyze product behavior or experiment results and recommend a next decision.",
+      "Create a roadmap or requirements artifact that makes assumptions explicit."
+    ],
+    "experienceExpectations": [
+      "Work with a cross-functional team on discovery, prioritization, or delivery decisions."
+    ],
+    "signalExpectations": [
+      "Publish a case study showing product judgment, evidence, and trade-offs rather than feature output alone."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "data-analyst",
+      "business-intelligence-analyst",
+      "people-analyst",
+      "data-scientist"
+    ]
+  },
+  {
+    "id": "content-designer",
+    "title": "Content Designer",
+    "aliases": [
+      "ux writer",
+      "product content designer"
+    ],
+    "family": "Design & Research",
+    "summary": "Designs clear product and service content around user needs, tasks, information structure, and accessibility.",
+    "capabilities": [
+      {
+        "capabilityId": "content-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "human-centered-design",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "information-architecture",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ux-research-methods",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "accessibility-inclusive-design",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "copywriting",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "collaboration",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a case study that shows problem framing, evidence, iterations, and decisions.",
+      "Run a realistic evaluation or research activity and document what changed because of it.",
+      "Produce reviewable artifacts, not only final visuals."
+    ],
+    "experienceExpectations": [
+      "Collaborate with product, engineering, research, or service stakeholders on a real or realistic problem."
+    ],
+    "signalExpectations": [
+      "Publish a portfolio case study that connects evidence to design or research decisions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "ux-designer",
+      "service-designer",
+      "technical-writer",
+      "product-designer"
+    ]
+  },
+  {
+    "id": "design-researcher",
+    "title": "Design Researcher",
+    "aliases": [
+      "design researcher",
+      "strategic design researcher"
+    ],
+    "family": "Design & Research",
+    "summary": "Uses qualitative and mixed research to uncover needs, systems, behaviors, and opportunities for design and strategy.",
+    "capabilities": [
+      {
+        "capabilityId": "research-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ux-research-methods",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "interview-moderation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "qualitative-analysis",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "synthesis-insights",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "human-centered-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a case study that shows problem framing, evidence, iterations, and decisions.",
+      "Run a realistic evaluation or research activity and document what changed because of it.",
+      "Produce reviewable artifacts, not only final visuals."
+    ],
+    "experienceExpectations": [
+      "Collaborate with product, engineering, research, or service stakeholders on a real or realistic problem."
+    ],
+    "signalExpectations": [
+      "Publish a portfolio case study that connects evidence to design or research decisions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "ux-researcher",
+      "social-science-researcher",
+      "service-designer",
+      "research-assistant"
+    ]
+  },
+  {
+    "id": "market-research-analyst",
+    "title": "Market Research Analyst",
+    "aliases": [
+      "market researcher",
+      "consumer insights analyst"
+    ],
+    "family": "Research & Insights",
+    "summary": "Studies customers, markets, competitors, demand, and behavior to support commercial decisions.",
+    "capabilities": [
+      {
+        "capabilityId": "market-research",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "survey-design",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "statistics",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "qualitative-analysis",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "customer-segmentation",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Design and execute a mixed-method or market-research study with transparent methods.",
+      "Create a synthesis/report that traces claims back to evidence.",
+      "Present an actionable recommendation with limitations."
+    ],
+    "experienceExpectations": [
+      "Work on a real research question for a team, client, class, or organization."
+    ],
+    "signalExpectations": [
+      "Publish a concise insight report or case study with methods, evidence, and recommendations."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "brand-strategist",
+      "social-science-researcher",
+      "data-journalist",
+      "data-analyst"
+    ]
+  },
+  {
+    "id": "financial-analyst",
+    "title": "Financial Analyst",
+    "aliases": [
+      "corporate financial analyst"
+    ],
+    "family": "Finance & Business",
+    "summary": "Analyzes financial performance, forecasts, business drivers, and decisions using statements, models, and communication.",
+    "capabilities": [
+      {
+        "capabilityId": "accounting",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "financial-statements",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "excel-modeling",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "financial-modeling",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "budgeting-forecasting",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "corporate-finance",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build an auditable financial or business model with assumptions and scenario analysis.",
+      "Write a concise decision memo grounded in financial evidence.",
+      "Explain sensitivities, risks, and limitations."
+    ],
+    "experienceExpectations": [
+      "Analyze a realistic company, budget, transaction, or business case with feedback from others."
+    ],
+    "signalExpectations": [
+      "Maintain a portfolio of models and memos with clear assumptions and conclusions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "fpa-analyst",
+      "accountant",
+      "investment-analyst",
+      "equity-research-analyst"
+    ]
+  },
+  {
+    "id": "fpa-analyst",
+    "title": "FP&A Analyst",
+    "aliases": [
+      "financial planning and analysis analyst",
+      "fp&a"
+    ],
+    "family": "Finance & Business",
+    "summary": "Builds budgets, forecasts, scenarios, variance analysis, and management reporting for business planning.",
+    "capabilities": [
+      {
+        "capabilityId": "accounting",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "financial-statements",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "excel-modeling",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "financial-modeling",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "budgeting-forecasting",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "business-analysis",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build an auditable financial or business model with assumptions and scenario analysis.",
+      "Write a concise decision memo grounded in financial evidence.",
+      "Explain sensitivities, risks, and limitations."
+    ],
+    "experienceExpectations": [
+      "Analyze a realistic company, budget, transaction, or business case with feedback from others."
+    ],
+    "signalExpectations": [
+      "Maintain a portfolio of models and memos with clear assumptions and conclusions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "financial-analyst",
+      "equity-research-analyst",
+      "accountant",
+      "investment-analyst"
+    ]
+  },
+  {
+    "id": "investment-analyst",
+    "title": "Investment Analyst",
+    "aliases": [
+      "investment research analyst"
+    ],
+    "family": "Finance & Business",
+    "summary": "Evaluates investments using company, industry, financial, valuation, risk, and thesis-driven analysis.",
+    "capabilities": [
+      {
+        "capabilityId": "financial-statements",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "valuation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "investment-research",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "economics-market-analysis",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "risk-analysis",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "excel-modeling",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build an auditable financial or business model with assumptions and scenario analysis.",
+      "Write a concise decision memo grounded in financial evidence.",
+      "Explain sensitivities, risks, and limitations."
+    ],
+    "experienceExpectations": [
+      "Analyze a realistic company, budget, transaction, or business case with feedback from others."
+    ],
+    "signalExpectations": [
+      "Maintain a portfolio of models and memos with clear assumptions and conclusions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "equity-research-analyst",
+      "financial-analyst",
+      "fpa-analyst",
+      "accountant"
+    ]
+  },
+  {
+    "id": "equity-research-analyst",
+    "title": "Equity Research Analyst",
+    "aliases": [
+      "equity analyst",
+      "sell-side research analyst"
+    ],
+    "family": "Finance & Business",
+    "summary": "Researches listed companies and sectors, builds forecasts and valuations, and communicates investment views.",
+    "capabilities": [
+      {
+        "capabilityId": "financial-statements",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "financial-modeling",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "valuation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "investment-research",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "economics-market-analysis",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "risk-analysis",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build an auditable financial or business model with assumptions and scenario analysis.",
+      "Write a concise decision memo grounded in financial evidence.",
+      "Explain sensitivities, risks, and limitations."
+    ],
+    "experienceExpectations": [
+      "Analyze a realistic company, budget, transaction, or business case with feedback from others."
+    ],
+    "signalExpectations": [
+      "Maintain a portfolio of models and memos with clear assumptions and conclusions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "investment-analyst",
+      "financial-analyst",
+      "fpa-analyst",
+      "strategy-analyst"
+    ]
+  },
+  {
+    "id": "accountant",
+    "title": "Accountant",
+    "aliases": [
+      "staff accountant",
+      "financial accountant"
+    ],
+    "family": "Finance & Business",
+    "summary": "Records, reconciles, reports, and explains financial transactions and statements with strong control discipline.",
+    "capabilities": [
+      {
+        "capabilityId": "accounting",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "financial-statements",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "excel-modeling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "audit-controls",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "documentation",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ethics-privacy",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build an auditable financial or business model with assumptions and scenario analysis.",
+      "Write a concise decision memo grounded in financial evidence.",
+      "Explain sensitivities, risks, and limitations."
+    ],
+    "experienceExpectations": [
+      "Analyze a realistic company, budget, transaction, or business case with feedback from others."
+    ],
+    "signalExpectations": [
+      "Maintain a portfolio of models and memos with clear assumptions and conclusions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "auditor",
+      "financial-analyst",
+      "fpa-analyst",
+      "investment-analyst"
+    ]
+  },
+  {
+    "id": "auditor",
+    "title": "Auditor",
+    "aliases": [
+      "internal auditor",
+      "external auditor"
+    ],
+    "family": "Finance & Business",
+    "summary": "Evaluates evidence, controls, processes, risk, and compliance to form defensible audit conclusions.",
+    "capabilities": [
+      {
+        "capabilityId": "audit-controls",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "accounting",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "financial-statements",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "risk-analysis",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "documentation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "critical-thinking",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Build an auditable financial or business model with assumptions and scenario analysis.",
+      "Write a concise decision memo grounded in financial evidence.",
+      "Explain sensitivities, risks, and limitations."
+    ],
+    "experienceExpectations": [
+      "Analyze a realistic company, budget, transaction, or business case with feedback from others."
+    ],
+    "signalExpectations": [
+      "Maintain a portfolio of models and memos with clear assumptions and conclusions."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "accountant",
+      "technical-writer",
+      "project-manager",
+      "financial-analyst"
+    ]
+  },
+  {
+    "id": "business-analyst",
+    "title": "Business Analyst",
+    "aliases": [
+      "business systems analyst"
+    ],
+    "family": "Business & Strategy",
+    "summary": "Clarifies business needs, analyzes processes and data, and translates ambiguity into requirements and recommendations.",
+    "capabilities": [
+      {
+        "capabilityId": "business-analysis",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "process-mapping",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "requirements-writing",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "sql-relational",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "problem-framing",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Structure an ambiguous business problem into hypotheses, analyses, and recommendations.",
+      "Build a business case or decision memo with explicit assumptions and risks.",
+      "Present findings in an executive-friendly format."
+    ],
+    "experienceExpectations": [
+      "Work on a real organizational, market, or process problem with stakeholder feedback."
+    ],
+    "signalExpectations": [
+      "Publish a sanitized case study showing structured reasoning and evidence."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "operations-analyst",
+      "service-designer",
+      "technical-product-manager",
+      "product-manager"
+    ]
+  },
+  {
+    "id": "management-consultant",
+    "title": "Management Consultant",
+    "aliases": [
+      "strategy consultant",
+      "business consultant"
+    ],
+    "family": "Business & Strategy",
+    "summary": "Solves ambiguous business problems through structured analysis, research, synthesis, and executive communication.",
+    "capabilities": [
+      {
+        "capabilityId": "consulting-problem-solving",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "strategy",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "market-research",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "quantitative-reasoning",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "business-case",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Structure an ambiguous business problem into hypotheses, analyses, and recommendations.",
+      "Build a business case or decision memo with explicit assumptions and risks.",
+      "Present findings in an executive-friendly format."
+    ],
+    "experienceExpectations": [
+      "Work on a real organizational, market, or process problem with stakeholder feedback."
+    ],
+    "signalExpectations": [
+      "Publish a sanitized case study showing structured reasoning and evidence."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "strategy-analyst",
+      "learning-development-specialist",
+      "brand-strategist",
+      "product-manager"
+    ]
+  },
+  {
+    "id": "strategy-analyst",
+    "title": "Strategy Analyst",
+    "aliases": [
+      "corporate strategy analyst"
+    ],
+    "family": "Business & Strategy",
+    "summary": "Analyzes markets, competitors, economics, and internal capabilities to support strategic choices.",
+    "capabilities": [
+      {
+        "capabilityId": "strategy",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "economics-market-analysis",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "market-research",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "financial-modeling",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "business-case",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "critical-thinking",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Structure an ambiguous business problem into hypotheses, analyses, and recommendations.",
+      "Build a business case or decision memo with explicit assumptions and risks.",
+      "Present findings in an executive-friendly format."
+    ],
+    "experienceExpectations": [
+      "Work on a real organizational, market, or process problem with stakeholder feedback."
+    ],
+    "signalExpectations": [
+      "Publish a sanitized case study showing structured reasoning and evidence."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "management-consultant",
+      "brand-strategist",
+      "market-research-analyst",
+      "data-journalist"
+    ]
+  },
+  {
+    "id": "operations-analyst",
+    "title": "Operations Analyst",
+    "aliases": [
+      "business operations analyst",
+      "ops analyst"
+    ],
+    "family": "Business & Operations",
+    "summary": "Uses data and process analysis to improve efficiency, quality, capacity, cost, and service outcomes.",
+    "capabilities": [
+      {
+        "capabilityId": "operations-analysis",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "process-mapping",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "sql-relational",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "business-analysis",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "project-management",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "decision-making",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Map and analyze a process using real or realistic operational data.",
+      "Quantify a bottleneck, risk, or improvement opportunity.",
+      "Produce an implementation-oriented recommendation with measurable outcomes."
+    ],
+    "experienceExpectations": [
+      "Participate in an operational improvement, logistics, or process project with real constraints."
+    ],
+    "signalExpectations": [
+      "Publish a before/after operational case with metrics, assumptions, and lessons."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "business-analyst",
+      "supply-chain-analyst",
+      "business-intelligence-analyst",
+      "data-analyst"
+    ]
+  },
+  {
+    "id": "digital-marketer",
+    "title": "Digital Marketer",
+    "aliases": [
+      "digital marketing specialist"
+    ],
+    "family": "Marketing & Growth",
+    "summary": "Plans and measures multi-channel digital marketing across content, search, paid, lifecycle, and analytics.",
+    "capabilities": [
+      {
+        "capabilityId": "content-strategy",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "seo",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "paid-media",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "marketing-analytics",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "lifecycle-email",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "social-media",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "copywriting",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "customer-segmentation",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Design a channel or campaign plan with target audience, message, funnel, and measurement.",
+      "Run or simulate a measurable experiment and analyze results.",
+      "Produce a portfolio artifact showing strategy, creative choices, metrics, and iteration."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic campaign, content program, launch, or growth experiment."
+    ],
+    "signalExpectations": [
+      "Publish a case study that connects audience insight, execution, measurement, and learning."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "seo-specialist",
+      "performance-marketer",
+      "content-strategist",
+      "growth-marketer"
+    ]
+  },
+  {
+    "id": "growth-marketer",
+    "title": "Growth Marketer",
+    "aliases": [
+      "growth marketing manager",
+      "growth specialist"
+    ],
+    "family": "Marketing & Growth",
+    "summary": "Runs measurable experiments across acquisition, activation, retention, referral, and conversion.",
+    "capabilities": [
+      {
+        "capabilityId": "growth-experimentation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "marketing-analytics",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "conversion-optimization",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "customer-segmentation",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "paid-media",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "lifecycle-email",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "product-analytics",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Design a channel or campaign plan with target audience, message, funnel, and measurement.",
+      "Run or simulate a measurable experiment and analyze results.",
+      "Produce a portfolio artifact showing strategy, creative choices, metrics, and iteration."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic campaign, content program, launch, or growth experiment."
+    ],
+    "signalExpectations": [
+      "Publish a case study that connects audience insight, execution, measurement, and learning."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "performance-marketer",
+      "lifecycle-marketer",
+      "digital-marketer",
+      "seo-specialist"
+    ]
+  },
+  {
+    "id": "seo-specialist",
+    "title": "SEO Specialist",
+    "aliases": [
+      "seo analyst",
+      "search engine optimization specialist"
+    ],
+    "family": "Marketing & Growth",
+    "summary": "Improves organic discoverability using search intent, content, technical SEO, measurement, and experimentation.",
+    "capabilities": [
+      {
+        "capabilityId": "seo",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "content-strategy",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "marketing-analytics",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "copywriting",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "web-accessibility",
+        "targetLevel": "basic",
+        "importance": "supporting",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "basic",
+        "importance": "supporting",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Design a channel or campaign plan with target audience, message, funnel, and measurement.",
+      "Run or simulate a measurable experiment and analyze results.",
+      "Produce a portfolio artifact showing strategy, creative choices, metrics, and iteration."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic campaign, content program, launch, or growth experiment."
+    ],
+    "signalExpectations": [
+      "Publish a case study that connects audience insight, execution, measurement, and learning."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "digital-marketer",
+      "content-strategist",
+      "performance-marketer",
+      "lifecycle-marketer"
+    ]
+  },
+  {
+    "id": "content-strategist",
+    "title": "Content Strategist",
+    "aliases": [
+      "content marketing strategist"
+    ],
+    "family": "Marketing & Growth",
+    "summary": "Plans content systems and programs around audience needs, business goals, channels, and measurement.",
+    "capabilities": [
+      {
+        "capabilityId": "content-strategy",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "copywriting",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "market-research",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "seo",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "brand-positioning",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "marketing-analytics",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Design a channel or campaign plan with target audience, message, funnel, and measurement.",
+      "Run or simulate a measurable experiment and analyze results.",
+      "Produce a portfolio artifact showing strategy, creative choices, metrics, and iteration."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic campaign, content program, launch, or growth experiment."
+    ],
+    "signalExpectations": [
+      "Publish a case study that connects audience insight, execution, measurement, and learning."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "seo-specialist",
+      "brand-strategist",
+      "digital-marketer",
+      "product-marketing-manager"
+    ]
+  },
+  {
+    "id": "performance-marketer",
+    "title": "Performance Marketer",
+    "aliases": [
+      "paid acquisition specialist",
+      "performance marketing specialist"
+    ],
+    "family": "Marketing & Growth",
+    "summary": "Plans, launches, measures, and optimizes paid acquisition campaigns against business outcomes.",
+    "capabilities": [
+      {
+        "capabilityId": "paid-media",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "marketing-analytics",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "customer-segmentation",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "conversion-optimization",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "copywriting",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "growth-experimentation",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Design a channel or campaign plan with target audience, message, funnel, and measurement.",
+      "Run or simulate a measurable experiment and analyze results.",
+      "Produce a portfolio artifact showing strategy, creative choices, metrics, and iteration."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic campaign, content program, launch, or growth experiment."
+    ],
+    "signalExpectations": [
+      "Publish a case study that connects audience insight, execution, measurement, and learning."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "growth-marketer",
+      "lifecycle-marketer",
+      "digital-marketer",
+      "seo-specialist"
+    ]
+  },
+  {
+    "id": "product-marketing-manager",
+    "title": "Product Marketing Manager",
+    "aliases": [
+      "product marketer",
+      "pmm"
+    ],
+    "family": "Marketing & Growth",
+    "summary": "Connects customer insight, positioning, messaging, launches, adoption, and sales enablement.",
+    "capabilities": [
+      {
+        "capabilityId": "product-marketing",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "market-research",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "brand-positioning",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "go-to-market",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "customer-segmentation",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "copywriting",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Design a channel or campaign plan with target audience, message, funnel, and measurement.",
+      "Run or simulate a measurable experiment and analyze results.",
+      "Produce a portfolio artifact showing strategy, creative choices, metrics, and iteration."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic campaign, content program, launch, or growth experiment."
+    ],
+    "signalExpectations": [
+      "Publish a case study that connects audience insight, execution, measurement, and learning."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "brand-strategist",
+      "content-strategist",
+      "market-research-analyst",
+      "management-consultant"
+    ]
+  },
+  {
+    "id": "lifecycle-marketer",
+    "title": "Lifecycle / CRM Marketer",
+    "aliases": [
+      "crm marketer",
+      "email marketer",
+      "retention marketer"
+    ],
+    "family": "Marketing & Growth",
+    "summary": "Designs segmented lifecycle journeys that improve activation, engagement, retention, and customer value.",
+    "capabilities": [
+      {
+        "capabilityId": "lifecycle-email",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "crm-funnel",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "customer-segmentation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "marketing-analytics",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "copywriting",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "growth-experimentation",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Design a channel or campaign plan with target audience, message, funnel, and measurement.",
+      "Run or simulate a measurable experiment and analyze results.",
+      "Produce a portfolio artifact showing strategy, creative choices, metrics, and iteration."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic campaign, content program, launch, or growth experiment."
+    ],
+    "signalExpectations": [
+      "Publish a case study that connects audience insight, execution, measurement, and learning."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "performance-marketer",
+      "growth-marketer",
+      "digital-marketer",
+      "seo-specialist"
+    ]
+  },
+  {
+    "id": "brand-strategist",
+    "title": "Brand Strategist",
+    "aliases": [
+      "brand planner",
+      "brand strategy specialist"
+    ],
+    "family": "Marketing & Growth",
+    "summary": "Builds brand positioning and narrative from customer, category, competitive, and cultural insight.",
+    "capabilities": [
+      {
+        "capabilityId": "brand-positioning",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "market-research",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "customer-segmentation",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "content-strategy",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "critical-thinking",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Design a channel or campaign plan with target audience, message, funnel, and measurement.",
+      "Run or simulate a measurable experiment and analyze results.",
+      "Produce a portfolio artifact showing strategy, creative choices, metrics, and iteration."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic campaign, content program, launch, or growth experiment."
+    ],
+    "signalExpectations": [
+      "Publish a case study that connects audience insight, execution, measurement, and learning."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "product-marketing-manager",
+      "content-strategist",
+      "market-research-analyst",
+      "strategy-analyst"
+    ]
+  },
+  {
+    "id": "research-assistant",
+    "title": "Research Assistant",
+    "aliases": [
+      "research associate",
+      "research intern"
+    ],
+    "family": "Research & Policy",
+    "summary": "Supports structured research through literature review, data collection, analysis, documentation, and ethics.",
+    "capabilities": [
+      {
+        "capabilityId": "literature-review",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "research-design",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-wrangling",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "statistics",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "qualitative-analysis",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "documentation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ethics-privacy",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Produce an evidence review with transparent source selection and synthesis.",
+      "Write a research or policy brief that evaluates options and trade-offs.",
+      "Demonstrate ethical handling of data, participants, and uncertainty."
+    ],
+    "experienceExpectations": [
+      "Support a research, policy, academic, nonprofit, or public-interest project with review feedback."
+    ],
+    "signalExpectations": [
+      "Publish a concise evidence-based brief or research summary."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "social-science-researcher",
+      "data-journalist",
+      "accountant",
+      "talent-acquisition-specialist"
+    ]
+  },
+  {
+    "id": "social-science-researcher",
+    "title": "Social Science Researcher",
+    "aliases": [
+      "social researcher",
+      "behavioral researcher"
+    ],
+    "family": "Research & Policy",
+    "summary": "Designs and conducts qualitative, quantitative, or mixed-method research on people, institutions, and social outcomes.",
+    "capabilities": [
+      {
+        "capabilityId": "research-design",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "literature-review",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "statistics",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "qualitative-analysis",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "survey-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ethics-privacy",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Produce an evidence review with transparent source selection and synthesis.",
+      "Write a research or policy brief that evaluates options and trade-offs.",
+      "Demonstrate ethical handling of data, participants, and uncertainty."
+    ],
+    "experienceExpectations": [
+      "Support a research, policy, academic, nonprofit, or public-interest project with review feedback."
+    ],
+    "signalExpectations": [
+      "Publish a concise evidence-based brief or research summary."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "research-assistant",
+      "market-research-analyst",
+      "data-journalist",
+      "design-researcher"
+    ]
+  },
+  {
+    "id": "policy-analyst",
+    "title": "Policy Analyst",
+    "aliases": [
+      "public policy analyst",
+      "policy researcher"
+    ],
+    "family": "Research & Policy",
+    "summary": "Uses evidence, stakeholder context, impact analysis, and structured writing to evaluate policy choices.",
+    "capabilities": [
+      {
+        "capabilityId": "policy-analysis",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "policy-writing",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "literature-review",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "statistics",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "economics-market-analysis",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-ethics",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Produce an evidence review with transparent source selection and synthesis.",
+      "Write a research or policy brief that evaluates options and trade-offs.",
+      "Demonstrate ethical handling of data, participants, and uncertainty."
+    ],
+    "experienceExpectations": [
+      "Support a research, policy, academic, nonprofit, or public-interest project with review feedback."
+    ],
+    "signalExpectations": [
+      "Publish a concise evidence-based brief or research summary."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "social-science-researcher",
+      "research-assistant",
+      "people-analyst",
+      "product-analyst"
+    ]
+  },
+  {
+    "id": "project-manager",
+    "title": "Project Manager",
+    "aliases": [
+      "pm project manager",
+      "delivery manager"
+    ],
+    "family": "Management & Operations",
+    "summary": "Plans and delivers defined outcomes by managing scope, schedule, dependencies, risk, stakeholders, and execution.",
+    "capabilities": [
+      {
+        "capabilityId": "project-management",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "documentation",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "risk-analysis",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "collaboration",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "decision-making",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a delivery plan with scope, milestones, dependencies, risks, and stakeholders.",
+      "Document a decision or recovery from a realistic delivery problem.",
+      "Show how progress and risks are communicated."
+    ],
+    "experienceExpectations": [
+      "Coordinate a real or realistic cross-functional initiative with deadlines and dependencies."
+    ],
+    "signalExpectations": [
+      "Maintain a project/program case study emphasizing outcomes, coordination, and learning."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "program-manager",
+      "learning-development-specialist",
+      "talent-acquisition-specialist",
+      "service-designer"
+    ]
+  },
+  {
+    "id": "program-manager",
+    "title": "Program Manager",
+    "aliases": [
+      "programme manager",
+      "technical program manager"
+    ],
+    "family": "Management & Operations",
+    "summary": "Coordinates multiple related initiatives, dependencies, stakeholders, risks, and outcomes toward a broader objective.",
+    "capabilities": [
+      {
+        "capabilityId": "program-management",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "project-management",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "change-management",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "risk-analysis",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "collaboration",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "decision-making",
+        "targetLevel": "strong",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a delivery plan with scope, milestones, dependencies, risks, and stakeholders.",
+      "Document a decision or recovery from a realistic delivery problem.",
+      "Show how progress and risks are communicated."
+    ],
+    "experienceExpectations": [
+      "Coordinate a real or realistic cross-functional initiative with deadlines and dependencies."
+    ],
+    "signalExpectations": [
+      "Maintain a project/program case study emphasizing outcomes, coordination, and learning."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "project-manager",
+      "service-designer",
+      "learning-development-specialist",
+      "product-manager"
+    ]
+  },
+  {
+    "id": "people-analyst",
+    "title": "People / HR Analyst",
+    "aliases": [
+      "hr analyst",
+      "people analytics analyst"
+    ],
+    "family": "People & Operations",
+    "summary": "Uses workforce data and business context to answer people questions and improve HR decisions.",
+    "capabilities": [
+      {
+        "capabilityId": "hr-analytics",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "statistics",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "sql-relational",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "people-ops",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ethics-privacy",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a fair, repeatable people process or analysis with clear criteria and privacy safeguards.",
+      "Analyze a workforce or recruiting problem and communicate evidence-based recommendations.",
+      "Demonstrate structured documentation and stakeholder communication."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic recruiting, HR operations, people analytics, or learning workflow."
+    ],
+    "signalExpectations": [
+      "Publish a sanitized case study focused on process quality, evidence, and outcomes."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "product-analyst",
+      "talent-acquisition-specialist",
+      "social-science-researcher",
+      "data-journalist"
+    ]
+  },
+  {
+    "id": "talent-acquisition-specialist",
+    "title": "Talent Acquisition Specialist",
+    "aliases": [
+      "recruiter",
+      "talent acquisition recruiter"
+    ],
+    "family": "People & Operations",
+    "summary": "Sources, assesses, coordinates, and closes candidates using structured, fair, evidence-based recruiting practices.",
+    "capabilities": [
+      {
+        "capabilityId": "recruiting",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "interviewing-hiring",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "people-ops",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "documentation",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ethics-privacy",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a fair, repeatable people process or analysis with clear criteria and privacy safeguards.",
+      "Analyze a workforce or recruiting problem and communicate evidence-based recommendations.",
+      "Demonstrate structured documentation and stakeholder communication."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic recruiting, HR operations, people analytics, or learning workflow."
+    ],
+    "signalExpectations": [
+      "Publish a sanitized case study focused on process quality, evidence, and outcomes."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "people-analyst",
+      "project-manager",
+      "learning-development-specialist",
+      "research-assistant"
+    ]
+  },
+  {
+    "id": "supply-chain-analyst",
+    "title": "Supply Chain Analyst",
+    "aliases": [
+      "supply analyst",
+      "logistics analyst"
+    ],
+    "family": "Business & Operations",
+    "summary": "Uses data and process analysis to improve inventory, sourcing, logistics, service levels, and supply resilience.",
+    "capabilities": [
+      {
+        "capabilityId": "supply-chain",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "operations-analysis",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "excel-modeling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "sql-relational",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "risk-analysis",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "process-mapping",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Map and analyze a process using real or realistic operational data.",
+      "Quantify a bottleneck, risk, or improvement opportunity.",
+      "Produce an implementation-oriented recommendation with measurable outcomes."
+    ],
+    "experienceExpectations": [
+      "Participate in an operational improvement, logistics, or process project with real constraints."
+    ],
+    "signalExpectations": [
+      "Publish a before/after operational case with metrics, assumptions, and lessons."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "operations-analyst",
+      "business-analyst",
+      "investment-analyst",
+      "people-analyst"
+    ]
+  },
+  {
+    "id": "technical-writer",
+    "title": "Technical Writer",
+    "aliases": [
+      "documentation writer",
+      "developer documentation writer"
+    ],
+    "family": "Content & Communication",
+    "summary": "Turns complex technical information into accurate, usable documentation for defined audiences.",
+    "capabilities": [
+      {
+        "capabilityId": "documentation",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "communication",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "content-design",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "information-architecture",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "critical-thinking",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "git-version-control",
+        "targetLevel": "basic",
+        "importance": "supporting",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a small documentation/content set for a real product, workflow, or technical topic.",
+      "Demonstrate information structure, audience awareness, and revision from feedback.",
+      "Show before/after improvements with rationale."
+    ],
+    "experienceExpectations": [
+      "Work with subject-matter experts or users to revise content based on feedback."
+    ],
+    "signalExpectations": [
+      "Publish a writing portfolio with clear context, audience, and outcomes."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "auditor",
+      "project-manager",
+      "research-assistant",
+      "content-designer"
+    ]
+  },
+  {
+    "id": "data-journalist",
+    "title": "Data Journalist",
+    "aliases": [
+      "data reporter",
+      "computational journalist"
+    ],
+    "family": "Research & Communication",
+    "summary": "Finds, analyzes, verifies, visualizes, and communicates data-driven stories for public audiences.",
+    "capabilities": [
+      {
+        "capabilityId": "data-wrangling",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "statistics",
+        "targetLevel": "working",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "data-visualization",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "literature-review",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "critical-thinking",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "ethics-privacy",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Produce a reproducible data-backed story with sources, analysis, and visuals.",
+      "Document verification and uncertainty around key claims.",
+      "Create a concise narrative for a public audience."
+    ],
+    "experienceExpectations": [
+      "Work on a collaborative reporting, research, or public-information project."
+    ],
+    "signalExpectations": [
+      "Publish a sourced portfolio story with reproducible analysis."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "data-analyst",
+      "data-scientist",
+      "social-science-researcher",
+      "brand-strategist"
+    ]
+  },
+  {
+    "id": "learning-development-specialist",
+    "title": "Learning & Development Specialist",
+    "aliases": [
+      "l&d specialist",
+      "training specialist"
+    ],
+    "family": "People & Operations",
+    "summary": "Diagnoses learning needs, designs development interventions, facilitates learning, and evaluates effectiveness.",
+    "capabilities": [
+      {
+        "capabilityId": "learning-development",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "research-design",
+        "targetLevel": "basic",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "stakeholder-communication",
+        "targetLevel": "strong",
+        "importance": "core",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "presentation-storytelling",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "project-management",
+        "targetLevel": "working",
+        "importance": "important",
+        "prerequisites": []
+      },
+      {
+        "capabilityId": "people-ops",
+        "targetLevel": "basic",
+        "importance": "supporting",
+        "prerequisites": []
+      }
+    ],
+    "proofExpectations": [
+      "Create a fair, repeatable people process or analysis with clear criteria and privacy safeguards.",
+      "Analyze a workforce or recruiting problem and communicate evidence-based recommendations.",
+      "Demonstrate structured documentation and stakeholder communication."
+    ],
+    "experienceExpectations": [
+      "Support a real or realistic recruiting, HR operations, people analytics, or learning workflow."
+    ],
+    "signalExpectations": [
+      "Publish a sanitized case study focused on process quality, evidence, and outcomes."
+    ],
+    "status": "seed-reviewed",
+    "version": 1,
+    "lastReviewed": "2026-09-19",
+    "reviewCadenceMonths": 3,
+    "adjacentCareerIds": [
+      "project-manager",
+      "program-manager",
+      "management-consultant",
+      "talent-acquisition-specialist"
+    ]
+  }
+]

@@ -5,9 +5,11 @@ import { Calendar, CheckSquare, Square } from "lucide-react";
 import { ActionItem } from "@/domain/types";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { getClientAIProvider } from "@/agent/client-provider";
+import { buildTodaySchedule } from "@/domain/daily-scheduling";
 
 export type TodayPlanStripProps = {
   actions: ActionItem[];
+  weeklyHours?: number;
   className?: string;
 };
 
@@ -19,8 +21,11 @@ export type TodayPlanStripProps = {
  * - Interactive completion toggle with completed counter
  * - Updates in place upon persona switch without component recreation
  */
-export function TodayPlanStrip({ actions = [], className = "" }: TodayPlanStripProps) {
-  const displayActions = actions.slice(0, 4);
+export function TodayPlanStrip({ actions = [], weeklyHours, className = "" }: TodayPlanStripProps) {
+  const schedule = weeklyHours === undefined
+    ? actions.slice(0, 4).map((action) => ({ action, scheduledMinutes: action.estimatedMinutes, isPartial: false }))
+    : buildTodaySchedule(actions, weeklyHours);
+  const displayActions = schedule.map((item) => item.action);
   const completeAction = useSkillStateStore((state) => state.completeAction);
   const setPlan = useSkillStateStore((state) => state.setPlan);
 
@@ -96,14 +101,16 @@ export function TodayPlanStrip({ actions = [], className = "" }: TodayPlanStripP
         {displayActions.length === 0 ? (
           <p className="text-xs text-ink-muted py-2">No planned tasks for today.</p>
         ) : (
-          displayActions.map((action) => {
+          schedule.map(({ action, scheduledMinutes, isPartial }) => {
             const isCompleted = completedIds.has(action.id);
 
             return (
               <button
                 key={action.id}
                 type="button"
-                onClick={() => toggleAction(action)}
+                onClick={() => {
+                  if (!isPartial) toggleAction(action);
+                }}
                 className="w-full flex items-center justify-between gap-2.5 text-left p-1.5 rounded-lg hover:bg-surface-soft transition-colors group"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
@@ -120,9 +127,9 @@ export function TodayPlanStrip({ actions = [], className = "" }: TodayPlanStripP
                     {action.title}
                   </span>
                 </div>
-                {action.estimatedMinutes ? (
+                {scheduledMinutes ? (
                   <span className="text-[11px] text-ink-muted/80 shrink-0 font-medium">
-                    {action.estimatedMinutes}m
+                    {scheduledMinutes}m{isPartial ? " session" : ""}
                   </span>
                 ) : null}
                 {action.category === "prove" && action.status === "attempted" && (

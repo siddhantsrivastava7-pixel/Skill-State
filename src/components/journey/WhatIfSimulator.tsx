@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { InlineNotice } from "@/components/ui/InlineNotice";
+import { formatPlanningHorizonLabel } from "@/domain/planning-horizon";
 
 export interface WhatIfSimulatorProps {
   onApplied?: () => void;
@@ -301,7 +302,7 @@ export function WhatIfSimulator({
             <option value={24}>24 Months (Deep Degree Track)</option>
           </select>
           <span className="text-[10px] text-ink-muted block">
-            Current Target: <strong className="text-ink">{profile.targetTimelineMonths || 12} months</strong>
+            Current Target: <strong className="text-ink">{formatPlanningHorizonLabel(profile.planningHorizon, profile.targetTimelineMonths)}</strong>
           </span>
         </div>
       </div>

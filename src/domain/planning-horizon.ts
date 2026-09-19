@@ -101,3 +101,18 @@ export function resolvePlanningHorizon(
       };
   }
 }
+
+/** User-facing configured horizon; deliberately separate from journey estimates. */
+export function formatPlanningHorizonLabel(
+  horizon?: PlanningHorizon,
+  legacyMonths?: number
+): string {
+  if (horizon?.mode === "full-path") return "Full path to goal";
+  if (horizon?.mode === "until-graduation") {
+    return horizon.resolvedMonths
+      ? `Until graduation (~${horizon.resolvedMonths} mo)`
+      : "Until graduation";
+  }
+  const months = horizon?.resolvedMonths ?? horizon?.customMonths ?? legacyMonths;
+  return months ? `${months} mo` : "Not set";
+}

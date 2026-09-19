@@ -1,0 +1,1613 @@
+[
+  {
+    "id": "python-tutorial",
+    "title": "The Python Tutorial",
+    "provider": "Python Software Foundation",
+    "url": "https://docs.python.org/3/tutorial/",
+    "capabilityIds": [
+      "programming-python"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "github-skills",
+    "title": "GitHub Skills",
+    "provider": "GitHub",
+    "url": "https://skills.github.com/",
+    "capabilityIds": [
+      "git-version-control"
+    ],
+    "type": "interactive",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "mdn-learn-web",
+    "title": "Learn Web Development",
+    "provider": "MDN Web Docs",
+    "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development",
+    "capabilityIds": [
+      "frontend-engineering",
+      "programming-js-ts",
+      "web-accessibility"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "typescript-handbook",
+    "title": "The TypeScript Handbook",
+    "provider": "Microsoft",
+    "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+    "capabilityIds": [
+      "programming-js-ts"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "react-learn",
+    "title": "React: Learn",
+    "provider": "React",
+    "url": "https://react.dev/learn",
+    "capabilityIds": [
+      "frontend-engineering",
+      "programming-js-ts"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "nextjs-learn",
+    "title": "Next.js Learn",
+    "provider": "Vercel",
+    "url": "https://nextjs.org/learn",
+    "capabilityIds": [
+      "frontend-engineering",
+      "programming-js-ts"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "node-learn",
+    "title": "Node.js Learn",
+    "provider": "OpenJS Foundation / Node.js",
+    "url": "https://nodejs.org/en/learn",
+    "capabilityIds": [
+      "backend-engineering",
+      "programming-js-ts"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "fastapi-tutorial",
+    "title": "FastAPI Tutorial",
+    "provider": "FastAPI",
+    "url": "https://fastapi.tiangolo.com/tutorial/",
+    "capabilityIds": [
+      "api-design",
+      "backend-engineering",
+      "programming-python"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "postgres-tutorial",
+    "title": "PostgreSQL Tutorial",
+    "provider": "PostgreSQL Global Development Group",
+    "url": "https://www.postgresql.org/docs/current/tutorial.html",
+    "capabilityIds": [
+      "sql-relational",
+      "data-modeling"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "sqlbolt",
+    "title": "SQLBolt",
+    "provider": "SQLBolt",
+    "url": "https://sqlbolt.com/",
+    "capabilityIds": [
+      "sql-relational"
+    ],
+    "type": "interactive",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "docker-get-started",
+    "title": "Docker Get Started",
+    "provider": "Docker",
+    "url": "https://docs.docker.com/get-started/",
+    "capabilityIds": [
+      "containers"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "kubernetes-basics",
+    "title": "Learn Kubernetes Basics",
+    "provider": "Kubernetes",
+    "url": "https://kubernetes.io/docs/tutorials/kubernetes-basics/",
+    "capabilityIds": [
+      "containers",
+      "cloud-fundamentals"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "github-actions",
+    "title": "GitHub Actions Documentation",
+    "provider": "GitHub",
+    "url": "https://docs.github.com/en/actions",
+    "capabilityIds": [
+      "cicd"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "azure-training",
+    "title": "Microsoft Learn: Azure",
+    "provider": "Microsoft",
+    "url": "https://learn.microsoft.com/en-us/training/azure/",
+    "capabilityIds": [
+      "cloud-fundamentals"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "aws-skill-builder",
+    "title": "AWS Skill Builder",
+    "provider": "Amazon Web Services",
+    "url": "https://skillbuilder.aws/",
+    "capabilityIds": [
+      "cloud-fundamentals"
+    ],
+    "type": "course",
+    "cost": "freemium",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "portswigger-academy",
+    "title": "Web Security Academy",
+    "provider": "PortSwigger",
+    "url": "https://portswigger.net/web-security",
+    "capabilityIds": [
+      "security-fundamentals",
+      "appsec",
+      "threat-modeling"
+    ],
+    "type": "interactive",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "owasp-top10",
+    "title": "OWASP Top 10",
+    "provider": "OWASP",
+    "url": "https://owasp.org/www-project-top-ten/",
+    "capabilityIds": [
+      "security-fundamentals",
+      "appsec"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "owasp-wstg",
+    "title": "Web Security Testing Guide",
+    "provider": "OWASP",
+    "url": "https://owasp.org/www-project-web-security-testing-guide/",
+    "capabilityIds": [
+      "appsec",
+      "testing-quality"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "google-ml-crash-course",
+    "title": "Machine Learning Crash Course",
+    "provider": "Google",
+    "url": "https://developers.google.com/machine-learning/crash-course",
+    "capabilityIds": [
+      "machine-learning",
+      "model-evaluation"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "kaggle-learn",
+    "title": "Kaggle Learn",
+    "provider": "Kaggle",
+    "url": "https://www.kaggle.com/learn",
+    "capabilityIds": [
+      "programming-python",
+      "data-wrangling",
+      "machine-learning",
+      "sql-relational"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "pandas-tutorials",
+    "title": "Getting Started Tutorials",
+    "provider": "pandas",
+    "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/",
+    "capabilityIds": [
+      "data-wrangling",
+      "programming-python"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "sklearn-user-guide",
+    "title": "scikit-learn User Guide",
+    "provider": "scikit-learn",
+    "url": "https://scikit-learn.org/stable/user_guide.html",
+    "capabilityIds": [
+      "machine-learning",
+      "model-evaluation",
+      "feature-engineering"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "pytorch-tutorials",
+    "title": "PyTorch Tutorials",
+    "provider": "PyTorch",
+    "url": "https://docs.pytorch.org/tutorials/",
+    "capabilityIds": [
+      "deep-learning",
+      "machine-learning",
+      "programming-python"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "huggingface-learn",
+    "title": "Hugging Face Learn",
+    "provider": "Hugging Face",
+    "url": "https://huggingface.co/learn",
+    "capabilityIds": [
+      "nlp-llms",
+      "deep-learning"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "full-stack-deep-learning",
+    "title": "Full Stack Deep Learning",
+    "provider": "Full Stack Deep Learning",
+    "url": "https://fullstackdeeplearning.com/",
+    "capabilityIds": [
+      "mlops",
+      "deep-learning",
+      "model-evaluation"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "dbt-courses",
+    "title": "dbt Learn",
+    "provider": "dbt Labs",
+    "url": "https://learn.getdbt.com/",
+    "capabilityIds": [
+      "dbt-transform",
+      "etl-elt",
+      "data-modeling"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "spark-quickstart",
+    "title": "Apache Spark Quick Start",
+    "provider": "Apache Spark",
+    "url": "https://spark.apache.org/docs/latest/quick-start.html",
+    "capabilityIds": [
+      "spark-bigdata",
+      "data-pipelines"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "power-bi-learning",
+    "title": "Power BI Learning Paths",
+    "provider": "Microsoft Learn",
+    "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-bi/",
+    "capabilityIds": [
+      "bi-dashboarding",
+      "data-visualization"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "tableau-training",
+    "title": "Tableau Training",
+    "provider": "Tableau",
+    "url": "https://www.tableau.com/learn/training",
+    "capabilityIds": [
+      "bi-dashboarding",
+      "data-visualization"
+    ],
+    "type": "course",
+    "cost": "freemium",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "govuk-user-research",
+    "title": "User Research - Service Manual",
+    "provider": "GOV.UK",
+    "url": "https://www.gov.uk/service-manual/user-research",
+    "capabilityIds": [
+      "ux-research-methods",
+      "research-planning",
+      "participant-recruiting",
+      "interview-moderation",
+      "usability-testing",
+      "synthesis-insights",
+      "ethics-privacy"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "govuk-plan-research",
+    "title": "Plan User Research for Your Service",
+    "provider": "GOV.UK",
+    "url": "https://www.gov.uk/service-manual/user-research/plan-user-research-for-your-service",
+    "capabilityIds": [
+      "research-planning",
+      "human-centered-design"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "govuk-find-participants",
+    "title": "Finding Participants for User Research",
+    "provider": "GOV.UK",
+    "url": "https://www.gov.uk/service-manual/user-research/find-user-research-participants",
+    "capabilityIds": [
+      "participant-recruiting",
+      "ethics-privacy"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "nng-usability-101",
+    "title": "Usability Testing 101",
+    "provider": "Nielsen Norman Group",
+    "url": "https://www.nngroup.com/articles/usability-testing-101/",
+    "capabilityIds": [
+      "usability-testing"
+    ],
+    "type": "article",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "nng-user-interviews",
+    "title": "User Interviews: How, When, and Why to Conduct Them",
+    "provider": "Nielsen Norman Group",
+    "url": "https://www.nngroup.com/articles/user-interviews/",
+    "capabilityIds": [
+      "interview-moderation",
+      "ux-research-methods"
+    ],
+    "type": "article",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "nng-heuristics",
+    "title": "10 Usability Heuristics for User Interface Design",
+    "provider": "Nielsen Norman Group",
+    "url": "https://www.nngroup.com/articles/ten-usability-heuristics/",
+    "capabilityIds": [
+      "usability-testing",
+      "interaction-design"
+    ],
+    "type": "article",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "figma-resource-library",
+    "title": "Figma Resource Library",
+    "provider": "Figma",
+    "url": "https://www.figma.com/resource-library/",
+    "capabilityIds": [
+      "prototyping",
+      "interaction-design",
+      "visual-design",
+      "design-systems"
+    ],
+    "type": "library",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "material-design",
+    "title": "Material Design 3",
+    "provider": "Google",
+    "url": "https://m3.material.io/",
+    "capabilityIds": [
+      "interaction-design",
+      "visual-design",
+      "design-systems",
+      "accessibility-inclusive-design"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "govuk-design",
+    "title": "Design - Service Manual",
+    "provider": "GOV.UK",
+    "url": "https://www.gov.uk/service-manual/design",
+    "capabilityIds": [
+      "human-centered-design",
+      "service-design",
+      "accessibility-inclusive-design"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "govuk-content-design",
+    "title": "Content Design: Planning, Writing and Managing Content",
+    "provider": "GOV.UK",
+    "url": "https://www.gov.uk/guidance/content-design",
+    "capabilityIds": [
+      "content-design",
+      "information-architecture",
+      "accessibility-inclusive-design"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "atlassian-product-management",
+    "title": "Product Management Guide",
+    "provider": "Atlassian",
+    "url": "https://www.atlassian.com/agile/product-management",
+    "capabilityIds": [
+      "product-discovery",
+      "product-strategy",
+      "roadmap-prioritization"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "atlassian-agile",
+    "title": "Agile Coach",
+    "provider": "Atlassian",
+    "url": "https://www.atlassian.com/agile",
+    "capabilityIds": [
+      "project-management",
+      "product-discovery",
+      "roadmap-prioritization"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "damodaran-online",
+    "title": "Damodaran Online",
+    "provider": "NYU Stern / Aswath Damodaran",
+    "url": "https://pages.stern.nyu.edu/~adamodar/",
+    "capabilityIds": [
+      "valuation",
+      "corporate-finance",
+      "investment-research",
+      "financial-modeling"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "khan-finance",
+    "title": "Finance and Capital Markets",
+    "provider": "Khan Academy",
+    "url": "https://www.khanacademy.org/economics-finance-domain/core-finance",
+    "capabilityIds": [
+      "corporate-finance",
+      "financial-statements",
+      "valuation"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "cfi-financial-modeling",
+    "title": "Financial Modeling Resources",
+    "provider": "Corporate Finance Institute",
+    "url": "https://corporatefinanceinstitute.com/resources/financial-modeling/",
+    "capabilityIds": [
+      "financial-modeling",
+      "excel-modeling",
+      "valuation"
+    ],
+    "type": "library",
+    "cost": "freemium",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "microsoft-excel",
+    "title": "Excel Help & Learning",
+    "provider": "Microsoft",
+    "url": "https://support.microsoft.com/en-us/excel",
+    "capabilityIds": [
+      "excel-modeling"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "investor-financial-statements",
+    "title": "Beginner's Guide to Financial Statements",
+    "provider": "U.S. SEC",
+    "url": "https://www.sec.gov/about/reports-publications/investorpubsbegfinstmtguide",
+    "capabilityIds": [
+      "financial-statements",
+      "accounting"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "asq-process-mapping",
+    "title": "Process Mapping Overview",
+    "provider": "ASQ",
+    "url": "https://asq.org/quality-resources/process-mapping",
+    "capabilityIds": [
+      "process-mapping",
+      "operations-analysis"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "google-skillshop",
+    "title": "Google Skillshop",
+    "provider": "Google",
+    "url": "https://skillshop.withgoogle.com/",
+    "capabilityIds": [
+      "paid-media",
+      "marketing-analytics"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "google-seo-starter",
+    "title": "SEO Starter Guide",
+    "provider": "Google Search Central",
+    "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+    "capabilityIds": [
+      "seo",
+      "content-strategy"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "hubspot-content-marketing",
+    "title": "Content Marketing Certification Course",
+    "provider": "HubSpot Academy",
+    "url": "https://academy.hubspot.com/courses/content-marketing",
+    "capabilityIds": [
+      "content-strategy",
+      "copywriting"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "hubspot-email-marketing",
+    "title": "Email Marketing Certification Course",
+    "provider": "HubSpot Academy",
+    "url": "https://academy.hubspot.com/courses/email-marketing",
+    "capabilityIds": [
+      "lifecycle-email",
+      "crm-funnel",
+      "copywriting"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "hubspot-digital-marketing",
+    "title": "Digital Marketing Certification Course",
+    "provider": "HubSpot Academy",
+    "url": "https://academy.hubspot.com/courses/digital-marketing",
+    "capabilityIds": [
+      "content-strategy",
+      "seo",
+      "marketing-analytics",
+      "paid-media"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "meta-blueprint",
+    "title": "Meta Blueprint",
+    "provider": "Meta",
+    "url": "https://www.facebook.com/business/learn",
+    "capabilityIds": [
+      "paid-media",
+      "social-media",
+      "marketing-analytics"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "zotero-quick-start",
+    "title": "Zotero Quick Start Guide",
+    "provider": "Zotero",
+    "url": "https://www.zotero.org/support/quick_start_guide",
+    "capabilityIds": [
+      "literature-review",
+      "documentation"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "openstax-statistics",
+    "title": "Introductory Statistics 2e",
+    "provider": "OpenStax",
+    "url": "https://openstax.org/details/books/introductory-statistics-2e",
+    "capabilityIds": [
+      "statistics",
+      "probability",
+      "survey-design",
+      "quantitative-reasoning"
+    ],
+    "type": "book",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "scrum-guide",
+    "title": "The Scrum Guide",
+    "provider": "Scrum Guides",
+    "url": "https://scrumguides.org/scrum-guide.html",
+    "capabilityIds": [
+      "project-management",
+      "collaboration"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "pmi-learning",
+    "title": "PMI Learning",
+    "provider": "Project Management Institute",
+    "url": "https://www.pmi.org/learning",
+    "capabilityIds": [
+      "project-management",
+      "program-management",
+      "risk-analysis",
+      "stakeholder-communication"
+    ],
+    "type": "library",
+    "cost": "freemium",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "cipd-knowledge",
+    "title": "CIPD Knowledge Hub",
+    "provider": "CIPD",
+    "url": "https://www.cipd.org/en/knowledge/",
+    "capabilityIds": [
+      "people-ops",
+      "recruiting",
+      "performance-management",
+      "learning-development"
+    ],
+    "type": "library",
+    "cost": "freemium",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "toastmasters-resources",
+    "title": "Public Speaking Resources",
+    "provider": "Toastmasters International",
+    "url": "https://www.toastmasters.org/resources",
+    "capabilityIds": [
+      "presentation-storytelling",
+      "communication"
+    ],
+    "type": "library",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "iia-global-internal-audit-standards",
+    "title": "Global Internal Audit Standards",
+    "provider": "The Institute of Internal Auditors",
+    "url": "https://www.theiia.org/en/standards/2024-standards/global-internal-audit-standards/",
+    "capabilityIds": [
+      "audit-controls"
+    ],
+    "type": "standard",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "Authoritative professional standards covering internal-audit governance, planning, engagement work, findings, conclusions, and communication.",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "iiba-business-analysis-standard",
+    "title": "The Business Analysis Standard",
+    "provider": "IIBA",
+    "url": "https://www.iiba.org/knowledgehub/the-business-analysis-standard/",
+    "capabilityIds": [
+      "business-analysis",
+      "requirements-writing",
+      "stakeholder-communication"
+    ],
+    "type": "standard",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "Professional foundation for business analysis concepts and practices.",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "govuk-business-case-guidance",
+    "title": "Guidance on Developing Business Cases",
+    "provider": "HM Treasury / GOV.UK",
+    "url": "https://www.gov.uk/government/publications/guidance-on-developing-business-cases",
+    "capabilityIds": [
+      "business-case",
+      "consulting-problem-solving",
+      "decision-making"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "Step-by-step Five Case Model guidance for projects and programmes.",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "govuk-data-ethics-framework",
+    "title": "Data Ethics Framework",
+    "provider": "UK Government",
+    "url": "https://www.gov.uk/data-ethics-guidance/data-ethics-framework",
+    "capabilityIds": [
+      "data-ethics",
+      "ethics-privacy",
+      "decision-making"
+    ],
+    "type": "framework",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "Official framework for appropriate, transparent, fair, accountable, and responsible data use.",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "nist-ai-risk-management-framework",
+    "title": "AI Risk Management Framework",
+    "provider": "NIST",
+    "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+    "capabilityIds": [
+      "responsible-ai",
+      "risk-analysis",
+      "data-ethics"
+    ],
+    "type": "framework",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "Official NIST framework for trustworthy and responsible AI risk management.",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "openlearn-digital-thinking",
+    "title": "Digital Thinking Tools for Better Decision Making",
+    "provider": "The Open University / OpenLearn",
+    "url": "https://www.open.edu/openlearn/mod/oucontent/view.php?id=98373",
+    "capabilityIds": [
+      "critical-thinking",
+      "decision-making",
+      "consulting-problem-solving",
+      "quantitative-reasoning"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "Free course covering structured thinking, evidence evaluation, estimation, and decision-support tools.",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "openlearn-making-decisions",
+    "title": "Making Decisions",
+    "provider": "The Open University / OpenLearn",
+    "url": "https://www.open.edu/openlearn/mod/oucontent/view.php?id=1491",
+    "capabilityIds": [
+      "decision-making",
+      "critical-thinking"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "Free course on frameworks for understanding managerial decision-making.",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "hubspot-stp",
+    "title": "Segmentation, Targeting, & Positioning (STP Marketing): The Marketer's Guide",
+    "provider": "HubSpot",
+    "url": "https://blog.hubspot.com/marketing/segmentation-targeting-positioning",
+    "capabilityIds": [
+      "customer-segmentation",
+      "brand-positioning",
+      "market-research"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "Practical guide to segmentation, targeting, and positioning.",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "prosci-adkar",
+    "title": "The Prosci ADKAR Model",
+    "provider": "Prosci",
+    "url": "https://www.prosci.com/methodology/adkar",
+    "capabilityIds": [
+      "change-management",
+      "stakeholder-communication"
+    ],
+    "type": "framework",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "Practical individual-change framework: Awareness, Desire, Knowledge, Ability, Reinforcement.",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "firebase-ab-testing",
+    "title": "Firebase A/B Testing",
+    "provider": "Google Firebase",
+    "url": "https://firebase.google.com/docs/ab-testing/",
+    "capabilityIds": [
+      "experimentation-ab",
+      "growth-experimentation",
+      "product-analytics"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "Official documentation for defining, running, measuring, and interpreting product experiments.",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "ubuntu-linux-command-line",
+    "title": "The Linux Command Line for Beginners",
+    "provider": "Ubuntu",
+    "url": "https://ubuntu.com/tutorials/command-line-for-beginners",
+    "capabilityIds": [
+      "linux-cli"
+    ],
+    "type": "tutorial",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "microsoft-iam-fundamentals",
+    "title": "Identity and Access Management Fundamental Concepts",
+    "provider": "Microsoft Learn",
+    "url": "https://learn.microsoft.com/en-us/entra/fundamentals/identity-fundamental-concepts",
+    "capabilityIds": [
+      "identity-access",
+      "security-fundamentals"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "nist-incident-response-sp800-61r3",
+    "title": "NIST SP 800-61 Rev. 3: Incident Response Recommendations and Considerations",
+    "provider": "NIST",
+    "url": "https://csrc.nist.gov/pubs/sp/800/61/r3/final",
+    "capabilityIds": [
+      "incident-response",
+      "security-fundamentals",
+      "risk-analysis"
+    ],
+    "type": "standard",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "cloudflare-internet-networking",
+    "title": "How Does the Internet Work?",
+    "provider": "Cloudflare Learning Center",
+    "url": "https://www.cloudflare.com/learning/network-layer/how-does-the-internet-work/",
+    "capabilityIds": [
+      "networking"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "android-basics-compose",
+    "title": "Android Basics with Compose",
+    "provider": "Android Developers / Google",
+    "url": "https://developer.android.com/courses/android-basics-compose/course",
+    "capabilityIds": [
+      "mobile-development",
+      "testing-quality",
+      "accessibility-inclusive-design"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "opentelemetry-observability-primer",
+    "title": "Observability Primer",
+    "provider": "OpenTelemetry",
+    "url": "https://opentelemetry.io/docs/concepts/observability-primer/",
+    "capabilityIds": [
+      "observability"
+    ],
+    "type": "documentation",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "aws-well-architected",
+    "title": "AWS Well-Architected Framework",
+    "provider": "Amazon Web Services",
+    "url": "https://docs.aws.amazon.com/wellarchitected/2024-06-27/framework/welcome.html",
+    "capabilityIds": [
+      "system-design",
+      "cloud-fundamentals",
+      "risk-analysis"
+    ],
+    "type": "framework",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "aws-data-lakehouse",
+    "title": "What Is a Data Lakehouse?",
+    "provider": "Amazon Web Services",
+    "url": "https://aws.amazon.com/what-is/data-lakehouse/",
+    "capabilityIds": [
+      "warehouses-lakes",
+      "data-modeling",
+      "data-pipelines"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "cipd-people-analytics",
+    "title": "People Analytics",
+    "provider": "CIPD",
+    "url": "https://www.cipd.org/uk/knowledge/factsheets/analytics-factsheet/",
+    "capabilityIds": [
+      "hr-analytics",
+      "people-ops",
+      "decision-making"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "opm-structured-interviews",
+    "title": "Structured Interviews",
+    "provider": "U.S. Office of Personnel Management",
+    "url": "https://www.opm.gov/policy-data-oversight/assessment-and-selection/structured-interviews",
+    "capabilityIds": [
+      "interviewing-hiring",
+      "recruiting"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "sba-market-research",
+    "title": "Market Research and Competitive Analysis",
+    "provider": "U.S. Small Business Administration",
+    "url": "https://www.sba.gov/counseling/plan-your-business/",
+    "capabilityIds": [
+      "market-research",
+      "economics-market-analysis",
+      "strategy"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "mit-introduction-algorithms",
+    "title": "Introduction to Algorithms (6.006)",
+    "provider": "MIT OpenCourseWare",
+    "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/",
+    "capabilityIds": [
+      "data-structures-algorithms",
+      "problem-framing",
+      "critical-thinking"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "atlassian-product-requirements",
+    "title": "How to Create a Product Requirements Document (PRD)",
+    "provider": "Atlassian",
+    "url": "https://www.atlassian.com/agile/product-management/requirements",
+    "capabilityIds": [
+      "requirements-writing",
+      "problem-framing",
+      "stakeholder-communication"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "amplitude-product-analytics-fundamentals",
+    "title": "The Fundamentals of Product Analytics",
+    "provider": "Amplitude",
+    "url": "https://amplitude.com/product-analytics-fundamentals",
+    "capabilityIds": [
+      "product-analytics",
+      "experimentation-ab",
+      "decision-making"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "amplitude-experimentation-framework",
+    "title": "7-Step Experimentation Framework",
+    "provider": "Amplitude",
+    "url": "https://amplitude.com/blog/7-step-experimentation-framework",
+    "capabilityIds": [
+      "growth-experimentation",
+      "experimentation-ab",
+      "conversion-optimization"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "hubspot-go-to-market",
+    "title": "What Is a Go-to-Market Strategy?",
+    "provider": "HubSpot",
+    "url": "https://blog.hubspot.com/sales/gtm-strategy",
+    "capabilityIds": [
+      "go-to-market",
+      "product-marketing",
+      "strategy",
+      "business-case"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "hubspot-product-marketing",
+    "title": "How to Do Product Marketing Like a Pro",
+    "provider": "HubSpot",
+    "url": "https://blog.hubspot.com/marketing/product-marketing",
+    "capabilityIds": [
+      "product-marketing",
+      "brand-positioning",
+      "customer-segmentation",
+      "go-to-market"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "hubspot-cro",
+    "title": "Conversion Rate Optimization (CRO) Strategy",
+    "provider": "HubSpot",
+    "url": "https://blog.hubspot.com/marketing/conversion-rate-optimization-guide",
+    "capabilityIds": [
+      "conversion-optimization",
+      "growth-experimentation",
+      "marketing-analytics"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "openlearn-strategic-management",
+    "title": "Business Models in Strategic Management",
+    "provider": "The Open University / OpenLearn",
+    "url": "https://www.open.edu/openlearn/money-business/business-models-strategic-management/",
+    "capabilityIds": [
+      "strategy",
+      "business-case",
+      "decision-making"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "cfi-fpa-modeling-best-practices",
+    "title": "FP&A Modeling Best Practices",
+    "provider": "Corporate Finance Institute",
+    "url": "https://corporatefinanceinstitute.com/resources/fpa/fp-a-modeling-best-practices/",
+    "capabilityIds": [
+      "budgeting-forecasting",
+      "financial-modeling",
+      "excel-modeling",
+      "decision-making"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "mit-logistics-systems",
+    "title": "Logistics Systems - Lecture Notes",
+    "provider": "MIT OpenCourseWare",
+    "url": "https://ocw.mit.edu/courses/esd-260j-logistics-systems-fall-2006/pages/lecture-notes/",
+    "capabilityIds": [
+      "supply-chain",
+      "quantitative-reasoning",
+      "risk-analysis"
+    ],
+    "type": "course",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "cdc-policy-analysis-framework",
+    "title": "CDC Policy Analytical Framework",
+    "provider": "U.S. Centers for Disease Control and Prevention",
+    "url": "https://www.cdc.gov/polaris/php/policy-resources-trainings/policy-analytical.html",
+    "capabilityIds": [
+      "policy-analysis",
+      "problem-framing",
+      "decision-making",
+      "stakeholder-communication"
+    ],
+    "type": "framework",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "cdc-qualitative-analysis",
+    "title": "Collecting and Analyzing Qualitative Data",
+    "provider": "U.S. Centers for Disease Control and Prevention",
+    "url": "https://www.cdc.gov/field-epi-manual/php/chapters/qualitative-data.html",
+    "capabilityIds": [
+      "qualitative-analysis",
+      "research-design",
+      "qualitative-reasoning",
+      "synthesis-insights"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "govuk-inclusive-research-design",
+    "title": "A Guide to Inclusive Social Research Practices",
+    "provider": "UK Government",
+    "url": "https://www.gov.uk/government/publications/a-guide-to-inclusive-social-research-practices/a-guide-to-inclusive-social-research-practices",
+    "capabilityIds": [
+      "research-design",
+      "ethics-privacy",
+      "accessibility-inclusive-design",
+      "participant-recruiting"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "cdc-writing-briefs",
+    "title": "Writing Briefs",
+    "provider": "U.S. Centers for Disease Control and Prevention",
+    "url": "https://www.cdc.gov/polaris/php/policy-resources-trainings/writing-briefs.html",
+    "capabilityIds": [
+      "policy-writing",
+      "stakeholder-communication",
+      "presentation-storytelling"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "official",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "ideo-design-thinking-process",
+    "title": "Design Thinking by IDEO: Human-Centered Innovation",
+    "provider": "IDEO",
+    "url": "https://designthinking.ideo.com/process",
+    "capabilityIds": [
+      "problem-framing",
+      "human-centered-design",
+      "critical-thinking"
+    ],
+    "type": "framework",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "atlassian-stakeholder-communication",
+    "title": "Stakeholder Project Communication Plan",
+    "provider": "Atlassian Team Playbook",
+    "url": "https://www.atlassian.com/team-playbook/plays/stakeholder-communications-plan",
+    "capabilityIds": [
+      "stakeholder-communication",
+      "project-management",
+      "collaboration"
+    ],
+    "type": "guide",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  },
+  {
+    "id": "openstax-principles-economics",
+    "title": "Principles of Economics 3e",
+    "provider": "OpenStax / Rice University",
+    "url": "https://openstax.org/details/books/principles-economics-3e/",
+    "capabilityIds": [
+      "economics-market-analysis",
+      "quantitative-reasoning",
+      "decision-making"
+    ],
+    "type": "book",
+    "cost": "free",
+    "level": "mixed",
+    "notes": "",
+    "sourceType": "trusted",
+    "lastChecked": "2026-09-19"
+  }
+]

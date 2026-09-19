@@ -219,7 +219,11 @@ export function matchProjectsToGaps(
           gap?.reason ??
           `Creates reviewable evidence for the ${node.name} requirement in ${graph.destinationName}.`,
         deliverables: Array.from(
-          new Set([action?.description, proof.description].filter((item): item is string => Boolean(item)))
+          new Set([
+            action?.description,
+            proof.description,
+            `A reviewable evidence artifact demonstrating ${node.name}.`,
+          ].filter((item): item is string => Boolean(item)))
         ),
         verificationCriteria: [
           `Demonstrates ${node.name} at the required ${proof.level} level.`,

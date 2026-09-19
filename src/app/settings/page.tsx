@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Badge, Button, Card, InlineNotice, Input, Modal } from "@/components/ui";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
+import { formatPlanningHorizonLabel } from "@/domain/planning-horizon";
 
 type AIStatus = {
   mode: "demo" | "live";
@@ -18,15 +19,7 @@ const STAGE_LABELS = {
 } as const;
 
 function formatPlanningHorizon(profile: ReturnType<typeof useSkillStateStore.getState>["profile"]) {
-  const horizon = profile.planningHorizon;
-  if (!horizon) return profile.targetTimelineMonths ? `${profile.targetTimelineMonths} months` : "Not set";
-  if (horizon.mode === "full-path") return "Full path to goal";
-  if (horizon.mode === "until-graduation") {
-    return horizon.resolvedMonths
-      ? `Until graduation (~${horizon.resolvedMonths} months)`
-      : "Until graduation";
-  }
-  return horizon.resolvedMonths ? `${horizon.resolvedMonths} months` : "Not set";
+  return formatPlanningHorizonLabel(profile.planningHorizon, profile.targetTimelineMonths);
 }
 
 export default function SettingsPage() {

@@ -17,6 +17,7 @@ import {
   calculateCareerPathsWithOverlap,
   CareerPathItem,
 } from "@/data/library/careers-library";
+import { formatPlanningHorizonLabel } from "@/domain/planning-horizon";
 import { WhatIfSimulator } from "@/components/journey/WhatIfSimulator";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -187,7 +188,7 @@ export function CareerPathsView() {
                   <Clock className="w-3.5 h-3.5" />
                   <span>
                     {isCurrent
-                      ? `Configured goal horizon: ${profile.planningHorizon?.resolvedMonths ?? profile.targetTimelineMonths ?? "Not set"}${profile.planningHorizon?.resolvedMonths || profile.targetTimelineMonths ? " mo" : ""}`
+                      ? `Configured goal horizon: ${formatPlanningHorizonLabel(profile.planningHorizon, profile.targetTimelineMonths)}`
                       : item.planningDecisionPointMonths
                         ? `Planning decision point: month ${item.planningDecisionPointMonths}`
                         : "Journey duration estimated in What-If"}

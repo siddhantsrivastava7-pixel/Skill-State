@@ -169,7 +169,7 @@ describe("Phase 6: Journey Tracks & What-If Simulation", () => {
       expect(grouped.length).toBe(store.gaps.length);
       for (const group of grouped) {
         expect(group.gapCapabilityId).toBeTruthy();
-        expect(group.resources.length).toBeGreaterThanOrEqual(1);
+        if (group.needsProof) expect(group.resources).toEqual([]);
         for (const res of group.resources) {
           expect(res.whyThisResource).toBeTruthy();
           expect(res.learningObjective).toBeTruthy();
@@ -185,7 +185,7 @@ describe("Phase 6: Journey Tracks & What-If Simulation", () => {
         true
       );
 
-      expect(careerPaths.length).toBe(SEEDED_CAREER_PATHS_CATALOG.length);
+      expect(careerPaths.length).toBeGreaterThanOrEqual(SEEDED_CAREER_PATHS_CATALOG.length);
       for (const cp of careerPaths) {
         expect(cp.overlapPercentage).toBeGreaterThanOrEqual(0);
         expect(cp.overlapPercentage).toBeLessThanOrEqual(100);

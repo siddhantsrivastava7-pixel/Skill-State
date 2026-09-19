@@ -1,0 +1,490 @@
+{
+  "accessibility-inclusive-design": [
+    "material-design",
+    "govuk-design",
+    "govuk-content-design",
+    "android-basics-compose",
+    "govuk-inclusive-research-design"
+  ],
+  "accounting": [
+    "investor-financial-statements"
+  ],
+  "api-design": [
+    "fastapi-tutorial"
+  ],
+  "appsec": [
+    "portswigger-academy",
+    "owasp-top10",
+    "owasp-wstg"
+  ],
+  "audit-controls": [
+    "iia-global-internal-audit-standards"
+  ],
+  "backend-engineering": [
+    "node-learn",
+    "fastapi-tutorial"
+  ],
+  "bi-dashboarding": [
+    "power-bi-learning",
+    "tableau-training"
+  ],
+  "brand-positioning": [
+    "hubspot-stp",
+    "hubspot-product-marketing"
+  ],
+  "budgeting-forecasting": [
+    "cfi-fpa-modeling-best-practices"
+  ],
+  "business-analysis": [
+    "iiba-business-analysis-standard"
+  ],
+  "business-case": [
+    "govuk-business-case-guidance",
+    "hubspot-go-to-market",
+    "openlearn-strategic-management"
+  ],
+  "change-management": [
+    "prosci-adkar"
+  ],
+  "cicd": [
+    "github-actions"
+  ],
+  "cloud-fundamentals": [
+    "kubernetes-basics",
+    "azure-training",
+    "aws-skill-builder",
+    "aws-well-architected"
+  ],
+  "collaboration": [
+    "scrum-guide",
+    "atlassian-stakeholder-communication"
+  ],
+  "communication": [
+    "toastmasters-resources"
+  ],
+  "consulting-problem-solving": [
+    "govuk-business-case-guidance",
+    "openlearn-digital-thinking"
+  ],
+  "containers": [
+    "docker-get-started",
+    "kubernetes-basics"
+  ],
+  "content-design": [
+    "govuk-content-design"
+  ],
+  "content-strategy": [
+    "google-seo-starter",
+    "hubspot-content-marketing",
+    "hubspot-digital-marketing"
+  ],
+  "conversion-optimization": [
+    "amplitude-experimentation-framework",
+    "hubspot-cro"
+  ],
+  "copywriting": [
+    "hubspot-content-marketing",
+    "hubspot-email-marketing"
+  ],
+  "corporate-finance": [
+    "damodaran-online",
+    "khan-finance"
+  ],
+  "critical-thinking": [
+    "openlearn-digital-thinking",
+    "openlearn-making-decisions",
+    "mit-introduction-algorithms",
+    "ideo-design-thinking-process"
+  ],
+  "crm-funnel": [
+    "hubspot-email-marketing"
+  ],
+  "customer-segmentation": [
+    "hubspot-stp",
+    "hubspot-product-marketing"
+  ],
+  "data-ethics": [
+    "govuk-data-ethics-framework",
+    "nist-ai-risk-management-framework"
+  ],
+  "data-modeling": [
+    "postgres-tutorial",
+    "dbt-courses",
+    "aws-data-lakehouse"
+  ],
+  "data-pipelines": [
+    "spark-quickstart",
+    "aws-data-lakehouse"
+  ],
+  "data-structures-algorithms": [
+    "mit-introduction-algorithms"
+  ],
+  "data-visualization": [
+    "power-bi-learning",
+    "tableau-training"
+  ],
+  "data-wrangling": [
+    "kaggle-learn",
+    "pandas-tutorials"
+  ],
+  "dbt-transform": [
+    "dbt-courses"
+  ],
+  "decision-making": [
+    "govuk-business-case-guidance",
+    "govuk-data-ethics-framework",
+    "openlearn-digital-thinking",
+    "openlearn-making-decisions",
+    "cipd-people-analytics",
+    "amplitude-product-analytics-fundamentals",
+    "openlearn-strategic-management",
+    "cfi-fpa-modeling-best-practices",
+    "cdc-policy-analysis-framework",
+    "openstax-principles-economics"
+  ],
+  "deep-learning": [
+    "pytorch-tutorials",
+    "huggingface-learn",
+    "full-stack-deep-learning"
+  ],
+  "design-systems": [
+    "figma-resource-library",
+    "material-design"
+  ],
+  "documentation": [
+    "zotero-quick-start"
+  ],
+  "economics-market-analysis": [
+    "sba-market-research",
+    "openstax-principles-economics"
+  ],
+  "ethics-privacy": [
+    "govuk-user-research",
+    "govuk-find-participants",
+    "govuk-data-ethics-framework",
+    "govuk-inclusive-research-design"
+  ],
+  "etl-elt": [
+    "dbt-courses"
+  ],
+  "excel-modeling": [
+    "cfi-financial-modeling",
+    "microsoft-excel",
+    "cfi-fpa-modeling-best-practices"
+  ],
+  "experimentation-ab": [
+    "firebase-ab-testing",
+    "amplitude-product-analytics-fundamentals",
+    "amplitude-experimentation-framework"
+  ],
+  "feature-engineering": [
+    "sklearn-user-guide"
+  ],
+  "financial-modeling": [
+    "damodaran-online",
+    "cfi-financial-modeling",
+    "cfi-fpa-modeling-best-practices"
+  ],
+  "financial-statements": [
+    "khan-finance",
+    "investor-financial-statements"
+  ],
+  "frontend-engineering": [
+    "mdn-learn-web",
+    "react-learn",
+    "nextjs-learn"
+  ],
+  "git-version-control": [
+    "github-skills"
+  ],
+  "go-to-market": [
+    "hubspot-go-to-market",
+    "hubspot-product-marketing"
+  ],
+  "growth-experimentation": [
+    "firebase-ab-testing",
+    "amplitude-experimentation-framework",
+    "hubspot-cro"
+  ],
+  "hr-analytics": [
+    "cipd-people-analytics"
+  ],
+  "human-centered-design": [
+    "govuk-plan-research",
+    "govuk-design",
+    "ideo-design-thinking-process"
+  ],
+  "identity-access": [
+    "microsoft-iam-fundamentals"
+  ],
+  "incident-response": [
+    "nist-incident-response-sp800-61r3"
+  ],
+  "information-architecture": [
+    "govuk-content-design"
+  ],
+  "interaction-design": [
+    "nng-heuristics",
+    "figma-resource-library",
+    "material-design"
+  ],
+  "interview-moderation": [
+    "govuk-user-research",
+    "nng-user-interviews"
+  ],
+  "interviewing-hiring": [
+    "opm-structured-interviews"
+  ],
+  "investment-research": [
+    "damodaran-online"
+  ],
+  "learning-development": [
+    "cipd-knowledge"
+  ],
+  "lifecycle-email": [
+    "hubspot-email-marketing"
+  ],
+  "linux-cli": [
+    "ubuntu-linux-command-line"
+  ],
+  "literature-review": [
+    "zotero-quick-start"
+  ],
+  "machine-learning": [
+    "google-ml-crash-course",
+    "kaggle-learn",
+    "sklearn-user-guide",
+    "pytorch-tutorials"
+  ],
+  "market-research": [
+    "hubspot-stp",
+    "sba-market-research"
+  ],
+  "marketing-analytics": [
+    "google-skillshop",
+    "hubspot-digital-marketing",
+    "meta-blueprint",
+    "hubspot-cro"
+  ],
+  "mlops": [
+    "full-stack-deep-learning"
+  ],
+  "mobile-development": [
+    "android-basics-compose"
+  ],
+  "model-evaluation": [
+    "google-ml-crash-course",
+    "sklearn-user-guide",
+    "full-stack-deep-learning"
+  ],
+  "networking": [
+    "cloudflare-internet-networking"
+  ],
+  "nlp-llms": [
+    "huggingface-learn"
+  ],
+  "observability": [
+    "opentelemetry-observability-primer"
+  ],
+  "operations-analysis": [
+    "asq-process-mapping"
+  ],
+  "paid-media": [
+    "google-skillshop",
+    "hubspot-digital-marketing",
+    "meta-blueprint"
+  ],
+  "participant-recruiting": [
+    "govuk-user-research",
+    "govuk-find-participants",
+    "govuk-inclusive-research-design"
+  ],
+  "people-ops": [
+    "cipd-knowledge",
+    "cipd-people-analytics"
+  ],
+  "policy-analysis": [
+    "cdc-policy-analysis-framework"
+  ],
+  "policy-writing": [
+    "cdc-writing-briefs"
+  ],
+  "presentation-storytelling": [
+    "toastmasters-resources",
+    "cdc-writing-briefs"
+  ],
+  "probability": [
+    "openstax-statistics"
+  ],
+  "problem-framing": [
+    "mit-introduction-algorithms",
+    "atlassian-product-requirements",
+    "cdc-policy-analysis-framework",
+    "ideo-design-thinking-process"
+  ],
+  "process-mapping": [
+    "asq-process-mapping"
+  ],
+  "product-analytics": [
+    "firebase-ab-testing",
+    "amplitude-product-analytics-fundamentals"
+  ],
+  "product-discovery": [
+    "atlassian-product-management",
+    "atlassian-agile"
+  ],
+  "product-marketing": [
+    "hubspot-go-to-market",
+    "hubspot-product-marketing"
+  ],
+  "product-strategy": [
+    "atlassian-product-management"
+  ],
+  "program-management": [
+    "pmi-learning"
+  ],
+  "programming-js-ts": [
+    "mdn-learn-web",
+    "typescript-handbook",
+    "react-learn",
+    "nextjs-learn",
+    "node-learn"
+  ],
+  "programming-python": [
+    "python-tutorial",
+    "fastapi-tutorial",
+    "kaggle-learn",
+    "pandas-tutorials",
+    "pytorch-tutorials"
+  ],
+  "project-management": [
+    "atlassian-agile",
+    "scrum-guide",
+    "pmi-learning",
+    "atlassian-stakeholder-communication"
+  ],
+  "prototyping": [
+    "figma-resource-library"
+  ],
+  "qualitative-analysis": [
+    "cdc-qualitative-analysis"
+  ],
+  "quantitative-reasoning": [
+    "openstax-statistics",
+    "openlearn-digital-thinking",
+    "mit-logistics-systems",
+    "openstax-principles-economics"
+  ],
+  "recruiting": [
+    "cipd-knowledge",
+    "opm-structured-interviews"
+  ],
+  "requirements-writing": [
+    "iiba-business-analysis-standard",
+    "atlassian-product-requirements"
+  ],
+  "research-design": [
+    "cdc-qualitative-analysis",
+    "govuk-inclusive-research-design"
+  ],
+  "research-planning": [
+    "govuk-user-research",
+    "govuk-plan-research"
+  ],
+  "responsible-ai": [
+    "nist-ai-risk-management-framework"
+  ],
+  "risk-analysis": [
+    "pmi-learning",
+    "nist-ai-risk-management-framework",
+    "nist-incident-response-sp800-61r3",
+    "aws-well-architected",
+    "mit-logistics-systems"
+  ],
+  "roadmap-prioritization": [
+    "atlassian-product-management",
+    "atlassian-agile"
+  ],
+  "security-fundamentals": [
+    "portswigger-academy",
+    "owasp-top10",
+    "microsoft-iam-fundamentals",
+    "nist-incident-response-sp800-61r3"
+  ],
+  "seo": [
+    "google-seo-starter",
+    "hubspot-digital-marketing"
+  ],
+  "service-design": [
+    "govuk-design"
+  ],
+  "social-media": [
+    "meta-blueprint"
+  ],
+  "sql-relational": [
+    "postgres-tutorial",
+    "sqlbolt",
+    "kaggle-learn"
+  ],
+  "stakeholder-communication": [
+    "pmi-learning",
+    "iiba-business-analysis-standard",
+    "prosci-adkar",
+    "atlassian-product-requirements",
+    "cdc-policy-analysis-framework",
+    "cdc-writing-briefs",
+    "atlassian-stakeholder-communication"
+  ],
+  "statistics": [
+    "openstax-statistics"
+  ],
+  "strategy": [
+    "sba-market-research",
+    "hubspot-go-to-market",
+    "openlearn-strategic-management"
+  ],
+  "supply-chain": [
+    "mit-logistics-systems"
+  ],
+  "survey-design": [
+    "openstax-statistics"
+  ],
+  "synthesis-insights": [
+    "govuk-user-research",
+    "cdc-qualitative-analysis"
+  ],
+  "system-design": [
+    "aws-well-architected"
+  ],
+  "testing-quality": [
+    "owasp-wstg",
+    "android-basics-compose"
+  ],
+  "threat-modeling": [
+    "portswigger-academy"
+  ],
+  "usability-testing": [
+    "govuk-user-research",
+    "nng-usability-101",
+    "nng-heuristics"
+  ],
+  "ux-research-methods": [
+    "govuk-user-research",
+    "nng-user-interviews"
+  ],
+  "valuation": [
+    "damodaran-online",
+    "khan-finance",
+    "cfi-financial-modeling"
+  ],
+  "visual-design": [
+    "figma-resource-library",
+    "material-design"
+  ],
+  "warehouses-lakes": [
+    "aws-data-lakehouse"
+  ],
+  "web-accessibility": [
+    "mdn-learn-web"
+  ]
+}

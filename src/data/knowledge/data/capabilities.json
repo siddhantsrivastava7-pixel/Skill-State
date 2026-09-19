@@ -1,0 +1,752 @@
+[
+  {
+    "id": "communication",
+    "name": "Professional Communication",
+    "domain": "general",
+    "description": "Communicate clearly in writing and conversation for the intended audience."
+  },
+  {
+    "id": "stakeholder-communication",
+    "name": "Stakeholder Communication",
+    "domain": "general",
+    "description": "Explain decisions, trade-offs, risks, and outcomes to stakeholders."
+  },
+  {
+    "id": "presentation-storytelling",
+    "name": "Presentation & Storytelling",
+    "domain": "general",
+    "description": "Structure and present evidence, recommendations, and narratives clearly."
+  },
+  {
+    "id": "collaboration",
+    "name": "Cross-functional Collaboration",
+    "domain": "general",
+    "description": "Work effectively across disciplines, roles, and constraints."
+  },
+  {
+    "id": "problem-framing",
+    "name": "Problem Framing",
+    "domain": "general",
+    "description": "Turn ambiguous situations into clear questions, constraints, and success criteria."
+  },
+  {
+    "id": "critical-thinking",
+    "name": "Critical Thinking",
+    "domain": "general",
+    "description": "Evaluate assumptions, evidence, trade-offs, and alternative explanations."
+  },
+  {
+    "id": "documentation",
+    "name": "Documentation",
+    "domain": "general",
+    "description": "Create durable, clear records of decisions, methods, and outputs."
+  },
+  {
+    "id": "project-management",
+    "name": "Project Management",
+    "domain": "general",
+    "description": "Plan scope, milestones, dependencies, risks, and delivery."
+  },
+  {
+    "id": "program-management",
+    "name": "Program Management",
+    "domain": "general",
+    "description": "Coordinate multiple related workstreams, stakeholders, and outcomes."
+  },
+  {
+    "id": "ethics-privacy",
+    "name": "Ethics & Privacy",
+    "domain": "general",
+    "description": "Apply ethical, privacy, consent, and responsible-data principles."
+  },
+  {
+    "id": "quantitative-reasoning",
+    "name": "Quantitative Reasoning",
+    "domain": "general",
+    "description": "Interpret numerical evidence and reason with quantities, uncertainty, and trade-offs."
+  },
+  {
+    "id": "qualitative-reasoning",
+    "name": "Qualitative Reasoning",
+    "domain": "general",
+    "description": "Interpret non-numerical evidence and identify patterns, themes, and meaning."
+  },
+  {
+    "id": "decision-making",
+    "name": "Evidence-based Decision Making",
+    "domain": "general",
+    "description": "Use evidence and explicit trade-offs to make defensible decisions."
+  },
+  {
+    "id": "programming-python",
+    "name": "Python Programming",
+    "domain": "software",
+    "description": "Write readable Python using core language features, modules, and common tooling."
+  },
+  {
+    "id": "programming-js-ts",
+    "name": "JavaScript & TypeScript",
+    "domain": "software",
+    "description": "Build applications using modern JavaScript/TypeScript patterns."
+  },
+  {
+    "id": "data-structures-algorithms",
+    "name": "Data Structures & Algorithms",
+    "domain": "software",
+    "description": "Use fundamental data structures and algorithmic reasoning appropriately."
+  },
+  {
+    "id": "git-version-control",
+    "name": "Git & Version Control",
+    "domain": "software",
+    "description": "Use branches, commits, reviews, and collaborative version-control workflows."
+  },
+  {
+    "id": "linux-cli",
+    "name": "Linux & Command Line",
+    "domain": "software",
+    "description": "Navigate and automate common development and operations tasks from the command line."
+  },
+  {
+    "id": "testing-quality",
+    "name": "Testing & Quality",
+    "domain": "software",
+    "description": "Design automated tests and quality checks appropriate to the system."
+  },
+  {
+    "id": "api-design",
+    "name": "API Design",
+    "domain": "software",
+    "description": "Design clear, reliable service interfaces and contracts."
+  },
+  {
+    "id": "backend-engineering",
+    "name": "Backend Engineering",
+    "domain": "software",
+    "description": "Build server-side application logic, services, and integrations."
+  },
+  {
+    "id": "frontend-engineering",
+    "name": "Frontend Engineering",
+    "domain": "software",
+    "description": "Build responsive, accessible, stateful user interfaces."
+  },
+  {
+    "id": "mobile-development",
+    "name": "Mobile Application Development",
+    "domain": "software",
+    "description": "Build and ship mobile application experiences."
+  },
+  {
+    "id": "web-accessibility",
+    "name": "Web Accessibility",
+    "domain": "software",
+    "description": "Build web interfaces that follow accessibility principles and standards."
+  },
+  {
+    "id": "system-design",
+    "name": "System Design",
+    "domain": "software",
+    "description": "Reason about architecture, scalability, reliability, storage, and trade-offs."
+  },
+  {
+    "id": "distributed-systems",
+    "name": "Distributed Systems",
+    "domain": "software",
+    "description": "Reason about coordination, consistency, failure, and scale across services."
+  },
+  {
+    "id": "cloud-fundamentals",
+    "name": "Cloud Fundamentals",
+    "domain": "software",
+    "description": "Use common cloud compute, storage, networking, security, and managed services."
+  },
+  {
+    "id": "containers",
+    "name": "Containers",
+    "domain": "software",
+    "description": "Package and run applications using container concepts and tooling."
+  },
+  {
+    "id": "cicd",
+    "name": "CI/CD",
+    "domain": "software",
+    "description": "Automate build, test, release, and deployment workflows."
+  },
+  {
+    "id": "observability",
+    "name": "Observability",
+    "domain": "software",
+    "description": "Use logs, metrics, traces, and alerts to understand system behavior."
+  },
+  {
+    "id": "networking",
+    "name": "Networking Fundamentals",
+    "domain": "software",
+    "description": "Understand protocols, addressing, DNS, HTTP, routing, and network troubleshooting."
+  },
+  {
+    "id": "security-fundamentals",
+    "name": "Security Fundamentals",
+    "domain": "security",
+    "description": "Understand common security principles, threats, controls, and defensive thinking."
+  },
+  {
+    "id": "appsec",
+    "name": "Application Security",
+    "domain": "security",
+    "description": "Identify and mitigate common application and web vulnerabilities."
+  },
+  {
+    "id": "identity-access",
+    "name": "Identity & Access Management",
+    "domain": "security",
+    "description": "Apply authentication, authorization, least-privilege, and access-control principles."
+  },
+  {
+    "id": "threat-modeling",
+    "name": "Threat Modeling",
+    "domain": "security",
+    "description": "Systematically identify assets, threats, attack paths, and mitigations."
+  },
+  {
+    "id": "incident-response",
+    "name": "Incident Response",
+    "domain": "security",
+    "description": "Triage, contain, investigate, recover from, and learn from security incidents."
+  },
+  {
+    "id": "sql-relational",
+    "name": "SQL & Relational Databases",
+    "domain": "data",
+    "description": "Query, join, aggregate, and reason about relational data."
+  },
+  {
+    "id": "data-modeling",
+    "name": "Data Modeling",
+    "domain": "data",
+    "description": "Design data structures and schemas that support reliable analytics or applications."
+  },
+  {
+    "id": "data-wrangling",
+    "name": "Data Wrangling",
+    "domain": "data",
+    "description": "Clean, reshape, validate, and prepare data for analysis or modeling."
+  },
+  {
+    "id": "statistics",
+    "name": "Statistics",
+    "domain": "data",
+    "description": "Apply descriptive and inferential statistics appropriately."
+  },
+  {
+    "id": "probability",
+    "name": "Probability",
+    "domain": "data",
+    "description": "Reason about uncertainty, events, distributions, and probabilistic outcomes."
+  },
+  {
+    "id": "linear-algebra",
+    "name": "Linear Algebra",
+    "domain": "data",
+    "description": "Use vectors, matrices, transformations, and related concepts in quantitative work."
+  },
+  {
+    "id": "experimentation-ab",
+    "name": "Experimentation & A/B Testing",
+    "domain": "data",
+    "description": "Design, analyze, and interpret controlled experiments."
+  },
+  {
+    "id": "data-visualization",
+    "name": "Data Visualization",
+    "domain": "data",
+    "description": "Create clear, truthful visual representations of data and findings."
+  },
+  {
+    "id": "bi-dashboarding",
+    "name": "BI & Dashboarding",
+    "domain": "data",
+    "description": "Build decision-oriented dashboards and recurring analytical views."
+  },
+  {
+    "id": "product-analytics",
+    "name": "Product Analytics",
+    "domain": "data",
+    "description": "Use behavioral and product data to answer product questions and measure outcomes."
+  },
+  {
+    "id": "data-pipelines",
+    "name": "Data Pipelines",
+    "domain": "data",
+    "description": "Build reliable ingestion, transformation, validation, and movement of data."
+  },
+  {
+    "id": "etl-elt",
+    "name": "ETL / ELT",
+    "domain": "data",
+    "description": "Design and operate batch or streaming transformation workflows."
+  },
+  {
+    "id": "warehouses-lakes",
+    "name": "Warehouses & Data Lakes",
+    "domain": "data",
+    "description": "Use analytical storage systems and understand modeling and governance trade-offs."
+  },
+  {
+    "id": "dbt-transform",
+    "name": "Analytics Engineering & dbt",
+    "domain": "data",
+    "description": "Build tested, documented analytics transformations with modular models."
+  },
+  {
+    "id": "spark-bigdata",
+    "name": "Large-scale Data Processing",
+    "domain": "data",
+    "description": "Process large datasets using distributed compute concepts and tools."
+  },
+  {
+    "id": "machine-learning",
+    "name": "Machine Learning",
+    "domain": "ai",
+    "description": "Train and apply supervised and unsupervised models appropriately."
+  },
+  {
+    "id": "feature-engineering",
+    "name": "Feature Engineering",
+    "domain": "ai",
+    "description": "Create, select, transform, and validate model inputs."
+  },
+  {
+    "id": "model-evaluation",
+    "name": "Model Evaluation",
+    "domain": "ai",
+    "description": "Choose metrics, validation strategies, and error analysis suited to the problem."
+  },
+  {
+    "id": "deep-learning",
+    "name": "Deep Learning",
+    "domain": "ai",
+    "description": "Build and reason about neural-network training and architectures."
+  },
+  {
+    "id": "nlp-llms",
+    "name": "NLP & LLM Systems",
+    "domain": "ai",
+    "description": "Build and evaluate language-model and retrieval-augmented systems."
+  },
+  {
+    "id": "mlops",
+    "name": "MLOps",
+    "domain": "ai",
+    "description": "Deploy, monitor, version, and operate machine-learning systems."
+  },
+  {
+    "id": "responsible-ai",
+    "name": "Responsible AI",
+    "domain": "ai",
+    "description": "Evaluate risks, bias, safety, privacy, and responsible deployment of AI systems."
+  },
+  {
+    "id": "human-centered-design",
+    "name": "Human-Centered Design Foundations",
+    "domain": "design",
+    "description": "Understand user-centered problem framing, iterative design, and evidence-informed decisions."
+  },
+  {
+    "id": "ux-research-methods",
+    "name": "UX Research Methods",
+    "domain": "research",
+    "description": "Select and use interviews, usability tests, observation, diary studies, surveys, and related methods."
+  },
+  {
+    "id": "research-planning",
+    "name": "Research Planning",
+    "domain": "research",
+    "description": "Define research questions, participants, method, logistics, and analysis approach."
+  },
+  {
+    "id": "participant-recruiting",
+    "name": "Participant Recruiting & Fieldwork",
+    "domain": "research",
+    "description": "Recruit appropriate participants and manage research logistics."
+  },
+  {
+    "id": "interview-moderation",
+    "name": "Interviewing & Moderation",
+    "domain": "research",
+    "description": "Run neutral, effective qualitative research sessions and follow-up probes."
+  },
+  {
+    "id": "usability-testing",
+    "name": "Usability Evaluation",
+    "domain": "research",
+    "description": "Plan and run usability evaluations and communicate observed issues."
+  },
+  {
+    "id": "survey-design",
+    "name": "Survey Design & Measurement",
+    "domain": "research",
+    "description": "Write unbiased survey questions and interpret basic survey data."
+  },
+  {
+    "id": "synthesis-insights",
+    "name": "Research Synthesis & Insights",
+    "domain": "research",
+    "description": "Turn raw research evidence into themes, findings, and decision-relevant insights."
+  },
+  {
+    "id": "research-ops",
+    "name": "Research Operations",
+    "domain": "research",
+    "description": "Manage research repositories, consent, governance, templates, and repeatable workflows."
+  },
+  {
+    "id": "prototyping",
+    "name": "Prototyping",
+    "domain": "design",
+    "description": "Create testable representations of product or service ideas."
+  },
+  {
+    "id": "interaction-design",
+    "name": "Interaction Design",
+    "domain": "design",
+    "description": "Design flows, behaviors, states, and interaction patterns."
+  },
+  {
+    "id": "visual-design",
+    "name": "Visual Design",
+    "domain": "design",
+    "description": "Apply hierarchy, typography, color, spacing, and composition effectively."
+  },
+  {
+    "id": "design-systems",
+    "name": "Design Systems",
+    "domain": "design",
+    "description": "Create and use reusable components, patterns, tokens, and governance."
+  },
+  {
+    "id": "information-architecture",
+    "name": "Information Architecture",
+    "domain": "design",
+    "description": "Structure content, navigation, labeling, and information relationships."
+  },
+  {
+    "id": "service-design",
+    "name": "Service Design",
+    "domain": "design",
+    "description": "Map and improve end-to-end services across users, channels, systems, and operations."
+  },
+  {
+    "id": "accessibility-inclusive-design",
+    "name": "Accessibility & Inclusive Design",
+    "domain": "design",
+    "description": "Design inclusive experiences for diverse needs and abilities."
+  },
+  {
+    "id": "content-design",
+    "name": "Content Design",
+    "domain": "design",
+    "description": "Design clear, usable content around user needs and tasks."
+  },
+  {
+    "id": "product-discovery",
+    "name": "Product Discovery",
+    "domain": "product",
+    "description": "Identify user problems, assumptions, evidence, and promising solution spaces."
+  },
+  {
+    "id": "product-strategy",
+    "name": "Product Strategy",
+    "domain": "product",
+    "description": "Connect customer problems, business goals, positioning, and product direction."
+  },
+  {
+    "id": "roadmap-prioritization",
+    "name": "Roadmapping & Prioritization",
+    "domain": "product",
+    "description": "Prioritize opportunities and work using evidence, constraints, and trade-offs."
+  },
+  {
+    "id": "requirements-writing",
+    "name": "Requirements & Product Specs",
+    "domain": "product",
+    "description": "Write clear outcomes, requirements, acceptance criteria, and decision context."
+  },
+  {
+    "id": "go-to-market",
+    "name": "Go-to-Market Planning",
+    "domain": "product",
+    "description": "Coordinate positioning, launch, channels, enablement, and measurement."
+  },
+  {
+    "id": "accounting",
+    "name": "Accounting Fundamentals",
+    "domain": "finance",
+    "description": "Understand double-entry logic, accounting concepts, and financial reporting foundations."
+  },
+  {
+    "id": "financial-statements",
+    "name": "Financial Statement Analysis",
+    "domain": "finance",
+    "description": "Interpret income statement, balance sheet, cash flow, and relationships between them."
+  },
+  {
+    "id": "excel-modeling",
+    "name": "Spreadsheet Analysis & Modeling",
+    "domain": "finance",
+    "description": "Build structured, auditable spreadsheet analysis and models."
+  },
+  {
+    "id": "financial-modeling",
+    "name": "Financial Modeling",
+    "domain": "finance",
+    "description": "Build integrated models for forecasting, scenarios, and decision support."
+  },
+  {
+    "id": "valuation",
+    "name": "Valuation",
+    "domain": "finance",
+    "description": "Apply valuation methods such as DCF, comparables, and scenario analysis."
+  },
+  {
+    "id": "corporate-finance",
+    "name": "Corporate Finance",
+    "domain": "finance",
+    "description": "Reason about capital allocation, cost of capital, financing, and investment decisions."
+  },
+  {
+    "id": "budgeting-forecasting",
+    "name": "Budgeting & Forecasting",
+    "domain": "finance",
+    "description": "Build budgets, forecasts, scenarios, and variance explanations."
+  },
+  {
+    "id": "investment-research",
+    "name": "Investment Research",
+    "domain": "finance",
+    "description": "Research companies, sectors, catalysts, risks, and investment theses."
+  },
+  {
+    "id": "economics-market-analysis",
+    "name": "Economics & Market Analysis",
+    "domain": "finance",
+    "description": "Interpret macro, industry, competitive, and market drivers."
+  },
+  {
+    "id": "risk-analysis",
+    "name": "Risk Analysis",
+    "domain": "finance",
+    "description": "Identify, quantify, communicate, and monitor financial or business risks."
+  },
+  {
+    "id": "audit-controls",
+    "name": "Audit & Internal Controls",
+    "domain": "finance",
+    "description": "Evaluate processes, evidence, controls, compliance, and audit findings."
+  },
+  {
+    "id": "business-analysis",
+    "name": "Business Analysis",
+    "domain": "business",
+    "description": "Elicit needs, analyze processes/data, and translate problems into requirements and recommendations."
+  },
+  {
+    "id": "process-mapping",
+    "name": "Process Mapping",
+    "domain": "business",
+    "description": "Map workflows, bottlenecks, handoffs, and opportunities for improvement."
+  },
+  {
+    "id": "operations-analysis",
+    "name": "Operations Analysis",
+    "domain": "business",
+    "description": "Analyze throughput, quality, capacity, cost, and operational trade-offs."
+  },
+  {
+    "id": "strategy",
+    "name": "Strategy",
+    "domain": "business",
+    "description": "Analyze choices, competitive context, capabilities, and long-term direction."
+  },
+  {
+    "id": "consulting-problem-solving",
+    "name": "Structured Problem Solving",
+    "domain": "business",
+    "description": "Break ambiguous business problems into testable hypotheses and analyses."
+  },
+  {
+    "id": "business-case",
+    "name": "Business Case Development",
+    "domain": "business",
+    "description": "Quantify benefits, costs, risks, assumptions, and recommendation logic."
+  },
+  {
+    "id": "supply-chain",
+    "name": "Supply Chain Analysis",
+    "domain": "business",
+    "description": "Analyze sourcing, inventory, logistics, service levels, and supply risk."
+  },
+  {
+    "id": "market-research",
+    "name": "Market Research",
+    "domain": "marketing",
+    "description": "Research customers, competitors, categories, and demand using qualitative and quantitative methods."
+  },
+  {
+    "id": "customer-segmentation",
+    "name": "Customer Segmentation",
+    "domain": "marketing",
+    "description": "Define and analyze meaningful customer groups and their needs or behaviors."
+  },
+  {
+    "id": "content-strategy",
+    "name": "Content Strategy",
+    "domain": "marketing",
+    "description": "Plan content around audiences, goals, channels, formats, and lifecycle needs."
+  },
+  {
+    "id": "copywriting",
+    "name": "Copywriting",
+    "domain": "marketing",
+    "description": "Write persuasive, clear messaging suited to audience, channel, and objective."
+  },
+  {
+    "id": "seo",
+    "name": "Search Engine Optimization",
+    "domain": "marketing",
+    "description": "Improve discoverability through technical, content, and search-intent practices."
+  },
+  {
+    "id": "paid-media",
+    "name": "Paid Media",
+    "domain": "marketing",
+    "description": "Plan, launch, measure, and optimize paid acquisition campaigns."
+  },
+  {
+    "id": "marketing-analytics",
+    "name": "Marketing Analytics",
+    "domain": "marketing",
+    "description": "Measure acquisition, engagement, conversion, attribution, and campaign performance."
+  },
+  {
+    "id": "lifecycle-email",
+    "name": "Lifecycle & Email Marketing",
+    "domain": "marketing",
+    "description": "Design lifecycle journeys, email programs, segmentation, and measurement."
+  },
+  {
+    "id": "social-media",
+    "name": "Social Media Strategy",
+    "domain": "marketing",
+    "description": "Plan platform-appropriate social content, engagement, and measurement."
+  },
+  {
+    "id": "brand-positioning",
+    "name": "Brand Positioning",
+    "domain": "marketing",
+    "description": "Define differentiated positioning, audience, value proposition, and brand narrative."
+  },
+  {
+    "id": "growth-experimentation",
+    "name": "Growth Experimentation",
+    "domain": "marketing",
+    "description": "Run measurable growth experiments across acquisition, activation, retention, and referral."
+  },
+  {
+    "id": "crm-funnel",
+    "name": "CRM & Funnel Management",
+    "domain": "marketing",
+    "description": "Manage lifecycle data, funnel stages, handoffs, and customer relationship workflows."
+  },
+  {
+    "id": "product-marketing",
+    "name": "Product Marketing",
+    "domain": "marketing",
+    "description": "Connect customer insight, positioning, messaging, launches, sales enablement, and adoption."
+  },
+  {
+    "id": "conversion-optimization",
+    "name": "Conversion Rate Optimization",
+    "domain": "marketing",
+    "description": "Identify and test changes that improve conversion through evidence and experimentation."
+  },
+  {
+    "id": "literature-review",
+    "name": "Literature Review",
+    "domain": "research",
+    "description": "Find, evaluate, synthesize, and cite relevant prior work."
+  },
+  {
+    "id": "research-design",
+    "name": "Research Design",
+    "domain": "research",
+    "description": "Define questions, methods, sampling, measures, and validity considerations."
+  },
+  {
+    "id": "qualitative-analysis",
+    "name": "Qualitative Analysis",
+    "domain": "research",
+    "description": "Code, categorize, interpret, and synthesize qualitative evidence."
+  },
+  {
+    "id": "policy-analysis",
+    "name": "Policy Analysis",
+    "domain": "policy",
+    "description": "Assess policy options, evidence, impacts, stakeholders, trade-offs, and implementation."
+  },
+  {
+    "id": "policy-writing",
+    "name": "Policy Writing",
+    "domain": "policy",
+    "description": "Write concise, evidence-based briefs, memos, and recommendations."
+  },
+  {
+    "id": "data-ethics",
+    "name": "Data Ethics",
+    "domain": "policy",
+    "description": "Evaluate fairness, privacy, consent, misuse, and governance of data."
+  },
+  {
+    "id": "recruiting",
+    "name": "Recruiting",
+    "domain": "people",
+    "description": "Source, screen, coordinate, and evaluate candidates fairly and effectively."
+  },
+  {
+    "id": "interviewing-hiring",
+    "name": "Hiring Interviews & Selection",
+    "domain": "people",
+    "description": "Design and run structured, job-relevant hiring assessments."
+  },
+  {
+    "id": "hr-analytics",
+    "name": "People Analytics",
+    "domain": "people",
+    "description": "Use workforce data to answer people and organizational questions."
+  },
+  {
+    "id": "people-ops",
+    "name": "People Operations",
+    "domain": "people",
+    "description": "Run repeatable employee lifecycle, policy, and HR operations processes."
+  },
+  {
+    "id": "performance-management",
+    "name": "Performance Management",
+    "domain": "people",
+    "description": "Design and support goals, feedback, evaluation, and development processes."
+  },
+  {
+    "id": "learning-development",
+    "name": "Learning & Development",
+    "domain": "people",
+    "description": "Identify development needs and design effective learning interventions."
+  },
+  {
+    "id": "change-management",
+    "name": "Change Management",
+    "domain": "business",
+    "description": "Plan adoption, communication, stakeholder alignment, and transition support."
+  }
+]

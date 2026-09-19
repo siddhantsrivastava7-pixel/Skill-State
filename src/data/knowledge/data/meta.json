@@ -1,0 +1,21 @@
+{
+  "name": "SkillState Shared Knowledge Seed",
+  "version": "1.1.0",
+  "createdAt": "2026-09-19",
+  "careerCount": 54,
+  "capabilityCount": 125,
+  "resourceCount": 97,
+  "transitionCount": 324,
+  "notes": [
+    "Career graphs are shared destination knowledge, not learner-specific plans.",
+    "Transitions are computed from shared canonical capability IDs; overlap is descriptive, not a suitability score.",
+    "Resource entries are curated starting points. The application should validate URLs periodically and add freshness metadata.",
+    "Career core should be refreshed slowly; opportunities and fast-changing signals belong in separate live libraries.",
+    "v1.1 closes all direct learning-resource coverage gaps for capabilities used by the seeded careers.",
+    "A capability being covered means at least one relevant resource exists; it does not mean the library is exhaustive or that every learner should receive that resource.",
+    "Prefer official sources; trusted industry/educational sources are marked sourceType=trusted."
+  ],
+  "resourceCoveragePercent": 100.0,
+  "resourceCoverage": "119/119",
+  "resourceExpansionDate": "2026-09-19"
+}

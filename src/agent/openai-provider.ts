@@ -37,7 +37,7 @@ import type {
   VerificationSubmission,
   VerificationTask,
 } from "@/domain/types";
-import { SEEDED_RESOURCES_CATALOG } from "@/data/library/resources-library";
+import { resourcesForCapability } from "@/data/library/resources-library";
 import { buildProgressReportFromState } from "@/domain/progress-report";
 
 const nullableString = z.string().nullable();
@@ -492,9 +492,7 @@ export class OpenAIProvider implements AIProvider {
   }
 
   async recommendResources(input: ResourceRequest): Promise<ResourceRecommendation[]> {
-    const candidates = SEEDED_RESOURCES_CATALOG.filter(
-      (resource) => resource.targetGapCapabilityId === input.gapCapabilityId
-    ).slice(0, 4);
+    const candidates = resourcesForCapability(input.gapCapabilityId).slice(0, 4);
     if (candidates.length === 0) return [];
 
     return this.structured({

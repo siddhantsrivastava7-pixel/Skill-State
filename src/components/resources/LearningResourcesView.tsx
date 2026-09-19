@@ -29,9 +29,14 @@ export function LearningResourcesView() {
   const destination = useSkillStateStore((s) => s.destination);
   const destinationGraph = useSkillStateStore((s) => s.destinationGraph);
   const gaps = useSkillStateStore((s) => s.gaps);
+  const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
 
   // Group resources strictly by active gaps
-  const groupedGaps: GroupedGapResources[] = matchResourcesToGaps(gaps, destinationGraph);
+  const groupedGaps: GroupedGapResources[] = matchResourcesToGaps(
+    gaps,
+    destinationGraph,
+    verifiedStates
+  );
 
   const getFormatIcon = (format: ResourceFormat) => {
     switch (format) {
@@ -132,9 +137,13 @@ export function LearningResourcesView() {
               {group.resources.length === 0 ? (
                 <Card className="p-5 text-center space-y-2 border-dashed">
                   <AlertTriangle className="w-6 h-6 text-brandOrange mx-auto" />
-                  <h3 className="text-sm font-semibold text-ink">No matched catalog resource yet</h3>
+                  <h3 className="text-sm font-semibold text-ink">
+                    {group.needsProof ? "Proof needed before more coursework" : "No matched catalog resource yet"}
+                  </h3>
                   <p className="text-xs text-ink-muted max-w-lg mx-auto">
-                    SkillState has identified the learning objective for {group.gapCapabilityName}, but the current catalog has no resource tagged to this capability. Use the Journey action and verification criteria as the source of truth.
+                    {group.needsProof
+                      ? `Your current state for ${group.gapCapabilityName} needs verification evidence. Use the Journey proof task instead of adding another course.`
+                      : `SkillState has identified the learning objective for ${group.gapCapabilityName}, but the current catalog has no resource tagged to this capability. Use the Journey action and verification criteria as the source of truth.`}
                   </p>
                 </Card>
               ) : (
@@ -151,15 +160,20 @@ export function LearningResourcesView() {
                           <span className="capitalize">{res.format.replace("-", " ")}</span>
                         </span>
 
-                        <div className="flex items-center gap-1 text-xs text-ink-muted">
-                          <Clock className="w-3 h-3" />
-                          <span>~{res.estimatedMinutes}m</span>
-                        </div>
+                        {res.estimatedMinutes ? (
+                          <div className="flex items-center gap-1 text-xs text-ink-muted">
+                            <Clock className="w-3 h-3" />
+                            <span>~{res.estimatedMinutes}m</span>
+                          </div>
+                        ) : null}
                       </div>
 
                       <h3 className="text-sm font-bold text-ink leading-snug">{res.title}</h3>
                       <span className="text-xs font-medium text-accent block">
                         Source: {res.provider}
+                      </span>
+                      <span className="text-[10px] text-ink-muted block">
+                        {res.sourceType === "official" ? "Official source" : "Trusted source"} · checked {res.lastChecked}
                       </span>
                       <p className="text-xs text-ink-muted leading-relaxed">
                         {res.learningObjective}

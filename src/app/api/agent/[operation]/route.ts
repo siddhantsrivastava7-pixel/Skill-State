@@ -12,6 +12,7 @@ import {
   VerificationRequestSchema,
   VerificationSubmissionSchema,
 } from "@/domain/schemas";
+import { resolveDestination, UnknownDestinationError } from "@/data/knowledge/resolution";
 
 export const runtime = "nodejs";
 
@@ -56,48 +57,52 @@ export async function POST(
   }
 
   try {
-    const provider = getAIProvider();
     let data: unknown;
 
     switch (operation) {
       case "compile-destination":
-        data = await runValidated(body, CompileDestinationInputSchema, operation, (input) =>
-          provider.compileDestination(input)
-        );
+        data = await runValidated(body, CompileDestinationInputSchema, operation, async (input) => {
+          const liveMode = process.env.SKILLSTATE_AI_MODE === "live";
+          const resolution = await resolveDestination(input, {
+            allowCompilation: liveMode,
+            provider: liveMode ? getAIProvider() : undefined,
+          });
+          return resolution.graph;
+        });
         break;
       case "analyze-evidence":
         data = await runValidated(body, EvidenceAnalysisInputSchema, operation, (input) =>
-          provider.analyzeEvidence(input)
+          getAIProvider().analyzeEvidence(input)
         );
         break;
       case "generate-verification":
         data = await runValidated(body, VerificationRequestSchema, operation, (input) =>
-          provider.generateVerification(input)
+          getAIProvider().generateVerification(input)
         );
         break;
       case "evaluate-verification":
         data = await runValidated(body, VerificationSubmissionSchema, operation, (input) =>
-          provider.evaluateVerification(input)
+          getAIProvider().evaluateVerification(input)
         );
         break;
       case "build-plan":
         data = await runValidated(body, BuildPlanInputSchema, operation, (input) =>
-          provider.buildPlan(input)
+          getAIProvider().buildPlan(input)
         );
         break;
       case "resources":
         data = await runValidated(body, ResourceRequestSchema, operation, (input) =>
-          provider.recommendResources(input)
+          getAIProvider().recommendResources(input)
         );
         break;
       case "progress-report":
         data = await runValidated(body, ProgressReportInputSchema, operation, (input) =>
-          provider.generateProgressReport(input)
+          getAIProvider().generateProgressReport(input)
         );
         break;
       case "ask":
         data = await runValidated(body, JourneyQuestionSchema, operation, (input) =>
-          provider.answerJourneyQuestion(input)
+          getAIProvider().answerJourneyQuestion(input)
         );
         break;
       default:
@@ -116,6 +121,19 @@ export async function POST(
 
     return NextResponse.json({ data });
   } catch (error) {
+    if (error instanceof UnknownDestinationError) {
+      return NextResponse.json(
+        {
+          error: {
+            code: error.code,
+            message: error.message,
+            operation,
+            retryable: false,
+          },
+        },
+        { status: 503 }
+      );
+    }
     const applicationError = toAIApplicationError(error, operation);
     const status =
       applicationError.payload.code === "AI_INVALID_INPUT"
