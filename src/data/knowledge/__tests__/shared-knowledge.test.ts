@@ -87,6 +87,40 @@ describe("SkillState shared knowledge v1.1", () => {
     expect(getDemoPersona("persona-c").graph.capabilityNodes.map((node) => node.id)).toContain("financial-modeling");
   });
 
+  it("keeps Persona A in uncertain exploring mode without assigning Software Engineer", () => {
+    const persona = getDemoPersona("persona-a");
+    expect(persona.profile).toMatchObject({
+      stage: "school",
+      stageDetail: "Class 12",
+      destinationCertainty: "general",
+      statedField: "Technology",
+    });
+    expect(persona.profile.statedDestination).toBeUndefined();
+    expect(persona.graph.destinationId).toBe("technology-foundations");
+    expect(persona.graph.destinationName).toBe("Technology & Software Foundations");
+    expect(persona.graph.destinationId).not.toBe("software-engineer");
+    expect(careerRepository.getByIdSync(persona.graph.destinationId)).toBeNull();
+    expect(persona.graph.adjacentDestinations.map((item) => item.id)).toEqual([
+      "ai-engineer",
+      "data-engineer",
+      "backend-engineer",
+      "cybersecurity-analyst",
+    ]);
+    expect(persona.graph.adjacentDestinations.every((item) => item.sharedCapabilityIds.length > 0)).toBe(true);
+    const candidatePaths = calculateCareerPathsWithOverlap(
+      persona.graph,
+      persona.verifiedStates,
+      false
+    ).slice(1);
+    expect(candidatePaths.map((path) => path.graph.destinationId)).toEqual([
+      "ai-engineer",
+      "data-engineer",
+      "backend-engineer",
+      "cybersecurity-analyst",
+    ]);
+    expect(candidatePaths.every((path) => path.isPreview === false)).toBe(true);
+  });
+
   it("uses the shared AI Engineer graph for Persona B", () => {
     expect(getDemoPersona("persona-b").graph.capabilityNodes.map((node) => node.id)).toEqual(
       sharedGraph("ai-engineer").capabilityNodes.map((node) => node.id)

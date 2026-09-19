@@ -42,7 +42,7 @@ import {
   SkillClaim,
   VerifiedCapabilityState,
 } from "@/domain/types";
-import { careerRepository } from "@/data/knowledge/repositories";
+import { capabilityRepository, careerRepository } from "@/data/knowledge/repositories";
 import { careerKnowledgeToDestinationGraph } from "@/data/knowledge/adapter";
 import { deriveVerifiedStates } from "@/domain/evidence-transition";
 import { prioritizeGaps } from "@/domain/prioritization";
@@ -63,14 +63,11 @@ export interface DemoPersonaBundle {
   activityLedger: ActivityEvent[];
 }
 
-function sharedDemoBundle(
+function learnerBundleForGraph(
   base: Omit<DemoPersonaBundle, "graph" | "verifiedStates" | "gaps">,
-  careerId: string,
+  graph: DestinationGraph,
   idMap: Record<string, string>
 ): DemoPersonaBundle {
-  const career = careerRepository.getByIdSync(careerId);
-  if (!career) throw new Error(`Missing demo career in shared knowledge: ${careerId}`);
-  const graph = careerKnowledgeToDestinationGraph(career);
   const validIds = new Set(graph.capabilityNodes.map((node) => node.id));
   const mapId = (id: string) => idMap[id] ?? id;
   const claimedStates = Object.fromEntries(
@@ -104,8 +101,84 @@ function sharedDemoBundle(
   return { ...base, graph, claimedStates, evidence, verifiedStates, gaps, plan };
 }
 
+function sharedDemoBundle(
+  base: Omit<DemoPersonaBundle, "graph" | "verifiedStates" | "gaps">,
+  careerId: string,
+  idMap: Record<string, string>
+): DemoPersonaBundle {
+  const career = careerRepository.getByIdSync(careerId);
+  if (!career) throw new Error(`Missing demo career in shared knowledge: ${careerId}`);
+  return learnerBundleForGraph(base, careerKnowledgeToDestinationGraph(career), idMap);
+}
+
+const PERSONA_A_CAPABILITY_MAP: Record<string, string> = {
+  "cap-prog-fund": "programming-python",
+  "cap-prob-solv": "critical-thinking",
+  "cap-data-fund": "data-modeling",
+  "cap-comm": "documentation",
+  "cap-mini-project": "testing-quality",
+  "cap-ai-fund": "machine-learning",
+};
+
+function exploringPersonaBundle(
+  base: Omit<DemoPersonaBundle, "graph" | "verifiedStates" | "gaps">
+): DemoPersonaBundle {
+  const mapId = (id: string) => PERSONA_A_CAPABILITY_MAP[id] ?? id;
+  const mappedNodes = personaAGraph.capabilityNodes.map((node) => {
+    const id = mapId(node.id);
+    const definition = capabilityRepository.getByIdSync(id);
+    if (!definition) throw new Error(`Missing shared exploration capability: ${id}`);
+    return {
+      ...node,
+      id,
+      name: definition.name,
+      family: definition.domain,
+      description: definition.description,
+      prerequisites: node.prerequisites.map(mapId),
+      unlocks: node.unlocks.map(mapId),
+    };
+  });
+  const explorationIds = new Set(mappedNodes.map((node) => node.id));
+  const capabilityNodes = mappedNodes.map((node) => ({
+    ...node,
+    prerequisites: node.prerequisites.filter((id) => explorationIds.has(id)),
+    unlocks: node.unlocks.filter((id) => explorationIds.has(id)),
+  }));
+  const candidateIds = [
+    "ai-engineer",
+    "data-engineer",
+    "backend-engineer",
+    "cybersecurity-analyst",
+  ];
+  const adjacentDestinations = candidateIds.map((careerId, index) => {
+    const career = careerRepository.getByIdSync(careerId);
+    if (!career) throw new Error(`Missing shared exploration candidate: ${careerId}`);
+    const candidate = careerKnowledgeToDestinationGraph(career);
+    return {
+      id: career.id,
+      title: career.title,
+      descriptor: career.summary,
+      tone: (["purple", "blue", "green", "orange"] as const)[index],
+      sharedCapabilityIds: candidate.capabilityNodes
+        .map((node) => node.id)
+        .filter((id) => explorationIds.has(id)),
+    };
+  });
+  const graph: DestinationGraph = {
+    ...personaAGraph,
+    capabilityNodes,
+    proofExpectations: personaAGraph.proofExpectations.map((proof) => ({
+      ...proof,
+      capabilityId: mapId(proof.capabilityId),
+    })),
+    adjacentDestinations,
+    sharedFoundationNodeIds: personaAGraph.sharedFoundationNodeIds.map(mapId),
+  };
+  return learnerBundleForGraph(base, graph, PERSONA_A_CAPABILITY_MAP);
+}
+
 export const DEMO_PERSONAS: Record<DemoPersonaId, DemoPersonaBundle> = {
-  "persona-a": sharedDemoBundle({
+  "persona-a": exploringPersonaBundle({
     id: "persona-a",
     label: "Persona A (Siddhant — Exploring Class 12)",
     description: "Uncertain learner exploring Technology with 4 open branches and shared foundations.",
@@ -114,13 +187,6 @@ export const DEMO_PERSONAS: Record<DemoPersonaId, DemoPersonaBundle> = {
     evidence: personaAEvidence,
     plan: personaAPlan,
     activityLedger: personaAActivityLedger,
-  }, "software-engineer", {
-    "cap-prog-fund": "programming-python",
-    "cap-prob-solv": "data-structures-algorithms",
-    "cap-data-fund": "system-design",
-    "cap-comm": "collaboration",
-    "cap-mini-project": "git-version-control",
-    "cap-ai-fund": "api-design",
   }),
   "persona-b": sharedDemoBundle({
     id: "persona-b",
