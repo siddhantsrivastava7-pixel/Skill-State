@@ -6,6 +6,7 @@ import {
   VerifiedCapabilityState,
 } from "./types";
 import { prioritizeGaps } from "./prioritization";
+import { deriveVerifiedStates } from "./evidence-transition";
 
 export interface DestinationChangeInput {
   currentEvidence: Evidence[];
@@ -49,7 +50,13 @@ export function preserveEvidenceOnDestinationChange(
     ...currentClaimedStates,
   };
 
-  // 3. Reconcile verified capability states against the new destination graph
+  // 3. Re-derive the target graph from historical evidence, while retaining
+  // evaluated states for capabilities shared by both destinations.
+  const evidenceDerivedStates = deriveVerifiedStates(
+    newGraph,
+    preservedEvidence,
+    preservedClaimedStates
+  );
   const updatedVerifiedStates: Record<string, VerifiedCapabilityState> = {
     ...currentVerifiedStates,
   };
@@ -58,49 +65,20 @@ export function preserveEvidenceOnDestinationChange(
   let newRequirementCount = 0;
 
   for (const node of newGraph.capabilityNodes) {
-    const existingVerified = updatedVerifiedStates[node.id];
-    if (existingVerified && existingVerified.state === "verified") {
+    const existingState = currentVerifiedStates[node.id];
+    const derivedState = evidenceDerivedStates[node.id];
+    const hasEvaluatedHistory = Boolean(existingState?.evidenceIds.length);
+
+    // The active state-transition engine is authoritative for evaluated
+    // evidence. A destination switch must not reinterpret a failed assessment
+    // as merely missing proof.
+    updatedVerifiedStates[node.id] = hasEvaluatedHistory
+      ? existingState
+      : derivedState;
+
+    if (updatedVerifiedStates[node.id].state === "verified") {
       preservedFoundationCount++;
-      continue;
-    }
-
-    // Check if any existing evidence references this capability
-    const matchingEvidence = preservedEvidence.filter((ev) =>
-      ev.capabilitySignals.some((sig) => sig.capabilityId === node.id)
-    );
-
-    if (matchingEvidence.length > 0) {
-      const supportingSignals = matchingEvidence.flatMap((ev) =>
-        ev.capabilitySignals.filter(
-          (sig) => sig.capabilityId === node.id && sig.signal === "supports"
-        )
-      );
-
-      const hasStrongSupport = supportingSignals.some(
-        (sig) => sig.strength === "high"
-      );
-
-      updatedVerifiedStates[node.id] = {
-        capabilityId: node.id,
-        state: hasStrongSupport ? "verified" : "needs-proof",
-        evidenceIds: matchingEvidence.map((e) => e.id),
-        explanation: `Preserved from previous evidence: supported by ${matchingEvidence.length} item(s).`,
-        lastUpdatedAt: new Date().toISOString(),
-      };
-      if (hasStrongSupport) {
-        preservedFoundationCount++;
-      } else {
-        newRequirementCount++;
-      }
-    } else if (!updatedVerifiedStates[node.id]) {
-      // Unverified requirement in new destination
-      updatedVerifiedStates[node.id] = {
-        capabilityId: node.id,
-        state: "unverified",
-        evidenceIds: [],
-        explanation: "New requirement for selected destination; no evidence recorded.",
-        lastUpdatedAt: new Date().toISOString(),
-      };
+    } else {
       newRequirementCount++;
     }
   }

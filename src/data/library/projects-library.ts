@@ -151,6 +151,67 @@ export const SEEDED_PROJECTS_CATALOG: ProofProjectRecommendation[] = [
   },
 ];
 
+function normalizeProjectIdentity(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/^(start|build|create|complete|produce)\s+/, "")
+    .replace(/^(one|an|a)\s+/, "");
+}
+
+function unionStrings(left: string[], right: string[]): string[] {
+  const seen = new Set<string>();
+  return [...left, ...right].filter((value) => {
+    const key = value.toLowerCase().replace(/\s+/g, " ").trim();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+const proofLevelRank = { basic: 0, working: 1, production: 2 } as const;
+
+/** Consolidates the same proof artifact while preserving every mapped requirement. */
+export function mergeDuplicateProjects(
+  projects: ProofProjectRecommendation[]
+): ProofProjectRecommendation[] {
+  const merged = new Map<string, ProofProjectRecommendation>();
+  for (const project of projects) {
+    const key = `${project.destinationFamily.toLowerCase()}::${normalizeProjectIdentity(project.title)}`;
+    const existing = merged.get(key);
+    if (!existing) {
+      merged.set(key, { ...project });
+      continue;
+    }
+
+    const capabilityPairs = new Map<string, string>();
+    existing.targetCapabilityIds.forEach((id, index) => {
+      capabilityPairs.set(id, existing.targetCapabilityNames[index] ?? id);
+    });
+    project.targetCapabilityIds.forEach((id, index) => {
+      capabilityPairs.set(id, project.targetCapabilityNames[index] ?? id);
+    });
+    const targetCapabilityIds = Array.from(capabilityPairs.keys());
+    merged.set(key, {
+      ...existing,
+      id: existing.id,
+      targetCapabilityIds,
+      targetCapabilityNames: targetCapabilityIds.map((id) => capabilityPairs.get(id) ?? id),
+      proofLevel: proofLevelRank[project.proofLevel] > proofLevelRank[existing.proofLevel]
+        ? project.proofLevel
+        : existing.proofLevel,
+      deliverables: unionStrings(existing.deliverables, project.deliverables),
+      verificationCriteria: unionStrings(
+        existing.verificationCriteria,
+        project.verificationCriteria
+      ),
+      estimatedHours: Math.max(existing.estimatedHours, project.estimatedHours),
+    });
+  }
+  return Array.from(merged.values());
+}
+
 /**
  * Reusable domain selector: matches proof projects to unverified destination capabilities.
  * Presentation components remain 100% destination-agnostic.
@@ -184,7 +245,7 @@ export function matchProjectsToGaps(
     .map((s) => s.project);
 
   if (matching.length > 0) {
-    return matching;
+    return mergeDuplicateProjects(matching);
   }
 
   const planActions = [
@@ -199,7 +260,13 @@ export function matchProjectsToGaps(
     .map((proof): ProofProjectRecommendation | null => {
       const node = graph.capabilityNodes.find((item) => item.id === proof.capabilityId);
       if (!node) return null;
-      const action = planActions.find((item) => item.capabilityIds.includes(node.id));
+      const action = planActions
+        .filter((item) => item.capabilityIds.includes(node.id))
+        .sort((left, right) => {
+          const leverage = right.capabilityIds.length - left.capabilityIds.length;
+          if (leverage !== 0) return leverage;
+          return Number(right.category === "build") - Number(left.category === "build");
+        })[0];
       const gap = gaps.find((item) => item.capabilityId === node.id);
       return {
         id: `project-${proof.id}`,
@@ -234,9 +301,11 @@ export function matchProjectsToGaps(
     })
     .filter((project): project is ProofProjectRecommendation => project !== null);
 
-  if (derivedFromProof.length > 0) return derivedFromProof.slice(0, 4);
+  if (derivedFromProof.length > 0) {
+    return mergeDuplicateProjects(derivedFromProof).slice(0, 4);
+  }
 
-  return planActions
+  return mergeDuplicateProjects(planActions
     .map((action): ProofProjectRecommendation | null => {
       const capabilityIds = action.capabilityIds.filter(
         (id) => graphCapIds.has(id) && gapCapIds.has(id)
@@ -261,6 +330,6 @@ export function matchProjectsToGaps(
         estimatedHours: Math.max(4, Math.ceil(action.estimatedMinutes / 60)),
       };
     })
-    .filter((project): project is ProofProjectRecommendation => project !== null)
+    .filter((project): project is ProofProjectRecommendation => project !== null))
     .slice(0, 4);
 }

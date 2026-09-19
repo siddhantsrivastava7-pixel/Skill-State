@@ -1,8 +1,9 @@
 import { VerificationWorkbench } from "@/components/assess/VerificationWorkbench";
+import { ASSESS_INTRO_COPY } from "@/domain/copy";
 
 export const metadata = {
   title: "Assess & Prove | SkillState",
-  description: "Verify claimed capabilities, evaluate evidence rigor, and see real-time plan adaptation.",
+  description: ASSESS_INTRO_COPY,
 };
 
 export default function AssessPage() {

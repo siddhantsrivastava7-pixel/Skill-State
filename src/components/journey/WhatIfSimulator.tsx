@@ -26,6 +26,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { InlineNotice } from "@/components/ui/InlineNotice";
 import { formatPlanningHorizonLabel } from "@/domain/planning-horizon";
+import { planDestinationSwitch } from "@/domain/destination-planning";
 
 export interface WhatIfSimulatorProps {
   onApplied?: () => void;
@@ -158,6 +159,7 @@ export function WhatIfSimulator({
 
   // Apply to real plan upon explicit user action
   const handleApply = async () => {
+    const startedAt = typeof performance === "undefined" ? 0 : performance.now();
     setIsApplying(true);
     setApplyError("");
     const nextProfile =
@@ -178,20 +180,25 @@ export function WhatIfSimulator({
         newGraph: selectedGraph,
         targetTimelineMonths: simTimelineMonths,
       });
-      const nextPlan = await getClientAIProvider().buildPlan({
+      const nextPlan = await planDestinationSwitch({
         profile: nextProfile,
         graph: selectedGraph,
         verifiedStates: switchResult.updatedVerifiedStates,
         claimedStates: switchResult.preservedClaimedStates,
         gaps: switchResult.recomputedGaps,
         planningReason: "full-what-if",
-      });
+      }, !selectedCandidate.isPreview, getClientAIProvider());
 
       setProfile(nextProfile);
       if (selectedGraph.destinationName !== destination) {
         changeDestination(selectedGraph.destinationName, selectedGraph);
       }
       setPlan(nextPlan);
+      if (process.env.NODE_ENV === "development" && startedAt) {
+        console.info(
+          `[SkillState] Applied ${selectedCandidate.isPreview ? "generated" : "seeded"} destination in ${Math.round(performance.now() - startedAt)}ms.`
+        );
+      }
       setAppliedSuccess(true);
       setTimeout(() => {
         onApplied?.();

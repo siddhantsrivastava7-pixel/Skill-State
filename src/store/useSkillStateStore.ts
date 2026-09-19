@@ -250,6 +250,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           verifiedStates: switchResult.updatedVerifiedStates,
           gaps: switchResult.recomputedGaps,
           activityLedger: [...state.activityLedger, event],
+          lastTransitionResult: undefined,
         });
       },
 

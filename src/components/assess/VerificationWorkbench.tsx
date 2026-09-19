@@ -15,6 +15,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
+import { ASSESS_INTRO_COPY } from "@/domain/copy";
 import { selectMax3VerificationCandidates } from "@/domain/verification";
 import { getClientAIProvider } from "@/agent/client-provider";
 import {
@@ -189,7 +190,7 @@ export function VerificationWorkbench() {
             {isDemoMode && <Badge variant="blue" size="sm">Demo Mode</Badge>}
           </div>
           <p className="text-xs text-ink-muted mt-1">
-            Verify claimed capabilities with rigorous evaluation. Every assessment directly drives and adapts your plan.
+            {ASSESS_INTRO_COPY}
           </p>
         </div>
         <div className="flex items-center gap-2">

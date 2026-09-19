@@ -6,6 +6,7 @@ import { careerKnowledgeToDestinationGraph } from "./adapter";
 import { CareerKnowledgeSchema } from "./schemas";
 import type { CareerKnowledge, CareerRepository } from "./types";
 import { careerRepository } from "./repositories";
+import { reconcileGeneratedDestinationGraph } from "./capability-reconciler";
 
 export interface DestinationResolution {
   graph: DestinationGraph;
@@ -84,7 +85,12 @@ export async function resolveDestination(
   }
 
   if (!options.allowCompilation || !options.provider) throw new UnknownDestinationError(requested || "this path");
-  const graph = GeneratedDestinationGraphSchema.parse(await options.provider.compileDestination(input));
+  const compiledGraph = GeneratedDestinationGraphSchema.parse(
+    await options.provider.compileDestination(input)
+  );
+  const graph = GeneratedDestinationGraphSchema.parse(
+    reconcileGeneratedDestinationGraph(compiledGraph).graph
+  );
   const persisted = await repository.saveGenerated(generatedCareerFromGraph(graph), graph);
   return { graph, source: "generated", persisted };
 }

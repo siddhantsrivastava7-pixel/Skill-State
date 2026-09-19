@@ -14,6 +14,7 @@ export interface JourneyActionItem extends ActionItem {
   timingRange: string;
   whenItBelongs: string;
   whyItBelongs: string;
+  scheduledWeek: number;
 }
 
 export interface JourneyPhaseGroup {
@@ -80,21 +81,34 @@ export function organizePlanIntoJourneyTracks(
   plan: AdaptivePlan,
   graph: DestinationGraph
 ): JourneyPhaseGroup[] {
-  // Collect all actions from plan.now and plan.weeks
+  // Collect plan actions with their actual scheduled week. `now` is week 1;
+  // explicit plan weeks remain authoritative for later actions.
   const allActions: ActionItem[] = [...plan.now];
+  const scheduledWeekByActionId = new Map<string, number>();
+  plan.now.forEach((action) => scheduledWeekByActionId.set(action.id, 1));
 
   for (const week of plan.weeks) {
     for (const act of week.actions) {
+      const currentWeek = scheduledWeekByActionId.get(act.id);
+      scheduledWeekByActionId.set(
+        act.id,
+        currentWeek === undefined ? week.weekIndex : Math.min(currentWeek, week.weekIndex)
+      );
       if (!allActions.some((a) => a.id === act.id)) {
         allActions.push(act);
       }
     }
   }
 
+  const latestScheduledWeek = Math.max(
+    1,
+    ...Array.from(scheduledWeekByActionId.values())
+  );
+
   // Synthesize experiential and signal actions if not explicitly seeded
   if (!allActions.some((a) => a.category === "experience")) {
     const primaryExp = graph.experienceExpectations[0];
-    allActions.push({
+    const syntheticExperience = {
       id: `act-synth-exp-${graph.destinationId}`,
       category: "experience",
       title: primaryExp ? primaryExp.title : `${graph.destinationName} Team Project Sprint`,
@@ -105,11 +119,13 @@ export function organizePlanIntoJourneyTracks(
       estimatedMinutes: 480,
       capabilityIds: graph.capabilityNodes.slice(0, 3).map((n) => n.id),
       status: "todo",
-    });
+    } satisfies ActionItem;
+    allActions.push(syntheticExperience);
+    scheduledWeekByActionId.set(syntheticExperience.id, latestScheduledWeek + 1);
   }
 
   if (!allActions.some((a) => a.category === "signal")) {
-    allActions.push({
+    const syntheticSignal = {
       id: `act-synth-signal-${graph.destinationId}`,
       category: "signal",
       title: "Verified Capability Portfolio & Evidence Summary",
@@ -118,15 +134,18 @@ export function organizePlanIntoJourneyTracks(
       estimatedMinutes: 180,
       capabilityIds: graph.capabilityNodes.slice(0, 2).map((n) => n.id),
       status: "todo",
-    });
+    } satisfies ActionItem;
+    allActions.push(syntheticSignal);
+    scheduledWeekByActionId.set(syntheticSignal.id, latestScheduledWeek + 2);
   }
 
   // Map each action to a JourneyActionItem with timing and structural rationale
-  const journeyActions: JourneyActionItem[] = allActions.map((action, idx) => {
+  const journeyActions: JourneyActionItem[] = allActions.map((action) => {
     const track = (action.category as JourneyTrack) || "learn";
+    const scheduledWeek = scheduledWeekByActionId.get(action.id) ?? 1;
     let phaseIndex = 1;
     let phaseLabel = "Phase 1: Foundations & Immediate Repairs";
-    let timingRange = "Now – Month 2";
+    const timingRange = scheduledWeek === 1 ? "Now / Week 1" : `Week ${scheduledWeek}`;
     let whenItBelongs = "";
     let whyItBelongs = "";
 
@@ -134,7 +153,6 @@ export function organizePlanIntoJourneyTracks(
       case "learn":
         phaseIndex = 1;
         phaseLabel = "Phase 1: Foundations & Immediate Repairs";
-        timingRange = "Weeks 1–4";
         whenItBelongs = "Belongs early before attempting complex application or verification.";
         whyItBelongs =
           action.whyNow ||
@@ -144,7 +162,6 @@ export function organizePlanIntoJourneyTracks(
       case "prove":
         phaseIndex = 1;
         phaseLabel = "Phase 1: Foundations & Immediate Repairs";
-        timingRange = "Weeks 2–6";
         whenItBelongs = "Belongs immediately after learning to validate claimed understanding.";
         whyItBelongs =
           action.whyNow ||
@@ -154,7 +171,6 @@ export function organizePlanIntoJourneyTracks(
       case "build":
         phaseIndex = 2;
         phaseLabel = "Phase 2: Core Proof & Production Deliverables";
-        timingRange = "Months 2–5";
         whenItBelongs = "Belongs in the core development phase after prerequisites are verified.";
         whyItBelongs =
           action.whyNow ||
@@ -164,7 +180,6 @@ export function organizePlanIntoJourneyTracks(
       case "experience":
         phaseIndex = 3;
         phaseLabel = "Phase 3: Applied Experience & Team Collaboration";
-        timingRange = "Months 5–8";
         whenItBelongs = "Belongs in mid-journey once standalone portfolio pieces are completed.";
         whyItBelongs =
           action.whyNow ||
@@ -174,7 +189,6 @@ export function organizePlanIntoJourneyTracks(
       case "signal":
         phaseIndex = 4;
         phaseLabel = "Phase 4: Target Destination Readiness & External Signals";
-        timingRange = "Months 8+";
         whenItBelongs = "Belongs near journey completion when full proof is ready for public evaluation.";
         whyItBelongs =
           action.whyNow ||
@@ -190,35 +204,32 @@ export function organizePlanIntoJourneyTracks(
       timingRange,
       whenItBelongs,
       whyItBelongs,
+      scheduledWeek,
     };
   });
 
   // Group by Phase
   const phasesMap = new Map<number, JourneyPhaseGroup>();
 
-  const defaultPhases: Array<{ index: number; label: string; range: string; desc: string }> = [
+  const defaultPhases: Array<{ index: number; label: string; desc: string }> = [
     {
       index: 1,
       label: "Phase 1: Foundations & Immediate Repairs",
-      range: "Now – Month 2",
       desc: "Refresh foundations, address identified gaps, and verify core capability claims.",
     },
     {
       index: 2,
       label: "Phase 2: Core Proof & Production Deliverables",
-      range: "Months 2–5",
       desc: "Build applied work and verifiable portfolio deliverables.",
     },
     {
       index: 3,
       label: "Phase 3: Applied Experience & Collaboration",
-      range: "Months 5–8",
       desc: "Participate in simulated applied experiences and collaborative work.",
     },
     {
       index: 4,
       label: "Phase 4: Target Destination Readiness & External Signals",
-      range: "Months 8+",
       desc: "Compile final verified artifacts, refine external signals, and prepare for career transition.",
     },
   ];
@@ -227,7 +238,7 @@ export function organizePlanIntoJourneyTracks(
     phasesMap.set(dp.index, {
       phaseIndex: dp.index,
       phaseLabel: dp.label,
-      timingRange: dp.range,
+      timingRange: "",
       description: dp.desc,
       actions: [],
     });
@@ -240,5 +251,18 @@ export function organizePlanIntoJourneyTracks(
     }
   }
 
-  return Array.from(phasesMap.values()).filter((p) => p.actions.length > 0);
+  return Array.from(phasesMap.values())
+    .filter((phase) => phase.actions.length > 0)
+    .map((phase) => {
+      const weeks = phase.actions.map((action) => action.scheduledWeek);
+      const start = Math.min(...weeks);
+      const end = Math.max(...weeks);
+      return {
+        ...phase,
+        timingRange:
+          start === end
+            ? start === 1 ? "Now / Week 1" : `Week ${start}`
+            : `${start === 1 ? "Now / Week 1" : `Week ${start}`} – Week ${end}`,
+      };
+    });
 }

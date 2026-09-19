@@ -13,6 +13,7 @@ import { ProofNeededCard } from "@/components/home/ProofNeededCard";
 import { CompactSkillStrip, deriveCompactSkills } from "@/components/home/CompactSkillStrip";
 import { TodayPlanStrip } from "@/components/home/TodayPlanStrip";
 import { RecentActivityStrip } from "@/components/home/RecentActivityStrip";
+import { resolveHomeGoalLabel } from "@/domain/display";
 
 export default function HomePage() {
   const [isMounted, setIsMounted] = useState(false);
@@ -105,6 +106,7 @@ export default function HomePage() {
   // Journey Stages Construction
   // ---------------------------------------------------------------------------
   const targetDestinationLabel = destination || profile.statedDestination || "Target Role";
+  const homeGoalLabel = resolveHomeGoalLabel(destination, profile);
 
   const stages: JourneyStage[] = isExploring
     ? [
@@ -276,7 +278,7 @@ export default function HomePage() {
         mode={mode}
         userName={profile.name}
         userStageDetail={profile.stageDetail || "Class 12"}
-        userFieldOrGoal={profile.statedDestination || profile.statedField || destination || "Technology career"}
+        userFieldOrGoal={homeGoalLabel}
         stages={stages}
         branches={branches}
         selectedBranchId={selectedBranchId}

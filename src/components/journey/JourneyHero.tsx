@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Sprout } from "lucide-react";
 import { HillBackgroundSvg } from "./HillBackgroundSvg";
 import { JourneyPath, JourneyStage, CareerBranch } from "./JourneyPath";
@@ -19,6 +19,12 @@ export interface JourneyHeroProps {
   selectedBranchId?: string;
   onBranchPreview: (id: string) => void;
   className?: string;
+}
+
+export function getLocalGreeting(hour: number): string {
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  return "Good evening";
 }
 
 /**
@@ -41,6 +47,12 @@ export function JourneyHero({
   onBranchPreview,
   className = "",
 }: JourneyHeroProps) {
+  const [greeting, setGreeting] = useState("Welcome back");
+
+  useEffect(() => {
+    setGreeting(getLocalGreeting(new Date().getHours()));
+  }, []);
+
   // Default copy based on mode
   const defaultHeadline =
     mode === "exploring"
@@ -66,7 +78,7 @@ export function JourneyHero({
         {/* Left Headline Area */}
         <div className="max-w-2xl space-y-1.5">
           <div className="text-xs sm:text-sm font-medium text-ink-muted flex items-center gap-1.5">
-            Good morning, {userName}! <span>👋</span>
+            {greeting}, {userName}! <span>👋</span>
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl lg:text-[34px] font-semibold text-ink tracking-tight leading-[1.18]">
             {headline || defaultHeadline}
