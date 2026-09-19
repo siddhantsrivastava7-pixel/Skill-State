@@ -25,6 +25,7 @@ import {
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { VerificationResultPanel } from "./VerificationResultPanel";
 
 export function VerificationWorkbench() {
   const destinationGraph = useSkillStateStore((s) => s.destinationGraph);
@@ -243,101 +244,7 @@ export function VerificationWorkbench() {
 
       {/* 3. Last Transition Result & Plan Impact Callout (If verification evaluated) */}
       {lastTransitionResult && (
-        <div className="p-5 rounded-card border-2 border-accent/40 bg-accent-soft/30 shadow-card animate-in fade-in duration-200 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-accent/20">
-            <div className="flex items-center gap-2.5">
-              <div
-                className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
-                  lastTransitionResult.stateTransition.passed
-                    ? "bg-brandGreen-soft text-brandGreen"
-                    : "bg-brandOrange-soft text-brandOrange"
-                }`}
-              >
-                {lastTransitionResult.stateTransition.passed ? (
-                  <CheckCircle2 className="w-5 h-5" />
-                ) : (
-                  <AlertTriangle className="w-5 h-5" />
-                )}
-              </div>
-              <div>
-                <h3 className="text-sm font-bold text-ink">
-                  {lastTransitionResult.stateTransition.passed
-                    ? "Verification Confirmed: Capability Verified"
-                    : "Verification Evaluated: Gap Exposed"}
-                </h3>
-                <p className="text-xs text-ink-muted">
-                  State updated: <strong className="text-ink capitalize">{lastTransitionResult.stateTransition.previousState}</strong>
-                  {" "}→{" "}
-                  <strong className={lastTransitionResult.stateTransition.passed ? "text-brandGreen capitalize" : "text-brandOrange capitalize"}>
-                    {lastTransitionResult.stateTransition.newState}
-                  </strong>
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Link href="/">
-                <Button size="sm" variant="primary" className="text-xs gap-1.5 shadow-xs">
-                  View Updated Home Plan <ArrowUpRight className="w-3.5 h-3.5" />
-                </Button>
-              </Link>
-              <Link href="/skills">
-                <Button size="sm" variant="secondary" className="text-xs gap-1.5">
-                  View Capability Ledger
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          {/* Visible "Why your plan changed" callout */}
-          <div className="p-4 rounded-xl bg-surface border border-accent/30 shadow-xs">
-            <div className="flex items-center gap-2 mb-1.5">
-              <Sparkles className="w-4 h-4 text-accent" />
-              <h4 className="text-xs font-bold text-ink uppercase tracking-wider">
-                Why your plan changed
-              </h4>
-            </div>
-            <p className="text-xs text-ink font-medium leading-relaxed">
-              {lastTransitionResult.planChangeExplanation}
-            </p>
-
-            {/* Updated Now actions preview */}
-            <div className="mt-3 pt-3 border-t border-border/60">
-              <span className="text-[11px] font-semibold text-ink-muted block mb-2">
-                Current Today&apos;s Plan Actions:
-              </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {lastTransitionResult.updatedPlan.now.map((action, idx) => {
-                  const isNewRepair = action.id.includes("act-repair") || action.title.toLowerCase().includes("repair");
-                  return (
-                    <div
-                      key={action.id}
-                      className={`p-2.5 rounded-lg border text-xs flex items-center justify-between gap-2 ${
-                        isNewRepair
-                          ? "bg-accent-soft/60 border-accent text-accent font-semibold"
-                          : "bg-surface-soft border-border text-ink"
-                      }`}
-                    >
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className="truncate">{action.title}</span>
-                          {isNewRepair && (
-                            <span className="px-1.5 py-0.2 rounded text-[10px] bg-accent text-white font-bold shrink-0">
-                              NEW
-                            </span>
-                          )}
-                        </div>
-                        <span className="text-[10px] text-ink-muted block mt-0.5 capitalize">
-                          {action.category} · {action.estimatedMinutes}m · {action.status}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+        <VerificationResultPanel result={lastTransitionResult} />
       )}
 
       {/* 4. Active Task Workspace */}

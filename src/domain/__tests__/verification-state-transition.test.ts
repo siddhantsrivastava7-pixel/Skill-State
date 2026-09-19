@@ -168,4 +168,102 @@ describe("Phase 5: Verification State Transition Engine", () => {
     updatedStore.clearLastTransition();
     expect(useSkillStateStore.getState().lastTransitionResult).toBeUndefined();
   });
+
+  it("distinguishes direct changes caused by submitted verification from reprioritized existing gaps, without implying existing gaps were created by this assessment", async () => {
+    const provider = getAIProvider();
+    const capId = "cap-ml";
+
+    const submission: VerificationSubmission = {
+      taskId: "task-ml-eval-scenario",
+      capabilityId: capId,
+      userResponse:
+        "Our accuracy is 99.2% which is fine because accuracy is fine for almost all cases.",
+    };
+
+    const evalResult = await provider.evaluateVerification(submission);
+    const transition = executeVerificationTransition({
+      submission,
+      evaluationResult: evalResult,
+      currentVerifiedStates: personaBVerifiedStates,
+      currentClaims: personaBClaims,
+      currentEvidence: personaBEvidence,
+      currentPlan: personaBPlan,
+      graph: personaBGraph,
+      targetTimelineMonths: personaBProfile.targetTimelineMonths,
+    });
+
+    // 1. Direct changes only concern the assessed capability
+    expect(transition.impactBreakdown.directChanges.length).toBeGreaterThan(0);
+    for (const dc of transition.impactBreakdown.directChanges) {
+      const text = dc.title.toLowerCase();
+      expect(text.includes("cap-ml") || text.includes("machine learning")).toBe(true);
+    }
+
+    // 2. Existing gaps (like Linear Algebra or SQL) are explicitly listed as existing
+    expect(transition.impactBreakdown.existingGapsReprioritized.length).toBeGreaterThan(0);
+    const linalgGap = transition.impactBreakdown.existingGapsReprioritized.find(
+      (g) => g.capabilityId === "cap-linalg"
+    );
+    expect(linalgGap).toBeDefined();
+
+    // 3. Explanation does not imply linear algebra was created by this assessment
+    expect(transition.planChangeExplanation).toContain("not created by this assessment");
+
+    // 4. Three categories are populated
+    const { added, reprioritized, movedLaterOrUnchanged } =
+      transition.impactBreakdown.categories;
+    expect(added.length).toBeGreaterThan(0);
+    expect(reprioritized.length).toBeGreaterThan(0);
+    expect(movedLaterOrUnchanged.length).toBeGreaterThan(0);
+  });
+
+  it("handles previousState === newState by preserving state while recording evidence and gap impact", async () => {
+    const provider = getAIProvider();
+    const capId = "cap-ml";
+
+    // Set initial state to developing
+    const initialVerifiedStates = {
+      ...personaBVerifiedStates,
+      [capId]: {
+        capabilityId: capId,
+        state: "developing" as const,
+        evidenceIds: [],
+        explanation: "Previously identified as developing",
+        lastUpdatedAt: new Date().toISOString(),
+      },
+    };
+
+    const submission: VerificationSubmission = {
+      taskId: "task-ml-eval-scenario",
+      capabilityId: capId,
+      userResponse:
+        "Our accuracy is 99.2% which is fine because accuracy is fine for almost all cases.",
+    };
+
+    const evalResult = await provider.evaluateVerification(submission);
+    // Proposed state is developing
+    expect(evalResult.proposedState).toBe("developing");
+
+    const transition = executeVerificationTransition({
+      submission,
+      evaluationResult: evalResult,
+      currentVerifiedStates: initialVerifiedStates,
+      currentClaims: personaBClaims,
+      currentEvidence: personaBEvidence,
+      currentPlan: personaBPlan,
+      graph: personaBGraph,
+      targetTimelineMonths: personaBProfile.targetTimelineMonths,
+    });
+
+    // State remains developing
+    expect(transition.stateTransition.previousState).toBe("developing");
+    expect(transition.stateTransition.newState).toBe("developing");
+    expect(transition.stateTransition.previousState === transition.stateTransition.newState).toBe(true);
+
+    // New evidence was still recorded
+    expect(transition.newEvidence).toBeDefined();
+    expect(transition.updatedVerifiedStates[capId].evidenceIds).toContain(
+      transition.newEvidence.id
+    );
+  });
 });
