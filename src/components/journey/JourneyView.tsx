@@ -242,10 +242,18 @@ export function JourneyView() {
                               <Clock className="w-3 h-3" />
                               <span>{action.estimatedMinutes >= 60 ? `${Math.round(action.estimatedMinutes / 60)}h` : `${action.estimatedMinutes}m`}</span>
                               <Badge
-                                variant={action.status === "done" ? "green" : "default"}
+                                variant={action.status === "done" || action.status === "verified" ? "green" : "default"}
                                 size="sm"
                               >
-                                {action.status === "done" ? "Completed" : "Scheduled"}
+                                {action.category === "prove"
+                                  ? action.status === "verified" || action.status === "done"
+                                    ? "Verified"
+                                    : action.status === "attempted"
+                                      ? "Attempted"
+                                      : "Not started"
+                                  : action.status === "done"
+                                    ? "Completed"
+                                    : "Scheduled"}
                               </Badge>
                             </div>
                           </div>

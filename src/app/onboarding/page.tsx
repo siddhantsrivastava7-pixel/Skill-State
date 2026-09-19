@@ -12,6 +12,7 @@ import {
   ProgressBar,
   FileDrop,
   IconButton,
+  InlineNotice,
 } from "@/components/ui";
 import {
   CheckCircle2,
@@ -35,9 +36,10 @@ import {
 } from "@/domain/types";
 import { calculateGraduationEstimate } from "@/domain/planning-horizon";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
-import { getAIProvider } from "@/agent";
+import { getClientAIProvider } from "@/agent/client-provider";
 import { generateId } from "@/lib/ids";
 import { prioritizeGaps } from "@/domain/prioritization";
+import { deriveVerifiedStates } from "@/domain/evidence-transition";
 
 interface UploadedFileItem {
   id: string;
@@ -99,9 +101,7 @@ export default function OnboardingPage() {
   const router = useRouter();
 
   // Store actions
-  const setProfile = useSkillStateStore((s) => s.setProfile);
-  const changeDestination = useSkillStateStore((s) => s.changeDestination);
-  const addEvidence = useSkillStateStore((s) => s.addEvidence);
+  const initializeJourney = useSkillStateStore((s) => s.initializeJourney);
 
   // Form states
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
@@ -138,6 +138,7 @@ export default function OnboardingPage() {
   // Generation state
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationStepIndex, setGenerationStepIndex] = useState(0);
+  const [generationError, setGenerationError] = useState("");
 
   // Handlers for Step 2 Interests
   const toggleInterest = (interest: string) => {
@@ -190,46 +191,29 @@ export default function OnboardingPage() {
           body: formData,
         });
 
-        if (res.ok) {
-          const data = await res.json();
-          setUploadedFiles((prev) =>
-            prev.map((item) =>
-              item.id === tempId
-                ? {
-                    ...item,
-                    extractedStatus: "extracted",
-                    text: data.extractedText,
-                    wordCount: data.wordCount,
-                  }
-                : item
-            )
-          );
-        } else {
-          // Client-side fallback text
-          const fallbackText = await file.text().catch(() => "");
-          const wc = fallbackText.split(/\s+/).filter(Boolean).length;
-          setUploadedFiles((prev) =>
-            prev.map((item) =>
-              item.id === tempId
-                ? {
-                    ...item,
-                    extractedStatus: "extracted",
-                    text: fallbackText || `Extracted text from ${file.name}`,
-                    wordCount: wc || 50,
-                  }
-                : item
-            )
-          );
-        }
-      } catch {
+        if (!res.ok) throw new Error("Server-side document extraction failed");
+        const data = await res.json();
         setUploadedFiles((prev) =>
           prev.map((item) =>
             item.id === tempId
               ? {
                   ...item,
                   extractedStatus: "extracted",
-                  text: `Uploaded document: ${file.name}`,
-                  wordCount: 30,
+                  text: data.extractedText,
+                  wordCount: data.wordCount,
+                }
+              : item
+          )
+        );
+      } catch {
+        setUploadedFiles((prev) =>
+          prev.map((item) =>
+            item.id === tempId
+              ? {
+                  ...item,
+                  extractedStatus: "failed",
+                  text: "",
+                  wordCount: 0,
                 }
               : item
           )
@@ -246,8 +230,10 @@ export default function OnboardingPage() {
   const handleFinalSubmit = async () => {
     setIsGenerating(true);
     setGenerationStepIndex(0);
+    setGenerationError("");
 
-    const provider = getAIProvider();
+    try {
+      const provider = getClientAIProvider();
 
     // Step 1: Understanding destination
     await new Promise((r) => setTimeout(r, 600));
@@ -311,8 +297,9 @@ export default function OnboardingPage() {
 
     // Ingest uploaded files
     for (const f of uploadedFiles) {
+      if (f.extractedStatus !== "extracted" || !f.text.trim()) continue;
       const analysis = await provider.analyzeEvidence({
-        documentText: f.text || f.name,
+        documentText: f.text,
         documentType: f.type,
         filename: f.name,
         destinationGraph: graph,
@@ -339,20 +326,34 @@ export default function OnboardingPage() {
     await new Promise((r) => setTimeout(r, 600));
     setGenerationStepIndex(3);
 
-    // Persist profile and graph into Zustand
-    setProfile(profileData);
-    changeDestination(graph.destinationName, graph);
-
-    // Ingest evidence into store
-    for (const ev of generatedEvidences) {
-      addEvidence(ev);
-    }
-
     // Step 4: Creating first path
-    await new Promise((r) => setTimeout(r, 600));
+    const verifiedStates = deriveVerifiedStates(graph, generatedEvidences);
+    const gaps = prioritizeGaps({
+      graph,
+      verifiedStates,
+      claimedStates: {},
+      targetTimelineMonths: profileData.targetTimelineMonths,
+    });
+    const plan = await provider.buildPlan({
+      profile: profileData,
+      graph,
+      verifiedStates,
+      claimedStates: {},
+      gaps,
+      planningReason: "initial",
+    });
+    initializeJourney(profileData, graph, generatedEvidences, plan);
 
     // Navigate to home
     router.push("/");
+    } catch (error) {
+      setGenerationError(
+        error instanceof Error
+          ? error.message
+          : "SkillState could not create the journey. Your current state was not changed."
+      );
+      setIsGenerating(false);
+    }
   };
 
   // Generation Modal / Fullscreen view
@@ -664,7 +665,9 @@ export default function OnboardingPage() {
                           {file.type} •{" "}
                           {file.extractedStatus === "extracting"
                             ? "Extracting text..."
-                            : `Extracted (${file.wordCount} words)`}
+                            : file.extractedStatus === "failed"
+                              ? "Extraction failed — remove and try again"
+                              : `Extracted (${file.wordCount} words)`}
                         </span>
                       </div>
                     </div>
@@ -693,6 +696,12 @@ export default function OnboardingPage() {
               helperText="Describing what you actually built helps verify practical competence."
             />
           </div>
+
+          {generationError && (
+            <InlineNotice variant="danger" title="Journey generation failed">
+              {generationError} Your existing SkillState remains unchanged.
+            </InlineNotice>
+          )}
 
           <div className="flex justify-between items-center pt-2">
             <Button variant="ghost" onClick={() => setCurrentStep(2)}>

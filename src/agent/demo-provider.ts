@@ -68,7 +68,6 @@ export class DemoAIProvider implements AIProvider {
         id: `ev-analyzed-${Date.now()}`,
         type: docType === "certificate" ? "certificate" : "resume",
         title: input.filename ? `Uploaded: ${input.filename}` : "Analyzed Document",
-        sourceText: input.documentText.slice(0, 500),
         createdAt: new Date().toISOString(),
         capabilitySignals: signals,
       },
@@ -170,23 +169,23 @@ export class DemoAIProvider implements AIProvider {
     return [
       {
         id: `res-${input.gapCapabilityId}-1`,
-        title: `Practical Foundations for ${input.gapCapabilityId}`,
+        title: `Example / Demo Resource: Practical Foundations for ${input.gapCapabilityId}`,
         format: "project-guide",
-        provider: "Official Documentation & Walkthrough",
+        provider: "Example / Demo Resource",
         estimatedMinutes: 90,
         matchedGapId: input.gapCapabilityId,
         whyThis: "Focuses directly on the practical proof required to bridge this gap.",
-        url: "https://example.com/guide",
+        url: "https://example.com/skillstate-demo-guide",
       },
       {
         id: `res-${input.gapCapabilityId}-2`,
-        title: `Deep Dive Interactive Scenarios: ${input.gapCapabilityId}`,
+        title: `Example / Demo Resource: Interactive Scenarios for ${input.gapCapabilityId}`,
         format: "article",
-        provider: "Engineering Blog Case Studies",
+        provider: "Example / Demo Resource",
         estimatedMinutes: 45,
         matchedGapId: input.gapCapabilityId,
         whyThis: "Provides real-world failure modes and architectural decisions.",
-        url: "https://example.com/cases",
+        url: "https://example.com/skillstate-demo-cases",
       },
     ];
   }
@@ -202,7 +201,8 @@ export class DemoAIProvider implements AIProvider {
     );
 
     return {
-      generatedAt: new Date().toISOString(),
+      generatedAt:
+        input.activityLedger.at(-1)?.timestamp ?? new Date(0).toISOString(),
       skillsAcquired: verified.map(
         (v) =>
           input.graph.capabilityNodes.find((n) => n.id === v.capabilityId)?.name ??
@@ -243,6 +243,9 @@ export class DemoAIProvider implements AIProvider {
 
   async answerJourneyQuestion(input: JourneyQuestion): Promise<JourneyAnswer> {
     const q = input.question.toLowerCase();
+    const capabilityName = (capabilityId: string) =>
+      input.destinationGraph?.capabilityNodes.find((node) => node.id === capabilityId)?.name ??
+      capabilityId;
 
     if (q.includes("why") && (q.includes("learning") || q.includes("action"))) {
       const topAction = input.currentPlan.now[0];
@@ -269,6 +272,60 @@ export class DemoAIProvider implements AIProvider {
             type: "constraint",
             label: "Preserved Foundation",
             detail: "Core programming and database evidence remains valid.",
+          },
+        ],
+      };
+    }
+
+    if (q.includes("assessment") || q.includes("what changed")) {
+      const event = [...input.recentEvents]
+        .reverse()
+        .find((item) => item.type === "VERIFICATION_COMPLETED");
+      return {
+        answer: event
+          ? event.description
+          : "No verification result has changed your current plan yet.",
+        citations: event
+          ? [{ type: "evidence", label: event.title, detail: event.description }]
+          : [{ type: "constraint", label: "Activity ledger", detail: "No completed verification recorded" }],
+      };
+    }
+
+    if (q.includes("build next")) {
+      const action = input.currentPlan.now.find((item) => item.category === "build") ??
+        input.currentPlan.weeks.flatMap((week) => week.actions).find((item) => item.category === "build");
+      return {
+        answer: action
+          ? `Build '${action.title}' next. ${action.whyNow}`
+          : "Your current plan does not yet contain a build action; complete the highest-priority prerequisite first.",
+        citations: action
+          ? [{ type: "plan-item", label: action.title, detail: action.whyNow }]
+          : [],
+      };
+    }
+
+    if (q.includes("evidence") || q.includes("still need")) {
+      const gaps = (input.gaps ?? []).slice(0, 3);
+      return {
+        answer: gaps.length
+          ? `You still need credible proof for ${gaps.map((gap) => capabilityName(gap.capabilityId)).join(", ")}. Prioritize direct project or assessment evidence for these active gaps.`
+          : "No active evidence gaps are recorded for the current destination.",
+        citations: gaps.map((gap) => ({
+          type: "skill" as const,
+          label: capabilityName(gap.capabilityId),
+          detail: gap.reason,
+        })),
+      };
+    }
+
+    if (q.includes("5 hours") || q.includes("hours per week")) {
+      return {
+        answer: `Reducing from ${input.profile.weeklyHours} to 5 hours per week should lower plan density and may extend the estimated remaining journey. Verified evidence would remain unchanged.`,
+        citations: [
+          {
+            type: "constraint",
+            label: "Current weekly budget",
+            detail: `${input.profile.weeklyHours} hours/week`,
           },
         ],
       };

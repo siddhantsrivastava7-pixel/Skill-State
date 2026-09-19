@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { selectMax3VerificationCandidates } from "@/domain/verification";
-import { getAIProvider } from "@/agent/orchestrator";
+import { getClientAIProvider } from "@/agent/client-provider";
 import {
   CapabilityNode,
   VerificationSubmission,
@@ -90,10 +90,15 @@ export function VerificationWorkbench() {
 
     let isMounted = true;
     const loadTask = async () => {
-      const provider = getAIProvider();
+      const provider = getClientAIProvider();
       try {
         const tasks = await provider.generateVerification({
           capabilityIds: [selectedCapId],
+          context: JSON.stringify({
+            capability: destinationGraph.capabilityNodes.find((node) => node.id === selectedCapId),
+            claimedState: claimedStates[selectedCapId],
+            verifiedState: verifiedStates[selectedCapId],
+          }),
         });
         if (isMounted && tasks && tasks.length > 0) {
           setActiveTask(tasks[0]);
@@ -102,6 +107,10 @@ export function VerificationWorkbench() {
         }
       } catch (err) {
         console.error("Error generating verification task:", err);
+        if (isMounted) {
+          setActiveTask(null);
+          setErrorMessage("Could not generate a verification task. Your current state was not changed.");
+        }
       }
     };
 
@@ -109,7 +118,7 @@ export function VerificationWorkbench() {
     return () => {
       isMounted = false;
     };
-  }, [selectedCapId]);
+  }, [selectedCapId, destinationGraph.capabilityNodes, claimedStates, verifiedStates]);
 
   const activeNode = destinationGraph.capabilityNodes.find((n) => n.id === selectedCapId);
   const currentVerified = selectedCapId ? verifiedStates[selectedCapId] : undefined;
@@ -128,18 +137,24 @@ export function VerificationWorkbench() {
     setErrorMessage("");
 
     try {
-      const provider = getAIProvider();
+      const provider = getClientAIProvider();
       const submission: VerificationSubmission = {
         taskId: activeTask.id,
         capabilityId: selectedCapId,
         userResponse: answer,
+        taskPrompt: activeTask.prompt,
+        rubric: activeTask.rubric,
+        activeCapabilityState: currentVerified,
+        relevantEvidence: evidence.filter((item) =>
+          item.capabilitySignals.some((signal) => signal.capabilityId === selectedCapId)
+        ),
       };
 
       const evalResult = await provider.evaluateVerification(submission);
       recordVerificationResult(evalResult, submission);
     } catch (err) {
       console.error("Failed to evaluate verification:", err);
-      setErrorMessage("Evaluation failed. Please try again.");
+      setErrorMessage("Evaluation failed. Your current state was not changed. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -413,8 +428,8 @@ export function VerificationWorkbench() {
           </div>
         </Card>
       ) : (
-        <Card className="p-8 text-center text-ink-muted text-xs">
-          Loading verification task for {selectedCapId}...
+        <Card className={`p-8 text-center text-xs ${errorMessage ? "text-brandRed" : "text-ink-muted"}`}>
+          {errorMessage || `Loading verification task for ${selectedCapId}...`}
         </Card>
       )}
     </div>

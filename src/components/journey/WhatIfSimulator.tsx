@@ -15,10 +15,13 @@ import {
 } from "lucide-react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { simulateWhatIf, WhatIfSimulationResult } from "@/domain/what-if";
+import { preserveEvidenceOnDestinationChange } from "@/domain/destination-switch";
 import { SEEDED_CAREER_PATHS_CATALOG } from "@/data/library/careers-library";
+import { getClientAIProvider } from "@/agent/client-provider";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
+import { InlineNotice } from "@/components/ui/InlineNotice";
 
 export interface WhatIfSimulatorProps {
   onApplied?: () => void;
@@ -39,6 +42,7 @@ export function WhatIfSimulator({
   const evidence = useSkillStateStore((s) => s.evidence);
   const changeDestination = useSkillStateStore((s) => s.changeDestination);
   const setProfile = useSkillStateStore((s) => s.setProfile);
+  const setPlan = useSkillStateStore((s) => s.setPlan);
 
   // Simulation parameters (purely local state, zero mutation to store during preview)
   const [selectedCandidateId, setSelectedCandidateId] = useState<string>(() => {
@@ -54,6 +58,8 @@ export function WhatIfSimulator({
     profile.targetTimelineMonths || 12
   );
   const [appliedSuccess, setAppliedSuccess] = useState(false);
+  const [isApplying, setIsApplying] = useState(false);
+  const [applyError, setApplyError] = useState("");
 
   // Find candidate graph
   const selectedCandidate = useMemo(() => {
@@ -85,32 +91,55 @@ export function WhatIfSimulator({
   ]);
 
   // Apply to real plan upon explicit user action
-  const handleApply = () => {
-    // 1. Update weekly hours / target timeline in profile if changed
-    if (
+  const handleApply = async () => {
+    setIsApplying(true);
+    setApplyError("");
+    const nextProfile =
       simWeeklyHours !== profile.weeklyHours ||
       simTimelineMonths !== profile.targetTimelineMonths
-    ) {
-      setProfile({
+        ? {
         ...profile,
         weeklyHours: simWeeklyHours,
         targetTimelineMonths: simTimelineMonths,
+      }
+        : profile;
+
+    try {
+      const switchResult = preserveEvidenceOnDestinationChange({
+        currentEvidence: evidence,
+        currentVerifiedStates: verifiedStates,
+        currentClaimedStates: claimedStates,
+        newGraph: selectedCandidate.graph,
+        targetTimelineMonths: simTimelineMonths,
       });
-    }
+      const nextPlan = await getClientAIProvider().buildPlan({
+        profile: nextProfile,
+        graph: selectedCandidate.graph,
+        verifiedStates: switchResult.updatedVerifiedStates,
+        claimedStates: switchResult.preservedClaimedStates,
+        gaps: switchResult.recomputedGaps,
+        planningReason: "full-what-if",
+      });
 
-    // 2. If destination changed, call changeDestination which preserves evidence
-    if (selectedCandidate.graph.destinationName !== destination) {
-      changeDestination(
-        selectedCandidate.graph.destinationName,
-        selectedCandidate.graph
+      setProfile(nextProfile);
+      if (selectedCandidate.graph.destinationName !== destination) {
+        changeDestination(selectedCandidate.graph.destinationName, selectedCandidate.graph);
+      }
+      setPlan(nextPlan);
+      setAppliedSuccess(true);
+      setTimeout(() => {
+        onApplied?.();
+        onClose?.();
+      }, 800);
+    } catch (error) {
+      setApplyError(
+        error instanceof Error
+          ? error.message
+          : "The What-If journey could not be applied. Your current journey was not changed."
       );
+    } finally {
+      setIsApplying(false);
     }
-
-    setAppliedSuccess(true);
-    setTimeout(() => {
-      onApplied?.();
-      onClose?.();
-    }, 800);
   };
 
   return (
@@ -341,6 +370,12 @@ export function WhatIfSimulator({
       </div>
 
       {/* 4. Action Footer */}
+      {applyError && (
+        <InlineNotice variant="danger" title="What-If recomputation failed">
+          {applyError} Your current journey remains unchanged.
+        </InlineNotice>
+      )}
+
       <div className="pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="text-xs text-ink-muted">
           <span>
@@ -361,9 +396,12 @@ export function WhatIfSimulator({
             variant="primary"
             size="sm"
             onClick={handleApply}
+            disabled={isApplying}
             className="text-xs gap-1.5 min-w-[170px] shadow-xs"
           >
-            {appliedSuccess ? (
+            {isApplying ? (
+              "Recomputing…"
+            ) : appliedSuccess ? (
               <>
                 <CheckCircle2 className="w-3.5 h-3.5 text-white" /> Applied to Journey!
               </>

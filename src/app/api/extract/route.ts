@@ -11,6 +11,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
+    if (file.size > 10 * 1024 * 1024) {
+      return NextResponse.json({ error: "File exceeds the 10 MB limit." }, { status: 413 });
+    }
+
     const filename = file.name;
     const ext = filename.slice(filename.lastIndexOf(".")).toLowerCase();
     const bytes = await file.arrayBuffer();
@@ -24,20 +28,21 @@ export async function POST(req: NextRequest) {
       const docxResult = await mammoth.extractRawText({ buffer });
       extractedText = docxResult.value;
     } else if (ext === ".pdf") {
-      try {
-        // Dynamically import pdf-parse
-        const pdfParseModule = await import("pdf-parse");
-        const pdfParse = pdfParseModule.default || pdfParseModule;
-        const pdfData = await pdfParse(buffer);
-        extractedText = pdfData.text || "";
-      } catch {
-        // Graceful fallback for demo resilience
-        extractedText = `Extracted text from ${filename} (${Math.round(file.size / 1024)} KB)`;
-      }
+      const pdfParseModule = await import("pdf-parse");
+      const pdfParse = pdfParseModule.default || pdfParseModule;
+      const pdfData = await pdfParse(buffer);
+      extractedText = pdfData.text || "";
     } else {
       return NextResponse.json(
         { error: "Unsupported file type. Please upload PDF, DOCX, or TXT." },
         { status: 400 }
+      );
+    }
+
+    if (!extractedText.trim()) {
+      return NextResponse.json(
+        { error: "No readable text was found in this document.", status: "failed" },
+        { status: 422 }
       );
     }
 

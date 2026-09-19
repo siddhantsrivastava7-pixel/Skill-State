@@ -4,10 +4,11 @@ import { personaAGraph, personaBGraph, personaCGraph } from "../demo";
 export interface CareerPathItem {
   id: string;
   title: string;
-  field: "Technology & AI" | "Data & Systems" | "Finance & Markets" | "Engineering" | "Strategy & Advisory";
+  field: string;
   description: string;
+  planningDecisionPointMonths?: number;
+  /** Legacy catalog estimate retained for domain compatibility; UI labels it separately. */
   targetHorizonMonths: number;
-  demandOutlook: string;
   graph: DestinationGraph;
   sharedCapabilities: string[];
   overlapPercentage: number;
@@ -105,31 +106,26 @@ export const dataEngineerGraph: DestinationGraph = {
 export const SEEDED_CAREER_PATHS_CATALOG: Array<{
   id: string;
   field: "Technology & AI" | "Data & Systems" | "Finance & Markets" | "Engineering" | "Strategy & Advisory";
-  demandOutlook: string;
   graph: DestinationGraph;
 }> = [
   {
     id: "career-ai-engineer",
     field: "Technology & AI",
-    demandOutlook: "Very High (+38% YoY growth)",
     graph: personaBGraph,
   },
   {
     id: "career-data-engineer",
     field: "Data & Systems",
-    demandOutlook: "High (+28% YoY growth)",
     graph: dataEngineerGraph,
   },
   {
     id: "career-financial-analyst",
     field: "Finance & Markets",
-    demandOutlook: "Stable / High (+18% YoY growth)",
     graph: personaCGraph,
   },
   {
     id: "career-software-engineer",
     field: "Engineering",
-    demandOutlook: "High (+22% YoY growth)",
     graph: personaAGraph,
   },
 ];
@@ -141,7 +137,20 @@ export function calculateCareerPathsWithOverlap(
   currentGraph: DestinationGraph,
   verifiedStates: Record<string, VerifiedCapabilityState>
 ): CareerPathItem[] {
-  return SEEDED_CAREER_PATHS_CATALOG.map((c) => {
+  const catalog = SEEDED_CAREER_PATHS_CATALOG.some(
+    (item) => item.graph.destinationId === currentGraph.destinationId
+  )
+    ? SEEDED_CAREER_PATHS_CATALOG
+    : [
+        {
+          id: `career-current-${currentGraph.destinationId}`,
+          field: "Current destination" as const,
+          graph: currentGraph,
+        },
+        ...SEEDED_CAREER_PATHS_CATALOG,
+      ];
+
+  return catalog.map((c) => {
     const totalNodes = c.graph.capabilityNodes.length;
     const verifiedMatching = c.graph.capabilityNodes.filter(
       (n) => verifiedStates[n.id]?.state === "verified"
@@ -155,8 +164,8 @@ export function calculateCareerPathsWithOverlap(
       title: c.graph.destinationName,
       field: c.field,
       description: c.graph.summary,
-      targetHorizonMonths: c.graph.decisionPointMonths || 12,
-      demandOutlook: c.demandOutlook,
+      planningDecisionPointMonths: c.graph.decisionPointMonths,
+      targetHorizonMonths: c.graph.decisionPointMonths ?? 12,
       graph: c.graph,
       sharedCapabilities: verifiedMatching.map((n) => n.name),
       overlapPercentage,

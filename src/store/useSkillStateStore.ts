@@ -30,6 +30,10 @@ import {
   executeVerificationTransition,
   VerificationTransitionResult,
 } from "@/domain/state-transition";
+import {
+  applyEvidenceToVerifiedStates,
+  deriveVerifiedStates,
+} from "@/domain/evidence-transition";
 
 export interface SkillStateStoreState {
   _hasHydrated: boolean;
@@ -50,6 +54,14 @@ export interface SkillStateStoreState {
   setHasHydrated: (state: boolean) => void;
   loadPersona: (personaId: DemoPersonaId) => void;
   setProfile: (profile: LearnerProfile) => void;
+  setPlan: (plan: AdaptivePlan) => void;
+  addProgressReport: (report: ProgressReport) => void;
+  initializeJourney: (
+    profile: LearnerProfile,
+    graph: DestinationGraph,
+    evidence: Evidence[],
+    plan: AdaptivePlan
+  ) => void;
   changeDestination: (destinationName: string, newGraph: DestinationGraph) => void;
   addEvidence: (newEvidence: Evidence) => void;
   updateSkillClaim: (claim: SkillClaim) => void;
@@ -58,6 +70,7 @@ export interface SkillStateStoreState {
     result: VerificationResult,
     submission?: VerificationSubmission
   ) => VerificationTransitionResult;
+  completeAction: (actionId: string) => void;
   clearLastTransition: () => void;
   replan: () => void;
   resetStore: () => void;
@@ -103,7 +116,58 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
       },
 
       setProfile: (profile: LearnerProfile) => {
+        const state = get();
+        if (profile.weeklyHours !== state.profile.weeklyHours) {
+          const event: ActivityEvent = {
+            id: `event-hours-${Date.now()}`,
+            timestamp: new Date().toISOString(),
+            type: "TIME_BUDGET_CHANGED",
+            title: "Weekly time budget changed",
+            description: `Weekly time changed from ${state.profile.weeklyHours} to ${profile.weeklyHours} hours.`,
+          };
+          set({ profile, activityLedger: [...state.activityLedger, event] });
+          return;
+        }
         set({ profile });
+      },
+
+      setPlan: (plan: AdaptivePlan) => {
+        set({ plan });
+      },
+
+      addProgressReport: (report: ProgressReport) => {
+        const state = get();
+        set({ progressReports: [...state.progressReports, report] });
+      },
+
+      initializeJourney: (profile, graph, evidence, plan) => {
+        const verifiedStates = deriveVerifiedStates(graph, evidence);
+        const gaps = prioritizeGaps({
+          graph,
+          verifiedStates,
+          claimedStates: {},
+          targetTimelineMonths: profile.targetTimelineMonths,
+        });
+        const event: ActivityEvent = {
+          id: `event-journey-${Date.now()}`,
+          timestamp: new Date().toISOString(),
+          type: "DESTINATION_CHANGED",
+          title: `Journey created for ${graph.destinationName}`,
+          description: `Compiled ${graph.capabilityNodes.length} destination capabilities and created an evidence-aware plan.`,
+        };
+        set({
+          profile,
+          destination: graph.destinationName,
+          destinationGraph: graph,
+          claimedStates: {},
+          verifiedStates,
+          evidence,
+          gaps,
+          plan,
+          activityLedger: [event],
+          progressReports: [],
+          lastTransitionResult: undefined,
+        });
       },
 
       changeDestination: (destinationName: string, newGraph: DestinationGraph) => {
@@ -138,30 +202,11 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
       addEvidence: (newEvidence: Evidence) => {
         const state = get();
         const updatedEvidence = [...state.evidence, newEvidence];
-        const updatedVerified = { ...state.verifiedStates };
-
-        for (const sig of newEvidence.capabilitySignals) {
-          const current = updatedVerified[sig.capabilityId];
-          const prevEvidenceIds = current?.evidenceIds ?? [];
-          const newEvidenceIds = prevEvidenceIds.includes(newEvidence.id)
-            ? prevEvidenceIds
-            : [...prevEvidenceIds, newEvidence.id];
-
-          let newState = current?.state ?? "needs-proof";
-          if (sig.signal === "supports") {
-            newState = sig.strength === "high" ? "verified" : "needs-proof";
-          } else if (sig.signal === "weakens") {
-            newState = "developing";
-          }
-
-          updatedVerified[sig.capabilityId] = {
-            capabilityId: sig.capabilityId,
-            state: newState,
-            evidenceIds: newEvidenceIds,
-            explanation: sig.explanation,
-            lastUpdatedAt: new Date().toISOString(),
-          };
-        }
+        const updatedVerified = applyEvidenceToVerifiedStates(
+          state.verifiedStates,
+          newEvidence,
+          state.destinationGraph
+        );
 
         const recomputedGaps = prioritizeGaps({
           graph: state.destinationGraph,
@@ -266,6 +311,39 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
         });
 
         return transitionResult;
+      },
+
+      completeAction: (actionId: string) => {
+        const state = get();
+        const action = [
+          ...state.plan.now,
+          ...state.plan.weeks.flatMap((week) => week.actions),
+        ].find((item) => item.id === actionId);
+        if (!action || action.status === "done" || action.status === "verified") return;
+
+        const status = action.category === "prove" ? "attempted" as const : "done" as const;
+        const update = (item: AdaptivePlan["now"][number]) =>
+          item.id === actionId ? { ...item, status } : item;
+        const plan: AdaptivePlan = {
+          ...state.plan,
+          now: state.plan.now.map(update),
+          weeks: state.plan.weeks.map((week) => ({
+            ...week,
+            actions: week.actions.map(update),
+          })),
+        };
+        const event: ActivityEvent = {
+          id: `event-activity-${Date.now()}`,
+          timestamp: new Date().toISOString(),
+          type: "ACTIVITY_COMPLETED",
+          title: action.category === "prove" ? `Proof attempted: ${action.title}` : `Activity completed: ${action.title}`,
+          description:
+            action.category === "prove"
+              ? "The proof activity was attempted; capability verification still depends on evaluation."
+              : `${action.title} was completed. Completion records activity but does not automatically verify a capability.`,
+          metadata: { actionId, category: action.category, status },
+        };
+        set({ plan, activityLedger: [...state.activityLedger, event] });
       },
 
       clearLastTransition: () => {

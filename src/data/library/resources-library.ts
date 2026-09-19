@@ -32,8 +32,8 @@ export const SEEDED_RESOURCES_CATALOG: CuratedResource[] = [
   // Linear Algebra Gaps
   {
     id: "res-linalg-1",
-    title: "Vector Calculus & Matrix Transformations for ML",
-    provider: "Stanford CS229 Linear Algebra Review",
+    title: "Linear Algebra Review and Reference",
+    provider: "Stanford CS229",
     format: "project-guide",
     targetGapCapabilityId: "cap-linalg",
     targetGapCapabilityName: "Linear Algebra",
@@ -46,8 +46,8 @@ export const SEEDED_RESOURCES_CATALOG: CuratedResource[] = [
   },
   {
     id: "res-linalg-2",
-    title: "NumPy Vectorization Drills & Tensor Dimensions",
-    provider: "Python Scientific Computing Interactive Labs",
+    title: "Broadcasting",
+    provider: "NumPy",
     format: "interactive-drill",
     targetGapCapabilityId: "cap-linalg",
     targetGapCapabilityName: "Linear Algebra",
@@ -62,7 +62,7 @@ export const SEEDED_RESOURCES_CATALOG: CuratedResource[] = [
   // Machine Learning Evaluation Gaps
   {
     id: "res-ml-eval-1",
-    title: "The Imbalanced Classification Playbook",
+    title: "Classification: Accuracy, recall, precision, and related metrics",
     provider: "Google Machine Learning Crash Course",
     format: "case-study",
     targetGapCapabilityId: "cap-ml",
@@ -72,12 +72,12 @@ export const SEEDED_RESOURCES_CATALOG: CuratedResource[] = [
     whyThisResource:
       "Addresses your evaluated deficit on the 99.2% accuracy paradox scenario, preparing you for the re-verification task.",
     estimatedMinutes: 50,
-    url: "https://developers.google.com/machine-learning/crash-course/classification/precision-and-recall",
+    url: "https://developers.google.com/machine-learning/crash-course/classification/accuracy-precision-recall",
   },
   {
     id: "res-ml-eval-2",
-    title: "Stratified K-Fold Cross-Validation Guide",
-    provider: "Scikit-Learn Architecture Documentation",
+    title: "Cross-validation: evaluating estimator performance",
+    provider: "scikit-learn",
     format: "documentation",
     targetGapCapabilityId: "cap-ml",
     targetGapCapabilityName: "Machine Learning & Model Evaluation",
@@ -92,8 +92,8 @@ export const SEEDED_RESOURCES_CATALOG: CuratedResource[] = [
   // Deployment Gaps
   {
     id: "res-deploy-1",
-    title: "FastAPI Production Model Serving Architecture",
-    provider: "Full-Stack FastAPI Documentation",
+    title: "FastAPI Tutorial",
+    provider: "FastAPI",
     format: "project-guide",
     targetGapCapabilityId: "cap-deployment",
     targetGapCapabilityName: "Model Deployment & Serving",
@@ -108,8 +108,8 @@ export const SEEDED_RESOURCES_CATALOG: CuratedResource[] = [
   // SQL Gaps
   {
     id: "res-sql-1",
-    title: "Window Functions & Analytical SQL Masterclass",
-    provider: "PostgreSQL Tutorial & Interactive Sandboxes",
+    title: "Window Functions",
+    provider: "PostgreSQL Documentation",
     format: "interactive-drill",
     targetGapCapabilityId: "cap-sql",
     targetGapCapabilityName: "SQL & Relational Databases",
@@ -124,7 +124,7 @@ export const SEEDED_RESOURCES_CATALOG: CuratedResource[] = [
   // Finance Gaps
   {
     id: "res-fin-dcf-1",
-    title: "Building an Audited 3-Statement DCF Model",
+    title: "DCF Model Training Free Guide",
     provider: "Corporate Finance Institute (CFI)",
     format: "project-guide",
     targetGapCapabilityId: "cap-fin-modeling",
@@ -134,12 +134,12 @@ export const SEEDED_RESOURCES_CATALOG: CuratedResource[] = [
     whyThisResource:
       "Tied directly to your DCF modeling deliverable. Focuses on balance sheet integrity without plugs.",
     estimatedMinutes: 90,
-    url: "https://corporatefinanceinstitute.com/resources/financial-modeling/dcf-model-training/",
+    url: "https://corporatefinanceinstitute.com/resources/financial-modeling/dcf-model-training-free-guide/",
   },
   {
     id: "res-fin-accounting-1",
-    title: "Financial Statement Adjustments & Ratio Decomposition",
-    provider: "SEC EDGAR 10-K Reading Guide",
+    title: "How to Read a 10-K",
+    provider: "Investor.gov",
     format: "case-study",
     targetGapCapabilityId: "cap-fin-accounting",
     targetGapCapabilityName: "Accounting Principles",
@@ -148,7 +148,7 @@ export const SEEDED_RESOURCES_CATALOG: CuratedResource[] = [
     whyThisResource:
       "Provides the conceptual foundation for your 10-K forensic audit proof task.",
     estimatedMinutes: 60,
-    url: "https://www.sec.gov/edgar/searchedgar/companysearch",
+    url: "https://www.investor.gov/introduction-investing/getting-started/researching-investments/how-read-10-k",
   },
 ];
 
@@ -179,28 +179,6 @@ export function matchResourcesToGaps(
         gapPriority: gap.priority,
         gapReason: gap.reason,
         resources: matching,
-      });
-    } else {
-      // Fallback: provide a structured resource guide tied to this specific gap
-      result.push({
-        gapCapabilityId: gap.capabilityId,
-        gapCapabilityName: capName,
-        gapPriority: gap.priority,
-        gapReason: gap.reason,
-        resources: [
-          {
-            id: `res-gen-${gap.capabilityId}`,
-            title: `Practical Field Guide & Verification Drill: ${capName}`,
-            provider: `${graph.destinationName} Engineering References`,
-            format: "project-guide",
-            targetGapCapabilityId: gap.capabilityId,
-            targetGapCapabilityName: capName,
-            learningObjective: `Bridge your identified ${gap.priority} gap in ${capName} through targeted practical exercises.`,
-            whyThisResource: `Curated specifically to satisfy ${gap.reason}`,
-            estimatedMinutes: 60,
-            url: "#",
-          },
-        ],
       });
     }
   }

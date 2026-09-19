@@ -6,7 +6,6 @@ import {
   Compass,
   CheckCircle2,
   Clock,
-  TrendingUp,
   ArrowRight,
   Sparkles,
   Layers,
@@ -27,6 +26,7 @@ export function CareerPathsView() {
   const destination = useSkillStateStore((s) => s.destination);
   const destinationGraph = useSkillStateStore((s) => s.destinationGraph);
   const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
+  const profile = useSkillStateStore((s) => s.profile);
 
   const [simulatingCandidateId, setSimulatingCandidateId] = useState<string | null>(null);
 
@@ -86,7 +86,7 @@ export function CareerPathsView() {
         <div className="space-y-0.5">
           <span className="font-bold text-ink">Evidence Preservation Standard:</span>
           <p>
-            When you switch or simulate a career target, 100% of your verified states, submissions, and proof artifacts are preserved. Overlap percentages below show immediate progress toward each destination.
+            When you switch or simulate a career target, 100% of your verified states, submissions, and proof artifacts are preserved. Coverage below means verified capabilities that transfer divided by required destination capabilities; it is not a prediction of career outcomes.
           </p>
         </div>
       </div>
@@ -114,18 +114,11 @@ export function CareerPathsView() {
                     {item.field}
                   </Badge>
 
-                  <div className="flex items-center gap-1.5">
-                    {isCurrent ? (
-                      <Badge variant="accent" size="sm">
-                        Active Destination
-                      </Badge>
-                    ) : (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-brandGreen">
-                        <TrendingUp className="w-3 h-3" />
-                        {item.demandOutlook}
-                      </span>
-                    )}
-                  </div>
+                  {isCurrent && (
+                    <Badge variant="accent" size="sm">
+                      Active Destination
+                    </Badge>
+                  )}
                 </div>
 
                 {/* Title & Description */}
@@ -137,7 +130,9 @@ export function CareerPathsView() {
                 {/* Overlap Progress Bar & Stats */}
                 <div className="p-3 rounded-xl bg-surface-soft border border-border/70 space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-ink">Transferable Overlap:</span>
+                    <span className="font-bold text-ink">
+                      {isCurrent ? "Current verified coverage" : "Transferable verified foundations"}
+                    </span>
                     <span className="font-bold text-brandGreen">{item.overlapPercentage}%</span>
                   </div>
 
@@ -150,9 +145,10 @@ export function CareerPathsView() {
                   </div>
 
                   <div className="flex items-center justify-between text-[11px] text-ink-muted pt-0.5">
-                    <span>
-                      <strong className="text-brandGreen">{item.sharedCapabilities.length}</strong>{" "}
-                      verified capability(ies) transfer
+                    <span className="font-semibold text-ink">
+                      {isCurrent
+                        ? `${item.sharedCapabilities.length} of ${item.graph.capabilityNodes.length} required capabilities verified`
+                        : `${item.sharedCapabilities.length} of ${item.graph.capabilityNodes.length} required capabilities already transfer`}
                     </span>
                     <span>
                       <strong className="text-brandOrange">{item.unverifiedCapabilitiesCount}</strong>{" "}
@@ -165,7 +161,7 @@ export function CareerPathsView() {
                 {item.sharedCapabilities.length > 0 && (
                   <div className="space-y-1.5">
                     <span className="text-[11px] font-semibold text-ink-muted block">
-                      Transferable Foundations Ready:
+                      {isCurrent ? "Verified foundations:" : "Transferable verified foundations:"}
                     </span>
                     <div className="flex flex-wrap gap-1">
                       {item.sharedCapabilities.map((capName, cIdx) => (
@@ -186,7 +182,13 @@ export function CareerPathsView() {
               <div className="pt-3 border-t border-border/60 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-1 text-xs text-ink-muted">
                   <Clock className="w-3.5 h-3.5" />
-                  <span>Target horizon: ~{item.targetHorizonMonths} mo</span>
+                  <span>
+                    {isCurrent
+                      ? `Configured goal horizon: ${profile.planningHorizon?.resolvedMonths ?? profile.targetTimelineMonths ?? "Not set"}${profile.planningHorizon?.resolvedMonths || profile.targetTimelineMonths ? " mo" : ""}`
+                      : item.planningDecisionPointMonths
+                        ? `Planning decision point: month ${item.planningDecisionPointMonths}`
+                        : "Journey duration estimated in What-If"}
+                  </span>
                 </div>
 
                 <Button

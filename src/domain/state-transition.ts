@@ -183,7 +183,7 @@ export function executeVerificationTransition(
       if (action.capabilityIds.includes(capId) && action.status !== "done") {
         return {
           ...action,
-          status: "done" as const,
+          status: action.category === "prove" ? "verified" as const : "done" as const,
         };
       }
       return action;
@@ -228,6 +228,11 @@ export function executeVerificationTransition(
   } else {
     // Weak answer / gap exposed:
     // Insert or prioritize an immediate targeted repair action in plan.now
+    updatedNow = updatedNow.map((action) =>
+      action.category === "prove" && action.capabilityIds.includes(capId)
+        ? { ...action, status: "attempted" as const }
+        : action
+    );
     const repairActionId = `act-repair-${capId}-${Date.now()}`;
     repairAction = {
       id: repairActionId,

@@ -226,7 +226,13 @@ export const ActionCategorySchema = z.enum([
   "signal",
 ]);
 
-export const ActionStatusSchema = z.enum(["todo", "doing", "done"]);
+export const ActionStatusSchema = z.enum([
+  "todo",
+  "doing",
+  "done",
+  "attempted",
+  "verified",
+]);
 
 export const ActionItemSchema = z.object({
   id: z.string(),
@@ -347,6 +353,10 @@ export const VerificationSubmissionSchema = z.object({
   capabilityId: z.string(),
   userResponse: z.string(),
   selectedOptionIndex: z.number().optional(),
+  taskPrompt: z.string().optional(),
+  rubric: z.string().optional(),
+  activeCapabilityState: VerifiedCapabilityStateSchema.optional(),
+  relevantEvidence: z.array(EvidenceSchema).optional(),
 });
 
 export const VerificationResultSchema = z.object({
@@ -367,6 +377,11 @@ export const BuildPlanInputSchema = z.object({
   verifiedStates: z.record(VerifiedCapabilityStateSchema),
   claimedStates: z.record(SkillClaimSchema),
   gaps: z.array(GapSchema),
+  planningReason: z
+    .enum(["initial", "activity-completion", "major-destination-change", "full-what-if"])
+    .optional(),
+  currentPlan: AdaptivePlanSchema.optional(),
+  triggerEvent: ActivityEventSchema.optional(),
 });
 
 export const ResourceRequestSchema = z.object({
@@ -383,7 +398,7 @@ export const ResourceRecommendationSchema = z.object({
   estimatedMinutes: z.number(),
   matchedGapId: z.string(),
   whyThis: z.string(),
-  url: z.string(),
+  url: z.string().url(),
 });
 
 export const ProgressReportInputSchema = z.object({
@@ -401,6 +416,10 @@ export const JourneyQuestionSchema = z.object({
   destination: z.string(),
   currentPlan: AdaptivePlanSchema,
   recentEvents: z.array(ActivityEventSchema),
+  destinationGraph: DestinationGraphSchema.optional(),
+  verifiedStates: z.record(VerifiedCapabilityStateSchema).optional(),
+  evidence: z.array(EvidenceSchema).optional(),
+  gaps: z.array(GapSchema).optional(),
 });
 
 export const JourneyAnswerSchema = z.object({

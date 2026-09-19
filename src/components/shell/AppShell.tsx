@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Search, Sparkles } from "lucide-react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
-import { getAIProvider } from "@/agent";
+import { getClientAIProvider } from "@/agent/client-provider";
 
 export interface AppShellProps {
   children: React.ReactNode;
@@ -28,6 +28,10 @@ export function AppShell({ children }: AppShellProps) {
   const destination = useSkillStateStore((s) => s.destination);
   const plan = useSkillStateStore((s) => s.plan);
   const activityLedger = useSkillStateStore((s) => s.activityLedger);
+  const destinationGraph = useSkillStateStore((s) => s.destinationGraph);
+  const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
+  const evidence = useSkillStateStore((s) => s.evidence);
+  const gaps = useSkillStateStore((s) => s.gaps);
 
   const handleAskSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,13 +39,17 @@ export function AppShell({ children }: AppShellProps) {
 
     setIsAnswering(true);
     try {
-      const provider = getAIProvider();
+      const provider = getClientAIProvider();
       const response = await provider.answerJourneyQuestion({
         question: askQuery,
         profile,
         destination,
         currentPlan: plan,
         recentEvents: activityLedger,
+        destinationGraph,
+        verifiedStates,
+        evidence,
+        gaps,
       });
       setAskAnswer(response);
     } catch {
