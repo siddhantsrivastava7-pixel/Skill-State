@@ -10,6 +10,7 @@ import {
   ProgressReport,
   SkillClaim,
   VerificationResult,
+  VerificationSubmission,
   VerifiedCapabilityState,
 } from "@/domain/types";
 import {
@@ -25,6 +26,10 @@ import {
 } from "@/data/demo";
 import { prioritizeGaps } from "@/domain/prioritization";
 import { preserveEvidenceOnDestinationChange } from "@/domain/destination-switch";
+import {
+  executeVerificationTransition,
+  VerificationTransitionResult,
+} from "@/domain/state-transition";
 
 export interface SkillStateStoreState {
   _hasHydrated: boolean;
@@ -39,6 +44,7 @@ export interface SkillStateStoreState {
   plan: AdaptivePlan;
   activityLedger: ActivityEvent[];
   progressReports: ProgressReport[];
+  lastTransitionResult?: VerificationTransitionResult;
 
   // Actions
   setHasHydrated: (state: boolean) => void;
@@ -48,7 +54,11 @@ export interface SkillStateStoreState {
   addEvidence: (newEvidence: Evidence) => void;
   updateSkillClaim: (claim: SkillClaim) => void;
   updateVerifiedState: (state: VerifiedCapabilityState) => void;
-  recordVerificationResult: (result: VerificationResult) => void;
+  recordVerificationResult: (
+    result: VerificationResult,
+    submission?: VerificationSubmission
+  ) => VerificationTransitionResult;
+  clearLastTransition: () => void;
   replan: () => void;
   resetStore: () => void;
 }
@@ -88,6 +98,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           gaps: bundle.gaps,
           plan: bundle.plan,
           activityLedger: bundle.activityLedger,
+          lastTransitionResult: undefined,
         });
       },
 
@@ -222,52 +233,43 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
         });
       },
 
-      recordVerificationResult: (result: VerificationResult) => {
+      recordVerificationResult: (
+        result: VerificationResult,
+        submission?: VerificationSubmission
+      ) => {
         const state = get();
         const capId = result.capabilityId;
-        const current = state.verifiedStates[capId];
-        const newEvidenceId = `ev-verif-${Date.now()}`;
-
-        const verifEvidence: Evidence = {
-          id: newEvidenceId,
-          type: "assessment",
-          title: `Verification Assessment: ${capId}`,
-          createdAt: new Date().toISOString(),
-          capabilitySignals: [result.evidenceSignal],
+        const sub: VerificationSubmission = submission ?? {
+          taskId: `task-${capId}`,
+          capabilityId: capId,
+          userResponse: "Verification task completed",
         };
 
-        const updatedVerified = {
-          ...state.verifiedStates,
-          [capId]: {
-            capabilityId: capId,
-            state: result.proposedState,
-            evidenceIds: [...(current?.evidenceIds ?? []), newEvidenceId],
-            explanation: result.explanation,
-            lastUpdatedAt: new Date().toISOString(),
-          },
-        };
-
-        const recomputedGaps = prioritizeGaps({
+        const transitionResult = executeVerificationTransition({
+          submission: sub,
+          evaluationResult: result,
+          currentVerifiedStates: state.verifiedStates,
+          currentClaims: state.claimedStates,
+          currentEvidence: state.evidence,
+          currentPlan: state.plan,
           graph: state.destinationGraph,
-          verifiedStates: updatedVerified,
-          claimedStates: state.claimedStates,
           targetTimelineMonths: state.profile.targetTimelineMonths,
         });
 
-        const event: ActivityEvent = {
-          id: `event-${Date.now()}`,
-          timestamp: new Date().toISOString(),
-          type: "VERIFICATION_COMPLETED",
-          title: `Verification completed for ${capId}`,
-          description: `${result.passed ? "Passed" : "Identified need for reinforcement"}: ${result.explanation}. Plan impact: ${result.planImpact}`,
-        };
-
         set({
-          evidence: [...state.evidence, verifEvidence],
-          verifiedStates: updatedVerified,
-          gaps: recomputedGaps,
-          activityLedger: [...state.activityLedger, event],
+          evidence: [...state.evidence, transitionResult.newEvidence],
+          verifiedStates: transitionResult.updatedVerifiedStates,
+          gaps: transitionResult.recomputedGaps,
+          plan: transitionResult.updatedPlan,
+          activityLedger: [...state.activityLedger, transitionResult.activityEvent],
+          lastTransitionResult: transitionResult,
         });
+
+        return transitionResult;
+      },
+
+      clearLastTransition: () => {
+        set({ lastTransitionResult: undefined });
       },
 
       replan: () => {
