@@ -302,6 +302,16 @@ export class OpenAIProvider implements AIProvider {
       }
       const domainResult = request.domainSchema.safeParse(normalized);
       if (!domainResult.success) {
+        if (process.env.NODE_ENV === "development") {
+          console.info(
+            `[SkillState AI] ${request.operation} validation issues:`,
+            domainResult.error.issues.map((issue) => ({
+              path: issue.path.join("."),
+              code: issue.code,
+              message: issue.message,
+            }))
+          );
+        }
         if (attempt === 0) {
           repair = true;
           continue;
@@ -401,7 +411,7 @@ export class OpenAIProvider implements AIProvider {
     return this.structured({
       operation: "generateVerification",
       tier: "mini",
-      system: "Create at most three high-value verification tasks. Prefer important uncertainty and blockers. Use MCQ, scenario, micro-task (short answer), or project-review. Rubrics must be observable and concise.",
+      system: "Create exactly one high-value verification task for each supplied capability ID, up to three tasks. Copy every capability ID exactly from the request. Use MCQ, scenario, micro-task (short answer), or project-review. Rubrics must be observable and concise. Use options only for MCQ tasks.",
       payload: { capabilityIds: input.capabilityIds.slice(0, 12), context: input.context ?? "" },
       liveSchema: liveVerificationTasksSchema,
       domainSchema: VerificationTaskSchema.array().max(3),
@@ -409,10 +419,10 @@ export class OpenAIProvider implements AIProvider {
         tasks
           .filter((task) => requestedIds.has(task.capabilityId))
           .slice(0, 3)
-          .map((task) => ({
+          .map(({ options, rubric, ...task }) => ({
             ...task,
-            ...(task.options === null ? {} : { options: task.options }),
-            ...(task.rubric === null ? {} : { rubric: task.rubric }),
+            ...(options === null ? {} : { options }),
+            ...(rubric === null ? {} : { rubric }),
           })),
     });
   }

@@ -50,7 +50,7 @@ export const TRACK_METADATA: Record<
   },
   build: {
     label: "Build",
-    description: "Standalone portfolio deliverables, APIs, and reproducible models.",
+    description: "Standalone portfolio work and reviewable, reproducible deliverables.",
     color: "text-brandOrange",
     bgColor: "bg-brandOrange-soft/60",
     borderColor: "border-brandOrange/30",
@@ -100,8 +100,8 @@ export function organizePlanIntoJourneyTracks(
       title: primaryExp ? primaryExp.title : `${graph.destinationName} Team Project Sprint`,
       description: primaryExp
         ? primaryExp.description
-        : "Collaborate in a simulated team sprint adhering to code review and issue tracking.",
-      whyNow: "Builds cross-functional collaboration and edge-case resilience beyond solo code.",
+        : "Collaborate in a simulated team project with shared review and clear responsibilities.",
+      whyNow: "Builds cross-functional collaboration and applied judgment beyond solo practice.",
       estimatedMinutes: 480,
       capabilityIds: graph.capabilityNodes.slice(0, 3).map((n) => n.id),
       status: "todo",
@@ -112,9 +112,9 @@ export function organizePlanIntoJourneyTracks(
     allActions.push({
       id: `act-synth-signal-${graph.destinationId}`,
       category: "signal",
-      title: "Verified Capability Portfolio & Technical Write-up",
-      description: `Package evidence artifacts, benchmark results, and methodology summaries for ${graph.destinationName}.`,
-      whyNow: "Converts verified internal capability states into visible proof for hiring teams.",
+      title: "Verified Capability Portfolio & Evidence Summary",
+      description: `Package evidence artifacts, results, and methodology summaries for ${graph.destinationName}.`,
+      whyNow: "Converts verified internal capability states into visible proof for external reviewers.",
       estimatedMinutes: 180,
       capabilityIds: graph.capabilityNodes.slice(0, 2).map((n) => n.id),
       status: "todo",
@@ -135,10 +135,10 @@ export function organizePlanIntoJourneyTracks(
         phaseIndex = 1;
         phaseLabel = "Phase 1: Foundations & Immediate Repairs";
         timingRange = "Weeks 1–4";
-        whenItBelongs = "Belongs early before attempting complex implementation or verification.";
+        whenItBelongs = "Belongs early before attempting complex application or verification.";
         whyItBelongs =
           action.whyNow ||
-          "Removes conceptual blockers and theoretical gaps so downstream code runs reliably.";
+          "Removes conceptual blockers and foundational gaps before applied work begins.";
         break;
 
       case "prove":
@@ -158,7 +158,7 @@ export function organizePlanIntoJourneyTracks(
         whenItBelongs = "Belongs in the core development phase after prerequisites are verified.";
         whyItBelongs =
           action.whyNow ||
-          "Creates permanent demonstrable artifacts proving practical competence under production constraints.";
+          "Creates permanent, reviewable artifacts proving practical competence under realistic constraints.";
         break;
 
       case "experience":
@@ -168,7 +168,7 @@ export function organizePlanIntoJourneyTracks(
         whenItBelongs = "Belongs in mid-journey once standalone portfolio pieces are completed.";
         whyItBelongs =
           action.whyNow ||
-          "Exposes you to realistic codebase ambiguity, teamwork, and client/user constraints.";
+          "Exposes you to realistic ambiguity, teamwork, and stakeholder constraints.";
         break;
 
       case "signal":
@@ -178,7 +178,7 @@ export function organizePlanIntoJourneyTracks(
         whenItBelongs = "Belongs near journey completion when full proof is ready for public evaluation.";
         whyItBelongs =
           action.whyNow ||
-          "Broadcasts verified capabilities to industry evaluators and hiring managers.";
+          "Communicates verified capabilities to external evaluators and hiring teams.";
         break;
     }
 
@@ -201,25 +201,25 @@ export function organizePlanIntoJourneyTracks(
       index: 1,
       label: "Phase 1: Foundations & Immediate Repairs",
       range: "Now – Month 2",
-      desc: "Refresh fundamentals, patch identified gaps, and verify core technical claims.",
+      desc: "Refresh foundations, address identified gaps, and verify core capability claims.",
     },
     {
       index: 2,
       label: "Phase 2: Core Proof & Production Deliverables",
       range: "Months 2–5",
-      desc: "Build deployable systems, dynamic models, and verifiable portfolio deliverables.",
+      desc: "Build applied work and verifiable portfolio deliverables.",
     },
     {
       index: 3,
       label: "Phase 3: Applied Experience & Collaboration",
       range: "Months 5–8",
-      desc: "Participate in simulated internships, team hackathons, and open-source contributions.",
+      desc: "Participate in simulated applied experiences and collaborative work.",
     },
     {
       index: 4,
       label: "Phase 4: Target Destination Readiness & External Signals",
       range: "Months 8+",
-      desc: "Compile final verified artifacts, refine technical signals, and prepare for career transition.",
+      desc: "Compile final verified artifacts, refine external signals, and prepare for career transition.",
     },
   ];
 

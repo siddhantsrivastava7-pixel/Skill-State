@@ -1,4 +1,4 @@
-import { DestinationGraph, Gap } from "@/domain/types";
+import { AdaptivePlan, DestinationGraph, Gap } from "@/domain/types";
 
 export interface ProofProjectRecommendation {
   id: string;
@@ -157,24 +157,23 @@ export const SEEDED_PROJECTS_CATALOG: ProofProjectRecommendation[] = [
  */
 export function matchProjectsToGaps(
   gaps: Gap[],
-  graph: DestinationGraph
+  graph: DestinationGraph,
+  plan?: AdaptivePlan
 ): ProofProjectRecommendation[] {
   const gapCapIds = new Set(gaps.map((g) => g.capabilityId));
-
-  // Also include unverified capabilities in graph
-  const unverifiedCapIds = new Set([
-    ...gapCapIds,
-    ...graph.capabilityNodes.map((n) => n.id),
-  ]);
+  const graphCapIds = new Set(graph.capabilityNodes.map((node) => node.id));
 
   // Score projects by overlap with missing capabilities
   const scored = SEEDED_PROJECTS_CATALOG.map((proj) => {
+    const allCapabilitiesBelongToGraph = proj.targetCapabilityIds.every((id) =>
+      graphCapIds.has(id)
+    );
     const matchCount = proj.targetCapabilityIds.filter((id) =>
-      unverifiedCapIds.has(id)
+      graphCapIds.has(id) && gapCapIds.has(id)
     ).length;
     return {
       project: proj,
-      matchCount,
+      matchCount: allCapabilitiesBelongToGraph ? matchCount : 0,
     };
   });
 
@@ -188,6 +187,76 @@ export function matchProjectsToGaps(
     return matching;
   }
 
-  // Fallback: return general projects for graph destination
-  return SEEDED_PROJECTS_CATALOG.slice(0, 3);
+  const planActions = [
+    ...(plan?.now ?? []),
+    ...(plan?.weeks.flatMap((week) => week.actions) ?? []),
+  ].filter((action) => action.category === "build" || action.category === "prove");
+
+  const derivedFromProof = graph.proofExpectations
+    .filter(
+      (proof) => graphCapIds.has(proof.capabilityId) && gapCapIds.has(proof.capabilityId)
+    )
+    .map((proof): ProofProjectRecommendation | null => {
+      const node = graph.capabilityNodes.find((item) => item.id === proof.capabilityId);
+      if (!node) return null;
+      const action = planActions.find((item) => item.capabilityIds.includes(node.id));
+      const gap = gaps.find((item) => item.capabilityId === node.id);
+      return {
+        id: `project-${proof.id}`,
+        title: action?.title ?? `${node.name} proof project`,
+        tagline: proof.description,
+        destinationFamily: graph.destinationName,
+        targetCapabilityIds: [node.id],
+        targetCapabilityNames: [node.name],
+        proofLevel:
+          proof.level === "advanced"
+            ? "production"
+            : proof.level === "working"
+              ? "working"
+              : "basic",
+        whyThisProject:
+          action?.whyNow ??
+          gap?.reason ??
+          `Creates reviewable evidence for the ${node.name} requirement in ${graph.destinationName}.`,
+        deliverables: Array.from(
+          new Set([action?.description, proof.description].filter((item): item is string => Boolean(item)))
+        ),
+        verificationCriteria: [
+          `Demonstrates ${node.name} at the required ${proof.level} level.`,
+          `Produces a reviewable artifact directly tied to capability ${node.id}.`,
+        ],
+        estimatedHours: Math.max(4, Math.ceil((action?.estimatedMinutes ?? 480) / 60)),
+      };
+    })
+    .filter((project): project is ProofProjectRecommendation => project !== null);
+
+  if (derivedFromProof.length > 0) return derivedFromProof.slice(0, 4);
+
+  return planActions
+    .map((action): ProofProjectRecommendation | null => {
+      const capabilityIds = action.capabilityIds.filter(
+        (id) => graphCapIds.has(id) && gapCapIds.has(id)
+      );
+      if (capabilityIds.length === 0) return null;
+      const capabilityNames = capabilityIds.map(
+        (id) => graph.capabilityNodes.find((node) => node.id === id)?.name ?? id
+      );
+      return {
+        id: `project-${action.id}`,
+        title: action.title,
+        tagline: action.description,
+        destinationFamily: graph.destinationName,
+        targetCapabilityIds: capabilityIds,
+        targetCapabilityNames: capabilityNames,
+        proofLevel: "working",
+        whyThisProject: action.whyNow,
+        deliverables: [action.description],
+        verificationCriteria: capabilityNames.map(
+          (name) => `Produces reviewable evidence demonstrating ${name}.`
+        ),
+        estimatedHours: Math.max(4, Math.ceil(action.estimatedMinutes / 60)),
+      };
+    })
+    .filter((project): project is ProofProjectRecommendation => project !== null)
+    .slice(0, 4);
 }

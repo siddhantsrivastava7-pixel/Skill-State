@@ -61,7 +61,7 @@ export function LearningResourcesView() {
               Target: {destination}
             </Badge>
             <Badge variant="default" size="sm">
-              {groupedGaps.length} Active Gap Areas
+              {gaps.length} Active Gap Areas
             </Badge>
           </div>
           <p className="text-xs sm:text-sm text-ink-muted mt-1 max-w-2xl">
@@ -129,8 +129,17 @@ export function LearningResourcesView() {
               </div>
 
               {/* Resource Cards under this Gap */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                {group.resources.map((res) => (
+              {group.resources.length === 0 ? (
+                <Card className="p-5 text-center space-y-2 border-dashed">
+                  <AlertTriangle className="w-6 h-6 text-brandOrange mx-auto" />
+                  <h3 className="text-sm font-semibold text-ink">No matched catalog resource yet</h3>
+                  <p className="text-xs text-ink-muted max-w-lg mx-auto">
+                    SkillState has identified the learning objective for {group.gapCapabilityName}, but the current catalog has no resource tagged to this capability. Use the Journey action and verification criteria as the source of truth.
+                  </p>
+                </Card>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                  {group.resources.map((res) => (
                   <Card
                     key={res.id}
                     className="p-4 bg-surface border border-border hover:border-accent/30 transition-all shadow-xs flex flex-col justify-between space-y-3"
@@ -166,7 +175,7 @@ export function LearningResourcesView() {
 
                       <div className="flex items-center justify-between">
                         <Link
-                          href={`/assess?capability=${res.targetGapCapabilityId}`}
+                          href={`/assess?capabilityId=${res.targetGapCapabilityId}`}
                           className="text-[11px] font-semibold text-accent hover:underline inline-flex items-center gap-1"
                         >
                           Verify this skill <ExternalLink className="w-3 h-3" />
@@ -183,8 +192,9 @@ export function LearningResourcesView() {
                       </div>
                     </div>
                   </Card>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))
         )}

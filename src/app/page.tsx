@@ -31,15 +31,29 @@ export default function HomePage() {
   const loadPersona = useSkillStateStore((s) => s.loadPersona);
 
   useEffect(() => {
-    setIsMounted(true);
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
-      setIsDemoMode(params.get("demo") === "1");
-      const p = params.get("persona");
-      if (p === "persona-a" || p === "persona-b" || p === "persona-c") {
-        loadPersona(p as DemoPersonaId);
+      const demoMode = params.get("demo") === "1";
+      setIsDemoMode(demoMode);
+
+      if (demoMode) {
+        const current = useSkillStateStore.getState();
+        const requestedPersona = params.get("persona");
+        const personaId: DemoPersonaId =
+          requestedPersona === "persona-a" ||
+          requestedPersona === "persona-b" ||
+          requestedPersona === "persona-c"
+            ? requestedPersona
+            : current.isDemoState && current.activePersonaId
+              ? current.activePersonaId
+              : "persona-a";
+
+        if (!current.isDemoState || current.activePersonaId !== personaId) {
+          loadPersona(personaId);
+        }
       }
     }
+    setIsMounted(true);
   }, [loadPersona]);
 
   // Reset selected action when persona changes
@@ -77,11 +91,15 @@ export default function HomePage() {
     activePersonaId === "persona-b";
 
   // Baseline counts for LaterStageBanner
-  const verifiedValues = Object.values(verifiedStates);
-  const verifiedCount = verifiedValues.filter((s) => s.state === "verified").length;
-  const needsStrengtheningCount = verifiedValues.filter((s) => s.state === "developing").length;
-  const missingCount = verifiedValues.filter((s) => s.state === "gap").length;
-  const needsProofCount = verifiedValues.filter((s) => s.state === "needs-proof").length;
+  const activeCapabilityStates = destinationGraph.capabilityNodes.map(
+    (node) => verifiedStates[node.id]?.state ?? "unverified"
+  );
+  const verifiedCount = activeCapabilityStates.filter((state) => state === "verified").length;
+  const needsStrengtheningCount = activeCapabilityStates.filter((state) => state === "developing").length;
+  const missingCount = activeCapabilityStates.filter(
+    (state) => state === "gap" || state === "unverified"
+  ).length;
+  const needsProofCount = activeCapabilityStates.filter((state) => state === "needs-proof").length;
 
   // ---------------------------------------------------------------------------
   // Journey Stages Construction
@@ -246,10 +264,10 @@ export default function HomePage() {
       {/* Variant C: Third-year / Later-stage Banner */}
       {isLaterStage && (
         <LaterStageBanner
-          verifiedCount={verifiedCount || 1}
-          needsStrengtheningCount={needsStrengtheningCount || 1}
-          missingCount={missingCount || 2}
-          needsProofCount={needsProofCount || 2}
+          verifiedCount={verifiedCount}
+          needsStrengtheningCount={needsStrengtheningCount}
+          missingCount={missingCount}
+          needsProofCount={needsProofCount}
         />
       )}
 

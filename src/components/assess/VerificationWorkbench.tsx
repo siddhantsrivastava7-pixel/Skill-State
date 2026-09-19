@@ -40,6 +40,8 @@ export function VerificationWorkbench() {
   const [candidates, setCandidates] = useState<CapabilityNode[]>([]);
   const [selectedCapId, setSelectedCapId] = useState<string>("");
   const [activeTask, setActiveTask] = useState<VerificationTask | null>(null);
+  const [isLoadingTask, setIsLoadingTask] = useState(false);
+  const [taskRequestNonce, setTaskRequestNonce] = useState(0);
   const [userResponse, setUserResponse] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -91,6 +93,9 @@ export function VerificationWorkbench() {
     let isMounted = true;
     const loadTask = async () => {
       const provider = getClientAIProvider();
+      setIsLoadingTask(true);
+      setActiveTask(null);
+      setErrorMessage("");
       try {
         const tasks = await provider.generateVerification({
           capabilityIds: [selectedCapId],
@@ -104,6 +109,8 @@ export function VerificationWorkbench() {
           setActiveTask(tasks[0]);
           setUserResponse("");
           setErrorMessage("");
+        } else if (isMounted) {
+          setErrorMessage("No valid verification task was returned. Please try again.");
         }
       } catch (err) {
         console.error("Error generating verification task:", err);
@@ -111,6 +118,8 @@ export function VerificationWorkbench() {
           setActiveTask(null);
           setErrorMessage("Could not generate a verification task. Your current state was not changed.");
         }
+      } finally {
+        if (isMounted) setIsLoadingTask(false);
       }
     };
 
@@ -118,7 +127,7 @@ export function VerificationWorkbench() {
     return () => {
       isMounted = false;
     };
-  }, [selectedCapId, destinationGraph.capabilityNodes, claimedStates, verifiedStates]);
+  }, [selectedCapId, destinationGraph.capabilityNodes, claimedStates, verifiedStates, taskRequestNonce]);
 
   const activeNode = destinationGraph.capabilityNodes.find((n) => n.id === selectedCapId);
   const currentVerified = selectedCapId ? verifiedStates[selectedCapId] : undefined;
@@ -317,7 +326,7 @@ export function VerificationWorkbench() {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <label htmlFor="answer-input" className="text-xs font-bold text-ink">
-                Your Technical Response:
+                Your Response:
               </label>
               <span className="text-[11px] text-ink-muted">
                 {userResponse.length} characters
@@ -329,7 +338,7 @@ export function VerificationWorkbench() {
               rows={5}
               value={userResponse}
               onChange={(e) => setUserResponse(e.target.value)}
-              placeholder="Explain your technical reasoning, evaluation metrics, and validation strategy..."
+              placeholder="Explain your reasoning, method, decisions, and how you would validate the result..."
               className="w-full p-3.5 rounded-xl border border-border bg-surface text-ink text-xs sm:text-sm leading-relaxed focus:outline-hidden focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all resize-y"
             />
 
@@ -429,7 +438,23 @@ export function VerificationWorkbench() {
         </Card>
       ) : (
         <Card className={`p-8 text-center text-xs ${errorMessage ? "text-brandRed" : "text-ink-muted"}`}>
-          {errorMessage || `Loading verification task for ${selectedCapId}...`}
+          {isLoadingTask ? (
+            `Loading verification task for ${selectedCapId}...`
+          ) : errorMessage ? (
+            <div className="space-y-3">
+              <p>{errorMessage}</p>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setTaskRequestNonce((value) => value + 1)}
+                className="mx-auto gap-1.5"
+              >
+                <RotateCcw className="w-3.5 h-3.5" /> Retry
+              </Button>
+            </div>
+          ) : (
+            "Select a capability to generate a verification task."
+          )}
         </Card>
       )}
     </div>

@@ -2,6 +2,7 @@ import type {
   CapabilityStateStatus,
   DestinationGraph,
   Evidence,
+  SkillClaim,
   VerifiedCapabilityState,
 } from "./types";
 
@@ -62,16 +63,22 @@ export function applyEvidenceToVerifiedStates(
 
 export function deriveVerifiedStates(
   graph: DestinationGraph,
-  evidence: Evidence[]
+  evidence: Evidence[],
+  claimedStates: Record<string, SkillClaim> = {}
 ): Record<string, VerifiedCapabilityState> {
   const initial: Record<string, VerifiedCapabilityState> = Object.fromEntries(
     graph.capabilityNodes.map((node) => [
       node.id,
       {
         capabilityId: node.id,
-        state: "unverified" as const,
+        state: claimedStates[node.id] && claimedStates[node.id].selfReportedLevel !== "none"
+          ? "needs-proof" as const
+          : "unverified" as const,
         evidenceIds: [],
-        explanation: "No verified evidence yet.",
+        explanation:
+          claimedStates[node.id] && claimedStates[node.id].selfReportedLevel !== "none"
+            ? "Claimed capability has no supporting evidence yet."
+            : "No claim or verified evidence yet.",
         lastUpdatedAt: new Date(0).toISOString(),
       },
     ])

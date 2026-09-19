@@ -71,7 +71,7 @@ export function ExperienceOpportunitiesView() {
             </Badge>
           </div>
           <p className="text-xs sm:text-sm text-ink-muted mt-1 max-w-2xl">
-            Real industry competence requires applied teamwork, edge-case debugging, and collaborative code review beyond solo exercises.
+            Destination readiness requires applied practice, collaboration, feedback, and real-world constraints beyond solo exercises.
           </p>
         </div>
 
@@ -95,7 +95,7 @@ export function ExperienceOpportunitiesView() {
             </span>
           </div>
           <p className="leading-relaxed">
-            These opportunities illustrate how SkillState matches learners to practical non-course experience — such as simulated partner internships, collaborative hackathons, and open source sprints. They are currently example fixtures to demonstrate timing recommendations and gap-filling logic.
+            These opportunities illustrate how SkillState matches learners to practical non-course experience using the active destination, capability gaps, and experience expectations. They remain simulated examples for demonstrating timing and gap-filling logic.
           </p>
         </div>
       </div>

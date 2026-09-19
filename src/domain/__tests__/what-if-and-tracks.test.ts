@@ -179,7 +179,11 @@ describe("Phase 6: Journey Tracks & What-If Simulation", () => {
 
     it("calculateCareerPathsWithOverlap computes foundation transfer overlap percentages correctly", () => {
       const store = useSkillStateStore.getState();
-      const careerPaths = calculateCareerPathsWithOverlap(store.destinationGraph, store.verifiedStates);
+      const careerPaths = calculateCareerPathsWithOverlap(
+        store.destinationGraph,
+        store.verifiedStates,
+        true
+      );
 
       expect(careerPaths.length).toBe(SEEDED_CAREER_PATHS_CATALOG.length);
       for (const cp of careerPaths) {

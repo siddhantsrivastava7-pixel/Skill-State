@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Card,
@@ -37,6 +37,7 @@ import {
 import { calculateGraduationEstimate } from "@/domain/planning-horizon";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { getClientAIProvider } from "@/agent/client-provider";
+import { compileOnboardingDestination } from "@/agent/onboarding";
 import { generateId } from "@/lib/ids";
 import { prioritizeGaps } from "@/domain/prioritization";
 import { deriveVerifiedStates } from "@/domain/evidence-transition";
@@ -102,23 +103,23 @@ export default function OnboardingPage() {
 
   // Store actions
   const initializeJourney = useSkillStateStore((s) => s.initializeJourney);
+  const existingProfile = useSkillStateStore((s) => s.profile);
+  const didPrefill = useRef(false);
 
   // Form states
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
 
   // Step 1: Current stage
+  const [learnerName, setLearnerName] = useState<string>("");
   const [stage, setStage] = useState<LearnerStage>("college");
-  const [collegeYear, setCollegeYear] = useState<string>("3");
-  const [fieldOfStudy, setFieldOfStudy] = useState<string>("Computer Science");
+  const [collegeYear, setCollegeYear] = useState<string>("1");
+  const [fieldOfStudy, setFieldOfStudy] = useState<string>("");
 
   // Step 2: Destination certainty
   const [certainty, setCertainty] = useState<DestinationCertainty>("exact");
-  const [targetRole, setTargetRole] = useState<string>("AI Engineer");
-  const [generalField, setGeneralField] = useState<string>("Technology");
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([
-    "building things",
-    "AI",
-  ]);
+  const [targetRole, setTargetRole] = useState<string>("");
+  const [generalField, setGeneralField] = useState<string>("");
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [customInterest, setCustomInterest] = useState<string>("");
 
   // Step 3: Existing evidence
@@ -139,6 +140,32 @@ export default function OnboardingPage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationStepIndex, setGenerationStepIndex] = useState(0);
   const [generationError, setGenerationError] = useState("");
+
+  useEffect(() => {
+    if (didPrefill.current || typeof window === "undefined") return;
+    didPrefill.current = true;
+    const editing = new URLSearchParams(window.location.search).get("edit") === "1";
+    if (!editing || !existingProfile.id) return;
+
+    setLearnerName(existingProfile.name);
+    setStage(existingProfile.stage);
+    setFieldOfStudy(existingProfile.fieldOfStudy ?? "");
+    setCertainty(existingProfile.destinationCertainty);
+    setTargetRole(existingProfile.statedDestination ?? "");
+    setGeneralField(existingProfile.statedField ?? "");
+    setSelectedInterests(existingProfile.interests);
+    setWeeklyHours(existingProfile.weeklyHours);
+    setLearningPreference(existingProfile.learningPreference);
+
+    const yearMatch = existingProfile.stageDetail?.match(/Year\s+(\d\+?)/i);
+    if (yearMatch) setCollegeYear(yearMatch[1]);
+    if (existingProfile.planningHorizon) {
+      setPlanningHorizonMode(existingProfile.planningHorizon.mode);
+      if (existingProfile.planningHorizon.customMonths) {
+        setCustomMonths(existingProfile.planningHorizon.customMonths);
+      }
+    }
+  }, [existingProfile]);
 
   // Handlers for Step 2 Interests
   const toggleInterest = (interest: string) => {
@@ -226,7 +253,7 @@ export default function OnboardingPage() {
     setUploadedFiles((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // Step 4: Submission & Deterministic Generation
+  // Step 4: Submission and journey generation
   const handleFinalSubmit = async () => {
     setIsGenerating(true);
     setGenerationStepIndex(0);
@@ -260,7 +287,7 @@ export default function OnboardingPage() {
 
     const profileData: LearnerProfile = {
       id: generateId("profile"),
-      name: "Siddhant",
+      name: learnerName.trim(),
       stage,
       stageDetail:
         stage === "college"
@@ -279,11 +306,11 @@ export default function OnboardingPage() {
       interests: selectedInterests,
     };
 
-    const graph = await provider.compileDestination({
+    const graph = await compileOnboardingDestination(provider, {
       stage,
       certainty,
-      statedDestination: targetRole,
-      statedField: generalField,
+      statedDestination: certainty === "exact" ? targetRole.trim() : undefined,
+      statedField: certainty === "general" ? generalField.trim() : undefined,
       interests: selectedInterests,
       timelineMonths: resolvedMonths,
       planningHorizon: planningHorizonObj,
@@ -366,9 +393,10 @@ export default function OnboardingPage() {
           </div>
 
           <div className="space-y-1.5">
-            <h2 className="text-lg font-bold text-ink">
+            <h2 className="text-lg font-bold text-ink">Building your SkillState…</h2>
+            <p className="text-sm font-semibold text-accent">
               {GENERATION_STEPS[generationStepIndex]}
-            </h2>
+            </p>
             <p className="text-xs text-ink-muted">
               Step {generationStepIndex + 1} of 4: Synthesizing your adaptive journey
             </p>
@@ -438,6 +466,13 @@ export default function OnboardingPage() {
             </p>
           </div>
 
+          <Input
+            label="Your name"
+            value={learnerName}
+            onChange={(e) => setLearnerName(e.target.value)}
+            placeholder="How should SkillState address you?"
+          />
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {STAGE_OPTIONS.map((opt) => (
               <button
@@ -495,7 +530,7 @@ export default function OnboardingPage() {
           )}
 
           <div className="flex justify-end pt-2">
-            <Button onClick={() => setCurrentStep(2)}>
+            <Button onClick={() => setCurrentStep(2)} disabled={!learnerName.trim()}>
               Next <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
@@ -621,7 +656,14 @@ export default function OnboardingPage() {
             <Button variant="ghost" onClick={() => setCurrentStep(1)}>
               <ArrowLeft className="w-4 h-4 mr-1" /> Back
             </Button>
-            <Button onClick={() => setCurrentStep(3)}>
+            <Button
+              onClick={() => setCurrentStep(3)}
+              disabled={
+                (certainty === "exact" && !targetRole.trim()) ||
+                (certainty === "general" && !generalField.trim()) ||
+                (certainty === "exploring" && selectedInterests.length === 0)
+              }
+            >
               Next <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
@@ -983,6 +1025,12 @@ export default function OnboardingPage() {
             </div>
           </div>
 
+          {generationError && (
+            <InlineNotice variant="danger" title="Couldn’t build your SkillState">
+              {generationError} Check your connection and try again. Your existing SkillState remains unchanged.
+            </InlineNotice>
+          )}
+
           <div className="flex justify-between items-center pt-2">
             <Button variant="ghost" onClick={() => setCurrentStep(3)}>
               <ArrowLeft className="w-4 h-4 mr-1" /> Back
@@ -993,7 +1041,8 @@ export default function OnboardingPage() {
               disabled={planningHorizonMode === "custom" && (customMonths < 1 || customMonths > 72)}
               className="shadow-md"
             >
-              <Sparkles className="w-4 h-4 mr-1.5" /> Build my SkillState
+              <Sparkles className="w-4 h-4 mr-1.5" />
+              {generationError ? "Retry building SkillState" : "Build my SkillState"}
             </Button>
           </div>
         </Card>

@@ -50,7 +50,10 @@ export function CapabilityLedger() {
   const verifiedCount = nodes.filter((n) => verifiedStates[n.id]?.state === "verified").length;
   const developingCount = nodes.filter((n) => verifiedStates[n.id]?.state === "developing").length;
   const needsProofCount = nodes.filter((n) => verifiedStates[n.id]?.state === "needs-proof").length;
-  const gapCount = nodes.filter((n) => verifiedStates[n.id]?.state === "gap").length;
+  const gapCount = nodes.filter((n) => {
+    const state = verifiedStates[n.id]?.state ?? "unverified";
+    return state === "gap" || state === "unverified";
+  }).length;
 
   const getStatusBadge = (state: CapabilityStateStatus | "unverified") => {
     switch (state) {

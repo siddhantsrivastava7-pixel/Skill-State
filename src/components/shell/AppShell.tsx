@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { AppSidebar } from "./AppSidebar";
 import { TopCommandBar } from "./TopCommandBar";
 import { MobileBottomNav } from "./MobileBottomNav";
@@ -10,12 +11,15 @@ import { Button } from "@/components/ui/Button";
 import { Search, Sparkles } from "lucide-react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { getClientAIProvider } from "@/agent/client-provider";
+import { hasUsableLearnerState } from "@/domain/onboarding-routing";
 
 export interface AppShellProps {
   children: React.ReactNode;
 }
 
 export function AppShell({ children }: AppShellProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const [isAskOpen, setIsAskOpen] = useState(false);
   const [askQuery, setAskQuery] = useState("");
   const [askAnswer, setAskAnswer] = useState<{
@@ -23,7 +27,12 @@ export function AppShell({ children }: AppShellProps) {
     citations: { type: string; label: string; detail: string }[];
   } | null>(null);
   const [isAnswering, setIsAnswering] = useState(false);
+  const [locationReady, setLocationReady] = useState(false);
+  const [demoModeRequested, setDemoModeRequested] = useState(false);
 
+  const hasHydrated = useSkillStateStore((s) => s._hasHydrated);
+  const onboardingCompleted = useSkillStateStore((s) => s.onboardingCompleted);
+  const isDemoState = useSkillStateStore((s) => s.isDemoState);
   const profile = useSkillStateStore((s) => s.profile);
   const destination = useSkillStateStore((s) => s.destination);
   const plan = useSkillStateStore((s) => s.plan);
@@ -32,6 +41,29 @@ export function AppShell({ children }: AppShellProps) {
   const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
   const evidence = useSkillStateStore((s) => s.evidence);
   const gaps = useSkillStateStore((s) => s.gaps);
+
+  useEffect(() => {
+    setDemoModeRequested(new URLSearchParams(window.location.search).get("demo") === "1");
+    setLocationReady(true);
+  }, [pathname]);
+
+  const isOnboardingRoute = pathname === "/onboarding";
+  const hasAccess = hasUsableLearnerState({
+    onboardingCompleted,
+    hasCompletedProfile: Boolean(
+      profile.id &&
+        destinationGraph.destinationId &&
+        destinationGraph.capabilityNodes.length > 0
+    ),
+    isDemoState,
+    demoModeRequested,
+  });
+
+  useEffect(() => {
+    if (hasHydrated && locationReady && !isOnboardingRoute && !hasAccess) {
+      router.replace("/onboarding");
+    }
+  }, [hasAccess, hasHydrated, isOnboardingRoute, locationReady, router]);
 
   const handleAskSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +93,16 @@ export function AppShell({ children }: AppShellProps) {
       setIsAnswering(false);
     }
   };
+
+  if (!hasHydrated || (!isOnboardingRoute && (!locationReady || !hasAccess))) {
+    return (
+      <div className="min-h-screen bg-canvas text-ink flex items-center justify-center p-6">
+        <p className="text-sm text-ink-muted">
+          {hasHydrated ? "Taking you to onboarding…" : "Loading SkillState…"}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-canvas text-ink flex flex-col">

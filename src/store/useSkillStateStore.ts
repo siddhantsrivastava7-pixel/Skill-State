@@ -16,13 +16,6 @@ import {
 import {
   DemoPersonaId,
   getDemoPersona,
-  personaAProfile,
-  personaAGraph,
-  personaAClaims,
-  personaAEvidence,
-  personaAVerifiedStates,
-  personaAGaps,
-  personaAPlan,
 } from "@/data/demo";
 import { prioritizeGaps } from "@/domain/prioritization";
 import { preserveEvidenceOnDestinationChange } from "@/domain/destination-switch";
@@ -37,7 +30,9 @@ import {
 
 export interface SkillStateStoreState {
   _hasHydrated: boolean;
-  activePersonaId: DemoPersonaId;
+  onboardingCompleted: boolean;
+  isDemoState: boolean;
+  activePersonaId: DemoPersonaId | null;
   profile: LearnerProfile;
   destination: string;
   destinationGraph: DestinationGraph;
@@ -74,25 +69,79 @@ export interface SkillStateStoreState {
   clearLastTransition: () => void;
   replan: () => void;
   resetStore: () => void;
+  restartOnboarding: () => void;
 }
 
-const initialBundle = getDemoPersona("persona-a");
+const EMPTY_PROFILE: LearnerProfile = {
+  id: "",
+  name: "",
+  stage: "college",
+  weeklyHours: 10,
+  learningPreference: "balanced",
+  destinationCertainty: "exact",
+  interests: [],
+};
+
+const EMPTY_GRAPH: DestinationGraph = {
+  destinationId: "",
+  destinationName: "",
+  summary: "",
+  confidence: "low",
+  capabilityNodes: [],
+  proofExpectations: [],
+  experienceExpectations: [],
+  adjacentDestinations: [],
+  sharedFoundationNodeIds: [],
+};
+
+const EMPTY_PLAN: AdaptivePlan = {
+  generatedAt: new Date(0).toISOString(),
+  summary: "",
+  now: [],
+  weeks: [],
+  milestones: [],
+};
+
+function emptyLearnerState() {
+  return {
+    onboardingCompleted: false,
+    isDemoState: false,
+    activePersonaId: null,
+    profile: EMPTY_PROFILE,
+    destination: "",
+    destinationGraph: EMPTY_GRAPH,
+    claimedStates: {},
+    verifiedStates: {},
+    evidence: [],
+    gaps: [],
+    plan: EMPTY_PLAN,
+    activityLedger: [],
+    progressReports: [],
+    lastTransitionResult: undefined,
+  };
+}
+
+function reconcileVerifiedStates(
+  graph: DestinationGraph,
+  evidence: Evidence[],
+  claimedStates: Record<string, SkillClaim>,
+  persistedStates: Record<string, VerifiedCapabilityState>
+) {
+  const reconciled = deriveVerifiedStates(graph, evidence, claimedStates);
+  for (const node of graph.capabilityNodes) {
+    const persisted = persistedStates[node.id];
+    if (persisted && (persisted.state !== "unverified" || persisted.evidenceIds.length > 0)) {
+      reconciled[node.id] = persisted;
+    }
+  }
+  return reconciled;
+}
 
 export const useSkillStateStore = create<SkillStateStoreState>()(
   persist(
     (set, get) => ({
       _hasHydrated: false,
-      activePersonaId: "persona-a",
-      profile: initialBundle.profile,
-      destination: initialBundle.graph.destinationName,
-      destinationGraph: initialBundle.graph,
-      claimedStates: initialBundle.claimedStates,
-      verifiedStates: initialBundle.verifiedStates,
-      evidence: initialBundle.evidence,
-      gaps: initialBundle.gaps,
-      plan: initialBundle.plan,
-      activityLedger: initialBundle.activityLedger,
-      progressReports: [],
+      ...emptyLearnerState(),
 
       setHasHydrated: (hasHydrated: boolean) => {
         set({ _hasHydrated: hasHydrated });
@@ -101,6 +150,8 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
       loadPersona: (personaId: DemoPersonaId) => {
         const bundle = getDemoPersona(personaId);
         set({
+          onboardingCompleted: true,
+          isDemoState: true,
           activePersonaId: personaId,
           profile: bundle.profile,
           destination: bundle.graph.destinationName,
@@ -141,7 +192,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
       },
 
       initializeJourney: (profile, graph, evidence, plan) => {
-        const verifiedStates = deriveVerifiedStates(graph, evidence);
+        const verifiedStates = deriveVerifiedStates(graph, evidence, {});
         const gaps = prioritizeGaps({
           graph,
           verifiedStates,
@@ -156,6 +207,9 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           description: `Compiled ${graph.capabilityNodes.length} destination capabilities and created an evidence-aware plan.`,
         };
         set({
+          onboardingCompleted: true,
+          isDemoState: false,
+          activePersonaId: null,
           profile,
           destination: graph.destinationName,
           destinationGraph: graph,
@@ -362,33 +416,20 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
       },
 
       resetStore: () => {
-        set({
-          activePersonaId: "persona-a",
-          profile: personaAProfile,
-          destination: personaAGraph.destinationName,
-          destinationGraph: personaAGraph,
-          claimedStates: personaAClaims,
-          verifiedStates: personaAVerifiedStates,
-          evidence: personaAEvidence,
-          gaps: personaAGaps,
-          plan: personaAPlan,
-          activityLedger: [
-            {
-              id: `event-${Date.now()}`,
-              timestamp: new Date().toISOString(),
-              type: "DESTINATION_CHANGED",
-              title: "Store reset to default Persona A",
-              description: "Cleared local mutations.",
-            },
-          ],
-          progressReports: [],
-        });
+        set(emptyLearnerState());
+      },
+
+      restartOnboarding: () => {
+        set(emptyLearnerState());
       },
     }),
     {
       name: "skillstate_demo_store",
+      version: 3,
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
+        onboardingCompleted: state.onboardingCompleted,
+        isDemoState: state.isDemoState,
         activePersonaId: state.activePersonaId,
         profile: state.profile,
         destination: state.destination,
@@ -401,6 +442,46 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
         activityLedger: state.activityLedger,
         progressReports: state.progressReports,
       }),
+      migrate: (persistedState) => {
+        const persisted = persistedState as Partial<SkillStateStoreState>;
+        const profileId = persisted.profile?.id ?? "";
+        const hasCompletedState = Boolean(
+          profileId &&
+            persisted.destinationGraph?.destinationId &&
+            persisted.destinationGraph.capabilityNodes.length > 0
+        );
+        const inferredDemoState = ["persona-a", "persona-b", "persona-c"].includes(profileId);
+        const isDemoState = persisted.isDemoState ?? inferredDemoState;
+        const graph = persisted.destinationGraph ?? EMPTY_GRAPH;
+        const evidence = persisted.evidence ?? [];
+        const claimedStates = persisted.claimedStates ?? {};
+        const verifiedStates = reconcileVerifiedStates(
+          graph,
+          evidence,
+          claimedStates,
+          persisted.verifiedStates ?? {}
+        );
+        const gaps = isDemoState
+          ? (persisted.gaps ?? [])
+          : prioritizeGaps({
+              graph,
+              verifiedStates,
+              claimedStates,
+              targetTimelineMonths: persisted.profile?.targetTimelineMonths,
+            });
+        return {
+          ...emptyLearnerState(),
+          ...persisted,
+          onboardingCompleted:
+            persisted.onboardingCompleted ?? hasCompletedState,
+          isDemoState,
+          activePersonaId: inferredDemoState
+            ? (profileId as DemoPersonaId)
+            : null,
+          verifiedStates,
+          gaps,
+        } as SkillStateStoreState;
+      },
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);
       },

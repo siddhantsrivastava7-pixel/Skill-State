@@ -1,0 +1,16 @@
+{
+  "project": "SkillState",
+  "purpose": "Agentic AI Hackathon 2026 - EduPath PS1",
+  "build_strategy": "spec-driven; Antigravity implements without product-design freedom",
+  "phases": [
+    "PHASE_01_SCAFFOLD_DOMAIN.txt",
+    "PHASE_02_DESIGN_SYSTEM_SHELL.txt",
+    "PHASE_03_ONBOARDING.txt",
+    "PHASE_04_HOME.txt",
+    "PHASE_05_SKILLS_ASSESS.txt",
+    "PHASE_06_JOURNEY_PROOF_EXPERIENCE.txt",
+    "PHASE_07_LIVE_AGENT.txt",
+    "PHASE_08_REPORT_ASK.txt",
+    "PHASE_09_POLISH_DEMO.txt"
+  ]
+}

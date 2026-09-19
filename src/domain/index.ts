@@ -12,5 +12,6 @@ export * from "./planning-horizon";
 export * from "./state-transition";
 export * from "./evidence-transition";
 export * from "./progress-report";
+export * from "./onboarding-routing";
 export * from "./what-if";
 export * from "./journey-tracks";

@@ -27,13 +27,15 @@ export function CareerPathsView() {
   const destinationGraph = useSkillStateStore((s) => s.destinationGraph);
   const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
   const profile = useSkillStateStore((s) => s.profile);
+  const isDemoState = useSkillStateStore((s) => s.isDemoState);
 
   const [simulatingCandidateId, setSimulatingCandidateId] = useState<string | null>(null);
 
   // Compute transferable overlap for each catalog destination
   const careerPaths: CareerPathItem[] = calculateCareerPathsWithOverlap(
     destinationGraph,
-    verifiedStates
+    verifiedStates,
+    isDemoState
   );
 
   return (
@@ -75,6 +77,7 @@ export function CareerPathsView() {
       {simulatingCandidateId && (
         <WhatIfSimulator
           initialDestinationId={simulatingCandidateId}
+          candidatePaths={careerPaths}
           onClose={() => setSimulatingCandidateId(null)}
           onApplied={() => setSimulatingCandidateId(null)}
         />
@@ -131,7 +134,7 @@ export function CareerPathsView() {
                 <div className="p-3 rounded-xl bg-surface-soft border border-border/70 space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-ink">
-                      {isCurrent ? "Current verified coverage" : "Transferable verified foundations"}
+                      {isCurrent ? "Current verified coverage" : "Transferable verified foundations preview"}
                     </span>
                     <span className="font-bold text-brandGreen">{item.overlapPercentage}%</span>
                   </div>
@@ -148,11 +151,11 @@ export function CareerPathsView() {
                     <span className="font-semibold text-ink">
                       {isCurrent
                         ? `${item.sharedCapabilities.length} of ${item.graph.capabilityNodes.length} required capabilities verified`
-                        : `${item.sharedCapabilities.length} of ${item.graph.capabilityNodes.length} required capabilities already transfer`}
+                        : `${item.sharedCapabilities.length} of ${item.graph.capabilityNodes.length} known shared foundations verified`}
                     </span>
                     <span>
                       <strong className="text-brandOrange">{item.unverifiedCapabilitiesCount}</strong>{" "}
-                      needed
+                      {item.isPreview ? " shared foundations unverified" : " needed"}
                     </span>
                   </div>
                 </div>

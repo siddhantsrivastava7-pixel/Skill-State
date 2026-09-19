@@ -13,6 +13,7 @@ export interface CareerPathItem {
   sharedCapabilities: string[];
   overlapPercentage: number;
   unverifiedCapabilitiesCount: number;
+  isPreview?: boolean;
 }
 
 // Supplementary graph for Data Engineer
@@ -135,19 +136,40 @@ export const SEEDED_CAREER_PATHS_CATALOG: Array<{
  */
 export function calculateCareerPathsWithOverlap(
   currentGraph: DestinationGraph,
-  verifiedStates: Record<string, VerifiedCapabilityState>
+  verifiedStates: Record<string, VerifiedCapabilityState>,
+  isDemoState = false
 ): CareerPathItem[] {
-  const catalog = SEEDED_CAREER_PATHS_CATALOG.some(
-    (item) => item.graph.destinationId === currentGraph.destinationId
-  )
+  const catalog = isDemoState
     ? SEEDED_CAREER_PATHS_CATALOG
     : [
         {
           id: `career-current-${currentGraph.destinationId}`,
           field: "Current destination" as const,
           graph: currentGraph,
+          isPreview: false,
         },
-        ...SEEDED_CAREER_PATHS_CATALOG,
+        ...currentGraph.adjacentDestinations.map((adjacent) => {
+          const sharedNodes = adjacent.sharedCapabilityIds
+            .map((id) => currentGraph.capabilityNodes.find((node) => node.id === id))
+            .filter((node): node is DestinationGraph["capabilityNodes"][number] => Boolean(node));
+          const previewGraph: DestinationGraph = {
+            destinationId: adjacent.id,
+            destinationName: adjacent.title,
+            summary: adjacent.descriptor,
+            confidence: "medium",
+            capabilityNodes: sharedNodes,
+            proofExpectations: [],
+            experienceExpectations: [],
+            adjacentDestinations: [],
+            sharedFoundationNodeIds: sharedNodes.map((node) => node.id),
+          };
+          return {
+            id: `career-adjacent-${adjacent.id}`,
+            field: "Adjacent destination" as const,
+            graph: previewGraph,
+            isPreview: true,
+          };
+        }),
       ];
 
   return catalog.map((c) => {
@@ -170,6 +192,7 @@ export function calculateCareerPathsWithOverlap(
       sharedCapabilities: verifiedMatching.map((n) => n.name),
       overlapPercentage,
       unverifiedCapabilitiesCount: totalNodes - verifiedMatching.length,
+      isPreview: "isPreview" in c ? c.isPreview : false,
     };
   });
 }

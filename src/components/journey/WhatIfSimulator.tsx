@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   Compass,
   Clock,
@@ -16,7 +16,10 @@ import {
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { simulateWhatIf, WhatIfSimulationResult } from "@/domain/what-if";
 import { preserveEvidenceOnDestinationChange } from "@/domain/destination-switch";
-import { SEEDED_CAREER_PATHS_CATALOG } from "@/data/library/careers-library";
+import {
+  calculateCareerPathsWithOverlap,
+  CareerPathItem,
+} from "@/data/library/careers-library";
 import { getClientAIProvider } from "@/agent/client-provider";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -27,12 +30,14 @@ export interface WhatIfSimulatorProps {
   onApplied?: () => void;
   onClose?: () => void;
   initialDestinationId?: string;
+  candidatePaths?: CareerPathItem[];
 }
 
 export function WhatIfSimulator({
   onApplied,
   onClose,
   initialDestinationId,
+  candidatePaths,
 }: WhatIfSimulatorProps) {
   const profile = useSkillStateStore((s) => s.profile);
   const destination = useSkillStateStore((s) => s.destination);
@@ -40,17 +45,23 @@ export function WhatIfSimulator({
   const claimedStates = useSkillStateStore((s) => s.claimedStates);
   const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
   const evidence = useSkillStateStore((s) => s.evidence);
+  const isDemoState = useSkillStateStore((s) => s.isDemoState);
   const changeDestination = useSkillStateStore((s) => s.changeDestination);
   const setProfile = useSkillStateStore((s) => s.setProfile);
   const setPlan = useSkillStateStore((s) => s.setPlan);
 
+  const availableCandidates = useMemo(
+    () => candidatePaths ?? calculateCareerPathsWithOverlap(destinationGraph, verifiedStates, isDemoState),
+    [candidatePaths, destinationGraph, verifiedStates, isDemoState]
+  );
+
   // Simulation parameters (purely local state, zero mutation to store during preview)
   const [selectedCandidateId, setSelectedCandidateId] = useState<string>(() => {
     if (initialDestinationId) return initialDestinationId;
-    const match = SEEDED_CAREER_PATHS_CATALOG.find(
-      (c) => c.graph.destinationName.toLowerCase() === destination.toLowerCase()
+    const match = availableCandidates.find(
+      (candidate) => candidate.graph.destinationName.toLowerCase() === destination.toLowerCase()
     );
-    return match ? match.id : SEEDED_CAREER_PATHS_CATALOG[0].id;
+    return match?.id ?? availableCandidates[0].id;
   });
 
   const [simWeeklyHours, setSimWeeklyHours] = useState<number>(profile.weeklyHours || 10);
@@ -60,14 +71,68 @@ export function WhatIfSimulator({
   const [appliedSuccess, setAppliedSuccess] = useState(false);
   const [isApplying, setIsApplying] = useState(false);
   const [applyError, setApplyError] = useState("");
+  const [compiledGraphs, setCompiledGraphs] = useState<Record<string, typeof destinationGraph>>({});
+  const [isLoadingPreview, setIsLoadingPreview] = useState(false);
+  const [previewError, setPreviewError] = useState("");
+  const [previewRetryNonce, setPreviewRetryNonce] = useState(0);
 
   // Find candidate graph
   const selectedCandidate = useMemo(() => {
-    return (
-      SEEDED_CAREER_PATHS_CATALOG.find((c) => c.id === selectedCandidateId) ||
-      SEEDED_CAREER_PATHS_CATALOG[0]
-    );
-  }, [selectedCandidateId]);
+    return availableCandidates.find((candidate) => candidate.id === selectedCandidateId) ?? availableCandidates[0];
+  }, [availableCandidates, selectedCandidateId]);
+
+  useEffect(() => {
+    if (!selectedCandidate.isPreview || isDemoState || compiledGraphs[selectedCandidate.id]) {
+      setPreviewError("");
+      setIsLoadingPreview(false);
+      return;
+    }
+
+    let active = true;
+    setIsLoadingPreview(true);
+    setPreviewError("");
+    getClientAIProvider()
+      .compileDestination({
+        stage: profile.stage,
+        certainty: "exact",
+        statedDestination: selectedCandidate.title,
+        interests: profile.interests,
+        timelineMonths: simTimelineMonths,
+        planningHorizon: profile.planningHorizon,
+      })
+      .then((graph) => {
+        if (active) {
+          setCompiledGraphs((current) => ({ ...current, [selectedCandidate.id]: graph }));
+        }
+      })
+      .catch((error) => {
+        if (active) {
+          setPreviewError(
+            error instanceof Error
+              ? error.message
+              : "This adjacent destination preview could not be compiled."
+          );
+        }
+      })
+      .finally(() => {
+        if (active) setIsLoadingPreview(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [
+    compiledGraphs,
+    isDemoState,
+    previewRetryNonce,
+    profile.interests,
+    profile.planningHorizon,
+    profile.stage,
+    selectedCandidate,
+    simTimelineMonths,
+  ]);
+
+  const selectedGraph = compiledGraphs[selectedCandidate.id] ?? selectedCandidate.graph;
 
   // Execute pure simulation
   const simulation: WhatIfSimulationResult = useMemo(() => {
@@ -76,7 +141,7 @@ export function WhatIfSimulator({
       currentVerifiedStates: verifiedStates,
       currentClaimedStates: claimedStates,
       currentProfile: profile,
-      candidateGraph: selectedCandidate.graph,
+      candidateGraph: selectedGraph,
       simulatedWeeklyHours: simWeeklyHours,
       simulatedTimelineMonths: simTimelineMonths,
     });
@@ -85,7 +150,7 @@ export function WhatIfSimulator({
     verifiedStates,
     claimedStates,
     profile,
-    selectedCandidate.graph,
+    selectedGraph,
     simWeeklyHours,
     simTimelineMonths,
   ]);
@@ -109,12 +174,12 @@ export function WhatIfSimulator({
         currentEvidence: evidence,
         currentVerifiedStates: verifiedStates,
         currentClaimedStates: claimedStates,
-        newGraph: selectedCandidate.graph,
+        newGraph: selectedGraph,
         targetTimelineMonths: simTimelineMonths,
       });
       const nextPlan = await getClientAIProvider().buildPlan({
         profile: nextProfile,
-        graph: selectedCandidate.graph,
+        graph: selectedGraph,
         verifiedStates: switchResult.updatedVerifiedStates,
         claimedStates: switchResult.preservedClaimedStates,
         gaps: switchResult.recomputedGaps,
@@ -122,8 +187,8 @@ export function WhatIfSimulator({
       });
 
       setProfile(nextProfile);
-      if (selectedCandidate.graph.destinationName !== destination) {
-        changeDestination(selectedCandidate.graph.destinationName, selectedCandidate.graph);
+      if (selectedGraph.destinationName !== destination) {
+        changeDestination(selectedGraph.destinationName, selectedGraph);
       }
       setPlan(nextPlan);
       setAppliedSuccess(true);
@@ -183,7 +248,7 @@ export function WhatIfSimulator({
             onChange={(e) => setSelectedCandidateId(e.target.value)}
             className="w-full px-3 py-2 text-xs bg-surface border border-border rounded-lg text-ink font-medium focus:outline-hidden focus:ring-2 focus:ring-accent/20 focus:border-accent"
           >
-            {SEEDED_CAREER_PATHS_CATALOG.map((c) => (
+            {availableCandidates.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.graph.destinationName} ({c.field})
               </option>
@@ -243,6 +308,24 @@ export function WhatIfSimulator({
 
       {/* 3. Live Simulation Preview Metrics */}
       <div className="space-y-4">
+        {isLoadingPreview && (
+          <InlineNotice variant="info" title="Compiling adjacent destination preview">
+            Building capability data for {selectedCandidate.title} without changing your active journey.
+          </InlineNotice>
+        )}
+        {previewError && (
+          <InlineNotice variant="danger" title="Destination preview unavailable">
+            <span>{previewError} Your active journey remains unchanged.</span>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => setPreviewRetryNonce((value) => value + 1)}
+              className="ml-3"
+            >
+              Retry
+            </Button>
+          </InlineNotice>
+        )}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-accent" />
@@ -396,7 +479,7 @@ export function WhatIfSimulator({
             variant="primary"
             size="sm"
             onClick={handleApply}
-            disabled={isApplying}
+            disabled={isApplying || isLoadingPreview || Boolean(previewError)}
             className="text-xs gap-1.5 min-w-[170px] shadow-xs"
           >
             {isApplying ? (

@@ -113,7 +113,7 @@ export function simulateWhatIf(input: WhatIfSimulationInput): WhatIfSimulationRe
     },
     {
       id: `sim-ms-3`,
-      title: "Production Portfolio & System Proof",
+      title: "Portfolio & Applied Proof",
       targetMonth: Math.max(3, Math.round(projectedTimelineMonths * 0.75)),
       evidenceNeeded: candidateGraph.proofExpectations.map((p) => p.capabilityId),
     },

@@ -31,8 +31,8 @@ export const SEEDED_EXPERIENCE_CATALOG: ExperienceOpportunity[] = [
     title: "Computer Vision & ML Pipeline Engineering Internship",
     organization: "AeroVision AI Labs (Simulated Partner)",
     type: "internship",
-    isDemoOpportunity: true,
-    demoLabel: "Example / Demo Opportunity (Simulated Sandbox)",
+    isDemoOpportunity: true as const,
+    demoLabel: "Example / Demo Opportunity (Simulated Sandbox)" as const,
     targetCapabilityIds: ["cap-ml", "cap-deployment"],
     fillsGapDescription:
       "Fills the industry experience gap by embedding you in a team maintaining model CI/CD pipelines and production data drift monitoring.",
@@ -41,7 +41,7 @@ export const SEEDED_EXPERIENCE_CATALOG: ExperienceOpportunity[] = [
     prerequisites: ["Python verified", "Model evaluation proof", "Docker API project"],
     prerequisitesMet: true,
     estimatedWeeks: 12,
-    mode: "Remote",
+    mode: "Remote" as const,
     scopeOverview:
       "Work alongside senior engineers to automate inference regression tests, evaluate model accuracy across new camera splits, and profile container latency.",
   },
@@ -134,23 +134,62 @@ export function matchExperienceToGaps(
   graph: DestinationGraph,
   verifiedStates: Record<string, VerifiedCapabilityState>
 ): ExperienceOpportunity[] {
-  const isFinance = graph.destinationName.toLowerCase().includes("finan");
+  const graphCapabilityIds = new Set(graph.capabilityNodes.map((node) => node.id));
+  const activeGapIds = new Set(gaps.map((gap) => gap.capabilityId));
+  const filtered = SEEDED_EXPERIENCE_CATALOG.filter(
+    (opportunity) =>
+      opportunity.targetCapabilityIds.length > 0 &&
+      opportunity.targetCapabilityIds.every((id) => graphCapabilityIds.has(id)) &&
+      opportunity.targetCapabilityIds.some((id) => activeGapIds.has(id))
+  );
 
-  const filtered = SEEDED_EXPERIENCE_CATALOG.filter((opp) => {
-    if (isFinance) {
-      return opp.targetCapabilityIds.some((id) => id.includes("fin"));
-    }
-    return !opp.targetCapabilityIds.some((id) => id.includes("fin"));
-  });
-
-  return filtered.map((opp) => {
+  if (filtered.length > 0) return filtered.map((opp) => {
     // Check if prerequisites are met based on verifiedStates
     const hasUnmetPrereq = opp.targetCapabilityIds.some(
-      (id) => verifiedStates[id]?.state === "gap"
+      (id) => verifiedStates[id]?.state !== "verified"
     );
     return {
       ...opp,
       prerequisitesMet: !hasUnmetPrereq,
     };
   });
+
+  const targetCapabilityIds = gaps
+    .map((gap) => gap.capabilityId)
+    .filter((id) => graphCapabilityIds.has(id))
+    .slice(0, 3);
+  const fallbackTargetIds = targetCapabilityIds.length > 0
+    ? targetCapabilityIds
+    : graph.capabilityNodes.slice(0, 3).map((node) => node.id);
+  const targetNames = fallbackTargetIds.map(
+    (id) => graph.capabilityNodes.find((node) => node.id === id)?.name ?? id
+  );
+  const prerequisitesMet = fallbackTargetIds.every(
+    (id) => verifiedStates[id]?.state === "verified"
+  );
+  const expectations = graph.experienceExpectations.length > 0
+    ? graph.experienceExpectations
+    : [{
+        id: `experience-${graph.destinationId}`,
+        title: `${graph.destinationName} Applied Practice Sandbox`,
+        description: `Practice ${targetNames.join(", ")} in a realistic, reviewable scenario.`,
+        type: "team-project" as const,
+      }];
+
+  return expectations.slice(0, 3).map((expectation) => ({
+    id: `exp-demo-${expectation.id}`,
+    title: expectation.title,
+    organization: `${graph.destinationName} Practice Lab (Simulated)`,
+    type: expectation.type,
+    isDemoOpportunity: true,
+    demoLabel: "Example / Demo Opportunity (Simulated Sandbox)",
+    targetCapabilityIds: fallbackTargetIds,
+    fillsGapDescription: `Applies active ${graph.destinationName} gaps: ${targetNames.join(", ")}.`,
+    timingRecommendation: "Pursue after the related foundation actions in the active Journey are underway.",
+    prerequisites: targetNames,
+    prerequisitesMet,
+    estimatedWeeks: expectation.type === "internship" ? 8 : 3,
+    mode: "Remote",
+    scopeOverview: expectation.description,
+  }));
 }

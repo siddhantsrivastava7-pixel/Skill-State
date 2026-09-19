@@ -25,10 +25,11 @@ export function ProofProjectsView() {
   const destination = useSkillStateStore((s) => s.destination);
   const destinationGraph = useSkillStateStore((s) => s.destinationGraph);
   const gaps = useSkillStateStore((s) => s.gaps);
+  const plan = useSkillStateStore((s) => s.plan);
   const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
 
   // Match proof projects to current gaps and destination graph
-  const projects = matchProjectsToGaps(gaps, destinationGraph);
+  const projects = matchProjectsToGaps(gaps, destinationGraph, plan);
 
   // Track expanded projects for detailed spec viewing
   const [expandedProjectId, setExpandedProjectId] = useState<string | null>(
@@ -82,7 +83,15 @@ export function ProofProjectsView() {
 
       {/* 3. Project Recommendations List */}
       <div className="space-y-4">
-        {projects.map((proj, idx) => {
+        {projects.length === 0 ? (
+          <Card className="p-8 text-center space-y-2 border-dashed">
+            <AlertCircle className="w-7 h-7 text-brandOrange mx-auto" />
+            <h2 className="text-base font-bold text-ink">No proof project is ready yet</h2>
+            <p className="text-xs text-ink-muted max-w-lg mx-auto">
+              The active destination has no matched proof expectation or build action yet. Continue with the current Journey actions until a verifiable deliverable is available.
+            </p>
+          </Card>
+        ) : projects.map((proj, idx) => {
           const isExpanded = expandedProjectId === proj.id;
           const targetCapVerified = proj.targetCapabilityIds.some(
             (cid) => verifiedStates[cid]?.state === "verified"

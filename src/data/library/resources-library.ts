@@ -167,20 +167,16 @@ export function matchResourcesToGaps(
     const capName = node?.name ?? gap.capabilityId;
 
     const matching = SEEDED_RESOURCES_CATALOG.filter(
-      (r) =>
-        r.targetGapCapabilityId === gap.capabilityId ||
-        r.targetGapCapabilityName.toLowerCase() === capName.toLowerCase()
+      (resource) => resource.targetGapCapabilityId === gap.capabilityId
     );
 
-    if (matching.length > 0) {
-      result.push({
-        gapCapabilityId: gap.capabilityId,
-        gapCapabilityName: capName,
-        gapPriority: gap.priority,
-        gapReason: gap.reason,
-        resources: matching,
-      });
-    }
+    result.push({
+      gapCapabilityId: gap.capabilityId,
+      gapCapabilityName: capName,
+      gapPriority: gap.priority,
+      gapReason: gap.reason,
+      resources: matching,
+    });
   }
 
   return result;
