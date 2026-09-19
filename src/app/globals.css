@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #121832;
+  --ink-muted: #5E6785;
+  --canvas: #FBFBFD;
+  --surface: #FFFFFF;
+  --surface-soft: #F7F8FC;
+  --border: #E8EAF1;
+
+  --accent: #5B4CF0;
+  --accent-soft: #EFEDFF;
+
+  --green: #1FA978;
+  --green-soft: #EAF8F2;
+
+  --blue: #3A82F7;
+  --blue-soft: #ECF3FF;
+
+  --orange: #E98A32;
+  --orange-soft: #FFF4E8;
+
+  --red: #E35C68;
+  --red-soft: #FFF0F2;
+}
+
+body {
+  color: var(--ink);
+  background: var(--canvas);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
