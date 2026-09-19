@@ -139,7 +139,7 @@ export default function HomePage() {
         {
           id: "stg-build-proof",
           title: "Build proof",
-          subtitle: "Build working project and code artifacts.",
+          subtitle: "Build practical projects and verifiable artifacts.",
           iconName: "shield-check",
           state: "future",
         },
@@ -160,36 +160,9 @@ export default function HomePage() {
       ];
 
   // ---------------------------------------------------------------------------
-  // Career Branches Construction
+  // Career Branches Construction (Driven entirely by DestinationGraph)
   // ---------------------------------------------------------------------------
-  const defaultExploringBranches: CareerBranch[] = [
-    {
-      id: "dest-ai-engineer",
-      title: "AI Engineer",
-      descriptor: "Build intelligent systems",
-      tone: "purple",
-    },
-    {
-      id: "dest-data-engineer",
-      title: "Data Engineer",
-      descriptor: "Work with data at scale",
-      tone: "green",
-    },
-    {
-      id: "dest-backend-engineer",
-      title: "Backend Engineer",
-      descriptor: "Power the web and apps",
-      tone: "orange",
-    },
-    {
-      id: "dest-cybersecurity",
-      title: "Cybersecurity",
-      descriptor: "Keep systems and people safe",
-      tone: "blue",
-    },
-  ];
-
-  const adjacentFromGraph: CareerBranch[] =
+  const branches: CareerBranch[] =
     destinationGraph.adjacentDestinations && destinationGraph.adjacentDestinations.length > 0
       ? destinationGraph.adjacentDestinations.map((adj) => ({
           id: adj.id,
@@ -197,9 +170,7 @@ export default function HomePage() {
           descriptor: adj.descriptor,
           tone: (adj.tone as "purple" | "green" | "orange" | "blue") || "blue",
         }))
-      : defaultExploringBranches;
-
-  const branches: CareerBranch[] = isExploring ? defaultExploringBranches : adjacentFromGraph;
+      : [];
 
   // Handle branch preview without mutating destination in store
   const handleBranchPreview = (id: string) => {

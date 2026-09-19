@@ -9,10 +9,10 @@ export interface WhyThisCardProps {
 }
 
 /**
- * WhyThisCard conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and Phase 4.2:
- * - Dynamic explanation derived strictly from selected ActionItem.whyNow and action details
- * - Removes hard-coded phrases like "programming logic", "software domains", "AI, data, backend"
- * - Career-agnostic synthesis based on action category and stated rationale
+ * WhyThisCard conforming to reusable UI architecture:
+ * - Content comes strictly from selectedAction.whyNow and selectedAction.description
+ * - Contains NO career- or persona-specific action strings or branching
+ * - Editorial badge derived generically from ActionCategory
  */
 export function WhyThisCard({
   selectedAction,
@@ -26,45 +26,31 @@ export function WhyThisCard({
       ? `Builds essential foundations aligned with ${destinationName}.`
       : "Builds essential foundational capabilities and unlocks subsequent milestones.");
 
-  // Dynamically synthesize supporting explanation without hard-coded software leaks
-  let explanation =
+  // Supporting explanation directly from the selected ActionItem description
+  const explanation =
     selectedAction?.description ||
     "This targeted action addresses an immediate capability prerequisite, converting conceptual knowledge into demonstrable evidence.";
 
+  // Editorial pill callout derived generically from category
   let badgeText = "Targeted milestone. Credible progress.";
 
   if (selectedAction) {
-    const titleLower = selectedAction.title.toLowerCase();
-    const isTechExploring =
-      titleLower.includes("python") ||
-      titleLower.includes("code") ||
-      (destinationName && destinationName.toLowerCase().includes("technology"));
-
-    if (selectedAction.category === "build") {
-      explanation = selectedAction.description
-        ? `${selectedAction.description} Completing this hands-on project produces verifiable proof for your pathway.`
-        : "Building a practical artifact converts conceptual knowledge into demonstrable proof, giving you tangible work for evaluation.";
-      badgeText = "Tangible proof. Greater credibility.";
-    } else if (selectedAction.category === "prove") {
-      explanation = selectedAction.description
-        ? `${selectedAction.description} Submitting this proof task validates your capability against objective evaluation standards.`
-        : "Verifying your capability through targeted proof tasks satisfies external expectations and removes guesswork from your readiness.";
-      badgeText = "Verified capability. Zero guesswork.";
-    } else if (selectedAction.category === "learn") {
-      if (isTechExploring && titleLower.includes("python")) {
-        explanation =
-          "It is beginner-friendly, widely used, and provides a strong foundation for multiple future directions. By mastering it early, you keep more paths open.";
-      } else {
-        explanation = selectedAction.description
-          ? `${selectedAction.description} Mastering this core area repairs foundational deficits and accelerates subsequent milestones.`
-          : "Focusing on this learning objective repairs foundational deficits and unlocks downstream requirements.";
-      }
-      badgeText = "Core competency. Stronger foundation.";
-    } else if (selectedAction.category === "signal" || titleLower.includes("explore")) {
-      explanation = selectedAction.description
-        ? `${selectedAction.description} This deliverable clearly communicates your capabilities to external evaluators and teams.`
-        : "Comparing daily responsibilities and expectations across adjacent roles provides informed clarity before reaching specialization points.";
-      badgeText = "Demonstrated signal. Clear outcome.";
+    switch (selectedAction.category) {
+      case "build":
+        badgeText = "Tangible proof. Greater credibility.";
+        break;
+      case "prove":
+        badgeText = "Verified capability. Zero guesswork.";
+        break;
+      case "learn":
+        badgeText = "Core competency. Stronger foundation.";
+        break;
+      case "signal":
+        badgeText = "Demonstrated signal. Clear outcome.";
+        break;
+      case "experience":
+        badgeText = "Practical application. Real-world context.";
+        break;
     }
   }
 

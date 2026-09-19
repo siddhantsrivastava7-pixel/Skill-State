@@ -77,30 +77,8 @@ export function deriveCompactSkills(
  * - Concrete supporting meta (evidence counts, proof tasks pending, baseline status)
  * - Explicitly eliminates fake skill percentage bars
  */
-export function CompactSkillStrip({ skills, className = "" }: CompactSkillStripProps) {
-  // Default skills matching Persona A exploring baseline
-  const defaultSkills: CompactSkillItem[] = [
-    {
-      name: "Programming Fundamentals",
-      status: "unverified",
-      supportingMeta: "0 evidence items • Core foundation",
-      workflowState: "evidence-needed",
-    },
-    {
-      name: "Problem Solving & Logic",
-      status: "unverified",
-      supportingMeta: "Self-reported claim • Awaiting proof",
-      workflowState: "evidence-needed",
-    },
-    {
-      name: "Data Fundamentals",
-      status: "unverified",
-      supportingMeta: "0 evidence items • Downstream unlock",
-      workflowState: "evidence-needed",
-    },
-  ];
-
-  const items = skills && skills.length > 0 ? skills.slice(0, 4) : defaultSkills;
+export function CompactSkillStrip({ skills = [], className = "" }: CompactSkillStripProps) {
+  const items = skills.slice(0, 4);
 
   const renderStatusBadge = (status: CapabilityStateStatus) => {
     switch (status) {
@@ -164,29 +142,33 @@ export function CompactSkillStrip({ skills, className = "" }: CompactSkillStripP
 
       {/* Skill List with Evidence-Backed Status */}
       <div className="divide-y divide-border/40 my-auto">
-        {items.map((item) => (
-          <div key={item.name} className="py-2.5 first:pt-1.5 last:pb-1.5 space-y-1">
-            <div className="flex items-center justify-between gap-2">
-              <span className="text-xs sm:text-sm font-semibold text-ink leading-snug">
-                {item.name}
-              </span>
-              {renderStatusBadge(item.status)}
-            </div>
+        {items.length === 0 ? (
+          <p className="text-xs text-ink-muted py-3">No skills identified yet.</p>
+        ) : (
+          items.map((item) => (
+            <div key={item.name} className="py-2.5 first:pt-1.5 last:pb-1.5 space-y-1">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs sm:text-sm font-semibold text-ink leading-snug">
+                  {item.name}
+                </span>
+                {renderStatusBadge(item.status)}
+              </div>
 
-            <div className="flex items-center justify-between text-[11px] text-ink-muted">
-              <span>{item.supportingMeta}</span>
-              {item.workflowState === "verification-complete" && (
-                <span className="text-green font-medium">Complete</span>
-              )}
-              {item.workflowState === "proof-pending" && (
-                <span className="text-accent font-medium">Proof pending</span>
-              )}
-              {item.workflowState === "gap-identified" && (
-                <span className="text-amber-700 font-medium">To learn</span>
-              )}
+              <div className="flex items-center justify-between text-[11px] text-ink-muted">
+                <span>{item.supportingMeta}</span>
+                {item.workflowState === "verification-complete" && (
+                  <span className="text-green font-medium">Complete</span>
+                )}
+                {item.workflowState === "proof-pending" && (
+                  <span className="text-accent font-medium">Proof pending</span>
+                )}
+                {item.workflowState === "gap-identified" && (
+                  <span className="text-amber-700 font-medium">To learn</span>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

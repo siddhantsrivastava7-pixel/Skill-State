@@ -9,33 +9,17 @@ export interface ProofNeededCardProps {
 }
 
 /**
- * ProofNeededCard conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and Phase 4.2:
- * - Exact destination mode credibility requirements
- * - Career-specific proof items from active DestinationGraph
- * - Destination-neutral explanatory footer: "Strong claims need evidence that demonstrates the capability in practice."
+ * ProofNeededCard conforming to reusable UI architecture:
+ * - Content driven purely by active DestinationGraph.proofExpectations
+ * - Contains NO hardcoded career strings
+ * - Reassuring footer: "Strong claims need evidence that demonstrates the capability in practice."
  */
 export function ProofNeededCard({
   destinationName,
   proofExpectations = [],
   className = "",
 }: ProofNeededCardProps) {
-  // Destination-neutral fallback proof items only if none present in graph
-  const defaultProofs: ProofExpectation[] = [
-    {
-      id: "proof-fallback-1",
-      capabilityId: "cap-1",
-      description: `End-to-end practical project with documented methodology and validation for ${destinationName}.`,
-      level: "working",
-    },
-    {
-      id: "proof-fallback-2",
-      capabilityId: "cap-2",
-      description: `Verifiable artifact or portfolio deliverable demonstrating ${destinationName} standards.`,
-      level: "working",
-    },
-  ];
-
-  const items = proofExpectations.length > 0 ? proofExpectations.slice(0, 3) : defaultProofs;
+  const items = proofExpectations.slice(0, 3);
 
   return (
     <div
@@ -56,24 +40,28 @@ export function ProofNeededCard({
 
       {/* Proof Expectations List */}
       <div className="space-y-2.5 my-3">
-        {items.map((proof, idx) => (
-          <div
-            key={proof.id || idx}
-            className="p-3 rounded-xl border border-border/70 bg-surface-soft/60 flex items-start justify-between gap-3"
-          >
-            <div className="min-w-0 flex-1">
-              <span className="text-xs font-semibold text-ink block leading-snug">
-                {proof.description}
-              </span>
-              <span className="text-[10px] text-ink-muted block mt-1">
-                Target level: <span className="capitalize font-medium text-ink">{proof.level}</span>
+        {items.length === 0 ? (
+          <p className="text-xs text-ink-muted py-3">No additional proof requirements specified for this pathway.</p>
+        ) : (
+          items.map((proof, idx) => (
+            <div
+              key={proof.id || idx}
+              className="p-3 rounded-xl border border-border/70 bg-surface-soft/60 flex items-start justify-between gap-3"
+            >
+              <div className="min-w-0 flex-1">
+                <span className="text-xs font-semibold text-ink block leading-snug">
+                  {proof.description}
+                </span>
+                <span className="text-[10px] text-ink-muted block mt-1">
+                  Target level: <span className="capitalize font-medium text-ink">{proof.level}</span>
+                </span>
+              </div>
+              <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-accent-soft text-accent border border-accent/20">
+                Needs proof
               </span>
             </div>
-            <span className="shrink-0 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-accent-soft text-accent border border-accent/20">
-              Needs proof
-            </span>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {/* Reassurance Footer */}
