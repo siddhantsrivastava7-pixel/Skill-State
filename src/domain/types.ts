@@ -3,6 +3,8 @@ import {
   LearnerStageSchema,
   LearningPreferenceSchema,
   DestinationCertaintySchema,
+  PlanningHorizonModeSchema,
+  PlanningHorizonSchema,
   LearnerProfileSchema,
   CapabilityImportanceSchema,
   StageExpectedSchema,
@@ -53,6 +55,8 @@ import {
 export type LearnerStage = z.infer<typeof LearnerStageSchema>;
 export type LearningPreference = z.infer<typeof LearningPreferenceSchema>;
 export type DestinationCertainty = z.infer<typeof DestinationCertaintySchema>;
+export type PlanningHorizonMode = z.infer<typeof PlanningHorizonModeSchema>;
+export type PlanningHorizon = z.infer<typeof PlanningHorizonSchema>;
 export type LearnerProfile = z.infer<typeof LearnerProfileSchema>;
 
 export type CapabilityImportance = z.infer<typeof CapabilityImportanceSchema>;

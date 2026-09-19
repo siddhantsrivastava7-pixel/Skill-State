@@ -30,7 +30,10 @@ import {
   LearnerStage,
   LearningPreference,
   EvidenceType,
+  PlanningHorizon,
+  PlanningHorizonMode,
 } from "@/domain/types";
+import { calculateGraduationEstimate } from "@/domain/planning-horizon";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { getAIProvider } from "@/agent";
 import { generateId } from "@/lib/ids";
@@ -124,9 +127,13 @@ export default function OnboardingPage() {
 
   // Step 4: Constraints
   const [weeklyHours, setWeeklyHours] = useState<number>(10);
-  const [timelineMonths, setTimelineMonths] = useState<number>(20);
+  const [planningHorizonMode, setPlanningHorizonMode] =
+    useState<PlanningHorizonMode>(stage === "college" || stage === "school" ? "until-graduation" : "twelve-months");
+  const [customMonths, setCustomMonths] = useState<number>(24);
   const [learningPreference, setLearningPreference] =
     useState<LearningPreference>("projects-first");
+
+  const graduationEstimate = calculateGraduationEstimate(stage, collegeYear);
 
   // Generation state
   const [isGenerating, setIsGenerating] = useState(false);
@@ -246,6 +253,25 @@ export default function OnboardingPage() {
     await new Promise((r) => setTimeout(r, 600));
     setGenerationStepIndex(1);
 
+    const estimatedGradMonths = calculateGraduationEstimate(stage, collegeYear);
+    const resolvedMonths =
+      planningHorizonMode === "six-months"
+        ? 6
+        : planningHorizonMode === "twelve-months"
+        ? 12
+        : planningHorizonMode === "until-graduation"
+        ? (estimatedGradMonths ?? 12)
+        : planningHorizonMode === "custom"
+        ? customMonths
+        : undefined;
+
+    const planningHorizonObj: PlanningHorizon = {
+      mode: planningHorizonMode,
+      resolvedMonths,
+      customMonths: planningHorizonMode === "custom" ? customMonths : undefined,
+      isEstimate: planningHorizonMode === "until-graduation",
+    };
+
     const profileData: LearnerProfile = {
       id: generateId("profile"),
       name: "Siddhant",
@@ -258,7 +284,8 @@ export default function OnboardingPage() {
           : stage,
       fieldOfStudy: stage === "college" ? fieldOfStudy : undefined,
       weeklyHours,
-      targetTimelineMonths: timelineMonths,
+      targetTimelineMonths: resolvedMonths,
+      planningHorizon: planningHorizonObj,
       learningPreference,
       destinationCertainty: certainty,
       statedDestination: certainty === "exact" ? targetRole : undefined,
@@ -272,7 +299,8 @@ export default function OnboardingPage() {
       statedDestination: targetRole,
       statedField: generalField,
       interests: selectedInterests,
-      timelineMonths,
+      timelineMonths: resolvedMonths,
+      planningHorizon: planningHorizonObj,
     });
 
     // Step 2: Reading existing evidence
@@ -717,25 +745,197 @@ export default function OnboardingPage() {
               </div>
             </div>
 
-            {/* Target timeline */}
-            <div className="space-y-1.5">
-              <label className="block text-xs font-medium text-ink">Target timeline</label>
-              <div className="grid grid-cols-4 gap-2">
-                {[6, 12, 20, 24].map((m) => (
+            {/* How far ahead should SkillState plan? */}
+            <div className="space-y-2">
+              <div className="space-y-0.5">
+                <label className="block text-xs font-medium text-ink">
+                  How far ahead should SkillState plan?
+                </label>
+                {certainty === "exploring" && (
+                  <p className="text-[11px] text-ink-muted">
+                    For exploratory journeys, this represents how far ahead to plan before reevaluating or specializing.
+                  </p>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {/* Next 6 months */}
+                <button
+                  type="button"
+                  onClick={() => setPlanningHorizonMode("six-months")}
+                  className={`p-3 rounded-sm text-xs font-medium border text-left transition-colors ${
+                    planningHorizonMode === "six-months"
+                      ? "bg-accent text-white border-accent shadow-xs"
+                      : "bg-surface text-ink border-border hover:bg-surface-soft"
+                  }`}
+                >
+                  <span className="block font-semibold">Next 6 months</span>
+                  <span
+                    className={`text-[11px] block mt-0.5 ${
+                      planningHorizonMode === "six-months" ? "text-white/80" : "text-ink-muted"
+                    }`}
+                  >
+                    Near-term focus sprint
+                  </span>
+                </button>
+
+                {/* Next 12 months */}
+                <button
+                  type="button"
+                  onClick={() => setPlanningHorizonMode("twelve-months")}
+                  className={`p-3 rounded-sm text-xs font-medium border text-left transition-colors ${
+                    planningHorizonMode === "twelve-months"
+                      ? "bg-accent text-white border-accent shadow-xs"
+                      : "bg-surface text-ink border-border hover:bg-surface-soft"
+                  }`}
+                >
+                  <span className="block font-semibold">Next 12 months</span>
+                  <span
+                    className={`text-[11px] block mt-0.5 ${
+                      planningHorizonMode === "twelve-months" ? "text-white/80" : "text-ink-muted"
+                    }`}
+                  >
+                    One-year milestone trajectory
+                  </span>
+                </button>
+
+                {/* Until graduation — show only for school/college users */}
+                {(stage === "school" || stage === "college") && (
                   <button
-                    key={m}
                     type="button"
-                    onClick={() => setTimelineMonths(m)}
-                    className={`py-2 text-xs font-semibold rounded-sm border transition-colors ${
-                      timelineMonths === m
-                        ? "bg-accent text-white border-accent"
+                    onClick={() => {
+                      if (stage === "college" && collegeYear === "5+") {
+                        setPlanningHorizonMode("custom");
+                      } else {
+                        setPlanningHorizonMode("until-graduation");
+                      }
+                    }}
+                    className={`p-3 rounded-sm text-xs font-medium border text-left transition-colors ${
+                      planningHorizonMode === "until-graduation"
+                        ? "bg-accent text-white border-accent shadow-xs"
                         : "bg-surface text-ink border-border hover:bg-surface-soft"
                     }`}
                   >
-                    {m} months
+                    <span className="block font-semibold">Until graduation</span>
+                    <span
+                      className={`text-[11px] block mt-0.5 ${
+                        planningHorizonMode === "until-graduation"
+                          ? "text-white/80"
+                          : "text-ink-muted"
+                      }`}
+                    >
+                      {stage === "college" && collegeYear === "5+"
+                        ? "Requires custom duration (Year 5+)"
+                        : `~${graduationEstimate ?? 12} months (editable estimate)`}
+                    </span>
                   </button>
-                ))}
+                )}
+
+                {/* Full path to my goal */}
+                <button
+                  type="button"
+                  onClick={() => setPlanningHorizonMode("full-path")}
+                  className={`p-3 rounded-sm text-xs font-medium border text-left transition-colors ${
+                    planningHorizonMode === "full-path"
+                      ? "bg-accent text-white border-accent shadow-xs"
+                      : "bg-surface text-ink border-border hover:bg-surface-soft"
+                  }`}
+                >
+                  <span className="block font-semibold">Full path to my goal</span>
+                  <span
+                    className={`text-[11px] block mt-0.5 ${
+                      planningHorizonMode === "full-path" ? "text-white/80" : "text-ink-muted"
+                    }`}
+                  >
+                    Complete end-to-end readiness roadmap
+                  </span>
+                </button>
+
+                {/* Custom */}
+                <button
+                  type="button"
+                  onClick={() => setPlanningHorizonMode("custom")}
+                  className={`p-3 rounded-sm text-xs font-medium border text-left transition-colors ${
+                    stage === "school" || stage === "college" ? "sm:col-span-2" : ""
+                  } ${
+                    planningHorizonMode === "custom"
+                      ? "bg-accent-soft/60 text-ink border-accent shadow-xs"
+                      : "bg-surface text-ink border-border hover:bg-surface-soft"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="block font-semibold">Custom</span>
+                      <span className="text-[11px] text-ink-muted block mt-0.5">
+                        Specify an exact duration (1–72 months)
+                      </span>
+                    </div>
+                    {planningHorizonMode === "custom" && (
+                      <span className="text-xs font-semibold text-accent">
+                        {customMonths} months
+                      </span>
+                    )}
+                  </div>
+                </button>
               </div>
+
+              {/* Custom months input */}
+              {planningHorizonMode === "custom" && (
+                <div className="p-3.5 bg-surface-soft rounded-sm border border-border space-y-2 mt-2">
+                  <div className="flex items-center gap-3">
+                    <label className="text-xs font-medium text-ink whitespace-nowrap">
+                      Duration (months):
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={72}
+                      value={customMonths}
+                      onChange={(e) => setCustomMonths(Number(e.target.value))}
+                      className="w-24 px-3 py-1.5 text-sm bg-surface border border-border rounded-sm focus:outline-none focus:border-accent"
+                    />
+                    <span className="text-xs text-ink-muted">1–72 months</span>
+                  </div>
+                  {customMonths > 72 && (
+                    <p className="text-xs text-brandRed font-medium">
+                      Custom planning horizon cannot exceed 72 months (6 years).
+                    </p>
+                  )}
+                  {customMonths < 1 && (
+                    <p className="text-xs text-brandRed font-medium">
+                      Custom planning horizon must be at least 1 month.
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Editable graduation estimate label */}
+              {planningHorizonMode === "until-graduation" && (
+                <div className="p-3 bg-surface-soft rounded-sm border border-border text-xs text-ink-muted flex items-center justify-between">
+                  <div>
+                    <span>
+                      Estimated remaining:{" "}
+                      <strong className="text-ink">
+                        {graduationEstimate ?? 12} months
+                      </strong>{" "}
+                      based on standard academic program duration.
+                    </span>
+                    <span className="block text-[11px] text-ink-muted mt-0.5">
+                      Clearly an editable initial estimate, not a fixed fact.
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCustomMonths(graduationEstimate ?? 12);
+                      setPlanningHorizonMode("custom");
+                    }}
+                    className="text-accent underline text-xs font-medium whitespace-nowrap ml-3"
+                  >
+                    Edit duration
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Preferred learning format */}
@@ -778,7 +978,12 @@ export default function OnboardingPage() {
             <Button variant="ghost" onClick={() => setCurrentStep(3)}>
               <ArrowLeft className="w-4 h-4 mr-1" /> Back
             </Button>
-            <Button size="lg" onClick={handleFinalSubmit} className="shadow-md">
+            <Button
+              size="lg"
+              onClick={handleFinalSubmit}
+              disabled={planningHorizonMode === "custom" && (customMonths < 1 || customMonths > 72)}
+              className="shadow-md"
+            >
               <Sparkles className="w-4 h-4 mr-1.5" /> Build my SkillState
             </Button>
           </div>

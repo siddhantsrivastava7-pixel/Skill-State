@@ -6,6 +6,8 @@ import {
   selectMax3VerificationCandidates,
   calculateReadinessDimensions,
   calculateCapabilityOptionality,
+  calculateGraduationEstimate,
+  resolvePlanningHorizon,
 } from "../index";
 import {
   personaAProfile,
@@ -28,6 +30,7 @@ import {
   DestinationGraphSchema,
   AdaptivePlanSchema,
   EvidenceSchema,
+  PlanningHorizonSchema,
 } from "../schemas";
 
 describe("Domain Models & Schemas", () => {
@@ -149,3 +152,55 @@ describe("Deterministic Domain Helpers", () => {
     expect(opt.explanation).toContain("supports 5 of 5 possible paths");
   });
 });
+
+describe("Adaptive Planning Horizon", () => {
+  it("calculates standard undergraduate graduation estimates (Year 1 → 36, Year 2 → 24, Year 3 → 12, Year 4 → 6)", () => {
+    expect(calculateGraduationEstimate("college", "1")).toBe(36);
+    expect(calculateGraduationEstimate("college", "2")).toBe(24);
+    expect(calculateGraduationEstimate("college", "3")).toBe(12);
+    expect(calculateGraduationEstimate("college", "4")).toBe(6);
+    // Year 5+ requires custom duration, not inferred
+    expect(calculateGraduationEstimate("college", "5+")).toBeNull();
+  });
+
+  it("accepts custom 48 months in PlanningHorizonSchema", () => {
+    const validCustom = PlanningHorizonSchema.safeParse({
+      mode: "custom",
+      customMonths: 48,
+      resolvedMonths: 48,
+    });
+    expect(validCustom.success).toBe(true);
+    if (validCustom.success) {
+      expect(validCustom.data.customMonths).toBe(48);
+    }
+  });
+
+  it("rejects custom > 72 months in PlanningHorizonSchema", () => {
+    const invalidCustom = PlanningHorizonSchema.safeParse({
+      mode: "custom",
+      customMonths: 73,
+      resolvedMonths: 73,
+    });
+    expect(invalidCustom.success).toBe(false);
+  });
+
+  it("ensures full-path mode does not require numeric months", () => {
+    const fullPath = PlanningHorizonSchema.safeParse({
+      mode: "full-path",
+    });
+    expect(fullPath.success).toBe(true);
+    if (fullPath.success) {
+      expect(fullPath.data.resolvedMonths).toBeUndefined();
+      expect(fullPath.data.customMonths).toBeUndefined();
+    }
+
+    const resolved = resolvePlanningHorizon({
+      mode: "full-path",
+      stage: "college",
+      collegeYear: "3",
+    });
+    expect(resolved.resolvedMonths).toBeUndefined();
+    expect(resolved.mode).toBe("full-path");
+  });
+});
+

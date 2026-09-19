@@ -19,6 +19,39 @@ export const DestinationCertaintySchema = z.enum([
   "exploring",
 ]);
 
+export const PlanningHorizonModeSchema = z.enum([
+  "six-months",
+  "twelve-months",
+  "until-graduation",
+  "full-path",
+  "custom",
+]);
+
+export const PlanningHorizonSchema = z
+  .object({
+    mode: PlanningHorizonModeSchema,
+    resolvedMonths: z.number().min(1).max(72).optional(),
+    customMonths: z.number().optional(),
+    isEstimate: z.boolean().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.mode === "custom") {
+      if (data.customMonths === undefined || data.customMonths === null) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Custom planning horizon requires customMonths between 1 and 72.",
+          path: ["customMonths"],
+        });
+      } else if (data.customMonths < 1 || data.customMonths > 72) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Custom planning horizon must be between 1 and 72 months.",
+          path: ["customMonths"],
+        });
+      }
+    }
+  });
+
 export const LearnerProfileSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -27,6 +60,7 @@ export const LearnerProfileSchema = z.object({
   fieldOfStudy: z.string().optional(),
   weeklyHours: z.number().min(1),
   targetTimelineMonths: z.number().optional(),
+  planningHorizon: PlanningHorizonSchema.optional(),
   learningPreference: LearningPreferenceSchema,
   destinationCertainty: DestinationCertaintySchema,
   statedDestination: z.string().optional(),
@@ -264,6 +298,7 @@ export const CompileDestinationInputSchema = z.object({
   statedField: z.string().optional(),
   interests: z.array(z.string()),
   timelineMonths: z.number().optional(),
+  planningHorizon: PlanningHorizonSchema.optional(),
 });
 
 export const EvidenceAnalysisInputSchema = z.object({
