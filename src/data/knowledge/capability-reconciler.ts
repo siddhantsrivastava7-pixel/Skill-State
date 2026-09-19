@@ -43,10 +43,40 @@ function semanticallyEquivalent(
   canonical: CapabilityDefinition
 ): boolean {
   const text = normalize(`${generated.name} ${generated.description}`);
+  const includesAny = (terms: string[]) => terms.some((term) => text.includes(term));
   switch (canonical.id) {
-    case "programming-python":
-      return text.includes("python") &&
-        ["program", "code", "script", "language"].some((term) => text.includes(term));
+    case "programming-python": {
+      const isProgramming = includesAny(["programming", "code", "script", "scripting"]);
+      const isDataScripting = includesAny(["data", "dataset", "text", "speech"]) &&
+        includesAny(["clean", "transform", "analyze", "automate", "workflow"]);
+      const isDifferentProgrammingStack = includesAny([
+        "javascript",
+        "typescript",
+        "frontend",
+        "web application",
+        "software engineering",
+        "system architecture",
+      ]);
+      return !isDifferentProgrammingStack && isProgramming &&
+        (text.includes("python") || isDataScripting);
+    }
+    case "statistics":
+      return text.includes("statistics") && includesAny([
+        "descriptive",
+        "inferential",
+        "inference",
+        "probability",
+        "hypothesis",
+        "distribution",
+      ]);
+    case "research-design":
+      return text.includes("research") &&
+        includesAny(["design studies", "design experiments", "formulate questions"]) &&
+        includesAny(["evaluation", "validity", "limits of evidence", "interpret results"]);
+    case "stakeholder-communication":
+      return includesAny(["stakeholder", "domain expert", "cross functional"]) &&
+        includesAny(["explain", "communicate", "present", "report"]) &&
+        includesAny(["tradeoff", "decision", "result", "risk"]);
     case "machine-learning":
       return (text.includes("machine learning") || text.includes("supervised model") || text.includes("unsupervised model")) &&
         !text.includes("language model") && !text.includes("nlp");
