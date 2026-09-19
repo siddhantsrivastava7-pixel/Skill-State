@@ -1,57 +1,92 @@
 import React from "react";
 import Link from "next/link";
-import { BarChart2, ArrowRight, Code, Brain, Database, FileSpreadsheet, Puzzle } from "lucide-react";
+import { BarChart2, ArrowRight, CheckCircle2, ShieldAlert, AlertCircle, HelpCircle, MinusCircle } from "lucide-react";
+import { CapabilityStateStatus } from "@/domain/types";
 
-export interface SkillProgressItem {
+export interface CompactSkillItem {
+  id?: string;
   name: string;
-  progressPercent: number;
-  tone: "purple" | "green" | "blue" | "orange";
+  status: CapabilityStateStatus;
+  supportingMeta: string;
+  workflowState?: "verification-complete" | "proof-pending" | "evidence-needed" | "gap-identified";
 }
 
 export interface CompactSkillStripProps {
-  skills?: SkillProgressItem[];
+  skills?: CompactSkillItem[];
   className?: string;
 }
 
 /**
- * CompactSkillStrip conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and skillstate-reference-ui.png:
- * - 3–5 key skills with progress bars
- * - Header with "View all ->" link to /skills
- * - Tone-tinted progress indicators
+ * CompactSkillStrip conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and Phase 4.1 specifications:
+ * - Shows 3–5 skills backed by actual evidence state
+ * - Uses approved status badges only: Verified | Developing | Needs proof | Gap | Unverified
+ * - Concrete supporting meta (evidence counts, proof tasks pending, baseline status)
+ * - Explicitly eliminates fake skill percentage bars
  */
 export function CompactSkillStrip({ skills, className = "" }: CompactSkillStripProps) {
-  // Default skills matching Persona A reference UI
-  const defaultSkills: SkillProgressItem[] = [
-    { name: "Python", progressPercent: 65, tone: "purple" },
-    { name: "Problem Solving", progressPercent: 40, tone: "green" },
-    { name: "Data Fundamentals", progressPercent: 20, tone: "blue" },
+  // Default skills matching Persona A exploring baseline
+  const defaultSkills: CompactSkillItem[] = [
+    {
+      name: "Programming Fundamentals",
+      status: "unverified",
+      supportingMeta: "0 evidence items • Core foundation",
+      workflowState: "evidence-needed",
+    },
+    {
+      name: "Problem Solving & Logic",
+      status: "unverified",
+      supportingMeta: "Self-reported claim • Awaiting proof",
+      workflowState: "evidence-needed",
+    },
+    {
+      name: "Data Fundamentals",
+      status: "unverified",
+      supportingMeta: "0 evidence items • Downstream unlock",
+      workflowState: "evidence-needed",
+    },
   ];
 
   const items = skills && skills.length > 0 ? skills.slice(0, 4) : defaultSkills;
 
-  const getToneBarColor = (tone: string) => {
-    switch (tone) {
-      case "purple":
-        return "bg-[#8B5CF6]";
-      case "green":
-        return "bg-[#10B981]";
-      case "blue":
-        return "bg-[#3B82F6]";
-      case "orange":
-        return "bg-[#F59E0B]";
+  const renderStatusBadge = (status: CapabilityStateStatus) => {
+    switch (status) {
+      case "verified":
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-green-soft text-green border border-green/30">
+            <CheckCircle2 className="w-3 h-3" />
+            Verified
+          </span>
+        );
+      case "developing":
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+            <AlertCircle className="w-3 h-3 text-amber-600" />
+            Developing
+          </span>
+        );
+      case "needs-proof":
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-accent-soft text-accent border border-accent/30">
+            <ShieldAlert className="w-3 h-3 text-accent" />
+            Needs proof
+          </span>
+        );
+      case "gap":
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-surface-soft text-ink-muted border border-border">
+            <MinusCircle className="w-3 h-3 text-ink-muted/80" />
+            Gap
+          </span>
+        );
+      case "unverified":
       default:
-        return "bg-green";
+        return (
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-surface-soft text-ink-muted border border-border/80">
+            <HelpCircle className="w-3 h-3 text-ink-muted/70" />
+            Unverified
+          </span>
+        );
     }
-  };
-
-  const getSkillIcon = (name: string, tone: string) => {
-    const lower = name.toLowerCase();
-    const iconClass = "w-3.5 h-3.5";
-    if (lower.includes("python") || lower.includes("code")) return <Code className={`${iconClass} text-purple-600`} />;
-    if (lower.includes("problem") || lower.includes("logic")) return <Puzzle className={`${iconClass} text-emerald-600`} />;
-    if (lower.includes("data") || lower.includes("sql")) return <Database className={`${iconClass} text-blue-600`} />;
-    if (lower.includes("sheet") || lower.includes("excel") || lower.includes("finance")) return <FileSpreadsheet className={`${iconClass} text-emerald-600`} />;
-    return <Brain className={`${iconClass} text-purple-600`} />;
   };
 
   return (
@@ -73,26 +108,28 @@ export function CompactSkillStrip({ skills, className = "" }: CompactSkillStripP
         </Link>
       </div>
 
-      {/* Skill List */}
-      <div className="space-y-3.5 my-auto py-2">
+      {/* Skill List with Evidence-Backed Status */}
+      <div className="divide-y divide-border/40 my-auto">
         {items.map((item) => (
-          <div key={item.name} className="space-y-1.5">
-            <div className="flex items-center justify-between text-xs">
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 rounded bg-surface-soft border border-border flex items-center justify-center shrink-0">
-                  {getSkillIcon(item.name, item.tone)}
-                </div>
-                <span className="font-semibold text-ink">{item.name}</span>
-              </div>
-              <span className="text-[11px] font-medium text-ink-muted">{item.progressPercent}%</span>
+          <div key={item.name} className="py-2.5 first:pt-1.5 last:pb-1.5 space-y-1">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs sm:text-sm font-semibold text-ink leading-snug">
+                {item.name}
+              </span>
+              {renderStatusBadge(item.status)}
             </div>
 
-            {/* Progress Bar */}
-            <div className="w-full h-2 rounded-full bg-surface-soft overflow-hidden border border-border/40">
-              <div
-                className={`h-full rounded-full transition-all duration-500 ${getToneBarColor(item.tone)}`}
-                style={{ width: `${Math.min(Math.max(item.progressPercent, 5), 100)}%` }}
-              />
+            <div className="flex items-center justify-between text-[11px] text-ink-muted">
+              <span>{item.supportingMeta}</span>
+              {item.workflowState === "verification-complete" && (
+                <span className="text-green font-medium">Complete</span>
+              )}
+              {item.workflowState === "proof-pending" && (
+                <span className="text-accent font-medium">Proof pending</span>
+              )}
+              {item.workflowState === "gap-identified" && (
+                <span className="text-amber-700 font-medium">To learn</span>
+              )}
             </div>
           </div>
         ))}

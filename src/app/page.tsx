@@ -10,12 +10,13 @@ import { NextActionsCard } from "@/components/home/NextActionsCard";
 import { WhyThisCard } from "@/components/home/WhyThisCard";
 import { KeepsOpenCard } from "@/components/home/KeepsOpenCard";
 import { ProofNeededCard } from "@/components/home/ProofNeededCard";
-import { CompactSkillStrip, SkillProgressItem } from "@/components/home/CompactSkillStrip";
+import { CompactSkillStrip, CompactSkillItem } from "@/components/home/CompactSkillStrip";
 import { TodayPlanStrip } from "@/components/home/TodayPlanStrip";
 import { RecentActivityStrip } from "@/components/home/RecentActivityStrip";
 
 export default function HomePage() {
   const [isMounted, setIsMounted] = useState(false);
+  const [isDemoMode, setIsDemoMode] = useState(false);
   const [selectedActionIndex, setSelectedActionIndex] = useState(0);
   const [selectedBranchId, setSelectedBranchId] = useState<string | undefined>(undefined);
 
@@ -29,7 +30,15 @@ export default function HomePage() {
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setIsDemoMode(params.get("demo") === "1");
+      const p = params.get("persona");
+      if (p === "persona-a" || p === "persona-b" || p === "persona-c") {
+        loadPersona(p as DemoPersonaId);
+      }
+    }
+  }, [loadPersona]);
 
   // Reset selected action when persona changes
   useEffect(() => {
@@ -53,8 +62,7 @@ export default function HomePage() {
     profile.destinationCertainty === "general";
   const mode: "exploring" | "exact" = isExploring ? "exploring" : "exact";
 
-  // Variant C: Later-stage banner condition
-  // Shown when learner is at university year >= 3, graduate, professional, or has prior verified baseline
+  // Variant C: Later-stage banner condition (Persona B / 3rd+ year college / graduate)
   const isCollegeLaterStage =
     profile.stage === "college" &&
     (profile.stageDetail?.includes("3") ||
@@ -76,6 +84,8 @@ export default function HomePage() {
   // ---------------------------------------------------------------------------
   // Journey Stages Construction
   // ---------------------------------------------------------------------------
+  const targetDestinationLabel = destination || profile.statedDestination || "Target Role";
+
   const stages: JourneyStage[] = isExploring
     ? [
         {
@@ -140,8 +150,8 @@ export default function HomePage() {
         },
         {
           id: "stg-target",
-          title: "Target",
-          subtitle: `${destination || "Target"} readiness threshold.`,
+          title: targetDestinationLabel,
+          subtitle: "Readiness threshold milestone.",
           iconName: "target",
           state: "decision",
         },
@@ -189,32 +199,86 @@ export default function HomePage() {
 
   const branches: CareerBranch[] = isExploring ? defaultExploringBranches : adjacentFromGraph;
 
-  // Handle branch preview without mutating destination
+  // Handle branch preview without mutating destination in store
   const handleBranchPreview = (id: string) => {
     setSelectedBranchId((prev) => (prev === id ? undefined : id));
   };
 
   // ---------------------------------------------------------------------------
-  // Persona-specific Skills & Progress data
+  // Evidence-Backed Skills & Progress Data (Semantic Statuses Only)
   // ---------------------------------------------------------------------------
-  let compactSkills: SkillProgressItem[] = [
-    { name: "Python", progressPercent: 65, tone: "purple" },
-    { name: "Problem Solving", progressPercent: 40, tone: "green" },
-    { name: "Data Fundamentals", progressPercent: 20, tone: "blue" },
+  let compactSkills: CompactSkillItem[] = [
+    {
+      name: "Programming Fundamentals",
+      status: "unverified",
+      supportingMeta: "0 evidence items • Core foundation",
+      workflowState: "evidence-needed",
+    },
+    {
+      name: "Problem Solving & Logic",
+      status: "unverified",
+      supportingMeta: "Self-reported claim • Awaiting proof",
+      workflowState: "evidence-needed",
+    },
+    {
+      name: "Data Fundamentals",
+      status: "unverified",
+      supportingMeta: "0 evidence items • Downstream unlock",
+      workflowState: "evidence-needed",
+    },
   ];
 
   if (activePersonaId === "persona-b") {
     compactSkills = [
-      { name: "Python Programming", progressPercent: 100, tone: "green" },
-      { name: "SQL & Relational DBs", progressPercent: 60, tone: "purple" },
-      { name: "Probability & Stats", progressPercent: 45, tone: "orange" },
-      { name: "Machine Learning", progressPercent: 50, tone: "blue" },
+      {
+        name: "Python Programming",
+        status: "verified",
+        supportingMeta: "1 verified project (GitHub) • Fully verified",
+        workflowState: "verification-complete",
+      },
+      {
+        name: "SQL & Relational DBs",
+        status: "needs-proof",
+        supportingMeta: "Claimed on resume • 1 proof task pending",
+        workflowState: "proof-pending",
+      },
+      {
+        name: "Probability & Statistics",
+        status: "developing",
+        supportingMeta: "1 project evidence • Inferential stats needed",
+      },
+      {
+        name: "Linear Algebra",
+        status: "gap",
+        supportingMeta: "0 evidence items • Critical prerequisite gap",
+        workflowState: "gap-identified",
+      },
     ];
   } else if (activePersonaId === "persona-c") {
     compactSkills = [
-      { name: "Accounting Fundamentals", progressPercent: 85, tone: "green" },
-      { name: "Spreadsheet Modeling", progressPercent: 80, tone: "purple" },
-      { name: "Three-Statement Analysis", progressPercent: 40, tone: "blue" },
+      {
+        name: "Accounting Fundamentals",
+        status: "verified",
+        supportingMeta: "2 coursework & transcript items",
+        workflowState: "verification-complete",
+      },
+      {
+        name: "Advanced Spreadsheet Analysis",
+        status: "verified",
+        supportingMeta: "1 model workbook artifact",
+        workflowState: "verification-complete",
+      },
+      {
+        name: "Three-Statement Analysis",
+        status: "developing",
+        supportingMeta: "Coursework completed • Practical model pending",
+      },
+      {
+        name: "Financial Modeling & Valuation",
+        status: "needs-proof",
+        supportingMeta: "1 DCF model artifact required",
+        workflowState: "proof-pending",
+      },
     ];
   }
 
@@ -223,51 +287,57 @@ export default function HomePage() {
 
   return (
     <div className="space-y-6">
-      {/* Persona Fast Switcher (for immediate multi-variant verification) */}
-      <div className="flex items-center justify-between gap-3 px-3.5 py-2 bg-surface rounded-card border border-border text-xs">
-        <div className="flex items-center gap-2 text-ink-muted">
-          <span className="font-semibold text-ink">Active Persona:</span>
-          <span className="capitalize">{profile.name}</span>
-          <span className="text-border">|</span>
-          <span>{isExploring ? "Variant A (Exploring)" : "Variant B (Exact Destination)"}</span>
-          {isLaterStage && <span className="text-green font-medium">+ Variant C (Banner)</span>}
-        </div>
-        <div className="flex items-center gap-1.5">
-          <button
-            type="button"
-            onClick={() => loadPersona("persona-a")}
-            className={`px-2.5 py-1 rounded-pill text-[11px] font-medium transition-colors ${
-              activePersonaId === "persona-a"
-                ? "bg-accent text-white"
-                : "text-ink-muted hover:bg-surface-soft"
-            }`}
-          >
-            Persona A (Exploring)
-          </button>
-          <button
-            type="button"
-            onClick={() => loadPersona("persona-b")}
-            className={`px-2.5 py-1 rounded-pill text-[11px] font-medium transition-colors ${
-              activePersonaId === "persona-b"
-                ? "bg-accent text-white"
-                : "text-ink-muted hover:bg-surface-soft"
-            }`}
-          >
-            Persona B (Exact / 3rd Yr)
-          </button>
-          <button
-            type="button"
-            onClick={() => loadPersona("persona-c")}
-            className={`px-2.5 py-1 rounded-pill text-[11px] font-medium transition-colors ${
-              activePersonaId === "persona-c"
-                ? "bg-accent text-white"
-                : "text-ink-muted hover:bg-surface-soft"
-            }`}
-          >
-            Persona C (Finance)
-          </button>
-        </div>
-      </div>
+      {/* Hidden Dev/Demo Fast Switcher — ONLY rendered when ?demo=1 is active */}
+      {isDemoMode && (
+        <aside
+          aria-label="Demo switcher controls"
+          className="flex items-center justify-between gap-3 px-3.5 py-2 bg-surface rounded-card border border-accent/40 text-xs shadow-subtle animate-fade-in"
+        >
+          <div className="flex items-center gap-2 text-ink-muted">
+            <span className="font-semibold text-accent">[DEMO MODE]</span>
+            <span className="font-semibold text-ink">Active Persona:</span>
+            <span className="capitalize">{profile.name}</span>
+            <span className="text-border">|</span>
+            <span>{isExploring ? "Variant A (Exploring)" : "Variant B (Exact)"}</span>
+            {isLaterStage && <span className="text-green font-medium">+ Variant C</span>}
+          </div>
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => loadPersona("persona-a")}
+              className={`px-2.5 py-1 rounded-pill text-[11px] font-medium transition-colors ${
+                activePersonaId === "persona-a"
+                  ? "bg-accent text-white"
+                  : "text-ink-muted hover:bg-surface-soft"
+              }`}
+            >
+              Persona A (Exploring)
+            </button>
+            <button
+              type="button"
+              onClick={() => loadPersona("persona-b")}
+              className={`px-2.5 py-1 rounded-pill text-[11px] font-medium transition-colors ${
+                activePersonaId === "persona-b"
+                  ? "bg-accent text-white"
+                  : "text-ink-muted hover:bg-surface-soft"
+              }`}
+            >
+              Persona B (Exact / 3rd Yr)
+            </button>
+            <button
+              type="button"
+              onClick={() => loadPersona("persona-c")}
+              className={`px-2.5 py-1 rounded-pill text-[11px] font-medium transition-colors ${
+                activePersonaId === "persona-c"
+                  ? "bg-accent text-white"
+                  : "text-ink-muted hover:bg-surface-soft"
+              }`}
+            >
+              Persona C (Finance)
+            </button>
+          </div>
+        </aside>
+      )}
 
       {/* Variant C: Third-year / Later-stage Banner */}
       {isLaterStage && (
@@ -320,7 +390,7 @@ export default function HomePage() {
 
       {/* Bottom 3-Column Compact Information Strip */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5">
-        {/* Skills & Progress */}
+        {/* Skills & Progress (Evidence-backed semantic badges) */}
         <CompactSkillStrip skills={compactSkills} />
 
         {/* Today's Plan */}

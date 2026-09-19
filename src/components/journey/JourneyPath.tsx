@@ -88,10 +88,14 @@ export function JourneyPath({
     blue: "#3B82F6",
   };
 
+  // For exact mode: 2 or 3 adjacent cards centered around Target node level (y = 185)
+  const exactBranches = branches.slice(0, 3);
+  const isExactTwoCards = exactBranches.length === 2;
+
   return (
     <div className={`relative w-full ${className}`}>
       {/* ========================================================================= */}
-      {/* DESKTOP / TABLET VIEW (Responsive SVG Path + Overlaid Nodes & Cards)      */}
+      {/* DESKTOP VIEW (1000 x 370 Coordinate Space)                               */}
       {/* ========================================================================= */}
       <div className="hidden md:block relative w-full h-[370px] select-none">
         {/* SVG Path Layer */}
@@ -103,7 +107,6 @@ export function JourneyPath({
           className="absolute inset-0 w-full h-full pointer-events-none"
         >
           <defs>
-            {/* Soft path glow filter */}
             <filter id="pathGlow" x="-10%" y="-10%" width="120%" height="120%">
               <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#1FA978" floodOpacity="0.15" />
             </filter>
@@ -111,27 +114,26 @@ export function JourneyPath({
 
           {mode === "exploring" ? (
             <>
-              {/* --- SHARED WINDING PATH (Exploring: 4 Nodes) --- */}
-              {/* Soft mint underlay / halo */}
+              {/* --- EXPLORING MODE (Persona A) --- */}
+              {/* Winding green path connecting 4 nodes: 100 -> 280 -> 460 -> 640 */}
               <path
-                d="M 100 185 C 190 170, 200 175, 290 175 C 380 175, 390 185, 480 185 C 570 185, 580 180, 670 180"
+                d="M 100 185 C 190 172, 190 178, 280 178 C 370 178, 370 190, 460 190 C 550 190, 550 182, 640 182"
                 stroke="#EAF8F2"
                 strokeWidth="14"
                 strokeLinecap="round"
                 opacity="0.9"
               />
-              {/* Main solid green path line (5px) */}
               <path
-                d="M 100 185 C 190 170, 200 175, 290 175 C 380 175, 390 185, 480 185 C 570 185, 580 180, 670 180"
+                d="M 100 185 C 190 172, 190 178, 280 178 C 370 178, 370 190, 460 190 C 550 190, 550 182, 640 182"
                 stroke="#1FA978"
                 strokeWidth="5"
                 strokeLinecap="round"
                 filter="url(#pathGlow)"
               />
 
-              {/* --- BRANCHING DASHED CURVES (From Decision Point 670, 180 to Cards 760, Y) --- */}
+              {/* 4 Branching curves from Decision Point (662, 182) to Cards (730, Y) */}
               {branches.slice(0, 4).map((branch, index) => {
-                const targetY = [55, 138, 222, 305][index] ?? 180;
+                const targetY = [62, 140, 218, 296][index] ?? 182;
                 const isSelected = selectedBranchId === branch.id;
                 const color = branchStrokeColors[branch.tone] || "#8B5CF6";
                 const isAnySelected = Boolean(selectedBranchId);
@@ -139,7 +141,7 @@ export function JourneyPath({
                 return (
                   <path
                     key={branch.id}
-                    d={`M 670 180 C 705 180, 725 ${targetY}, 760 ${targetY}`}
+                    d={`M 662 182 C 695 182, 705 ${targetY}, 730 ${targetY}`}
                     stroke={color}
                     strokeWidth={isSelected ? 4 : 2.5}
                     strokeDasharray={isSelected ? "none" : "5 5"}
@@ -152,26 +154,31 @@ export function JourneyPath({
             </>
           ) : (
             <>
-              {/* --- SHARED WINDING PATH (Exact Destination: 5 Nodes) --- */}
-              {/* Nodes at: 80, 220, 360, 500, 640 */}
+              {/* --- EXACT DESTINATION MODE (Persona B & C) --- */}
+              {/* Single dominant main path: Today(80) -> Fix gaps(215) -> Build proof(350) -> Gain experience(485) -> Target(620) */}
               <path
-                d="M 80 185 C 150 172, 150 178, 220 178 C 290 178, 290 188, 360 188 C 430 188, 430 180, 500 180 C 570 180, 570 185, 640 185"
+                d="M 80 185 C 145 172, 150 178, 215 178 C 280 178, 285 190, 350 190 C 415 190, 420 180, 485 180 C 550 180, 555 185, 620 185"
                 stroke="#EAF8F2"
                 strokeWidth="14"
                 strokeLinecap="round"
-                opacity="0.9"
+                opacity="0.95"
               />
               <path
-                d="M 80 185 C 150 172, 150 178, 220 178 C 290 178, 290 188, 360 188 C 430 188, 430 180, 500 180 C 570 180, 570 185, 640 185"
+                d="M 80 185 C 145 172, 150 178, 215 178 C 280 178, 285 190, 350 190 C 415 190, 420 180, 485 180 C 550 180, 555 185, 620 185"
                 stroke="#1FA978"
                 strokeWidth="5"
                 strokeLinecap="round"
                 filter="url(#pathGlow)"
               />
 
-              {/* Branch curves from Target node 640, 185 to adjacent cards */}
-              {branches.slice(0, 3).map((branch, index) => {
-                const targetY = [85, 185, 285][index] ?? 185;
+              {/* Shortened connector lines: emerge from Target node edge (642, 185) and terminate cleanly at card left edge (730, targetY) */}
+              {exactBranches.map((branch, index) => {
+                // If 2 cards: targets at y = 155 and y = 215 (centered around 185 Target level)
+                // If 3 cards: targets at y = 135, y = 185, y = 235
+                const targetY = isExactTwoCards
+                  ? [155, 215][index] ?? 185
+                  : [135, 185, 235][index] ?? 185;
+
                 const isSelected = selectedBranchId === branch.id;
                 const color = branchStrokeColors[branch.tone] || "#3B82F6";
                 const isAnySelected = Boolean(selectedBranchId);
@@ -179,12 +186,12 @@ export function JourneyPath({
                 return (
                   <path
                     key={branch.id}
-                    d={`M 640 185 C 685 185, 715 ${targetY}, 760 ${targetY}`}
+                    d={`M 642 185 C 680 185, 700 ${targetY}, 730 ${targetY}`}
                     stroke={color}
-                    strokeWidth={isSelected ? 4 : 2.5}
-                    strokeDasharray={isSelected ? "none" : "5 5"}
+                    strokeWidth={isSelected ? 3 : 2}
+                    strokeDasharray="4 4"
                     strokeLinecap="round"
-                    opacity={isAnySelected ? (isSelected ? 1 : 0.35) : 0.85}
+                    opacity={isAnySelected ? (isSelected ? 1 : 0.35) : 0.75}
                     className="transition-all duration-300"
                   />
                 );
@@ -193,10 +200,10 @@ export function JourneyPath({
           )}
         </svg>
 
-        {/* --- STAGE NODES LAYER --- */}
+        {/* --- STAGE NODES OVERLAY LAYER (Absolute Inset-0 for 1:1 SVG Matching) --- */}
         {mode === "exploring" ? (
-          <div className="absolute inset-y-0 left-0 right-[260px] pointer-events-none">
-            {/* Stage 1: Today (x: 100) */}
+          <div className="absolute inset-0 pointer-events-none">
+            {/* Stage 1: Today (x: 100 / left: 10%) */}
             <div className="absolute left-[10%] top-[163px] -translate-x-1/2 pointer-events-auto">
               {stages[0] && (
                 <JourneyStageNode
@@ -210,8 +217,8 @@ export function JourneyPath({
               )}
             </div>
 
-            {/* Stage 2: Foundations (x: 290) */}
-            <div className="absolute left-[29%] top-[153px] -translate-x-1/2 pointer-events-auto">
+            {/* Stage 2: Foundations (x: 280 / left: 28%) */}
+            <div className="absolute left-[28%] top-[156px] -translate-x-1/2 pointer-events-auto">
               {stages[1] && (
                 <JourneyStageNode
                   id={stages[1].id}
@@ -223,8 +230,8 @@ export function JourneyPath({
               )}
             </div>
 
-            {/* Stage 3: Explore (x: 480) */}
-            <div className="absolute left-[48%] top-[163px] -translate-x-1/2 pointer-events-auto">
+            {/* Stage 3: Explore (x: 460 / left: 46%) */}
+            <div className="absolute left-[46%] top-[168px] -translate-x-1/2 pointer-events-auto">
               {stages[2] && (
                 <JourneyStageNode
                   id={stages[2].id}
@@ -236,8 +243,8 @@ export function JourneyPath({
               )}
             </div>
 
-            {/* Stage 4: Decision Point (x: 670) */}
-            <div className="absolute left-[67%] top-[158px] -translate-x-1/2 pointer-events-auto">
+            {/* Stage 4: Decision Point (x: 640 / left: 64%) */}
+            <div className="absolute left-[64%] top-[160px] -translate-x-1/2 pointer-events-auto">
               {stages[3] && (
                 <JourneyStageNode
                   id={stages[3].id}
@@ -250,11 +257,12 @@ export function JourneyPath({
             </div>
           </div>
         ) : (
-          <div className="absolute inset-y-0 left-0 right-[260px] pointer-events-none">
-            {/* Exact mode: 5 nodes */}
+          /* Exact Destination: 5 Nodes (8%, 21.5%, 35%, 48.5%, 62%) */
+          <div className="absolute inset-0 pointer-events-none">
             {stages.map((stg, i) => {
-              const leftPercents = ["8%", "22%", "36%", "50%", "64%"];
-              const topPx = [163, 156, 166, 158, 163];
+              const leftPercents = ["8%", "21.5%", "35%", "48.5%", "62%"];
+              const topPx = [163, 156, 168, 158, 163];
+
               return (
                 <div
                   key={stg.id}
@@ -276,24 +284,41 @@ export function JourneyPath({
         )}
 
         {/* --- RIGHT EDGE CAREER CARDS --- */}
-        <div className="absolute right-4 top-4 bottom-4 w-[240px] flex flex-col justify-between py-1 z-10">
-          {mode === "exact" && (
-            <div className="text-[11px] font-semibold text-ink-muted px-1 tracking-tight">
-              Your foundations also transfer to:
+        {mode === "exploring" ? (
+          /* Exploring Mode Right Rail (4 standard cards anchored from left 73%) */
+          <div className="absolute left-[73%] right-4 top-3 bottom-3 flex flex-col justify-between py-1 z-10">
+            {branches.map((branch) => (
+              <CareerBranchCard
+                key={branch.id}
+                careerId={branch.id}
+                title={branch.title}
+                descriptor={branch.descriptor}
+                tone={branch.tone}
+                selected={selectedBranchId === branch.id}
+                onSelect={onBranchPreview}
+              />
+            ))}
+          </div>
+        ) : (
+          /* Exact Mode Compact Right Rail (Anchored from left 73%, vertically centered at Target level) */
+          <div className="absolute left-[73%] right-4 top-1/2 -translate-y-1/2 flex flex-col justify-center space-y-2.5 z-10">
+            <div className="text-[10px] font-semibold text-ink-muted/90 uppercase tracking-wider px-1">
+              Your foundations also transfer to
             </div>
-          )}
-          {branches.map((branch) => (
-            <CareerBranchCard
-              key={branch.id}
-              careerId={branch.id}
-              title={branch.title}
-              descriptor={branch.descriptor}
-              tone={branch.tone}
-              selected={selectedBranchId === branch.id}
-              onSelect={onBranchPreview}
-            />
-          ))}
-        </div>
+            {exactBranches.map((branch) => (
+              <CareerBranchCard
+                key={branch.id}
+                careerId={branch.id}
+                title={branch.title}
+                descriptor={branch.descriptor}
+                tone={branch.tone}
+                compact={true}
+                selected={selectedBranchId === branch.id}
+                onSelect={onBranchPreview}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* ========================================================================= */}
@@ -323,13 +348,14 @@ export function JourneyPath({
             {mode === "exploring" ? "Available Career Paths" : "Your foundations also transfer to"}
           </h4>
           <div className="grid grid-cols-1 gap-2">
-            {branches.map((branch) => (
+            {(mode === "exploring" ? branches : exactBranches).map((branch) => (
               <CareerBranchCard
                 key={branch.id}
                 careerId={branch.id}
                 title={branch.title}
                 descriptor={branch.descriptor}
                 tone={branch.tone}
+                compact={mode === "exact"}
                 selected={selectedBranchId === branch.id}
                 onSelect={onBranchPreview}
               />
