@@ -15,36 +15,14 @@ export interface RecentActivityStripProps {
 }
 
 /**
- * RecentActivityStrip conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and skillstate-reference-ui.png:
- * - 3–4 recent ledger items
+ * RecentActivityStrip conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and Phase 4.2:
+ * - 3–4 recent ledger items driven entirely by active persona state
  * - Colored status indicators
  * - Relative timestamps
  * - "View all ->" link to /journey
  */
-export function RecentActivityStrip({ activities, className = "" }: RecentActivityStripProps) {
-  // Default activity logs matching reference UI
-  const defaultActivities: ActivityItem[] = [
-    {
-      id: "act-1",
-      title: "Completed quiz: Python Basics",
-      timestamp: "2 hours ago",
-      dotColor: "green",
-    },
-    {
-      id: "act-2",
-      title: "Saved career path: Data Engineer",
-      timestamp: "5 hours ago",
-      dotColor: "blue",
-    },
-    {
-      id: "act-3",
-      title: "Added to bookmarks: Machine Learning",
-      timestamp: "1 day ago",
-      dotColor: "purple",
-    },
-  ];
-
-  const items = activities && activities.length > 0 ? activities.slice(0, 4) : defaultActivities;
+export function RecentActivityStrip({ activities = [], className = "" }: RecentActivityStripProps) {
+  const items = activities.slice(0, 4);
 
   const getDotStyle = (color: string) => {
     switch (color) {
@@ -81,17 +59,21 @@ export function RecentActivityStrip({ activities, className = "" }: RecentActivi
 
       {/* Activity List */}
       <div className="space-y-3.5 my-auto py-2">
-        {items.map((item) => (
-          <div key={item.id} className="flex items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <span className={`w-2 h-2 rounded-full shrink-0 ${getDotStyle(item.dotColor)}`} />
-              <span className="font-medium text-ink truncate">{item.title}</span>
+        {items.length === 0 ? (
+          <p className="text-xs text-ink-muted py-2">No recent activity recorded.</p>
+        ) : (
+          items.map((item) => (
+            <div key={item.id} className="flex items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <span className={`w-2 h-2 rounded-full shrink-0 ${getDotStyle(item.dotColor)}`} />
+                <span className="font-medium text-ink truncate">{item.title}</span>
+              </div>
+              <span className="text-[11px] text-ink-muted/80 shrink-0 whitespace-nowrap">
+                {item.timestamp}
+              </span>
             </div>
-            <span className="text-[11px] text-ink-muted/80 shrink-0 whitespace-nowrap">
-              {item.timestamp}
-            </span>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

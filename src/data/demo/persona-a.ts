@@ -287,3 +287,52 @@ export const personaAPlan: AdaptivePlan = {
     },
   ],
 };
+
+export const personaATodayPlan = [
+  {
+    id: "plan-a-1",
+    title: "Watch: Python for Beginners",
+    timeSlot: "10:00 AM",
+    completed: true,
+  },
+  {
+    id: "plan-a-2",
+    title: "Practice: Variables & Data Types",
+    timeSlot: "11:30 AM",
+    completed: true,
+  },
+  {
+    id: "plan-a-3",
+    title: "Build: Simple Calculator",
+    timeSlot: "2:00 PM",
+    completed: false,
+  },
+  {
+    id: "plan-a-4",
+    title: "Read: How Python is used in real world",
+    timeSlot: "4:00 PM",
+    completed: false,
+  },
+];
+
+export const personaARecentActivities = [
+  {
+    id: "act-a-log-1",
+    title: "Completed quiz: Python Basics",
+    timestamp: "2 hours ago",
+    dotColor: "green" as const,
+  },
+  {
+    id: "act-a-log-2",
+    title: "Saved career path: Data Engineer",
+    timestamp: "5 hours ago",
+    dotColor: "blue" as const,
+  },
+  {
+    id: "act-a-log-3",
+    title: "Added to bookmarks: Machine Learning",
+    timestamp: "1 day ago",
+    dotColor: "purple" as const,
+  },
+];
+

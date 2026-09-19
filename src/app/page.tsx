@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
-import { DemoPersonaId } from "@/data/demo";
+import {
+  DemoPersonaId,
+  personaATodayPlan,
+  personaARecentActivities,
+  personaBTodayPlan,
+  personaBRecentActivities,
+  personaCTodayPlan,
+  personaCRecentActivities,
+} from "@/data/demo";
 import { JourneyHero } from "@/components/journey/JourneyHero";
 import { JourneyStage, CareerBranch } from "@/components/journey/JourneyPath";
 import { LaterStageBanner } from "@/components/home/LaterStageBanner";
@@ -282,6 +290,20 @@ export default function HomePage() {
     ];
   }
 
+  // ---------------------------------------------------------------------------
+  // State-Driven Today's Plan & Recent Activity
+  // ---------------------------------------------------------------------------
+  let currentTodayPlan = personaATodayPlan;
+  let currentRecentActivities = personaARecentActivities;
+
+  if (activePersonaId === "persona-b") {
+    currentTodayPlan = personaBTodayPlan;
+    currentRecentActivities = personaBRecentActivities;
+  } else if (activePersonaId === "persona-c") {
+    currentTodayPlan = personaCTodayPlan;
+    currentRecentActivities = personaCRecentActivities;
+  }
+
   // Selected action object
   const activeAction = plan.now[selectedActionIndex] || plan.now[0];
 
@@ -371,7 +393,7 @@ export default function HomePage() {
         />
 
         {/* Column 2: Why this? (Dynamic explanation for selected action) */}
-        <WhyThisCard selectedAction={activeAction} />
+        <WhyThisCard selectedAction={activeAction} destinationName={targetDestinationLabel} />
 
         {/* Column 3: Keeps open (Exploring) OR Proof still needed (Exact) */}
         {isExploring ? (
@@ -382,7 +404,7 @@ export default function HomePage() {
           />
         ) : (
           <ProofNeededCard
-            destinationName={destination || profile.statedDestination || "AI Engineer"}
+            destinationName={targetDestinationLabel}
             proofExpectations={destinationGraph.proofExpectations}
           />
         )}
@@ -393,11 +415,11 @@ export default function HomePage() {
         {/* Skills & Progress (Evidence-backed semantic badges) */}
         <CompactSkillStrip skills={compactSkills} />
 
-        {/* Today's Plan */}
-        <TodayPlanStrip />
+        {/* Today's Plan (State-driven per active persona) */}
+        <TodayPlanStrip key={activePersonaId} initialTasks={currentTodayPlan} />
 
-        {/* Recent Activity */}
-        <RecentActivityStrip />
+        {/* Recent Activity (State-driven per active persona) */}
+        <RecentActivityStrip key={activePersonaId} activities={currentRecentActivities} />
       </div>
     </div>
   );

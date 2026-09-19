@@ -39,7 +39,36 @@ import {
   VerifiedCapabilityState,
 } from "@/domain/types";
 
+import {
+  personaATodayPlan,
+  personaARecentActivities,
+} from "./persona-a";
+
+import {
+  personaBTodayPlan,
+  personaBRecentActivities,
+} from "./persona-b";
+
+import {
+  personaCTodayPlan,
+  personaCRecentActivities,
+} from "./persona-c";
+
 export type DemoPersonaId = "persona-a" | "persona-b" | "persona-c";
+
+export interface DemoPlanItem {
+  id: string;
+  title: string;
+  timeSlot: string;
+  completed: boolean;
+}
+
+export interface DemoActivityItem {
+  id: string;
+  title: string;
+  timestamp: string;
+  dotColor: "green" | "blue" | "purple" | "orange";
+}
 
 export interface DemoPersonaBundle {
   id: DemoPersonaId;
@@ -52,6 +81,8 @@ export interface DemoPersonaBundle {
   verifiedStates: Record<string, VerifiedCapabilityState>;
   gaps: Gap[];
   plan: AdaptivePlan;
+  todayPlan: DemoPlanItem[];
+  recentActivities: DemoActivityItem[];
 }
 
 export const DEMO_PERSONAS: Record<DemoPersonaId, DemoPersonaBundle> = {
@@ -66,6 +97,8 @@ export const DEMO_PERSONAS: Record<DemoPersonaId, DemoPersonaBundle> = {
     verifiedStates: personaAVerifiedStates,
     gaps: personaAGaps,
     plan: personaAPlan,
+    todayPlan: personaATodayPlan,
+    recentActivities: personaARecentActivities,
   },
   "persona-b": {
     id: "persona-b",
@@ -78,6 +111,8 @@ export const DEMO_PERSONAS: Record<DemoPersonaId, DemoPersonaBundle> = {
     verifiedStates: personaBVerifiedStates,
     gaps: personaBGaps,
     plan: personaBPlan,
+    todayPlan: personaBTodayPlan,
+    recentActivities: personaBRecentActivities,
   },
   "persona-c": {
     id: "persona-c",
@@ -90,6 +125,8 @@ export const DEMO_PERSONAS: Record<DemoPersonaId, DemoPersonaBundle> = {
     verifiedStates: personaCVerifiedStates,
     gaps: personaCGaps,
     plan: personaCPlan,
+    todayPlan: personaCTodayPlan,
+    recentActivities: personaCRecentActivities,
   },
 };
 
@@ -120,4 +157,10 @@ export {
   personaCVerifiedStates,
   personaCGaps,
   personaCPlan,
+  personaATodayPlan,
+  personaARecentActivities,
+  personaBTodayPlan,
+  personaBRecentActivities,
+  personaCTodayPlan,
+  personaCRecentActivities,
 };

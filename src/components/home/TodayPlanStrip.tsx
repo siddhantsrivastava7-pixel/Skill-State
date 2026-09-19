@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, CheckSquare, Square } from "lucide-react";
 
 export interface PlanItemTask {
@@ -16,41 +16,18 @@ export interface TodayPlanStripProps {
 }
 
 /**
- * TodayPlanStrip conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and skillstate-reference-ui.png:
- * - Exactly 4 actionable tasks
+ * TodayPlanStrip conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and Phase 4.2:
+ * - Exactly 4 actionable tasks from active persona's plan
  * - Checklist completion counter: "X / 4 completed"
  * - Interactive toggleable state
+ * - State-driven without shared hard-coded task strings
  */
-export function TodayPlanStrip({ initialTasks, className = "" }: TodayPlanStripProps) {
-  // Default tasks matching reference UI
-  const defaultTasks: PlanItemTask[] = [
-    {
-      id: "plan-1",
-      title: "Watch: Python for Beginners",
-      timeSlot: "10:00 AM",
-      completed: true,
-    },
-    {
-      id: "plan-2",
-      title: "Practice: Variables & Data Types",
-      timeSlot: "11:30 AM",
-      completed: true,
-    },
-    {
-      id: "plan-3",
-      title: "Build: Simple Calculator",
-      timeSlot: "2:00 PM",
-      completed: false,
-    },
-    {
-      id: "plan-4",
-      title: "Read: How Python is used in real world",
-      timeSlot: "4:00 PM",
-      completed: false,
-    },
-  ];
+export function TodayPlanStrip({ initialTasks = [], className = "" }: TodayPlanStripProps) {
+  const [tasks, setTasks] = useState<PlanItemTask[]>(initialTasks);
 
-  const [tasks, setTasks] = useState<PlanItemTask[]>(initialTasks || defaultTasks);
+  useEffect(() => {
+    setTasks(initialTasks);
+  }, [initialTasks]);
 
   const toggleTask = (id: string) => {
     setTasks((prev) =>
@@ -77,30 +54,34 @@ export function TodayPlanStrip({ initialTasks, className = "" }: TodayPlanStripP
 
       {/* Task List */}
       <div className="space-y-2.5 my-auto py-2">
-        {tasks.slice(0, 4).map((task) => (
-          <button
-            key={task.id}
-            type="button"
-            onClick={() => toggleTask(task.id)}
-            className="w-full flex items-center justify-between gap-2.5 text-left p-1.5 rounded-lg hover:bg-surface-soft transition-colors group"
-          >
-            <div className="flex items-center gap-2.5 min-w-0">
-              {task.completed ? (
-                <CheckSquare className="w-4 h-4 text-green shrink-0 fill-green/10" />
-              ) : (
-                <Square className="w-4 h-4 text-ink-muted/60 group-hover:text-ink shrink-0" />
-              )}
-              <span
-                className={`text-xs truncate leading-tight ${
-                  task.completed ? "line-through text-ink-muted font-normal" : "font-medium text-ink"
-                }`}
-              >
-                {task.title}
-              </span>
-            </div>
-            <span className="text-[11px] text-ink-muted/80 shrink-0 font-medium">{task.timeSlot}</span>
-          </button>
-        ))}
+        {tasks.length === 0 ? (
+          <p className="text-xs text-ink-muted py-2">No planned tasks for today.</p>
+        ) : (
+          tasks.slice(0, 4).map((task) => (
+            <button
+              key={task.id}
+              type="button"
+              onClick={() => toggleTask(task.id)}
+              className="w-full flex items-center justify-between gap-2.5 text-left p-1.5 rounded-lg hover:bg-surface-soft transition-colors group"
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                {task.completed ? (
+                  <CheckSquare className="w-4 h-4 text-green shrink-0 fill-green/10" />
+                ) : (
+                  <Square className="w-4 h-4 text-ink-muted/60 group-hover:text-ink shrink-0" />
+                )}
+                <span
+                  className={`text-xs truncate leading-tight ${
+                    task.completed ? "line-through text-ink-muted font-normal" : "font-medium text-ink"
+                  }`}
+                >
+                  {task.title}
+                </span>
+              </div>
+              <span className="text-[11px] text-ink-muted/80 shrink-0 font-medium">{task.timeSlot}</span>
+            </button>
+          ))
+        )}
       </div>
     </div>
   );

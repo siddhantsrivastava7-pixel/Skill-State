@@ -4,41 +4,67 @@ import { ActionItem } from "@/domain/types";
 
 export interface WhyThisCardProps {
   selectedAction?: ActionItem;
+  destinationName?: string;
   className?: string;
 }
 
 /**
- * WhyThisCard conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and skillstate-reference-ui.png:
- * - Dynamic explanation tied to the selected next action
- * - Bold key unlock statement
- * - Detailed reasoning paragraph
- * - Editorial callout pill: "One skill. Many possibilities."
+ * WhyThisCard conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and Phase 4.2:
+ * - Dynamic explanation derived strictly from selected ActionItem.whyNow and action details
+ * - Removes hard-coded phrases like "programming logic", "software domains", "AI, data, backend"
+ * - Career-agnostic synthesis based on action category and stated rationale
  */
-export function WhyThisCard({ selectedAction, className = "" }: WhyThisCardProps) {
-  // Fallbacks if no action provided
+export function WhyThisCard({
+  selectedAction,
+  destinationName,
+  className = "",
+}: WhyThisCardProps) {
+  // Primary rationale directly from the selected ActionItem
   const whyNow =
     selectedAction?.whyNow ||
-    "Python supports 7 of 8 possible paths and unlocks future projects.";
+    (destinationName
+      ? `Builds essential foundations aligned with ${destinationName}.`
+      : "Builds essential foundational capabilities and unlocks subsequent milestones.");
 
-  // Contextual paragraph based on category or action content
+  // Dynamically synthesize supporting explanation without hard-coded software leaks
   let explanation =
-    "It's beginner-friendly, widely used, and gives you a strong foundation for AI, data, backend, and more. By learning it now, you keep more doors open.";
+    selectedAction?.description ||
+    "This targeted action addresses an immediate capability prerequisite, converting conceptual knowledge into demonstrable evidence.";
 
-  let badgeText = "One skill. Many possibilities.";
+  let badgeText = "Targeted milestone. Credible progress.";
 
   if (selectedAction) {
+    const titleLower = selectedAction.title.toLowerCase();
+    const isTechExploring =
+      titleLower.includes("python") ||
+      titleLower.includes("code") ||
+      (destinationName && destinationName.toLowerCase().includes("technology"));
+
     if (selectedAction.category === "build") {
-      explanation =
-        "Building a functional prototype early converts theoretical knowledge into verifiable proof. It cements your programming logic while keeping your options open across software domains.";
+      explanation = selectedAction.description
+        ? `${selectedAction.description} Completing this hands-on project produces verifiable proof for your pathway.`
+        : "Building a practical artifact converts conceptual knowledge into demonstrable proof, giving you tangible work for evaluation.";
       badgeText = "Tangible proof. Greater credibility.";
-    } else if (selectedAction.category === "signal" || selectedAction.title.toLowerCase().includes("explore")) {
-      explanation =
-        "Comparing daily responsibilities and technical stacks between adjacent roles prevents early tunnel vision. You discover genuine interests before reaching the specialization decision point.";
-      badgeText = "Informed clarity. Lower regret.";
     } else if (selectedAction.category === "prove") {
-      explanation =
-        "Verifying your existing capability through targeted proof tasks satisfies external expectations and closes the gap between self-reported knowledge and credible evidence.";
-      badgeText = "Credible evidence. Zero guesswork.";
+      explanation = selectedAction.description
+        ? `${selectedAction.description} Submitting this proof task validates your capability against objective evaluation standards.`
+        : "Verifying your capability through targeted proof tasks satisfies external expectations and removes guesswork from your readiness.";
+      badgeText = "Verified capability. Zero guesswork.";
+    } else if (selectedAction.category === "learn") {
+      if (isTechExploring && titleLower.includes("python")) {
+        explanation =
+          "It is beginner-friendly, widely used, and provides a strong foundation for multiple future directions. By mastering it early, you keep more paths open.";
+      } else {
+        explanation = selectedAction.description
+          ? `${selectedAction.description} Mastering this core area repairs foundational deficits and accelerates subsequent milestones.`
+          : "Focusing on this learning objective repairs foundational deficits and unlocks downstream requirements.";
+      }
+      badgeText = "Core competency. Stronger foundation.";
+    } else if (selectedAction.category === "signal" || titleLower.includes("explore")) {
+      explanation = selectedAction.description
+        ? `${selectedAction.description} This deliverable clearly communicates your capabilities to external evaluators and teams.`
+        : "Comparing daily responsibilities and expectations across adjacent roles provides informed clarity before reaching specialization points.";
+      badgeText = "Demonstrated signal. Clear outcome.";
     }
   }
 

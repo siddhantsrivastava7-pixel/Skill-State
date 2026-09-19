@@ -369,3 +369,52 @@ export const personaCPlan: AdaptivePlan = {
     },
   ],
 };
+
+export const personaCTodayPlan = [
+  {
+    id: "plan-c-1",
+    title: "Build 3-statement dynamic model",
+    timeSlot: "9:00 AM",
+    completed: true,
+  },
+  {
+    id: "plan-c-2",
+    title: "DCF/WACC practice",
+    timeSlot: "11:30 AM",
+    completed: true,
+  },
+  {
+    id: "plan-c-3",
+    title: "Company analysis: Retail financial review",
+    timeSlot: "2:00 PM",
+    completed: false,
+  },
+  {
+    id: "plan-c-4",
+    title: "Written investment or business summary",
+    timeSlot: "4:30 PM",
+    completed: false,
+  },
+];
+
+export const personaCRecentActivities = [
+  {
+    id: "act-c-log-1",
+    title: "Uploaded model: 3-Statement Excel Model",
+    timestamp: "2 hours ago",
+    dotColor: "green" as const,
+  },
+  {
+    id: "act-c-log-2",
+    title: "Completed case: Corporate Valuation & WACC",
+    timestamp: "5 hours ago",
+    dotColor: "purple" as const,
+  },
+  {
+    id: "act-c-log-3",
+    title: "Saved adjacent path: Management Consultant",
+    timestamp: "1 day ago",
+    dotColor: "blue" as const,
+  },
+];
+

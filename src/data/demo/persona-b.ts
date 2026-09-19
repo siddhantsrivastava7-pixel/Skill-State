@@ -415,3 +415,52 @@ export const personaBPlan: AdaptivePlan = {
     },
   ],
 };
+
+export const personaBTodayPlan = [
+  {
+    id: "plan-b-1",
+    title: "Linear algebra repair module",
+    timeSlot: "9:30 AM",
+    completed: true,
+  },
+  {
+    id: "plan-b-2",
+    title: "ML evaluation proof task",
+    timeSlot: "11:30 AM",
+    completed: true,
+  },
+  {
+    id: "plan-b-3",
+    title: "Deployable ML API project",
+    timeSlot: "2:00 PM",
+    completed: false,
+  },
+  {
+    id: "plan-b-4",
+    title: "Practice: Matrix transformations in NumPy",
+    timeSlot: "4:30 PM",
+    completed: false,
+  },
+];
+
+export const personaBRecentActivities = [
+  {
+    id: "act-b-log-1",
+    title: "Uploaded repository: Python ML Project",
+    timestamp: "2 hours ago",
+    dotColor: "green" as const,
+  },
+  {
+    id: "act-b-log-2",
+    title: "Completed scenario: ML Model Evaluation",
+    timestamp: "4 hours ago",
+    dotColor: "purple" as const,
+  },
+  {
+    id: "act-b-log-3",
+    title: "Verified prerequisite: Python Programming",
+    timestamp: "1 day ago",
+    dotColor: "blue" as const,
+  },
+];
+

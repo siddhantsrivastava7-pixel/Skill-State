@@ -9,28 +9,28 @@ export interface ProofNeededCardProps {
 }
 
 /**
- * ProofNeededCard conforming to 06_COMPONENT_CATALOG.md and 05_SCREEN_SPECS.md:
- * - Exact destination mode only
- * - Shows required proof artifacts to establish credible readiness
- * - Editorial focus note: verifiable proof over resume keywords
+ * ProofNeededCard conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and Phase 4.2:
+ * - Exact destination mode credibility requirements
+ * - Career-specific proof items from active DestinationGraph
+ * - Destination-neutral explanatory footer: "Strong claims need evidence that demonstrates the capability in practice."
  */
 export function ProofNeededCard({
   destinationName,
   proofExpectations = [],
   className = "",
 }: ProofNeededCardProps) {
-  // Default fallback proof items if none in graph
+  // Destination-neutral fallback proof items only if none present in graph
   const defaultProofs: ProofExpectation[] = [
     {
-      id: "proof-1",
+      id: "proof-fallback-1",
       capabilityId: "cap-1",
-      description: "End-to-end practical project with documented error analysis.",
+      description: `End-to-end practical project with documented methodology and validation for ${destinationName}.`,
       level: "working",
     },
     {
-      id: "proof-2",
+      id: "proof-fallback-2",
       capabilityId: "cap-2",
-      description: "Functional deployed API or demo repository demonstrating code standards.",
+      description: `Verifiable artifact or portfolio deliverable demonstrating ${destinationName} standards.`,
       level: "working",
     },
   ];
@@ -82,7 +82,7 @@ export function ProofNeededCard({
         <div className="text-xs">
           <span className="font-bold text-ink block">Focus on verifiable proof.</span>
           <span className="text-ink-muted block mt-0.5">
-            Credible engineering demands working code and artifacts, not resume keywords.
+            Strong claims need evidence that demonstrates the capability in practice.
           </span>
         </div>
       </div>
