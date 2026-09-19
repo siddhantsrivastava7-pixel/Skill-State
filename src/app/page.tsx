@@ -2,15 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
-import {
-  DemoPersonaId,
-  personaATodayPlan,
-  personaARecentActivities,
-  personaBTodayPlan,
-  personaBRecentActivities,
-  personaCTodayPlan,
-  personaCRecentActivities,
-} from "@/data/demo";
+import { DemoPersonaId } from "@/data/demo";
 import { JourneyHero } from "@/components/journey/JourneyHero";
 import { JourneyStage, CareerBranch } from "@/components/journey/JourneyPath";
 import { LaterStageBanner } from "@/components/home/LaterStageBanner";
@@ -18,7 +10,7 @@ import { NextActionsCard } from "@/components/home/NextActionsCard";
 import { WhyThisCard } from "@/components/home/WhyThisCard";
 import { KeepsOpenCard } from "@/components/home/KeepsOpenCard";
 import { ProofNeededCard } from "@/components/home/ProofNeededCard";
-import { CompactSkillStrip, CompactSkillItem } from "@/components/home/CompactSkillStrip";
+import { CompactSkillStrip, deriveCompactSkills } from "@/components/home/CompactSkillStrip";
 import { TodayPlanStrip } from "@/components/home/TodayPlanStrip";
 import { RecentActivityStrip } from "@/components/home/RecentActivityStrip";
 
@@ -34,6 +26,8 @@ export default function HomePage() {
   const destinationGraph = useSkillStateStore((s) => s.destinationGraph);
   const plan = useSkillStateStore((s) => s.plan);
   const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
+  const evidence = useSkillStateStore((s) => s.evidence);
+  const activityLedger = useSkillStateStore((s) => s.activityLedger);
   const loadPersona = useSkillStateStore((s) => s.loadPersona);
 
   useEffect(() => {
@@ -215,94 +209,11 @@ export default function HomePage() {
   // ---------------------------------------------------------------------------
   // Evidence-Backed Skills & Progress Data (Semantic Statuses Only)
   // ---------------------------------------------------------------------------
-  let compactSkills: CompactSkillItem[] = [
-    {
-      name: "Programming Fundamentals",
-      status: "unverified",
-      supportingMeta: "0 evidence items • Core foundation",
-      workflowState: "evidence-needed",
-    },
-    {
-      name: "Problem Solving & Logic",
-      status: "unverified",
-      supportingMeta: "Self-reported claim • Awaiting proof",
-      workflowState: "evidence-needed",
-    },
-    {
-      name: "Data Fundamentals",
-      status: "unverified",
-      supportingMeta: "0 evidence items • Downstream unlock",
-      workflowState: "evidence-needed",
-    },
-  ];
-
-  if (activePersonaId === "persona-b") {
-    compactSkills = [
-      {
-        name: "Python Programming",
-        status: "verified",
-        supportingMeta: "1 verified project (GitHub) • Fully verified",
-        workflowState: "verification-complete",
-      },
-      {
-        name: "SQL & Relational DBs",
-        status: "needs-proof",
-        supportingMeta: "Claimed on resume • 1 proof task pending",
-        workflowState: "proof-pending",
-      },
-      {
-        name: "Probability & Statistics",
-        status: "developing",
-        supportingMeta: "1 project evidence • Inferential stats needed",
-      },
-      {
-        name: "Linear Algebra",
-        status: "gap",
-        supportingMeta: "0 evidence items • Critical prerequisite gap",
-        workflowState: "gap-identified",
-      },
-    ];
-  } else if (activePersonaId === "persona-c") {
-    compactSkills = [
-      {
-        name: "Accounting Fundamentals",
-        status: "verified",
-        supportingMeta: "2 coursework & transcript items",
-        workflowState: "verification-complete",
-      },
-      {
-        name: "Advanced Spreadsheet Analysis",
-        status: "verified",
-        supportingMeta: "1 model workbook artifact",
-        workflowState: "verification-complete",
-      },
-      {
-        name: "Three-Statement Analysis",
-        status: "developing",
-        supportingMeta: "Coursework completed • Practical model pending",
-      },
-      {
-        name: "Financial Modeling & Valuation",
-        status: "needs-proof",
-        supportingMeta: "1 DCF model artifact required",
-        workflowState: "proof-pending",
-      },
-    ];
-  }
-
-  // ---------------------------------------------------------------------------
-  // State-Driven Today's Plan & Recent Activity
-  // ---------------------------------------------------------------------------
-  let currentTodayPlan = personaATodayPlan;
-  let currentRecentActivities = personaARecentActivities;
-
-  if (activePersonaId === "persona-b") {
-    currentTodayPlan = personaBTodayPlan;
-    currentRecentActivities = personaBRecentActivities;
-  } else if (activePersonaId === "persona-c") {
-    currentTodayPlan = personaCTodayPlan;
-    currentRecentActivities = personaCRecentActivities;
-  }
+  const compactSkills = deriveCompactSkills(
+    destinationGraph.capabilityNodes,
+    verifiedStates,
+    evidence
+  );
 
   // Selected action object
   const activeAction = plan.now[selectedActionIndex] || plan.now[0];
@@ -416,10 +327,10 @@ export default function HomePage() {
         <CompactSkillStrip skills={compactSkills} />
 
         {/* Today's Plan (State-driven per active persona) */}
-        <TodayPlanStrip key={activePersonaId} initialTasks={currentTodayPlan} />
+        <TodayPlanStrip actions={plan.now} />
 
         {/* Recent Activity (State-driven per active persona) */}
-        <RecentActivityStrip key={activePersonaId} activities={currentRecentActivities} />
+        <RecentActivityStrip activities={activityLedger} />
       </div>
     </div>
   );

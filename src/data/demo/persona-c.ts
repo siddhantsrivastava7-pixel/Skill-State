@@ -1,4 +1,5 @@
 import {
+  ActivityEvent,
   AdaptivePlan,
   DestinationGraph,
   Evidence,
@@ -308,30 +309,40 @@ export const personaCPlan: AdaptivePlan = {
     {
       id: "act-c-1",
       category: "build",
-      title: "Build 3-statement dynamic model",
+      title: "3-statement model",
       description: "Construct a linked dynamic financial model for a real retail enterprise in Excel.",
       whyNow: "Converts your accounting theory into the primary practical artifact required by corporate finance teams.",
-      estimatedMinutes: 300,
+      estimatedMinutes: 240,
       capabilityIds: ["cap-fin-spreadsheets", "cap-fin-statements", "cap-fin-modeling"],
-      status: "todo",
+      status: "done",
     },
     {
       id: "act-c-2",
       category: "learn",
-      title: "Master DCF and WACC methodology",
+      title: "DCF/WACC work",
       description: "Work through cost of capital calculation, terminal value assumptions, and sensitivity tables.",
       whyNow: "Prepares you for the DCF model valuation milestone.",
-      estimatedMinutes: 180,
+      estimatedMinutes: 120,
       capabilityIds: ["cap-fin-modeling"],
-      status: "todo",
+      status: "done",
     },
     {
       id: "act-c-3",
+      category: "learn",
+      title: "company analysis",
+      description: "Conduct competitive benchmarking, ratio analysis, and profitability assessment.",
+      whyNow: "Strengthens corporate analysis foundations.",
+      estimatedMinutes: 90,
+      capabilityIds: ["cap-fin-biz-analysis"],
+      status: "todo",
+    },
+    {
+      id: "act-c-4",
       category: "signal",
-      title: "Format one-page equity summary note",
+      title: "written financial/business summary",
       description: "Synthesize company valuation findings into a structured investment memo with waterfall charts.",
       whyNow: "Demonstrates executive communication and financial charting ability to recruiters.",
-      estimatedMinutes: 120,
+      estimatedMinutes: 90,
       capabilityIds: ["cap-fin-comm", "cap-fin-dataviz"],
       status: "todo",
     },
@@ -370,51 +381,27 @@ export const personaCPlan: AdaptivePlan = {
   ],
 };
 
-export const personaCTodayPlan = [
-  {
-    id: "plan-c-1",
-    title: "Build 3-statement dynamic model",
-    timeSlot: "9:00 AM",
-    completed: true,
-  },
-  {
-    id: "plan-c-2",
-    title: "DCF/WACC practice",
-    timeSlot: "11:30 AM",
-    completed: true,
-  },
-  {
-    id: "plan-c-3",
-    title: "Company analysis: Retail financial review",
-    timeSlot: "2:00 PM",
-    completed: false,
-  },
-  {
-    id: "plan-c-4",
-    title: "Written investment or business summary",
-    timeSlot: "4:30 PM",
-    completed: false,
-  },
-];
-
-export const personaCRecentActivities = [
+export const personaCActivityLedger: ActivityEvent[] = [
   {
     id: "act-c-log-1",
-    title: "Uploaded model: 3-Statement Excel Model",
     timestamp: "2 hours ago",
-    dotColor: "green" as const,
+    type: "PROJECT_ADDED",
+    title: "3-statement Excel model",
+    description: "Submitted audited Excel workbook linking IS, BS, and CFS.",
   },
   {
     id: "act-c-log-2",
-    title: "Completed case: Corporate Valuation & WACC",
     timestamp: "5 hours ago",
-    dotColor: "purple" as const,
+    type: "VERIFICATION_COMPLETED",
+    title: "Corporate Valuation & WACC case",
+    description: "Completed DuPont analysis and weighted average cost of capital calculation.",
   },
   {
     id: "act-c-log-3",
-    title: "Saved adjacent path: Management Consultant",
     timestamp: "1 day ago",
-    dotColor: "blue" as const,
+    type: "DESTINATION_CHANGED",
+    title: "Management Consultant adjacent-path save",
+    description: "Bookmarked management consulting pathway preserving finance foundations.",
   },
 ];
 

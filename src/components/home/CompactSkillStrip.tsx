@@ -1,7 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import { BarChart2, ArrowRight, CheckCircle2, ShieldAlert, AlertCircle, HelpCircle, MinusCircle } from "lucide-react";
-import { CapabilityStateStatus } from "@/domain/types";
+import {
+  CapabilityNode,
+  CapabilityStateStatus,
+  Evidence,
+  VerifiedCapabilityState,
+} from "@/domain/types";
 
 export interface CompactSkillItem {
   id?: string;
@@ -14,6 +19,55 @@ export interface CompactSkillItem {
 export interface CompactSkillStripProps {
   skills?: CompactSkillItem[];
   className?: string;
+}
+
+/**
+ * Derives compact skill items dynamically from active destination graph nodes,
+ * verified states, and attached evidence.
+ */
+export function deriveCompactSkills(
+  capabilityNodes: CapabilityNode[],
+  verifiedStates: Record<string, VerifiedCapabilityState>,
+  evidence: Evidence[],
+  limit = 4
+): CompactSkillItem[] {
+  return capabilityNodes.slice(0, limit).map((node) => {
+    const verified = verifiedStates[node.id];
+    const status: CapabilityStateStatus = verified ? verified.state : "unverified";
+
+    // Count evidence items for this capability
+    const matchedEvidence = evidence.filter((ev) =>
+      ev.capabilitySignals.some((sig) => sig.capabilityId === node.id)
+    );
+    const count = matchedEvidence.length;
+
+    let supportingMeta = "";
+    let workflowState: CompactSkillItem["workflowState"] | undefined;
+
+    if (status === "verified") {
+      supportingMeta = count > 0 ? `${count} verified project${count > 1 ? "s" : ""} • Complete` : "Verified coursework • Complete";
+      workflowState = "verification-complete";
+    } else if (status === "needs-proof") {
+      supportingMeta = "Claimed on resume • 1 proof task pending";
+      workflowState = "proof-pending";
+    } else if (status === "developing") {
+      supportingMeta = count > 0 ? `${count} project evidence • In progress` : "Coursework completed • In progress";
+    } else if (status === "gap") {
+      supportingMeta = `${count} evidence items • Critical prerequisite gap`;
+      workflowState = "gap-identified";
+    } else {
+      supportingMeta = `${count} evidence items • Core foundation`;
+      workflowState = "evidence-needed";
+    }
+
+    return {
+      id: node.id,
+      name: node.name,
+      status,
+      supportingMeta,
+      workflowState,
+    };
+  });
 }
 
 /**

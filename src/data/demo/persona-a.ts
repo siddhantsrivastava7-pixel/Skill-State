@@ -1,4 +1,5 @@
 import {
+  ActivityEvent,
   AdaptivePlan,
   DestinationGraph,
   Evidence,
@@ -226,30 +227,40 @@ export const personaAPlan: AdaptivePlan = {
     {
       id: "act-a-1",
       category: "learn",
-      title: "Learn Python fundamentals",
-      description: "Master variables, loops, data structures, and functions through interactive code exercises.",
+      title: "Python for Beginners",
+      description: "Watch foundational syntax tutorial and set up coding environment.",
       whyNow: "Python supports 7 of 8 possible paths and unlocks future projects.",
-      estimatedMinutes: 240,
+      estimatedMinutes: 45,
       capabilityIds: ["cap-prog-fund"],
-      status: "todo",
+      status: "done",
     },
     {
       id: "act-a-2",
+      category: "learn",
+      title: "Practice: Variables & Data Types",
+      description: "Complete hands-on interactive exercises testing variables and conditionals.",
+      whyNow: "Builds core fluency in basic syntax.",
+      estimatedMinutes: 60,
+      capabilityIds: ["cap-prog-fund"],
+      status: "done",
+    },
+    {
+      id: "act-a-3",
       category: "build",
-      title: "Try a mini project",
-      description: "Build a text-based budget tracker or interactive quiz app to solidify code foundations.",
-      whyNow: "Builds tangible project proof early without committing to a single specialization.",
-      estimatedMinutes: 180,
+      title: "Build: Simple Calculator",
+      description: "Construct a functional command-line calculator handling arithmetic and input validation.",
+      whyNow: "Converts syntax into working proof.",
+      estimatedMinutes: 90,
       capabilityIds: ["cap-mini-project", "cap-prog-fund"],
       status: "todo",
     },
     {
-      id: "act-a-3",
+      id: "act-a-4",
       category: "signal",
       title: "Explore 2 career paths",
       description: "Review real-world project portfolios and daily routines of AI Engineers vs Data Engineers.",
       whyNow: "Helps you discover what work you genuinely enjoy before reaching the Month 12 decision point.",
-      estimatedMinutes: 60,
+      estimatedMinutes: 45,
       capabilityIds: ["cap-comm"],
       status: "todo",
     },
@@ -288,51 +299,26 @@ export const personaAPlan: AdaptivePlan = {
   ],
 };
 
-export const personaATodayPlan = [
-  {
-    id: "plan-a-1",
-    title: "Watch: Python for Beginners",
-    timeSlot: "10:00 AM",
-    completed: true,
-  },
-  {
-    id: "plan-a-2",
-    title: "Practice: Variables & Data Types",
-    timeSlot: "11:30 AM",
-    completed: true,
-  },
-  {
-    id: "plan-a-3",
-    title: "Build: Simple Calculator",
-    timeSlot: "2:00 PM",
-    completed: false,
-  },
-  {
-    id: "plan-a-4",
-    title: "Read: How Python is used in real world",
-    timeSlot: "4:00 PM",
-    completed: false,
-  },
-];
-
-export const personaARecentActivities = [
+export const personaAActivityLedger: ActivityEvent[] = [
   {
     id: "act-a-log-1",
-    title: "Completed quiz: Python Basics",
     timestamp: "2 hours ago",
-    dotColor: "green" as const,
+    type: "ACTIVITY_COMPLETED",
+    title: "Completed quiz: Python Basics",
+    description: "Scored 95% on foundational control flow and data types.",
   },
   {
     id: "act-a-log-2",
-    title: "Saved career path: Data Engineer",
     timestamp: "5 hours ago",
-    dotColor: "blue" as const,
+    type: "DESTINATION_CHANGED",
+    title: "Saved career path: Data Engineer",
+    description: "Added to comparison list for foundations review.",
   },
   {
     id: "act-a-log-3",
-    title: "Added to bookmarks: Machine Learning",
     timestamp: "1 day ago",
-    dotColor: "purple" as const,
+    type: "DESTINATION_CHANGED",
+    title: "Added to bookmarks: Machine Learning",
+    description: "Saved pathway for Month 12 decision point.",
   },
 ];
-

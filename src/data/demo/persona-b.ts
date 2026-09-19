@@ -1,4 +1,5 @@
 import {
+  ActivityEvent,
   AdaptivePlan,
   DestinationGraph,
   Evidence,
@@ -348,31 +349,41 @@ export const personaBPlan: AdaptivePlan = {
     {
       id: "act-b-1",
       category: "learn",
-      title: "Linear algebra repair module",
+      title: "Linear algebra repair",
       description: "Targeted refresher on matrix transformations, eigenvalues, and dot-product geometry for neural networks.",
       whyNow: "Removes your primary theoretical blocker before advanced model architecture and training.",
-      estimatedMinutes: 300,
+      estimatedMinutes: 90,
       capabilityIds: ["cap-linalg"],
-      status: "todo",
+      status: "done",
     },
     {
       id: "act-b-2",
       category: "prove",
-      title: "ML evaluation proof task",
+      title: "ML evaluation proof",
       description: "Complete a real-world scenario verifying cross-validation, precision-recall curve analysis, and error diagnosis.",
       whyNow: "Converts your theoretical certificate exposure into verified practical proof.",
       estimatedMinutes: 90,
       capabilityIds: ["cap-ml"],
-      status: "todo",
+      status: "done",
     },
     {
       id: "act-b-3",
       category: "build",
-      title: "Small deployable ML API project",
+      title: "Deployable ML API project",
       description: "Wrap an inference model in a FastAPI server, package in Docker, and deploy with an interactive Swagger UI.",
       whyNow: "Addresses your deployment gap and provides a visible portfolio signal for internships.",
-      estimatedMinutes: 360,
+      estimatedMinutes: 240,
       capabilityIds: ["cap-deployment", "cap-python"],
+      status: "todo",
+    },
+    {
+      id: "act-b-4",
+      category: "learn",
+      title: "Practice: Matrix transformations in NumPy",
+      description: "Hands-on vectorization drills and high-dimensional matrix transformations.",
+      whyNow: "Cements mathematical intuitions into executable code.",
+      estimatedMinutes: 60,
+      capabilityIds: ["cap-linalg"],
       status: "todo",
     },
   ],
@@ -416,51 +427,27 @@ export const personaBPlan: AdaptivePlan = {
   ],
 };
 
-export const personaBTodayPlan = [
-  {
-    id: "plan-b-1",
-    title: "Linear algebra repair module",
-    timeSlot: "9:30 AM",
-    completed: true,
-  },
-  {
-    id: "plan-b-2",
-    title: "ML evaluation proof task",
-    timeSlot: "11:30 AM",
-    completed: true,
-  },
-  {
-    id: "plan-b-3",
-    title: "Deployable ML API project",
-    timeSlot: "2:00 PM",
-    completed: false,
-  },
-  {
-    id: "plan-b-4",
-    title: "Practice: Matrix transformations in NumPy",
-    timeSlot: "4:30 PM",
-    completed: false,
-  },
-];
-
-export const personaBRecentActivities = [
+export const personaBActivityLedger: ActivityEvent[] = [
   {
     id: "act-b-log-1",
-    title: "Uploaded repository: Python ML Project",
     timestamp: "2 hours ago",
-    dotColor: "green" as const,
+    type: "PROJECT_ADDED",
+    title: "Python ML project",
+    description: "Attached GitHub repository with model weights and inference notebook.",
   },
   {
     id: "act-b-log-2",
-    title: "Completed scenario: ML Model Evaluation",
     timestamp: "4 hours ago",
-    dotColor: "purple" as const,
+    type: "VERIFICATION_COMPLETED",
+    title: "ML model evaluation",
+    description: "Validated precision-recall trade-offs across test splits.",
   },
   {
     id: "act-b-log-3",
-    title: "Verified prerequisite: Python Programming",
     timestamp: "1 day ago",
-    dotColor: "blue" as const,
+    type: "ACTIVITY_COMPLETED",
+    title: "Python prerequisite verification",
+    description: "Transcript and repository verified Python programming capability.",
   },
 ];
 

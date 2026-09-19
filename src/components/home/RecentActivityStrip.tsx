@@ -1,38 +1,33 @@
 import React from "react";
 import Link from "next/link";
 import { Clock, ArrowRight } from "lucide-react";
-
-export interface ActivityItem {
-  id: string;
-  title: string;
-  timestamp: string;
-  dotColor: "green" | "blue" | "purple" | "orange";
-}
+import { ActivityEvent } from "@/domain/types";
 
 export interface RecentActivityStripProps {
-  activities?: ActivityItem[];
+  activities?: ActivityEvent[];
   className?: string;
 }
 
 /**
- * RecentActivityStrip conforming to 06_COMPONENT_CATALOG.md, 04_DESIGN_SYSTEM.md, and Phase 4.2:
- * - 3–4 recent ledger items driven entirely by active persona state
- * - Colored status indicators
- * - Relative timestamps
+ * RecentActivityStrip conforming to Phase 4.3 specifications:
+ * - Exactly ONE instance on Home screen
+ * - Driven entirely by active persona's activity ledger (`ActivityEvent[]`)
+ * - Displays active persona's recent events (up to 4)
+ * - Color-coded event indicators based on activity type
  * - "View all ->" link to /journey
  */
 export function RecentActivityStrip({ activities = [], className = "" }: RecentActivityStripProps) {
   const items = activities.slice(0, 4);
 
-  const getDotStyle = (color: string) => {
-    switch (color) {
-      case "green":
+  const getDotStyle = (type: string) => {
+    switch (type) {
+      case "PROJECT_ADDED":
         return "bg-green ring-2 ring-green/20";
-      case "blue":
+      case "DESTINATION_CHANGED":
         return "bg-blue ring-2 ring-blue/20";
-      case "purple":
+      case "VERIFICATION_COMPLETED":
         return "bg-[#8B5CF6] ring-2 ring-[#8B5CF6]/20";
-      case "orange":
+      case "ACTIVITY_COMPLETED":
       default:
         return "bg-orange ring-2 ring-orange/20";
     }
@@ -65,7 +60,7 @@ export function RecentActivityStrip({ activities = [], className = "" }: RecentA
           items.map((item) => (
             <div key={item.id} className="flex items-center justify-between gap-3 text-xs">
               <div className="flex items-center gap-2.5 min-w-0">
-                <span className={`w-2 h-2 rounded-full shrink-0 ${getDotStyle(item.dotColor)}`} />
+                <span className={`w-2 h-2 rounded-full shrink-0 ${getDotStyle(item.type)}`} />
                 <span className="font-medium text-ink truncate">{item.title}</span>
               </div>
               <span className="text-[11px] text-ink-muted/80 shrink-0 whitespace-nowrap">

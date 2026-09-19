@@ -68,15 +68,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
       evidence: initialBundle.evidence,
       gaps: initialBundle.gaps,
       plan: initialBundle.plan,
-      activityLedger: [
-        {
-          id: "event-init",
-          timestamp: new Date().toISOString(),
-          type: "DESTINATION_CHANGED",
-          title: "Initial state initialized",
-          description: "Loaded Persona A default state.",
-        },
-      ],
+      activityLedger: initialBundle.activityLedger,
       progressReports: [],
 
       setHasHydrated: (hasHydrated: boolean) => {
@@ -95,16 +87,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           evidence: bundle.evidence,
           gaps: bundle.gaps,
           plan: bundle.plan,
-          activityLedger: [
-            ...get().activityLedger,
-            {
-              id: `event-${Date.now()}`,
-              timestamp: new Date().toISOString(),
-              type: "DESTINATION_CHANGED",
-              title: `Loaded ${bundle.label}`,
-              description: bundle.description,
-            },
-          ],
+          activityLedger: bundle.activityLedger,
         });
       },
 
