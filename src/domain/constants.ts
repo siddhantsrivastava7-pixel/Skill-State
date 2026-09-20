@@ -1,10 +1,6 @@
 export const APP_NAME = "SkillState";
 export const APP_TAGLINE = "Plan. Learn. Prove. Grow.";
 
-export const STORAGE_KEYS = {
-  STORE: "skillstate_demo_store",
-} as const;
-
 export const DEFAULT_AI_MODE: "demo" | "live" = "demo";
 
 export const CAPABILITY_STATUSES = [

@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import mammoth from "mammoth";
+import { AuthenticationError, requireAuthenticatedUser } from "@/auth/server-auth";
+import { isTrustedDemoRequest } from "@/auth/request-policy";
 
 export async function POST(req: NextRequest) {
   try {
+    const demoRequest = isTrustedDemoRequest(
+      process.env.SKILLSTATE_AI_MODE,
+      req.headers.get("x-skillstate-demo")
+    );
+    if (!demoRequest) await requireAuthenticatedUser(req);
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
     const documentType = (formData.get("documentType") as string) || "resume";
@@ -58,6 +65,9 @@ export async function POST(req: NextRequest) {
       status: "extracted",
     });
   } catch (error) {
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json({ error: error.message }, { status: 401 });
+    }
     const errMessage = error instanceof Error ? error.message : "Extraction failed";
     return NextResponse.json(
       { error: errMessage, status: "failed" },

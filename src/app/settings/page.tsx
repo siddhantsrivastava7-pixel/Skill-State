@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { Badge, Button, Card, InlineNotice, Input, Modal } from "@/components/ui";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { formatPlanningHorizonLabel } from "@/domain/planning-horizon";
+import { useAuth } from "@/auth/AuthProvider";
+import { authenticatedAppFetch } from "@/auth/client-request";
 
 type AIStatus = {
   mode: "demo" | "live";
@@ -24,11 +26,15 @@ function formatPlanningHorizon(profile: ReturnType<typeof useSkillStateStore.get
 
 export default function SettingsPage() {
   const router = useRouter();
+  const auth = useAuth();
   const profile = useSkillStateStore((state) => state.profile);
   const destination = useSkillStateStore((state) => state.destination);
   const setProfile = useSkillStateStore((state) => state.setProfile);
   const restartOnboarding = useSkillStateStore((state) => state.restartOnboarding);
   const resetStore = useSkillStateStore((state) => state.resetStore);
+  const persistenceStatus = useSkillStateStore((state) => state._persistenceStatus);
+  const persistenceError = useSkillStateStore((state) => state._persistenceError);
+  const setPersistenceResult = useSkillStateStore((state) => state.setPersistenceResult);
 
   const [name, setName] = useState(profile.name);
   const [weeklyHours, setWeeklyHours] = useState(profile.weeklyHours);
@@ -43,7 +49,7 @@ export default function SettingsPage() {
 
   useEffect(() => {
     let active = true;
-    fetch("/api/agent/status", { cache: "no-store" })
+    authenticatedAppFetch("/api/agent/status", { cache: "no-store" })
       .then(async (response) => {
         const result = (await response.json()) as AIStatus;
         if (active) setAIStatus(result);
@@ -166,6 +172,30 @@ export default function SettingsPage() {
           </Badge>
         </div>
       </Card>
+
+      {!auth.isDemoMode && (
+        <Card className="p-5 space-y-3">
+          <div>
+            <h2 className="text-sm font-semibold text-ink">Account &amp; sync</h2>
+            <p className="text-xs text-ink-muted mt-0.5">
+              Signed in as {auth.user?.email ?? "your shared sidbuilds.com account"}. Remote sync is {persistenceStatus}.
+            </p>
+          </div>
+          {persistenceError && (
+            <InlineNotice variant="danger">
+              {persistenceError}{" "}
+              <button
+                type="button"
+                className="underline font-semibold"
+                onClick={() => setPersistenceResult("idle")}
+              >
+                Retry sync
+              </button>
+            </InlineNotice>
+          )}
+          <Button variant="secondary" onClick={() => void auth.signOut()}>Sign out</Button>
+        </Card>
+      )}
 
       <Card className="p-5 space-y-4">
         <div>

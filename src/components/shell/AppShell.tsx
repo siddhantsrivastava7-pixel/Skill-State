@@ -12,12 +12,14 @@ import { Search, Sparkles } from "lucide-react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { getClientAIProvider } from "@/agent/client-provider";
 import { hasUsableLearnerState } from "@/domain/onboarding-routing";
+import { useAuth } from "@/auth/AuthProvider";
 
 export interface AppShellProps {
   children: React.ReactNode;
 }
 
 export function AppShell({ children }: AppShellProps) {
+  const auth = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const [isAskOpen, setIsAskOpen] = useState(false);
@@ -43,11 +45,12 @@ export function AppShell({ children }: AppShellProps) {
   const gaps = useSkillStateStore((s) => s.gaps);
 
   useEffect(() => {
-    setDemoModeRequested(new URLSearchParams(window.location.search).get("demo") === "1");
+    setDemoModeRequested(auth.isDemoMode);
     setLocationReady(true);
-  }, [pathname]);
+  }, [auth.isDemoMode, pathname]);
 
   const isOnboardingRoute = pathname === "/onboarding";
+  const isAuthCallbackRoute = pathname === "/auth/callback";
   const hasAccess = hasUsableLearnerState({
     onboardingCompleted,
     hasCompletedProfile: Boolean(
@@ -60,10 +63,10 @@ export function AppShell({ children }: AppShellProps) {
   });
 
   useEffect(() => {
-    if (hasHydrated && locationReady && !isOnboardingRoute && !hasAccess) {
+    if (hasHydrated && locationReady && !isOnboardingRoute && !isAuthCallbackRoute && !hasAccess) {
       router.replace("/onboarding");
     }
-  }, [hasAccess, hasHydrated, isOnboardingRoute, locationReady, router]);
+  }, [hasAccess, hasHydrated, isAuthCallbackRoute, isOnboardingRoute, locationReady, router]);
 
   const handleAskSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,6 +96,62 @@ export function AppShell({ children }: AppShellProps) {
       setIsAnswering(false);
     }
   };
+
+  if (auth.status === "loading") {
+    return (
+      <div className="min-h-screen bg-canvas text-ink flex items-center justify-center p-6">
+        <p className="text-sm text-ink-muted">Loading your secure SkillState…</p>
+      </div>
+    );
+  }
+
+  if (auth.status === "unauthenticated" || auth.status === "configuration-error") {
+    return (
+      <div className="min-h-screen bg-canvas text-ink flex items-center justify-center p-6">
+        <div className="w-full max-w-sm rounded-card border border-border bg-surface p-6 shadow-card space-y-4 text-center">
+          <div>
+            <h1 className="text-xl font-bold tracking-tight">SkillState</h1>
+            <p className="text-xs text-ink-muted mt-1">
+              Sign in with the shared sidbuilds.com identity to continue your learner journey.
+            </p>
+          </div>
+          {auth.error && <p className="text-xs text-brandRed">{auth.error}</p>}
+          <Button
+            onClick={() => void auth.signInWithGoogle()}
+            disabled={auth.status === "configuration-error"}
+            className="w-full"
+          >
+            Continue with Google
+          </Button>
+          <p className="text-[11px] text-ink-muted">
+            Existing IITM Campus sessions on sidbuilds.com are recognized automatically.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (auth.status === "remote-error") {
+    return (
+      <div className="min-h-screen bg-canvas text-ink flex items-center justify-center p-6">
+        <div className="w-full max-w-md rounded-card border border-border bg-surface p-6 shadow-card space-y-4">
+          <div>
+            <h1 className="text-base font-bold">Your saved SkillState could not be loaded</h1>
+            <p className="text-xs text-ink-muted mt-1">{auth.error}</p>
+            <p className="text-xs text-ink-muted mt-2">
+              The remote row was left unchanged. Retry, or sign out without replacing it.
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Button onClick={() => void auth.retryHydration()}>Retry</Button>
+            <Button variant="secondary" onClick={() => void auth.signOut()}>Sign out</Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isAuthCallbackRoute) return <>{children}</>;
 
   if (!hasHydrated || (!isOnboardingRoute && (!locationReady || !hasAccess))) {
     return (

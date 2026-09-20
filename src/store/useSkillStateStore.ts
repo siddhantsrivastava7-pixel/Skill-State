@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
 import {
   ActivityEvent,
   AdaptivePlan,
@@ -27,9 +26,20 @@ import {
   applyEvidenceToVerifiedStates,
   deriveVerifiedStates,
 } from "@/domain/evidence-transition";
+import {
+  SKILLSTATE_STATE_SCHEMA_VERSION,
+  type LearnerStateSnapshot,
+} from "@/persistence/schema";
+
+export type PersistenceStatus = "idle" | "saving" | "saved" | "error";
 
 export interface SkillStateStoreState {
   _hasHydrated: boolean;
+  _activeUserId: string | null;
+  _remoteRevision: number | null;
+  _persistenceStatus: PersistenceStatus;
+  _persistenceError: string;
+  _persistenceBlocked: boolean;
   onboardingCompleted: boolean;
   isDemoState: boolean;
   activePersonaId: DemoPersonaId | null;
@@ -47,6 +57,12 @@ export interface SkillStateStoreState {
 
   // Actions
   setHasHydrated: (state: boolean) => void;
+  beginRemoteHydration: (userId: string) => void;
+  hydrateRemoteState: (userId: string, snapshot: LearnerStateSnapshot, revision: number) => void;
+  completeEmptyRemoteHydration: (userId: string) => void;
+  failRemoteHydration: (userId: string, message: string) => void;
+  clearForAuthChange: () => void;
+  setPersistenceResult: (status: PersistenceStatus, revision?: number, error?: string) => void;
   loadPersona: (personaId: DemoPersonaId) => void;
   setProfile: (profile: LearnerProfile) => void;
   setPlan: (plan: AdaptivePlan) => void;
@@ -121,30 +137,89 @@ function emptyLearnerState() {
   };
 }
 
-function reconcileVerifiedStates(
-  graph: DestinationGraph,
-  evidence: Evidence[],
-  claimedStates: Record<string, SkillClaim>,
-  persistedStates: Record<string, VerifiedCapabilityState>
-) {
-  const reconciled = deriveVerifiedStates(graph, evidence, claimedStates);
-  for (const node of graph.capabilityNodes) {
-    const persisted = persistedStates[node.id];
-    if (persisted && (persisted.state !== "unverified" || persisted.evidenceIds.length > 0)) {
-      reconciled[node.id] = persisted;
-    }
-  }
-  return reconciled;
-}
-
 export const useSkillStateStore = create<SkillStateStoreState>()(
-  persist(
     (set, get) => ({
       _hasHydrated: false,
+      _activeUserId: null,
+      _remoteRevision: null,
+      _persistenceStatus: "idle",
+      _persistenceError: "",
+      _persistenceBlocked: false,
       ...emptyLearnerState(),
 
       setHasHydrated: (hasHydrated: boolean) => {
         set({ _hasHydrated: hasHydrated });
+      },
+
+      beginRemoteHydration: (userId: string) => {
+        set({
+          ...emptyLearnerState(),
+          _hasHydrated: false,
+          _activeUserId: userId,
+          _remoteRevision: null,
+          _persistenceStatus: "idle",
+          _persistenceError: "",
+          _persistenceBlocked: true,
+        });
+      },
+
+      hydrateRemoteState: (userId, snapshot, revision) => {
+        set({
+          ...snapshot,
+          isDemoState: false,
+          activePersonaId: null,
+          lastTransitionResult: undefined,
+          _hasHydrated: true,
+          _activeUserId: userId,
+          _remoteRevision: revision,
+          _persistenceStatus: "saved",
+          _persistenceError: "",
+          _persistenceBlocked: false,
+        });
+      },
+
+      completeEmptyRemoteHydration: (userId) => {
+        set({
+          ...emptyLearnerState(),
+          _hasHydrated: true,
+          _activeUserId: userId,
+          _remoteRevision: null,
+          _persistenceStatus: "idle",
+          _persistenceError: "",
+          _persistenceBlocked: false,
+        });
+      },
+
+      failRemoteHydration: (userId, message) => {
+        set({
+          ...emptyLearnerState(),
+          _hasHydrated: false,
+          _activeUserId: userId,
+          _remoteRevision: null,
+          _persistenceStatus: "error",
+          _persistenceError: message,
+          _persistenceBlocked: true,
+        });
+      },
+
+      clearForAuthChange: () => {
+        set({
+          ...emptyLearnerState(),
+          _hasHydrated: false,
+          _activeUserId: null,
+          _remoteRevision: null,
+          _persistenceStatus: "idle",
+          _persistenceError: "",
+          _persistenceBlocked: true,
+        });
+      },
+
+      setPersistenceResult: (status, revision, error = "") => {
+        set((state) => ({
+          _persistenceStatus: status,
+          _persistenceError: error,
+          _remoteRevision: revision ?? state._remoteRevision,
+        }));
       },
 
       loadPersona: (personaId: DemoPersonaId) => {
@@ -163,6 +238,12 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           plan: bundle.plan,
           activityLedger: bundle.activityLedger,
           lastTransitionResult: undefined,
+          _hasHydrated: true,
+          _activeUserId: null,
+          _remoteRevision: null,
+          _persistenceStatus: "idle",
+          _persistenceError: "",
+          _persistenceBlocked: true,
         });
       },
 
@@ -417,75 +498,48 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
       },
 
       resetStore: () => {
-        set(emptyLearnerState());
+        const state = get();
+        set({
+          ...emptyLearnerState(),
+          _hasHydrated: true,
+          _activeUserId: state._activeUserId,
+          _remoteRevision: state._remoteRevision,
+          _persistenceStatus: "idle",
+          _persistenceError: "",
+          _persistenceBlocked: false,
+        });
       },
 
       restartOnboarding: () => {
-        set(emptyLearnerState());
-      },
-    }),
-    {
-      name: "skillstate_demo_store",
-      version: 3,
-      storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({
-        onboardingCompleted: state.onboardingCompleted,
-        isDemoState: state.isDemoState,
-        activePersonaId: state.activePersonaId,
-        profile: state.profile,
-        destination: state.destination,
-        destinationGraph: state.destinationGraph,
-        claimedStates: state.claimedStates,
-        verifiedStates: state.verifiedStates,
-        evidence: state.evidence,
-        gaps: state.gaps,
-        plan: state.plan,
-        activityLedger: state.activityLedger,
-        progressReports: state.progressReports,
-      }),
-      migrate: (persistedState) => {
-        const persisted = persistedState as Partial<SkillStateStoreState>;
-        const profileId = persisted.profile?.id ?? "";
-        const hasCompletedState = Boolean(
-          profileId &&
-            persisted.destinationGraph?.destinationId &&
-            persisted.destinationGraph.capabilityNodes.length > 0
-        );
-        const inferredDemoState = ["persona-a", "persona-b", "persona-c"].includes(profileId);
-        const isDemoState = persisted.isDemoState ?? inferredDemoState;
-        const graph = persisted.destinationGraph ?? EMPTY_GRAPH;
-        const evidence = persisted.evidence ?? [];
-        const claimedStates = persisted.claimedStates ?? {};
-        const verifiedStates = reconcileVerifiedStates(
-          graph,
-          evidence,
-          claimedStates,
-          persisted.verifiedStates ?? {}
-        );
-        const gaps = isDemoState
-          ? (persisted.gaps ?? [])
-          : prioritizeGaps({
-              graph,
-              verifiedStates,
-              claimedStates,
-              targetTimelineMonths: persisted.profile?.targetTimelineMonths,
-            });
-        return {
+        const state = get();
+        set({
           ...emptyLearnerState(),
-          ...persisted,
-          onboardingCompleted:
-            persisted.onboardingCompleted ?? hasCompletedState,
-          isDemoState,
-          activePersonaId: inferredDemoState
-            ? (profileId as DemoPersonaId)
-            : null,
-          verifiedStates,
-          gaps,
-        } as SkillStateStoreState;
+          _hasHydrated: true,
+          _activeUserId: state._activeUserId,
+          _remoteRevision: state._remoteRevision,
+          _persistenceStatus: "idle",
+          _persistenceError: "",
+          _persistenceBlocked: false,
+        });
       },
-      onRehydrateStorage: () => (state) => {
-        state?.setHasHydrated(true);
-      },
-    }
-  )
+    })
 );
+
+export function learnerSnapshotFromState(
+  state: SkillStateStoreState
+): LearnerStateSnapshot {
+  return {
+    schemaVersion: SKILLSTATE_STATE_SCHEMA_VERSION,
+    onboardingCompleted: state.onboardingCompleted,
+    profile: state.profile,
+    destination: state.destination,
+    destinationGraph: state.destinationGraph,
+    claimedStates: state.claimedStates,
+    verifiedStates: state.verifiedStates,
+    evidence: state.evidence,
+    gaps: state.gaps,
+    plan: state.plan,
+    activityLedger: state.activityLedger,
+    progressReports: state.progressReports,
+  };
+}

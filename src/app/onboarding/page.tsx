@@ -41,6 +41,9 @@ import { compileOnboardingDestination } from "@/agent/onboarding";
 import { generateId } from "@/lib/ids";
 import { prioritizeGaps } from "@/domain/prioritization";
 import { deriveVerifiedStates } from "@/domain/evidence-transition";
+import { useAuth } from "@/auth/AuthProvider";
+import { authenticatedAppFetch } from "@/auth/client-request";
+import { z } from "zod";
 
 interface UploadedFileItem {
   id: string;
@@ -50,6 +53,11 @@ interface UploadedFileItem {
   text: string;
   wordCount: number;
 }
+
+const ExtractionResponseSchema = z.object({
+  extractedText: z.string(),
+  wordCount: z.number().int().nonnegative(),
+});
 
 const STAGE_OPTIONS: { id: LearnerStage; label: string }[] = [
   { id: "school", label: "Class 10–12" },
@@ -100,6 +108,7 @@ const GENERATION_STEPS = [
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const { user, isDemoMode } = useAuth();
 
   // Store actions
   const initializeJourney = useSkillStateStore((s) => s.initializeJourney);
@@ -213,13 +222,13 @@ export default function OnboardingPage() {
         formData.append("file", file);
         formData.append("documentType", docType);
 
-        const res = await fetch("/api/extract", {
+        const res = await authenticatedAppFetch("/api/extract", {
           method: "POST",
           body: formData,
         });
 
         if (!res.ok) throw new Error("Server-side document extraction failed");
-        const data = await res.json();
+        const data = ExtractionResponseSchema.parse(await res.json());
         setUploadedFiles((prev) =>
           prev.map((item) =>
             item.id === tempId
@@ -286,7 +295,7 @@ export default function OnboardingPage() {
     };
 
     const profileData: LearnerProfile = {
-      id: generateId("profile"),
+      id: !isDemoMode && user ? user.id : generateId("profile"),
       name: learnerName.trim(),
       stage,
       stageDetail:
