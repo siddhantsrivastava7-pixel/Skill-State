@@ -29,6 +29,7 @@ import type {
   VerificationTask,
 } from "@/domain/types";
 import type { ZodSchema } from "zod";
+import { authenticatedAppFetch } from "@/auth/client-request";
 
 interface AgentEnvelope {
   data?: unknown;
@@ -40,41 +41,56 @@ interface AgentEnvelope {
   };
 }
 
+const inFlightAgentRequests = new Map<string, Promise<unknown>>();
+
 async function callAgent<TInput, TOutput>(
   operation: string,
   input: TInput,
   schema: ZodSchema<TOutput>
 ): Promise<TOutput> {
-  const response = await fetch(`/api/agent/${operation}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
-  });
+  const serializedInput = JSON.stringify(input);
+  const inFlightKey = `${operation}:${serializedInput}`;
+  const existing = inFlightAgentRequests.get(inFlightKey);
+  if (existing) return existing as Promise<TOutput>;
 
-  const envelope = (await response.json().catch(() => ({}))) as AgentEnvelope;
-  if (!response.ok || envelope.error) {
-    throw new AIApplicationError({
-      code: envelope.error?.code === "AI_INVALID_OUTPUT"
-        ? "AI_INVALID_OUTPUT"
-        : "AI_PROVIDER_ERROR",
-      message:
-        envelope.error?.message ??
-        "SkillState intelligence is temporarily unavailable. Your current state was not changed.",
-      operation,
-      retryable: envelope.error?.retryable ?? true,
-    });
-  }
+  const request = (async () => {
+    const response = await authenticatedAppFetch(`/api/agent/${operation}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: serializedInput,
+    }, { idempotencyKey: crypto.randomUUID() });
 
-  const parsed = schema.safeParse(envelope.data);
-  if (!parsed.success) {
-    throw new AIApplicationError({
-      code: "AI_INVALID_OUTPUT",
-      message: "SkillState received an invalid response. Your current state was not changed.",
-      operation,
-      retryable: true,
-    });
+    const envelope = (await response.json().catch(() => ({}))) as AgentEnvelope;
+    if (!response.ok || envelope.error) {
+      throw new AIApplicationError({
+        code: envelope.error?.code === "AI_INVALID_OUTPUT"
+          ? "AI_INVALID_OUTPUT"
+          : "AI_PROVIDER_ERROR",
+        message:
+          envelope.error?.message ??
+          "SkillState intelligence is temporarily unavailable. Your current state was not changed.",
+        operation,
+        retryable: envelope.error?.retryable ?? true,
+      });
+    }
+
+    const parsed = schema.safeParse(envelope.data);
+    if (!parsed.success) {
+      throw new AIApplicationError({
+        code: "AI_INVALID_OUTPUT",
+        message: "SkillState received an invalid response. Your current state was not changed.",
+        operation,
+        retryable: true,
+      });
+    }
+    return parsed.data;
+  })();
+  inFlightAgentRequests.set(inFlightKey, request);
+  try {
+    return await request;
+  } finally {
+    inFlightAgentRequests.delete(inFlightKey);
   }
-  return parsed.data;
 }
 
 export class ClientAIProvider implements AIProvider {

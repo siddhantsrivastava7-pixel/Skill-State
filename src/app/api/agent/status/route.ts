@@ -1,16 +1,29 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
+import { AuthenticationError, requireAuthenticatedUser } from "@/auth/server-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(request: Request) {
   const mode = process.env.SKILLSTATE_AI_MODE?.trim().toLowerCase() === "live"
     ? "live"
     : "demo";
 
   if (mode === "demo") {
     return NextResponse.json({ mode, status: "ready" });
+  }
+
+  try {
+    await requireAuthenticatedUser(request);
+  } catch (error) {
+    if (error instanceof AuthenticationError) {
+      return NextResponse.json(
+        { mode, status: "unavailable" },
+        { status: 401 }
+      );
+    }
+    throw error;
   }
 
   const apiKey = process.env.OPENAI_API_KEY?.trim();

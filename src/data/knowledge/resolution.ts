@@ -7,10 +7,11 @@ import { CareerKnowledgeSchema } from "./schemas";
 import type { CareerKnowledge, CareerRepository } from "./types";
 import { careerRepository } from "./repositories";
 import { reconcileGeneratedDestinationGraph } from "./capability-reconciler";
+import type { GeneratedCareerCache } from "./supabase-generated-careers";
 
 export interface DestinationResolution {
   graph: DestinationGraph;
-  source: "shared-knowledge" | "generated";
+  source: "shared-knowledge" | "generated-cache" | "generated";
   persisted: boolean;
 }
 
@@ -44,11 +45,11 @@ function requestedDestination(input: CompileDestinationInput): string {
   return input.statedDestination?.trim() || input.statedField?.trim() || input.interests[0]?.trim() || "";
 }
 
-function generatedCareerFromGraph(graph: DestinationGraph): CareerKnowledge {
+function generatedCareerFromGraph(graph: DestinationGraph, requested: string): CareerKnowledge {
   return CareerKnowledgeSchema.parse({
     id: graph.destinationId,
     title: graph.destinationName,
-    aliases: [],
+    aliases: requested && requested !== graph.destinationName ? [requested] : [],
     family: "Generated",
     summary: graph.summary,
     capabilities: graph.capabilityNodes.map((node) => ({
@@ -75,6 +76,8 @@ export async function resolveDestination(
     repository?: CareerRepository;
     provider?: Pick<AIProvider, "compileDestination">;
     allowCompilation: boolean;
+    generatedCache?: GeneratedCareerCache;
+    userId?: string;
   }
 ): Promise<DestinationResolution> {
   const repository = options.repository ?? careerRepository;
@@ -84,6 +87,17 @@ export async function resolveDestination(
     return { graph: careerKnowledgeToDestinationGraph(known), source: "shared-knowledge", persisted: true };
   }
 
+  const cachedGraph = requested
+    ? await options.generatedCache?.findGraphByTitleOrAlias(requested)
+    : null;
+  if (cachedGraph) {
+    return {
+      graph: GeneratedDestinationGraphSchema.parse(cachedGraph),
+      source: "generated-cache",
+      persisted: true,
+    };
+  }
+
   if (!options.allowCompilation || !options.provider) throw new UnknownDestinationError(requested || "this path");
   const compiledGraph = GeneratedDestinationGraphSchema.parse(
     await options.provider.compileDestination(input)
@@ -91,6 +105,11 @@ export async function resolveDestination(
   const graph = GeneratedDestinationGraphSchema.parse(
     reconcileGeneratedDestinationGraph(compiledGraph).graph
   );
-  const persisted = await repository.saveGenerated(generatedCareerFromGraph(graph), graph);
+  const career = generatedCareerFromGraph(graph, requested);
+  const repositoryPersisted = await repository.saveGenerated(career, graph);
+  const cachePersisted = options.generatedCache && options.userId
+    ? await options.generatedCache.saveValidated(career, graph, requested, options.userId)
+    : false;
+  const persisted = repositoryPersisted || cachePersisted;
   return { graph, source: "generated", persisted };
 }
