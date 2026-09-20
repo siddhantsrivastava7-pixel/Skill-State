@@ -64,7 +64,9 @@ export function WhyThisCard({
           <Lightbulb className="w-4 h-4 fill-orange" />
         </div>
         <div>
-          <h3 className="text-base font-bold text-ink leading-none">Why this?</h3>
+          <h3 className="text-base font-bold text-ink leading-snug">
+            {selectedAction ? `Why “${selectedAction.title}”?` : "Why this?"}
+          </h3>
           <p className="text-xs text-ink-muted mt-1">Here&apos;s why we recommend this now</p>
         </div>
       </div>

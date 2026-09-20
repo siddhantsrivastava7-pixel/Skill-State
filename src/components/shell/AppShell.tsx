@@ -33,6 +33,7 @@ export function AppShell({ children }: AppShellProps) {
   } | null>(null);
   const [isAnswering, setIsAnswering] = useState(false);
   const [locationReady, setLocationReady] = useState(false);
+  const [resolvedPathname, setResolvedPathname] = useState<string | null>(null);
   const [demoModeRequested, setDemoModeRequested] = useState(false);
   const [isEditingOnboarding, setIsEditingOnboarding] = useState(false);
 
@@ -55,8 +56,11 @@ export function AppShell({ children }: AppShellProps) {
     setIsEditingOnboarding(
       new URLSearchParams(window.location.search).get("edit") === "1"
     );
+    setResolvedPathname(pathname);
     setLocationReady(true);
   }, [auth.isDemoMode, pathname]);
+
+  const routeLocationReady = locationReady && resolvedPathname === pathname;
 
   const isOnboardingRoute = pathname === "/onboarding";
   const isAuthCallbackRoute = pathname === "/auth/callback";
@@ -85,7 +89,7 @@ export function AppShell({ children }: AppShellProps) {
 
   useEffect(() => {
     if (
-      !locationReady ||
+      !routeLocationReady ||
       isAuthCallbackRoute ||
       routeDecision === "loading"
     ) return;
@@ -118,7 +122,7 @@ export function AppShell({ children }: AppShellProps) {
     isAuthCallbackRoute,
     isEditingOnboarding,
     isOnboardingRoute,
-    locationReady,
+    routeLocationReady,
     onboardingFlowStatus,
     routeDecision,
     router,
@@ -218,7 +222,7 @@ export function AppShell({ children }: AppShellProps) {
   if (
     !hasHydrated ||
     redirectingCompletedOnboarding ||
-    (!isOnboardingRoute && (!locationReady || !hasAccess))
+    (!isOnboardingRoute && (!routeLocationReady || !hasAccess))
   ) {
     return (
       <div className="min-h-screen bg-canvas text-ink flex items-center justify-center p-6">

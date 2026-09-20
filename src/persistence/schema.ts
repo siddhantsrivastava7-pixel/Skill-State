@@ -19,6 +19,8 @@ export const LearnerStateSnapshotSchema = z.object({
   profile: LearnerProfileSchema,
   destination: z.string(),
   destinationGraph: DestinationGraphSchema,
+  destinationCatalog: z.record(DestinationGraphSchema).default({}),
+  recentDestinationIds: z.array(z.string()).default([]),
   claimedStates: z.record(SkillClaimSchema),
   verifiedStates: z.record(VerifiedCapabilityStateSchema),
   evidence: z.array(EvidenceSchema),

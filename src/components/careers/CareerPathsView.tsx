@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   Compass,
@@ -11,6 +11,7 @@ import {
   Layers,
   ChevronRight,
   ShieldCheck,
+  Search,
 } from "lucide-react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import {
@@ -22,6 +23,9 @@ import { WhatIfSimulator } from "@/components/journey/WhatIfSimulator";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { careerRepository } from "@/data/knowledge/repositories";
+import { careerKnowledgeToDestinationGraph } from "@/data/knowledge/adapter";
 
 export function CareerPathsView() {
   const destination = useSkillStateStore((s) => s.destination);
@@ -29,15 +33,35 @@ export function CareerPathsView() {
   const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
   const profile = useSkillStateStore((s) => s.profile);
   const isDemoState = useSkillStateStore((s) => s.isDemoState);
+  const destinationCatalog = useSkillStateStore((s) => s.destinationCatalog);
+  const recentDestinationIds = useSkillStateStore((s) => s.recentDestinationIds);
 
   const [simulatingCandidateId, setSimulatingCandidateId] = useState<string | null>(null);
+  const [careerSearch, setCareerSearch] = useState("");
+
+  const searchedGraphs = useMemo(() => {
+    const query = careerSearch.trim().toLowerCase();
+    if (!query) return [];
+    return careerRepository
+      .listSync()
+      .filter((career) =>
+        [career.title, career.family, ...career.aliases]
+          .some((value) => value.toLowerCase().includes(query))
+      )
+      .slice(0, 8)
+      .map(careerKnowledgeToDestinationGraph);
+  }, [careerSearch]);
 
   // Compute transferable overlap for each catalog destination
   const careerPaths: CareerPathItem[] = calculateCareerPathsWithOverlap(
     destinationGraph,
     verifiedStates,
-    isDemoState
+    isDemoState,
+    [...Object.values(destinationCatalog), ...searchedGraphs]
   );
+  const recentPaths = recentDestinationIds
+    .map((id) => careerPaths.find((path) => path.graph.destinationId === id))
+    .filter((path): path is CareerPathItem => Boolean(path));
 
   return (
     <div className="space-y-6">
@@ -73,6 +97,44 @@ export function CareerPathsView() {
           </Button>
         </div>
       </div>
+
+      <Card className="p-4 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div>
+            <span className="font-bold text-ink uppercase tracking-wider">Current destination</span>
+            <p className="mt-1 text-ink">{destination}</p>
+          </div>
+          <div>
+            <span className="font-bold text-ink uppercase tracking-wider">Recent / previous destinations</span>
+            <div className="flex flex-wrap gap-1.5 mt-1">
+              {recentPaths.length ? recentPaths.map((path) => (
+                <button
+                  key={path.id}
+                  type="button"
+                  onClick={() => setSimulatingCandidateId(path.id)}
+                  className="px-2 py-1 rounded-md border border-border bg-surface-soft hover:border-accent text-ink"
+                >
+                  {path.title}
+                </button>
+              )) : <span className="text-ink-muted">No previous destination yet.</span>}
+            </div>
+          </div>
+          <div>
+            <span className="font-bold text-ink uppercase tracking-wider">Other / adjacent options</span>
+            <p className="mt-1 text-ink-muted">Browse the destination cards below or search the shared career catalog.</p>
+          </div>
+        </div>
+        <div className="relative">
+          <Search className="absolute left-3 top-2.5 w-4 h-4 text-ink-muted" />
+          <Input
+            aria-label="Search careers"
+            value={careerSearch}
+            onChange={(event) => setCareerSearch(event.target.value)}
+            placeholder="Search careers…"
+            className="pl-9"
+          />
+        </div>
+      </Card>
 
       {/* 2. Embedded Simulator if activated */}
       {simulatingCandidateId && (

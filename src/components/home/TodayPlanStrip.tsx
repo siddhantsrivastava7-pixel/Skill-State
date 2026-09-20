@@ -120,7 +120,7 @@ export function TodayPlanStrip({ actions = [], weeklyHours, className = "" }: To
                     <Square className="w-4 h-4 text-ink-muted/60 group-hover:text-ink shrink-0" />
                   )}
                   <span
-                    className={`text-xs truncate leading-tight ${
+                    className={`text-xs line-clamp-2 leading-snug ${
                       isCompleted ? "line-through text-ink-muted font-normal" : "font-medium text-ink"
                     }`}
                   >
@@ -128,8 +128,9 @@ export function TodayPlanStrip({ actions = [], weeklyHours, className = "" }: To
                   </span>
                 </div>
                 {scheduledMinutes ? (
-                  <span className="text-[11px] text-ink-muted/80 shrink-0 font-medium">
-                    {scheduledMinutes}m{isPartial ? " session" : ""}
+                  <span className="text-[10px] text-ink-muted/80 shrink-0 font-medium text-right leading-tight">
+                    <span className="block">Today: {scheduledMinutes} min</span>
+                    <span className="block">Objective total: {Math.round(action.estimatedMinutes / 60 * 10) / 10}h</span>
                   </span>
                 ) : null}
                 {action.category === "prove" && action.status === "attempted" && (

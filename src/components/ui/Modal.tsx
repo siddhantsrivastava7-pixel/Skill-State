@@ -57,7 +57,7 @@ export function Modal({
 
       {/* Modal Card */}
       <div
-        className={`relative z-10 w-full ${maxWidthStyles} bg-surface border border-border rounded-card shadow-2xl p-6 transition-all duration-200 ease-out`}
+        className={`relative z-10 w-full max-h-[calc(100dvh-2rem)] overflow-y-auto ${maxWidthStyles} bg-surface border border-border rounded-card shadow-2xl p-4 sm:p-6 transition-all duration-200 ease-out`}
         role="dialog"
         aria-modal="true"
       >

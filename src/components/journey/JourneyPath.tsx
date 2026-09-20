@@ -133,7 +133,7 @@ export function JourneyPath({
 
               {/* 4 Branching curves from Decision Point (662, 182) to Cards (730, Y) */}
               {branches.slice(0, 4).map((branch, index) => {
-                const targetY = [62, 140, 218, 296][index] ?? 182;
+                const targetY = [49, 140, 230, 321][index] ?? 182;
                 const isSelected = selectedBranchId === branch.id;
                 const color = branchStrokeColors[branch.tone] || "#8B5CF6";
                 const isAnySelected = Boolean(selectedBranchId);
@@ -286,17 +286,18 @@ export function JourneyPath({
         {/* --- RIGHT EDGE CAREER CARDS --- */}
         {mode === "exploring" ? (
           /* Exploring Mode Right Rail (4 standard cards anchored from left 73%) */
-          <div className="absolute left-[73%] right-4 top-3 bottom-3 flex flex-col justify-between py-1 z-10">
+          <div className="absolute left-[73%] right-4 top-3 bottom-3 grid grid-rows-4 gap-2 z-10">
             {branches.map((branch) => (
-              <CareerBranchCard
-                key={branch.id}
-                careerId={branch.id}
-                title={branch.title}
-                descriptor={branch.descriptor}
-                tone={branch.tone}
-                selected={selectedBranchId === branch.id}
-                onSelect={onBranchPreview}
-              />
+              <div key={branch.id} className="flex items-center">
+                <CareerBranchCard
+                  careerId={branch.id}
+                  title={branch.title}
+                  descriptor={branch.descriptor}
+                  tone={branch.tone}
+                  selected={selectedBranchId === branch.id}
+                  onSelect={onBranchPreview}
+                />
+              </div>
             ))}
           </div>
         ) : (

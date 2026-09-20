@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Search, Bell, ChevronDown } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { Search, ChevronDown, HelpCircle, LogOut, Settings } from "lucide-react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
+import { useAuth } from "@/auth/AuthProvider";
 
 export interface TopCommandBarProps {
   onOpenAsk?: () => void;
@@ -16,7 +18,8 @@ export function TopCommandBar({
   stageLabel,
 }: TopCommandBarProps) {
   const profile = useSkillStateStore((s) => s.profile);
-  const destination = useSkillStateStore((s) => s.destination);
+  const auth = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const displayName = userName || profile.name || "Siddhant";
   const displayStage =
@@ -64,20 +67,16 @@ export function TopCommandBar({
         </button>
       </div>
 
-      {/* Right Controls: Notifications & User Profile */}
-      <div className="flex items-center gap-3">
-        {/* Notification Bell with indicator */}
+      {/* Right Controls: User Profile */}
+      <div className="relative flex items-center gap-3">
+        {/* User Chip */}
         <button
           type="button"
-          aria-label="Notifications"
-          className="w-9 h-9 flex items-center justify-center rounded-sm text-ink-muted hover:bg-surface-soft hover:text-ink transition-colors relative border border-transparent hover:border-border"
+          aria-expanded={menuOpen}
+          aria-haspopup="menu"
+          onClick={() => setMenuOpen((open) => !open)}
+          className="flex items-center gap-2.5 pl-2 py-1 border-l border-border rounded-sm hover:bg-surface-soft text-left"
         >
-          <Bell className="w-4 h-4" />
-          <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-brandRed ring-2 ring-canvas" />
-        </button>
-
-        {/* User Chip */}
-        <div className="flex items-center gap-2.5 pl-2 py-1 border-l border-border select-none">
           <div className="w-8 h-8 rounded-full bg-ink-muted/15 text-ink font-semibold text-xs flex items-center justify-center border border-border flex-shrink-0">
             {initials}
           </div>
@@ -92,7 +91,22 @@ export function TopCommandBar({
               {displayStage}
             </span>
           </div>
-        </div>
+        </button>
+        {menuOpen && (
+          <div role="menu" className="absolute right-0 top-12 w-52 rounded-card border border-border bg-surface p-1.5 shadow-card">
+            <Link role="menuitem" href="/settings" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 rounded-sm px-3 py-2.5 text-xs text-ink hover:bg-surface-soft">
+              <Settings className="w-4 h-4" /> Profile / Settings
+            </Link>
+            <Link role="menuitem" href="/help" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 rounded-sm px-3 py-2.5 text-xs text-ink hover:bg-surface-soft">
+              <HelpCircle className="w-4 h-4" /> Help &amp; Guidance
+            </Link>
+            {!auth.isDemoMode && (
+              <button role="menuitem" type="button" onClick={() => void auth.signOut()} className="flex w-full items-center gap-2 rounded-sm px-3 py-2.5 text-xs text-brandRed hover:bg-surface-soft">
+                <LogOut className="w-4 h-4" /> Sign out
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </header>
   );

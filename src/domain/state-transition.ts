@@ -104,6 +104,16 @@ export function executeVerificationTransition(
     createdAt: new Date().toISOString(),
     sourceText: submission.userResponse.slice(0, 300),
     capabilitySignals: [evaluationResult.evidenceSignal],
+    assessment: {
+      taskId: evaluationResult.taskId,
+      taskPrompt: submission.taskPrompt,
+      rubric: submission.rubric,
+      passed,
+      previousState,
+      newState,
+      evaluatorNote: evaluationResult.explanation,
+      planImpact: evaluationResult.planImpact,
+    },
   };
 
   // 2. Update VerifiedCapabilityState

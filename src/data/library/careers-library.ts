@@ -59,7 +59,8 @@ function previewFromAdjacent(
 export function calculateCareerPathsWithOverlap(
   currentGraph: DestinationGraph,
   verifiedStates: Record<string, VerifiedCapabilityState>,
-  isDemoState = false
+  isDemoState = false,
+  additionalGraphs: DestinationGraph[] = []
 ): CareerPathItem[] {
   const currentKnowledge =
     careerRepository.getByIdSync(currentGraph.destinationId) ??
@@ -91,6 +92,18 @@ export function calculateCareerPathsWithOverlap(
         catalog.push({ ...seeded, isPreview: false });
       }
     }
+  }
+
+  for (const graph of additionalGraphs) {
+    if (!graph.destinationId || catalog.some((item) => item.graph.destinationId === graph.destinationId)) continue;
+    const knowledge = careerRepository.getByIdSync(graph.destinationId) ??
+      careerRepository.findByTitleOrAliasSync(graph.destinationName);
+    catalog.push({
+      id: `career-catalog-${graph.destinationId}`,
+      field: knowledge?.family ?? "Saved destination",
+      graph,
+      isPreview: false,
+    });
   }
 
   return catalog.map((item) => {

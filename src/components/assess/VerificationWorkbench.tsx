@@ -13,6 +13,7 @@ import {
   ArrowUpRight,
   RotateCcw,
   Zap,
+  History,
 } from "lucide-react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { ASSESS_INTRO_COPY } from "@/domain/copy";
@@ -27,8 +28,10 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { VerificationResultPanel } from "./VerificationResultPanel";
+import { useAuth } from "@/auth/AuthProvider";
 
 export function VerificationWorkbench() {
+  const { flushLearnerState } = useAuth();
   const destinationGraph = useSkillStateStore((s) => s.destinationGraph);
   const claimedStates = useSkillStateStore((s) => s.claimedStates);
   const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
@@ -47,6 +50,10 @@ export function VerificationWorkbench() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isDemoMode, setIsDemoMode] = useState(false);
+  const assessmentHistory = evidence
+    .filter((item) => item.type === "assessment" && item.assessment)
+    .slice()
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 
   // Read demo mode from URL
   useEffect(() => {
@@ -162,6 +169,13 @@ export function VerificationWorkbench() {
 
       const evalResult = await provider.evaluateVerification(submission);
       recordVerificationResult(evalResult, submission);
+      try {
+        await flushLearnerState();
+      } catch {
+        setErrorMessage(
+          "Your assessment is recorded on this device, but secure sync is still retrying. Keep this page open and try again shortly."
+        );
+      }
     } catch (err) {
       console.error("Failed to evaluate verification:", err);
       setErrorMessage("Evaluation failed. Your current state was not changed. Please try again.");
@@ -270,6 +284,62 @@ export function VerificationWorkbench() {
       {/* 3. Last Transition Result & Plan Impact Callout (If verification evaluated) */}
       {lastTransitionResult && (
         <VerificationResultPanel result={lastTransitionResult} />
+      )}
+
+      {assessmentHistory.length > 0 && (
+        <Card className="p-4 sm:p-5 space-y-3">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <History className="w-4 h-4 text-accent" />
+              <h2 className="text-sm font-bold text-ink">Assessment history</h2>
+            </div>
+            <span className="text-xs text-ink-muted">
+              {assessmentHistory.length} durable result{assessmentHistory.length === 1 ? "" : "s"}
+            </span>
+          </div>
+          <div className="space-y-2">
+            {assessmentHistory.slice(0, 6).map((item) => {
+              const result = item.assessment!;
+              const node = destinationGraph.capabilityNodes.find((candidate) =>
+                item.capabilitySignals.some((signal) => signal.capabilityId === candidate.id)
+              );
+              const supportingCount = evidence.filter((candidate) =>
+                candidate.capabilitySignals.some((signal) => signal.capabilityId === node?.id)
+              ).length;
+              const proof = destinationGraph.proofExpectations.find(
+                (candidate) => candidate.capabilityId === node?.id
+              );
+              return (
+                <div key={item.id} className="rounded-lg border border-border bg-surface-soft p-3 text-xs space-y-1.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <strong className="text-ink">{node?.name ?? item.title}</strong>
+                    <span className="text-ink-muted">
+                      {new Date(item.createdAt).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })}
+                    </span>
+                  </div>
+                  <p className="text-ink-muted">
+                    <span className="font-semibold capitalize text-ink">{result.newState}</span>
+                    {" · "}{supportingCount} supporting evidence item{supportingCount === 1 ? "" : "s"}
+                    {" · "}{item.capabilitySignals[0]?.strength ?? "unknown"} strength
+                  </p>
+                  <p className="text-ink-muted"><strong className="text-ink">Evaluator note: </strong>{result.evaluatorNote}</p>
+                  {result.newState === "developing" && (
+                    <>
+                      <p className="text-ink-muted">
+                        <strong className="text-ink">Why not Verified yet: </strong>
+                        This evidence supports part of the capability, but the evaluator did not establish enough breadth or depth for full verification.
+                      </p>
+                      <p className="text-ink-muted">
+                        <strong className="text-ink">Next proof needed: </strong>
+                        {proof?.description ?? "Add broader project evidence or complete a stronger assessment covering the full capability."}
+                      </p>
+                    </>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </Card>
       )}
 
       {/* 4. Active Task Workspace */}

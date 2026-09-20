@@ -168,6 +168,14 @@ export const EvidenceSignalTypeSchema = z.enum([
 
 export const EvidenceStrengthSchema = z.enum(["low", "medium", "high"]);
 
+export const CapabilityStateStatusSchema = z.enum([
+  "verified",
+  "developing",
+  "needs-proof",
+  "gap",
+  "unverified",
+]);
+
 export const EvidenceSignalSchema = z.object({
   capabilityId: z.string(),
   signal: EvidenceSignalTypeSchema,
@@ -182,15 +190,17 @@ export const EvidenceSchema = z.object({
   sourceText: z.string().optional(),
   createdAt: z.string(),
   capabilitySignals: z.array(EvidenceSignalSchema),
+  assessment: z.object({
+    taskId: z.string(),
+    taskPrompt: z.string().optional(),
+    rubric: z.string().optional(),
+    passed: z.boolean(),
+    previousState: CapabilityStateStatusSchema,
+    newState: CapabilityStateStatusSchema,
+    evaluatorNote: z.string(),
+    planImpact: z.string(),
+  }).optional(),
 });
-
-export const CapabilityStateStatusSchema = z.enum([
-  "verified",
-  "developing",
-  "needs-proof",
-  "gap",
-  "unverified",
-]);
 
 export const VerifiedCapabilityStateSchema = z.object({
   capabilityId: z.string(),

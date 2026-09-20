@@ -53,6 +53,7 @@ interface AuthContextValue {
   signOut: () => Promise<void>;
   retryHydration: () => Promise<void>;
   completeOnboarding: (snapshot: LearnerStateSnapshot) => Promise<void>;
+  flushLearnerState: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -65,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const hydrationSequence = useRef(0);
   const sessionRef = useRef<Session | null>(null);
   const onboardingCoordinator = useRef(new OnboardingCommitCoordinator());
+  const flushPersistenceRef = useRef<(() => Promise<void>) | null>(null);
 
   const hydrateSession = useCallback(async (nextSession: Session | null) => {
     sessionRef.current = nextSession;
@@ -180,41 +182,58 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       learnerSnapshotFromState(useSkillStateStore.getState())
     );
     let timer: ReturnType<typeof setTimeout> | null = null;
-    let inFlight = false;
+    let activeFlush: Promise<void> | null = null;
     let pending: { serialized: string; state: SkillStateStoreState } | null = null;
     let disposed = false;
 
-    const flush = async () => {
-      if (disposed || inFlight || !pending) return;
+    const flush = async (): Promise<void> => {
+      if (disposed) return;
+      if (activeFlush) {
+        await activeFlush;
+        if (pending && !disposed) await flush();
+        return;
+      }
+      if (!pending) return;
       const next = pending;
       pending = null;
-      inFlight = true;
-      const snapshot = learnerSnapshotFromState(next.state);
-      useSkillStateStore.getState().setPersistenceResult("saving");
+      activeFlush = (async () => {
+        const snapshot = learnerSnapshotFromState(next.state);
+        useSkillStateStore.getState().setPersistenceResult("saving");
+        try {
+          const isEmpty = !snapshot.onboardingCompleted && !snapshot.profile.id;
+          if (isEmpty) {
+            await repository.delete(userId);
+            revision = null;
+          } else {
+            const parsed = LearnerStateSnapshotSchema.parse(snapshot);
+            revision = await repository.save(userId, parsed, revision);
+          }
+          baseline = next.serialized;
+          if (useSkillStateStore.getState()._activeUserId === userId) {
+            useSkillStateStore.getState().setPersistenceResult("saved", revision ?? undefined);
+          }
+        } catch (saveError) {
+          const message = saveError instanceof Error
+            ? saveError.message
+            : "SkillState could not save your latest changes.";
+          if (useSkillStateStore.getState()._activeUserId === userId) {
+            useSkillStateStore.getState().setPersistenceResult("error", undefined, message);
+          }
+          throw saveError;
+        }
+      })();
       try {
-        const isEmpty = !snapshot.onboardingCompleted && !snapshot.profile.id;
-        if (isEmpty) {
-          await repository.delete(userId);
-          revision = null;
-        } else {
-          const parsed = LearnerStateSnapshotSchema.parse(snapshot);
-          revision = await repository.save(userId, parsed, revision);
-        }
-        baseline = next.serialized;
-        if (useSkillStateStore.getState()._activeUserId === userId) {
-          useSkillStateStore.getState().setPersistenceResult("saved", revision ?? undefined);
-        }
-      } catch (saveError) {
-        const message = saveError instanceof Error
-          ? saveError.message
-          : "SkillState could not save your latest changes.";
-        if (useSkillStateStore.getState()._activeUserId === userId) {
-          useSkillStateStore.getState().setPersistenceResult("error", undefined, message);
-        }
+        await activeFlush;
       } finally {
-        inFlight = false;
-        if (pending && !disposed) void flush();
+        activeFlush = null;
       }
+      if (pending && !disposed) await flush();
+    };
+
+    flushPersistenceRef.current = async () => {
+      if (timer) clearTimeout(timer);
+      timer = null;
+      await flush();
     };
 
     const unsubscribe = useSkillStateStore.subscribe((nextState) => {
@@ -235,15 +254,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (serialized === baseline) return;
       pending = { serialized, state: nextState };
       if (timer) clearTimeout(timer);
-      timer = setTimeout(() => void flush(), 800);
+      timer = setTimeout(() => void flush().catch(() => undefined), 800);
     });
 
     return () => {
       disposed = true;
+      flushPersistenceRef.current = null;
       if (timer) clearTimeout(timer);
       unsubscribe();
     };
   }, [isDemoMode, session, status]);
+
+  const flushLearnerState = useCallback(async () => {
+    if (isDemoMode) return;
+    const flush = flushPersistenceRef.current;
+    if (!flush) throw new Error("SkillState sync is not ready yet.");
+    await flush();
+  }, [isDemoMode]);
 
   const completeOnboarding = useCallback(async (snapshot: LearnerStateSnapshot) => {
     const activeSession = sessionRef.current;
@@ -323,7 +350,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signOut,
     retryHydration,
     completeOnboarding,
-  }), [completeOnboarding, error, isDemoMode, retryHydration, session, signInWithGoogle, signOut, status]);
+    flushLearnerState,
+  }), [completeOnboarding, error, flushLearnerState, isDemoMode, retryHydration, session, signInWithGoogle, signOut, status]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

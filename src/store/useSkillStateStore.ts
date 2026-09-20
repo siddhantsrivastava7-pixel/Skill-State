@@ -48,6 +48,8 @@ export interface SkillStateStoreState {
   profile: LearnerProfile;
   destination: string;
   destinationGraph: DestinationGraph;
+  destinationCatalog: Record<string, DestinationGraph>;
+  recentDestinationIds: string[];
   claimedStates: Record<string, SkillClaim>;
   verifiedStates: Record<string, VerifiedCapabilityState>;
   evidence: Evidence[];
@@ -136,6 +138,8 @@ function emptyLearnerState() {
     profile: EMPTY_PROFILE,
     destination: "",
     destinationGraph: EMPTY_GRAPH,
+    destinationCatalog: {},
+    recentDestinationIds: [],
     claimedStates: {},
     verifiedStates: {},
     evidence: [],
@@ -178,6 +182,9 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
       hydrateRemoteState: (userId, snapshot, revision) => {
         set({
           ...snapshot,
+          destinationCatalog: snapshot.destinationGraph.destinationId
+            ? { ...snapshot.destinationCatalog, [snapshot.destinationGraph.destinationId]: snapshot.destinationGraph }
+            : snapshot.destinationCatalog,
           isDemoState: false,
           activePersonaId: null,
           lastTransitionResult: undefined,
@@ -277,6 +284,8 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           profile: bundle.profile,
           destination: bundle.graph.destinationName,
           destinationGraph: bundle.graph,
+          destinationCatalog: { [bundle.graph.destinationId]: bundle.graph },
+          recentDestinationIds: [],
           claimedStates: bundle.claimedStates,
           verifiedStates: bundle.verifiedStates,
           evidence: bundle.evidence,
@@ -351,6 +360,22 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
         set({
           destination: destinationName,
           destinationGraph: newGraph,
+          destinationCatalog: {
+            ...state.destinationCatalog,
+            ...(state.destinationGraph.destinationId
+              ? { [state.destinationGraph.destinationId]: state.destinationGraph }
+              : {}),
+            [newGraph.destinationId]: newGraph,
+          },
+          recentDestinationIds: state.destinationGraph.destinationId &&
+            state.destinationGraph.destinationId !== newGraph.destinationId
+            ? [
+                state.destinationGraph.destinationId,
+                ...state.recentDestinationIds.filter(
+                  (id) => id !== state.destinationGraph.destinationId && id !== newGraph.destinationId
+                ),
+              ].slice(0, 6)
+            : state.recentDestinationIds.filter((id) => id !== newGraph.destinationId),
           evidence: switchResult.preservedEvidence,
           claimedStates: switchResult.preservedClaimedStates,
           verifiedStates: switchResult.updatedVerifiedStates,
@@ -561,6 +586,8 @@ export function learnerSnapshotFromState(
     profile: state.profile,
     destination: state.destination,
     destinationGraph: state.destinationGraph,
+    destinationCatalog: state.destinationCatalog,
+    recentDestinationIds: state.recentDestinationIds,
     claimedStates: state.claimedStates,
     verifiedStates: state.verifiedStates,
     evidence: state.evidence,
@@ -598,6 +625,8 @@ export function createInitialLearnerSnapshot(
     profile,
     destination: graph.destinationName,
     destinationGraph: graph,
+    destinationCatalog: { [graph.destinationId]: graph },
+    recentDestinationIds: [],
     claimedStates: {},
     verifiedStates,
     evidence,

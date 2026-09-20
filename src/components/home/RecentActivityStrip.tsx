@@ -8,6 +8,13 @@ export interface RecentActivityStripProps {
   className?: string;
 }
 
+export function meaningfulRecentActivities(activities: ActivityEvent[]): ActivityEvent[] {
+  return activities
+    .filter((item) => !(item.type === "DESTINATION_CHANGED" && item.title.startsWith("Journey created for")))
+    .slice()
+    .sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+}
+
 /**
  * RecentActivityStrip conforming to Phase 4.3 specifications:
  * - Exactly ONE instance on Home screen
@@ -17,7 +24,19 @@ export interface RecentActivityStripProps {
  * - "View all ->" link to /journey
  */
 export function RecentActivityStrip({ activities = [], className = "" }: RecentActivityStripProps) {
-  const items = activities.slice(0, 4);
+  const items = meaningfulRecentActivities(activities).slice(0, 4);
+
+  const formatTimestamp = (timestamp: string) => {
+    const date = new Date(timestamp);
+    if (Number.isNaN(date.getTime())) return timestamp;
+    const now = new Date();
+    const sameDay = date.toDateString() === now.toDateString();
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+    if (sameDay) return `Today, ${date.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}`;
+    if (date.toDateString() === yesterday.toDateString()) return "Yesterday";
+    return date.toLocaleDateString(undefined, { day: "numeric", month: "short" });
+  };
 
   const getDotStyle = (type: string) => {
     switch (type) {
@@ -55,7 +74,7 @@ export function RecentActivityStrip({ activities = [], className = "" }: RecentA
       {/* Activity List */}
       <div className="space-y-3.5 my-auto py-2">
         {items.length === 0 ? (
-          <p className="text-xs text-ink-muted py-2">No recent activity recorded.</p>
+          <p className="text-xs text-ink-muted py-2">Complete an assessment, add evidence, or finish a project to start your activity history.</p>
         ) : (
           items.map((item) => (
             <div key={item.id} className="flex items-center justify-between gap-3 text-xs">
@@ -64,7 +83,7 @@ export function RecentActivityStrip({ activities = [], className = "" }: RecentA
                 <span className="font-medium text-ink truncate">{item.title}</span>
               </div>
               <span className="text-[11px] text-ink-muted/80 shrink-0 whitespace-nowrap">
-                {item.timestamp}
+                {formatTimestamp(item.timestamp)}
               </span>
             </div>
           ))

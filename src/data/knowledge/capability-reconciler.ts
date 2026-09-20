@@ -26,6 +26,10 @@ const CAPABILITY_ALIASES: Record<string, string> = {
   "data cleaning and preparation": "data-wrangling",
   "data preparation": "data-wrangling",
   "natural language processing": "nlp-llms",
+  "user research and empathy": "human-centered-design",
+  "user empathy and research": "human-centered-design",
+  "ai literacy and model behavior": "model-evaluation",
+  "ai literacy model behavior": "model-evaluation",
 };
 
 function normalize(value: string): string {
@@ -89,6 +93,12 @@ function semanticallyEquivalent(
     case "nlp-llms":
       return text.includes("natural language processing") ||
         (text.includes("language model") && (text.includes("retrieval") || text.includes("nlp")));
+    case "human-centered-design":
+      return includesAny(["user research", "user empathy", "empathy"]) &&
+        includesAny(["user", "human centered", "problem framing", "needs"]);
+    case "model-evaluation":
+      return includesAny(["ai literacy", "model behavior"]) &&
+        includesAny(["evaluate", "limitations", "quality", "behavior", "outputs"]);
     default:
       return false;
   }

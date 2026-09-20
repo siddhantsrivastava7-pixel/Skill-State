@@ -23,6 +23,7 @@ import {
   Upload,
   Sparkles,
   Loader2,
+  X,
 } from "lucide-react";
 import {
   DestinationCertainty,
@@ -47,6 +48,8 @@ import { deriveVerifiedStates } from "@/domain/evidence-transition";
 import { useAuth } from "@/auth/AuthProvider";
 import { authenticatedAppFetch } from "@/auth/client-request";
 import { z } from "zod";
+import { preserveEvidenceOnDestinationChange } from "@/domain/destination-switch";
+import { addLimitedSelection, toggleLimitedSelection } from "@/domain/limited-selection";
 
 interface UploadedFileItem {
   id: string;
@@ -111,12 +114,16 @@ const GENERATION_STEPS = [
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { user, isDemoMode, completeOnboarding } = useAuth();
+  const { user, isDemoMode, completeOnboarding, flushLearnerState } = useAuth();
 
   // Store actions
   const initializeJourney = useSkillStateStore((s) => s.initializeJourney);
   const beginOnboardingSubmission = useSkillStateStore((s) => s.beginOnboardingSubmission);
   const failOnboardingSubmission = useSkillStateStore((s) => s.failOnboardingSubmission);
+  const setProfile = useSkillStateStore((s) => s.setProfile);
+  const setPlan = useSkillStateStore((s) => s.setPlan);
+  const changeDestination = useSkillStateStore((s) => s.changeDestination);
+  const addEvidence = useSkillStateStore((s) => s.addEvidence);
   const existingProfile = useSkillStateStore((s) => s.profile);
   const didPrefill = useRef(false);
   const submissionPromise = useRef<Promise<void> | null>(null);
@@ -156,11 +163,13 @@ export default function OnboardingPage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationStepIndex, setGenerationStepIndex] = useState(0);
   const [generationError, setGenerationError] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (didPrefill.current || typeof window === "undefined") return;
     didPrefill.current = true;
     const editing = new URLSearchParams(window.location.search).get("edit") === "1";
+    setIsEditing(editing);
     if (!editing || !existingProfile.id) return;
 
     setLearnerName(existingProfile.name);
@@ -185,17 +194,14 @@ export default function OnboardingPage() {
 
   // Handlers for Step 2 Interests
   const toggleInterest = (interest: string) => {
-    if (selectedInterests.includes(interest)) {
-      setSelectedInterests(selectedInterests.filter((i) => i !== interest));
-    } else if (selectedInterests.length < 5) {
-      setSelectedInterests([...selectedInterests, interest]);
-    }
+    setSelectedInterests((current) => toggleLimitedSelection(current, interest));
   };
 
   const addCustomInterest = () => {
     const trimmed = customInterest.trim();
-    if (trimmed && !selectedInterests.includes(trimmed) && selectedInterests.length < 5) {
-      setSelectedInterests([...selectedInterests, trimmed]);
+    const next = addLimitedSelection(selectedInterests, trimmed);
+    if (next !== selectedInterests) {
+      setSelectedInterests(next);
       setCustomInterest("");
     }
   };
@@ -369,6 +375,41 @@ export default function OnboardingPage() {
     await new Promise((r) => setTimeout(r, 600));
     setGenerationStepIndex(3);
 
+    // Editing preserves the learner's durable evidence, assessment history, and journey identity.
+    if (isEditing) {
+      const current = useSkillStateStore.getState();
+      const destinationChanged =
+        graph.destinationId !== current.destinationGraph.destinationId ||
+        graph.destinationName !== current.destinationGraph.destinationName;
+      const targetGraph = destinationChanged ? graph : current.destinationGraph;
+      const combinedEvidence = [...current.evidence, ...generatedEvidences];
+      const switchResult = preserveEvidenceOnDestinationChange({
+        currentEvidence: combinedEvidence,
+        currentVerifiedStates: current.verifiedStates,
+        currentClaimedStates: current.claimedStates,
+        newGraph: targetGraph,
+        targetTimelineMonths: profileData.targetTimelineMonths,
+      });
+      const editedPlan = await provider.buildPlan({
+        profile: profileData,
+        graph: targetGraph,
+        verifiedStates: switchResult.updatedVerifiedStates,
+        claimedStates: switchResult.preservedClaimedStates,
+        gaps: switchResult.recomputedGaps,
+        planningReason: destinationChanged ? "major-destination-change" : "activity-completion",
+        currentPlan: current.plan,
+      });
+
+      setProfile(profileData);
+      if (destinationChanged) changeDestination(targetGraph.destinationName, targetGraph);
+      for (const item of generatedEvidences) addEvidence(item);
+      setPlan(editedPlan);
+      await flushLearnerState();
+      useSkillStateStore.getState().finishOnboardingNavigation();
+      router.replace("/settings");
+      return;
+    }
+
     // Step 4: Creating first path
     const verifiedStates = deriveVerifiedStates(graph, generatedEvidences);
     const gaps = prioritizeGaps({
@@ -495,7 +536,18 @@ export default function OnboardingPage() {
           <span className="font-semibold text-accent uppercase tracking-wider text-[11px]">
             Step {currentStep} of 4
           </span>
-          <span>{Math.round((currentStep / 4) * 100)}% completed</span>
+          <div className="flex items-center gap-3">
+            {isEditing && (
+              <button
+                type="button"
+                className="font-medium text-ink-muted hover:text-ink transition-colors"
+                onClick={() => router.replace("/settings")}
+              >
+                Cancel editing
+              </button>
+            )}
+            <span>{Math.round((currentStep / 4) * 100)}% completed</span>
+          </div>
         </div>
         <ProgressBar value={currentStep * 25} max={100} size="sm" />
       </div>
@@ -693,6 +745,30 @@ export default function OnboardingPage() {
                   >
                     Add
                   </Button>
+                </div>
+
+                <div className="rounded-sm border border-border bg-surface p-3 space-y-2" aria-live="polite">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xs font-semibold text-ink">Your skills &amp; interests</span>
+                    <span className="text-xs text-ink-muted">{selectedInterests.length} / 5</span>
+                  </div>
+                  {selectedInterests.length === 0 ? (
+                    <p className="text-[11px] text-ink-muted">Your selections will appear here.</p>
+                  ) : (
+                    <div className="flex flex-wrap gap-2">
+                      {selectedInterests.map((interest) => (
+                        <button
+                          key={interest}
+                          type="button"
+                          onClick={() => toggleInterest(interest)}
+                          aria-label={`Remove ${interest}`}
+                          className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-accent/30 bg-accent-soft px-3 py-1.5 text-xs font-medium text-ink"
+                        >
+                          {interest}<X className="w-3.5 h-3.5" aria-hidden="true" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             )}

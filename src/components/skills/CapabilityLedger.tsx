@@ -310,6 +310,31 @@ export function CapabilityLedger() {
               </div>
             )}
 
+            {verifiedStates[selectedNode.id]?.state === "developing" && (
+              <div className="p-3.5 rounded-xl bg-brandOrange-soft/30 border border-brandOrange/20 space-y-2 text-xs">
+                <p className="font-semibold text-ink">
+                  {selectedNodeEvidence.length} supporting evidence item{selectedNodeEvidence.length === 1 ? "" : "s"}
+                </p>
+                <p className="text-ink-muted">
+                  <strong className="text-ink">Current evidence strength: </strong>
+                  {selectedNodeEvidence
+                    .flatMap((item) => item.capabilitySignals)
+                    .filter((signal) => signal.capabilityId === selectedNode.id)
+                    .map((signal) => signal.strength)
+                    .join(", ") || "not yet rated"}
+                </p>
+                <p className="text-ink-muted">
+                  <strong className="text-ink">Why not Verified yet: </strong>
+                  Existing evidence demonstrates parts of this capability, but has not yet established enough breadth or depth for full verification.
+                </p>
+                <p className="text-ink-muted">
+                  <strong className="text-ink">Next proof needed: </strong>
+                  {destinationGraph.proofExpectations.find((proof) => proof.capabilityId === selectedNode.id)?.description ??
+                    "Complete a broader implementation task, project, or stronger verification assessment covering the full capability."}
+                </p>
+              </div>
+            )}
+
             {/* Linked Evidence Documents */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">

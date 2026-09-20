@@ -77,14 +77,19 @@ export default function SettingsPage() {
     }
   }, [aiStatus.status]);
 
-  const saveProfile = () => {
+  const saveProfile = async () => {
     setProfile({
       ...profile,
       name: name.trim() || profile.name,
       weeklyHours: Math.max(1, Math.min(168, weeklyHours)),
     });
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 2_000);
+    try {
+      await auth.flushLearnerState();
+      setSaved(true);
+      window.setTimeout(() => setSaved(false), 2_000);
+    } catch {
+      // The shared persistence boundary has already recorded a safe error for the UI.
+    }
   };
 
   const beginOnboarding = (reset: boolean) => {
@@ -141,9 +146,9 @@ export default function SettingsPage() {
         {saved && <InlineNotice variant="success">Profile settings saved.</InlineNotice>}
 
         <div className="flex flex-wrap gap-2">
-          <Button onClick={saveProfile} disabled={!name.trim()}>Save profile</Button>
+          <Button onClick={() => void saveProfile()} disabled={!name.trim()}>Save profile</Button>
           <Button variant="secondary" onClick={() => router.push("/onboarding?edit=1")}>
-            Edit onboarding answers
+            Edit profile &amp; goals
           </Button>
         </div>
       </Card>
@@ -218,7 +223,7 @@ export default function SettingsPage() {
         isOpen={resetOpen}
         onClose={() => setResetOpen(false)}
         title="Reset SkillState?"
-        subtitle="This clears your learner profile, evidence, plans, reports, and activity from this browser."
+        subtitle="This clears your saved learner profile, evidence, plans, reports, projects, and activity. Your sign-in account is not deleted."
         maxWidth="sm"
       >
         <div className="flex justify-end gap-2">

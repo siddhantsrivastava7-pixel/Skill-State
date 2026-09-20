@@ -73,13 +73,13 @@ export function NextActionsCard({
                 {/* Text stack */}
                 <div className="min-w-0 flex-1">
                   <h4
-                    className={`text-xs sm:text-sm font-semibold truncate transition-colors leading-snug ${
+                    className={`text-xs sm:text-sm font-semibold line-clamp-2 transition-colors leading-snug ${
                       isSelected ? "text-ink font-bold" : "text-ink group-hover:text-green"
                     }`}
                   >
                     {action.title}
                   </h4>
-                  <p className="text-[11px] text-ink-muted truncate mt-0.5">
+                  <p className="text-[11px] text-ink-muted line-clamp-2 mt-0.5 leading-relaxed">
                     {action.description || action.whyNow}
                   </p>
                 </div>
