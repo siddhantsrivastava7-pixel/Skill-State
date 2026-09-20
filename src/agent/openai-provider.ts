@@ -284,7 +284,7 @@ export class OpenAIProvider implements AIProvider {
           },
         });
       } catch (error) {
-        throw toAIApplicationError(error, request.operation);
+        throw toAIApplicationError(error, request.operation, { configuredModel: model });
       }
 
       const parsed = response.output_parsed;
@@ -293,12 +293,19 @@ export class OpenAIProvider implements AIProvider {
           repair = true;
           continue;
         }
-        throw new AIApplicationError({
-          code: "AI_INVALID_OUTPUT",
-          message: "SkillState received no usable structured response. Your current state was not changed.",
-          operation: request.operation,
-          retryable: true,
-        });
+        throw new AIApplicationError(
+          {
+            code: "AI_INVALID_OUTPUT",
+            message: "SkillState received no usable structured response. Your current state was not changed.",
+            operation: request.operation,
+            retryable: true,
+          },
+          undefined,
+          {
+            configuredModel: model,
+            validationIssues: [{ path: "output_parsed", code: "missing" }],
+          }
+        );
       }
 
       let normalized: unknown;
@@ -326,12 +333,22 @@ export class OpenAIProvider implements AIProvider {
         if (request.tier === "mini") {
           logEscalation(request.operation, "structured output failed validation twice; preserving current state");
         }
-        throw new AIApplicationError({
-          code: "AI_INVALID_OUTPUT",
-          message: "SkillState could not validate the model response. Your current state was not changed.",
-          operation: request.operation,
-          retryable: true,
-        });
+        throw new AIApplicationError(
+          {
+            code: "AI_INVALID_OUTPUT",
+            message: "SkillState could not validate the model response. Your current state was not changed.",
+            operation: request.operation,
+            retryable: true,
+          },
+          undefined,
+          {
+            configuredModel: model,
+            validationIssues: domainResult.error.issues.map((issue) => ({
+              path: issue.path.join("."),
+              code: issue.code,
+            })),
+          }
+        );
       }
 
       const reason = tier === "mini" ? escalationReason(parsed.meta) : null;
@@ -345,12 +362,18 @@ export class OpenAIProvider implements AIProvider {
       return domainResult.data;
     }
 
-    throw new AIApplicationError({
-      code: "AI_INVALID_OUTPUT",
-      message: "SkillState could not validate the model response. Your current state was not changed.",
-      operation: request.operation,
-      retryable: true,
-    });
+    throw new AIApplicationError(
+      {
+        code: "AI_INVALID_OUTPUT",
+        message: "SkillState could not validate the model response. Your current state was not changed.",
+        operation: request.operation,
+        retryable: true,
+      },
+      undefined,
+      {
+        configuredModel: tier === "reasoning" ? this.config.reasoningModel : this.config.miniModel,
+      }
+    );
   }
 
   compileDestination(input: CompileDestinationInput): Promise<DestinationGraph> {

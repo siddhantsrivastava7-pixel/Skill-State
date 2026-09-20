@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import type { ZodSchema } from "zod";
 import { getAIProvider } from "@/agent/orchestrator";
 import { AIApplicationError, toAIApplicationError } from "@/agent/errors";
+import { logAIProviderFailure } from "@/agent/server-diagnostics";
 import {
   BuildPlanInputSchema,
   CompileDestinationInputSchema,
@@ -193,6 +194,14 @@ export async function POST(
       );
     }
     const applicationError = toAIApplicationError(error, operation);
+    logAIProviderFailure({
+      operation,
+      error: applicationError,
+      requestId:
+        request.headers.get("cf-ray") ??
+        request.headers.get("x-request-id") ??
+        request.headers.get("x-correlation-id"),
+    });
     const status =
       applicationError.payload.code === "AI_INVALID_INPUT"
         ? 400

@@ -12,21 +12,41 @@ export interface AIApplicationErrorPayload {
   retryable: boolean;
 }
 
+export interface AIValidationIssueDiagnostic {
+  path: string;
+  code: string;
+}
+
+export interface AIErrorDiagnostics {
+  configuredModel?: string;
+  validationIssues?: AIValidationIssueDiagnostic[];
+}
+
 export class AIApplicationError extends Error {
   readonly payload: AIApplicationErrorPayload;
+  readonly diagnostics?: AIErrorDiagnostics;
 
-  constructor(payload: AIApplicationErrorPayload, options?: ErrorOptions) {
+  constructor(
+    payload: AIApplicationErrorPayload,
+    options?: ErrorOptions,
+    diagnostics?: AIErrorDiagnostics
+  ) {
     super(payload.message, options);
     this.name = "AIApplicationError";
     this.payload = payload;
+    this.diagnostics = diagnostics;
   }
 }
 
 export function toAIApplicationError(
   error: unknown,
-  operation: string
+  operation: string,
+  diagnostics?: AIErrorDiagnostics
 ): AIApplicationError {
-  if (error instanceof AIApplicationError) return error;
+  if (error instanceof AIApplicationError) {
+    if (!diagnostics || error.diagnostics) return error;
+    return new AIApplicationError(error.payload, { cause: error.cause }, diagnostics);
+  }
 
   return new AIApplicationError(
     {
@@ -35,6 +55,7 @@ export function toAIApplicationError(
       operation,
       retryable: true,
     },
-    { cause: error }
+    { cause: error },
+    diagnostics
   );
 }
