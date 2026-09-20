@@ -11,7 +11,10 @@ import { Button } from "@/components/ui/Button";
 import { Search, Sparkles } from "lucide-react";
 import { useSkillStateStore } from "@/store/useSkillStateStore";
 import { getClientAIProvider } from "@/agent/client-provider";
-import { hasUsableLearnerState } from "@/domain/onboarding-routing";
+import {
+  hasUsableLearnerState,
+  resolveLearnerRoute,
+} from "@/domain/onboarding-routing";
 import { useAuth } from "@/auth/AuthProvider";
 
 export interface AppShellProps {
@@ -31,6 +34,7 @@ export function AppShell({ children }: AppShellProps) {
   const [isAnswering, setIsAnswering] = useState(false);
   const [locationReady, setLocationReady] = useState(false);
   const [demoModeRequested, setDemoModeRequested] = useState(false);
+  const [isEditingOnboarding, setIsEditingOnboarding] = useState(false);
 
   const hasHydrated = useSkillStateStore((s) => s._hasHydrated);
   const onboardingCompleted = useSkillStateStore((s) => s.onboardingCompleted);
@@ -43,9 +47,14 @@ export function AppShell({ children }: AppShellProps) {
   const verifiedStates = useSkillStateStore((s) => s.verifiedStates);
   const evidence = useSkillStateStore((s) => s.evidence);
   const gaps = useSkillStateStore((s) => s.gaps);
+  const onboardingFlowStatus = useSkillStateStore((s) => s._onboardingFlowStatus);
+  const finishOnboardingNavigation = useSkillStateStore((s) => s.finishOnboardingNavigation);
 
   useEffect(() => {
     setDemoModeRequested(auth.isDemoMode);
+    setIsEditingOnboarding(
+      new URLSearchParams(window.location.search).get("edit") === "1"
+    );
     setLocationReady(true);
   }, [auth.isDemoMode, pathname]);
 
@@ -61,12 +70,59 @@ export function AppShell({ children }: AppShellProps) {
     isDemoState,
     demoModeRequested,
   });
+  const routeDecision = resolveLearnerRoute({
+    hasHydrated,
+    onboardingCompleted,
+    hasCompletedProfile: Boolean(
+      profile.id &&
+        destinationGraph.destinationId &&
+        destinationGraph.capabilityNodes.length > 0
+    ),
+    isDemoState,
+    demoModeRequested,
+    onboardingFlowStatus,
+  });
 
   useEffect(() => {
-    if (hasHydrated && locationReady && !isOnboardingRoute && !isAuthCallbackRoute && !hasAccess) {
+    if (
+      !locationReady ||
+      isAuthCallbackRoute ||
+      routeDecision === "loading"
+    ) return;
+
+    if (!isOnboardingRoute && onboardingFlowStatus === "navigating") {
+      finishOnboardingNavigation();
+      return;
+    }
+    if (routeDecision === "processing") return;
+    if (
+      isOnboardingRoute &&
+      routeDecision === "/" &&
+      onboardingFlowStatus === "idle" &&
+      !isEditingOnboarding
+    ) {
+      router.replace("/");
+      return;
+    }
+    if (
+      !isOnboardingRoute &&
+      routeDecision === "/onboarding" &&
+      onboardingFlowStatus === "idle"
+    ) {
       router.replace("/onboarding");
     }
-  }, [hasAccess, hasHydrated, isAuthCallbackRoute, isOnboardingRoute, locationReady, router]);
+  }, [
+    finishOnboardingNavigation,
+    hasAccess,
+    hasHydrated,
+    isAuthCallbackRoute,
+    isEditingOnboarding,
+    isOnboardingRoute,
+    locationReady,
+    onboardingFlowStatus,
+    routeDecision,
+    router,
+  ]);
 
   const handleAskSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,11 +209,25 @@ export function AppShell({ children }: AppShellProps) {
 
   if (isAuthCallbackRoute) return <>{children}</>;
 
-  if (!hasHydrated || (!isOnboardingRoute && (!locationReady || !hasAccess))) {
+  const redirectingCompletedOnboarding =
+    isOnboardingRoute &&
+    hasAccess &&
+    onboardingFlowStatus === "idle" &&
+    !isEditingOnboarding;
+
+  if (
+    !hasHydrated ||
+    redirectingCompletedOnboarding ||
+    (!isOnboardingRoute && (!locationReady || !hasAccess))
+  ) {
     return (
       <div className="min-h-screen bg-canvas text-ink flex items-center justify-center p-6">
         <p className="text-sm text-ink-muted">
-          {hasHydrated ? "Taking you to onboarding…" : "Loading SkillState…"}
+          {!hasHydrated
+            ? "Loading SkillState…"
+            : redirectingCompletedOnboarding
+              ? "Opening your SkillState…"
+              : "Taking you to onboarding…"}
         </p>
       </div>
     );

@@ -19,7 +19,14 @@ import {
   LearnerStateRepository,
   SupabaseLearnerStateBackend,
 } from "@/persistence/learner-state-repository";
-import { LearnerStateSnapshotSchema } from "@/persistence/schema";
+import {
+  LearnerStateSnapshotSchema,
+  type LearnerStateSnapshot,
+} from "@/persistence/schema";
+import {
+  OnboardingCommitCoordinator,
+  persistCompletedOnboarding,
+} from "@/persistence/onboarding-completion";
 import {
   learnerSnapshotFromState,
   useSkillStateStore,
@@ -45,6 +52,7 @@ interface AuthContextValue {
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
   retryHydration: () => Promise<void>;
+  completeOnboarding: (snapshot: LearnerStateSnapshot) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -55,19 +63,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState("");
   const [isDemoMode, setIsDemoMode] = useState(false);
   const hydrationSequence = useRef(0);
+  const sessionRef = useRef<Session | null>(null);
+  const onboardingCoordinator = useRef(new OnboardingCommitCoordinator());
 
   const hydrateSession = useCallback(async (nextSession: Session | null) => {
-    const sequence = ++hydrationSequence.current;
+    sessionRef.current = nextSession;
     setSession(nextSession);
     setError("");
 
     if (!nextSession) {
+      ++hydrationSequence.current;
+      onboardingCoordinator.current.supersede();
       useSkillStateStore.getState().clearForAuthChange();
       setStatus("unauthenticated");
       return;
     }
 
     const userId = nextSession.user.id;
+    const currentState = useSkillStateStore.getState();
+    if (onboardingCoordinator.current.isActiveFor(userId)) {
+      setStatus("authenticated");
+      return;
+    }
+    if (currentState._activeUserId === userId && currentState._hasHydrated) {
+      setStatus("authenticated");
+      return;
+    }
+
+    const sequence = ++hydrationSequence.current;
     useSkillStateStore.getState().beginRemoteHydration(userId);
     setStatus("loading");
     try {
@@ -132,7 +155,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data } = client.auth.onAuthStateChange((event, nextSession) => {
       if (!mounted || event === "INITIAL_SESSION") return;
       if (event === "TOKEN_REFRESHED") {
-        if (mounted && nextSession) setSession(nextSession);
+        if (mounted && nextSession) {
+          sessionRef.current = nextSession;
+          setSession(nextSession);
+        }
         return;
       }
       void hydrateSession(nextSession);
@@ -192,9 +218,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const unsubscribe = useSkillStateStore.subscribe((nextState) => {
-      if (!shouldPersistLearnerState(nextState, userId, isDemoMode)) return;
       const snapshot = learnerSnapshotFromState(nextState);
       const serialized = JSON.stringify(snapshot);
+      if (
+        nextState._persistenceStatus === "saved" &&
+        nextState._remoteRevision !== revision
+      ) {
+        revision = nextState._remoteRevision;
+        baseline = serialized;
+        pending = null;
+        if (timer) clearTimeout(timer);
+        timer = null;
+        return;
+      }
+      if (!shouldPersistLearnerState(nextState, userId, isDemoMode)) return;
       if (serialized === baseline) return;
       pending = { serialized, state: nextState };
       if (timer) clearTimeout(timer);
@@ -208,6 +245,52 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, [isDemoMode, session, status]);
 
+  const completeOnboarding = useCallback(async (snapshot: LearnerStateSnapshot) => {
+    const activeSession = sessionRef.current;
+    if (!activeSession) throw new Error("Your session expired. Sign in and try again.");
+    const userId = activeSession.user.id;
+    if (snapshot.profile.id !== userId) {
+      throw new Error("The onboarding profile does not match the signed-in learner.");
+    }
+
+    ++hydrationSequence.current;
+    useSkillStateStore.getState().setPersistenceResult("saving");
+    const repository = new LearnerStateRepository(
+      new SupabaseLearnerStateBackend(getBrowserSupabaseClient())
+    );
+    const expectedRevision = useSkillStateStore.getState()._remoteRevision;
+
+    try {
+      await onboardingCoordinator.current.run(
+        userId,
+        () => persistCompletedOnboarding({
+          repository,
+          userId,
+          snapshot,
+          expectedRevision,
+        }),
+        (result) => {
+          if (sessionRef.current?.user.id !== userId) {
+            throw new Error("The signed-in learner changed during onboarding.");
+          }
+          useSkillStateStore.getState().commitPersistedOnboarding(
+            userId,
+            result.snapshot,
+            result.revision
+          );
+        }
+      );
+    } catch (saveError) {
+      if (useSkillStateStore.getState()._activeUserId === userId) {
+        const message = saveError instanceof Error
+          ? saveError.message
+          : "SkillState could not save your completed onboarding.";
+        useSkillStateStore.getState().setPersistenceResult("error", undefined, message);
+      }
+      throw saveError;
+    }
+  }, []);
+
   const signInWithGoogle = useCallback(async () => {
     const redirectTo = absoluteAppUrl("/auth/callback/", window.location.origin);
     const { error: signInError } = await getBrowserSupabaseClient().auth.signInWithOAuth({
@@ -218,6 +301,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signOut = useCallback(async () => {
+    onboardingCoordinator.current.supersede();
+    sessionRef.current = null;
     useSkillStateStore.getState().clearForAuthChange();
     await getBrowserSupabaseClient().auth.signOut();
     setSession(null);
@@ -237,7 +322,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signInWithGoogle,
     signOut,
     retryHydration,
-  }), [error, isDemoMode, retryHydration, session, signInWithGoogle, signOut, status]);
+    completeOnboarding,
+  }), [completeOnboarding, error, isDemoMode, retryHydration, session, signInWithGoogle, signOut, status]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

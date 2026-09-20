@@ -18,3 +18,12 @@ export function routeForLearnerState(
 ): "/" | "/onboarding" {
   return hasUsableLearnerState(state) ? "/" : "/onboarding";
 }
+
+export function resolveLearnerRoute(input: OnboardingAccessState & {
+  hasHydrated: boolean;
+  onboardingFlowStatus: "idle" | "submitting" | "navigating";
+}): "loading" | "processing" | "/" | "/onboarding" {
+  if (!input.hasHydrated) return "loading";
+  if (input.onboardingFlowStatus !== "idle") return "processing";
+  return routeForLearnerState(input);
+}

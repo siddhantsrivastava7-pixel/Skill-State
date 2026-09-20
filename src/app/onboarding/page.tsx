@@ -35,7 +35,10 @@ import {
   PlanningHorizonMode,
 } from "@/domain/types";
 import { calculateGraduationEstimate } from "@/domain/planning-horizon";
-import { useSkillStateStore } from "@/store/useSkillStateStore";
+import {
+  createInitialLearnerSnapshot,
+  useSkillStateStore,
+} from "@/store/useSkillStateStore";
 import { getClientAIProvider } from "@/agent/client-provider";
 import { compileOnboardingDestination } from "@/agent/onboarding";
 import { generateId } from "@/lib/ids";
@@ -108,12 +111,16 @@ const GENERATION_STEPS = [
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { user, isDemoMode } = useAuth();
+  const { user, isDemoMode, completeOnboarding } = useAuth();
 
   // Store actions
   const initializeJourney = useSkillStateStore((s) => s.initializeJourney);
+  const beginOnboardingSubmission = useSkillStateStore((s) => s.beginOnboardingSubmission);
+  const failOnboardingSubmission = useSkillStateStore((s) => s.failOnboardingSubmission);
   const existingProfile = useSkillStateStore((s) => s.profile);
   const didPrefill = useRef(false);
+  const submissionPromise = useRef<Promise<void> | null>(null);
+  const submissionSequence = useRef(0);
 
   // Form states
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
@@ -263,7 +270,7 @@ export default function OnboardingPage() {
   };
 
   // Step 4: Submission and journey generation
-  const handleFinalSubmit = async () => {
+  const runFinalSubmit = async (attempt: number) => {
     setIsGenerating(true);
     setGenerationStepIndex(0);
     setGenerationError("");
@@ -378,17 +385,47 @@ export default function OnboardingPage() {
       gaps,
       planningReason: "initial",
     });
-    initializeJourney(profileData, graph, generatedEvidences, plan);
+    if (attempt !== submissionSequence.current) return;
 
-    // Navigate to home
-    router.push("/");
+    if (isDemoMode) {
+      initializeJourney(profileData, graph, generatedEvidences, plan);
+    } else {
+      const snapshot = createInitialLearnerSnapshot(
+        profileData,
+        graph,
+        generatedEvidences,
+        plan
+      );
+      await completeOnboarding(snapshot);
+    }
+
+    if (attempt !== submissionSequence.current) return;
+
+    // The durable snapshot and Zustand state are both committed before navigation.
+    router.replace("/");
     } catch (error) {
+      if (attempt !== submissionSequence.current) return;
+      failOnboardingSubmission();
       setGenerationError(
         error instanceof Error
           ? error.message
           : "SkillState could not create the journey. Your current state was not changed."
       );
       setIsGenerating(false);
+    }
+  };
+
+  const handleFinalSubmit = async () => {
+    if (submissionPromise.current) return submissionPromise.current;
+    if (!beginOnboardingSubmission()) return;
+
+    const attempt = ++submissionSequence.current;
+    const promise = runFinalSubmit(attempt);
+    submissionPromise.current = promise;
+    try {
+      await promise;
+    } finally {
+      if (submissionPromise.current === promise) submissionPromise.current = null;
     }
   };
 

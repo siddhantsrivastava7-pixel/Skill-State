@@ -32,6 +32,7 @@ import {
 } from "@/persistence/schema";
 
 export type PersistenceStatus = "idle" | "saving" | "saved" | "error";
+export type OnboardingFlowStatus = "idle" | "submitting" | "navigating";
 
 export interface SkillStateStoreState {
   _hasHydrated: boolean;
@@ -40,6 +41,7 @@ export interface SkillStateStoreState {
   _persistenceStatus: PersistenceStatus;
   _persistenceError: string;
   _persistenceBlocked: boolean;
+  _onboardingFlowStatus: OnboardingFlowStatus;
   onboardingCompleted: boolean;
   isDemoState: boolean;
   activePersonaId: DemoPersonaId | null;
@@ -63,6 +65,14 @@ export interface SkillStateStoreState {
   failRemoteHydration: (userId: string, message: string) => void;
   clearForAuthChange: () => void;
   setPersistenceResult: (status: PersistenceStatus, revision?: number, error?: string) => void;
+  beginOnboardingSubmission: () => boolean;
+  commitPersistedOnboarding: (
+    userId: string,
+    snapshot: LearnerStateSnapshot,
+    revision: number
+  ) => void;
+  failOnboardingSubmission: () => void;
+  finishOnboardingNavigation: () => void;
   loadPersona: (personaId: DemoPersonaId) => void;
   setProfile: (profile: LearnerProfile) => void;
   setPlan: (plan: AdaptivePlan) => void;
@@ -145,6 +155,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
       _persistenceStatus: "idle",
       _persistenceError: "",
       _persistenceBlocked: false,
+      _onboardingFlowStatus: "idle",
       ...emptyLearnerState(),
 
       setHasHydrated: (hasHydrated: boolean) => {
@@ -160,6 +171,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           _persistenceStatus: "idle",
           _persistenceError: "",
           _persistenceBlocked: true,
+          _onboardingFlowStatus: "idle",
         });
       },
 
@@ -175,6 +187,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           _persistenceStatus: "saved",
           _persistenceError: "",
           _persistenceBlocked: false,
+          _onboardingFlowStatus: "idle",
         });
       },
 
@@ -187,6 +200,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           _persistenceStatus: "idle",
           _persistenceError: "",
           _persistenceBlocked: false,
+          _onboardingFlowStatus: "idle",
         });
       },
 
@@ -199,6 +213,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           _persistenceStatus: "error",
           _persistenceError: message,
           _persistenceBlocked: true,
+          _onboardingFlowStatus: "idle",
         });
       },
 
@@ -211,6 +226,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           _persistenceStatus: "idle",
           _persistenceError: "",
           _persistenceBlocked: true,
+          _onboardingFlowStatus: "idle",
         });
       },
 
@@ -220,6 +236,36 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           _persistenceError: error,
           _remoteRevision: revision ?? state._remoteRevision,
         }));
+      },
+
+      beginOnboardingSubmission: () => {
+        if (get()._onboardingFlowStatus !== "idle") return false;
+        set({ _onboardingFlowStatus: "submitting", _persistenceError: "" });
+        return true;
+      },
+
+      commitPersistedOnboarding: (userId, snapshot, revision) => {
+        set({
+          ...snapshot,
+          isDemoState: false,
+          activePersonaId: null,
+          lastTransitionResult: undefined,
+          _hasHydrated: true,
+          _activeUserId: userId,
+          _remoteRevision: revision,
+          _persistenceStatus: "saved",
+          _persistenceError: "",
+          _persistenceBlocked: false,
+          _onboardingFlowStatus: "navigating",
+        });
+      },
+
+      failOnboardingSubmission: () => {
+        set({ _onboardingFlowStatus: "idle" });
+      },
+
+      finishOnboardingNavigation: () => {
+        set({ _onboardingFlowStatus: "idle" });
       },
 
       loadPersona: (personaId: DemoPersonaId) => {
@@ -244,6 +290,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           _persistenceStatus: "idle",
           _persistenceError: "",
           _persistenceBlocked: true,
+          _onboardingFlowStatus: "idle",
         });
       },
 
@@ -273,35 +320,13 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
       },
 
       initializeJourney: (profile, graph, evidence, plan) => {
-        const verifiedStates = deriveVerifiedStates(graph, evidence, {});
-        const gaps = prioritizeGaps({
-          graph,
-          verifiedStates,
-          claimedStates: {},
-          targetTimelineMonths: profile.targetTimelineMonths,
-        });
-        const event: ActivityEvent = {
-          id: `event-journey-${Date.now()}`,
-          timestamp: new Date().toISOString(),
-          type: "DESTINATION_CHANGED",
-          title: `Journey created for ${graph.destinationName}`,
-          description: `Compiled ${graph.capabilityNodes.length} destination capabilities and created an evidence-aware plan.`,
-        };
+        const snapshot = createInitialLearnerSnapshot(profile, graph, evidence, plan);
         set({
-          onboardingCompleted: true,
+          ...snapshot,
           isDemoState: false,
           activePersonaId: null,
-          profile,
-          destination: graph.destinationName,
-          destinationGraph: graph,
-          claimedStates: {},
-          verifiedStates,
-          evidence,
-          gaps,
-          plan,
-          activityLedger: [event],
-          progressReports: [],
           lastTransitionResult: undefined,
+          _onboardingFlowStatus: "idle",
         });
       },
 
@@ -507,6 +532,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           _persistenceStatus: "idle",
           _persistenceError: "",
           _persistenceBlocked: false,
+          _onboardingFlowStatus: "idle",
         });
       },
 
@@ -520,6 +546,7 @@ export const useSkillStateStore = create<SkillStateStoreState>()(
           _persistenceStatus: "idle",
           _persistenceError: "",
           _persistenceBlocked: false,
+          _onboardingFlowStatus: "idle",
         });
       },
     })
@@ -541,5 +568,42 @@ export function learnerSnapshotFromState(
     plan: state.plan,
     activityLedger: state.activityLedger,
     progressReports: state.progressReports,
+  };
+}
+
+export function createInitialLearnerSnapshot(
+  profile: LearnerProfile,
+  graph: DestinationGraph,
+  evidence: Evidence[],
+  plan: AdaptivePlan
+): LearnerStateSnapshot {
+  const verifiedStates = deriveVerifiedStates(graph, evidence, {});
+  const gaps = prioritizeGaps({
+    graph,
+    verifiedStates,
+    claimedStates: {},
+    targetTimelineMonths: profile.targetTimelineMonths,
+  });
+  const event: ActivityEvent = {
+    id: `event-journey-${Date.now()}`,
+    timestamp: new Date().toISOString(),
+    type: "DESTINATION_CHANGED",
+    title: `Journey created for ${graph.destinationName}`,
+    description: `Compiled ${graph.capabilityNodes.length} destination capabilities and created an evidence-aware plan.`,
+  };
+
+  return {
+    schemaVersion: SKILLSTATE_STATE_SCHEMA_VERSION,
+    onboardingCompleted: true,
+    profile,
+    destination: graph.destinationName,
+    destinationGraph: graph,
+    claimedStates: {},
+    verifiedStates,
+    evidence,
+    gaps,
+    plan,
+    activityLedger: [event],
+    progressReports: [],
   };
 }
